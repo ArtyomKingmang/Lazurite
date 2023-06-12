@@ -27,7 +27,7 @@ Why should you choose Lazurite?:
 
 
 ## License
-Lazurite is relseased under <a href="https://en.wikipedia.org/w/index.php?search=MIT%20License&title=Special%3ASearch&ns0=1">MIT License 2.0</a>
+Lazurite is relseased under <a href="https://sites.google.com/view/lazurite-lang/lazurite">MIT License 2.0</a>
 
 See more about it!
 
