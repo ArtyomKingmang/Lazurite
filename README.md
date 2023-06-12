@@ -36,6 +36,6 @@ To get started, you can write Lazurite code in its IDE. Then, opening: "Lazurite
 
 
 
-<a href="https://sites.google.com/view/lazurite/lazurite">Documentation on Russian</a>
+<a href="[https://sites.google.com/view/lazurite/lazurite](https://sites.google.com/view/lazurite-lang/lazurite)">Documentation on Russian</a>
 
 <h1 align="middle" style="font-size: 20px;">❤ Thank you for choosing us ❤</h1>
