@@ -1,0 +1,30 @@
+using "std"
+using "HTTP"
+using "JSON"
+
+token = "TOKEN"
+
+func toParams(obj) {
+  str = ""
+  for k, v : obj
+    str += k + "=" + v + "&"
+  return str
+}
+func createRawUrl(method, params, token = "TOKEN") = "https://api.telegram.org/bot" + token + "/" + method + "?"+params+"access_token="+token
+func createUrl(method, params, token = "TOKEN") = createRawUrl(method, toParams(params), token)
+func invokeJson(method, params, callback) = HTTP(createUrl(method, params, token), combine(::JSONDecode, callback))
+func invoke(method, params, callback) = HTTP(createUrl(method, params, token), callback)
+
+func sendMessage(text = "", chatId = 1) {
+  invoke("sendMessage", {
+    "chat_id": chatId,
+    "text": text
+  }, ::echo)
+}
+
+func getUpdates() = invoke("getUpdates", {}, ::echo)
+
+getUpdates()
+sendMessage("Hello World",1)//chat id: 1
+
+
