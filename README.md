@@ -1,7 +1,7 @@
 <div align="center">
   <img src="icon.png" width="300" alt="SPK">
 
-Lazurite is a general purpose object-oriented programming language. Even a child can handle it!
+Lazurite package to build jar(s) with ur .lzr scripts.
 </div>
 
 ## More About Languge
