@@ -1,9 +1,6 @@
 package com.kingmang.lazurite.runtime;
 
-/**
- *
- * @author aNNiMON
- */
+
 public interface Value extends Comparable<Value> {
     
     Object raw();
