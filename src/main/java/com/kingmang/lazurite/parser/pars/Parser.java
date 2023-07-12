@@ -156,6 +156,9 @@ public final class Parser {
         if (match(TokenType.CLASS)) {
             return classDeclaration();
         }
+        if (match(TokenType.ENUM)) {
+            return enumDeclaration();
+        }
         if (lookMatch(0, TokenType.WORD) && lookMatch(1, TokenType.LPAREN)) {
             return new ExprStatement(functionChain(qualifiedName()));
         }
@@ -428,6 +431,20 @@ public final class Parser {
             }
         } while (!match(TokenType.RBRACE));
         return classDeclaration;
+    }
+
+    private Statement enumDeclaration() {
+        final String name = consume(TokenType.WORD).getText();
+        final EnumDeclarationStatement enumDeclaration = new EnumDeclarationStatement(name);
+
+        consume(TokenType.LBRACE);
+
+        while (!match(TokenType.RBRACKET)) {
+            enumDeclaration.addVariant(consume(TokenType.WORD).getText());
+            match(TokenType.COMMA);
+        }
+
+        return enumDeclaration;
     }
 
     private Expression expression() {
