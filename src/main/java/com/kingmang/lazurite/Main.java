@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+import com.kingmang.lazurite.compiler.transcompiler;
 
 import java.util.Scanner;
 
@@ -45,6 +46,8 @@ public class Main  {
 
     }
     public static void Start() throws IOException {
+        transcompiler compiler = new transcompiler();
+        compiler.CreateSuperClass();
         System.out.println("\n\n\n------------------------------------------------------------\n\n");
         BufferedReader sc = new BufferedReader(new InputStreamReader(System.in));
         String cmd = sc.readLine();
