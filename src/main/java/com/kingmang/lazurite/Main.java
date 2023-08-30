@@ -69,7 +69,7 @@ public class Main  {
     }
 
 
-    private static void RUN() throws IOException {
+    public static void RUN() throws IOException {
         System.out.print("\n\nEnter path to your file: ");
         Scanner scan = new Scanner(System.in);
         String in = scan.nextLine();
@@ -80,7 +80,7 @@ public class Main  {
 
 
 
-    private static void RunProgram(String input, RunOptions options) throws IOException {
+    public static void RunProgram(String input, RunOptions options) throws IOException {
 
 
         options.validate();
