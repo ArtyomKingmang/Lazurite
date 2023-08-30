@@ -6,7 +6,6 @@ import com.kingmang.lazurite.parser.pars.*;
 import com.kingmang.lazurite.parser.pars.FunctionAdder;
 import com.kingmang.lazurite.runtime.TimeMeasurement;
 
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -29,8 +28,6 @@ public class Main  {
         System.out.println("\n\t*****************LAZURITE******************\n" +
                 "\tLazurite "+ VERSION() +" Author: Kingmang\n" +
                 "\t*******************************************");
-
-
         Help();
         while(true)Start();
 
@@ -53,12 +50,24 @@ public class Main  {
         String cmd = sc.readLine();
         if (cmd.contains("--help")||cmd.contains("-h")) {
             Help();
+
         } else if (cmd.contains("--run")||cmd.contains("-r")) {
-            RUN();
+            System.out.print("\n\nEnter path to your file: ");
+            Scanner scan = new Scanner(System.in);
+            String in = scan.nextLine();
+            RUN(in);
+
         } else if (cmd.contains("--version")||cmd.contains("-v")) {
             System.out.println("---------------------------------");
-            System.out.println("Lazurite version: "+ VERSION());
+            System.out.println("Lazurite version: " + VERSION());
             System.out.println("---------------------------------");
+
+        }else if (cmd.contains("--timetest")||cmd.contains("-tt")){
+            System.out.print("\n\nEnter path to your file: ");
+            Scanner scan = new Scanner(System.in);
+            String in = scan.nextLine();
+            RUN(in);
+
         } else if (cmd.contains("cls")) {
             System.out.print("\033[H\033[2J");
             System.out.flush();
@@ -69,20 +78,15 @@ public class Main  {
     }
 
 
-    public static void RUN() throws IOException {
-        System.out.print("\n\nEnter path to your file: ");
-        Scanner scan = new Scanner(System.in);
-        String in = scan.nextLine();
-        final RunOptions options = new RunOptions();
-        RunProgram(SourceLoader.readSource(in), options);
+    public static void RUN(String input) throws IOException {
+        final Settings options = new Settings();
+        RunProgram(SourceLoader.readSource(input), options);
 
     }
 
 
 
-    public static void RunProgram(String input, RunOptions options) throws IOException {
-
-
+    private static void RunProgram(String input, Settings options) throws IOException {
         options.validate();
         final TimeMeasurement measurement = new TimeMeasurement();
         measurement.start("Tokenize time");
@@ -109,14 +113,12 @@ public class Main  {
         if (options.lintMode) {
             Linter.lint(parsedProgram);
             return;
-
         }
         final Statement program;
         if (options.optimizationLevel > 0) {
             measurement.start("Optimization time");
             program = Optimizer.optimize(parsedProgram, options.optimizationLevel, options.showAst);
             measurement.stop("Optimization time");
-            System.out.println(program.toString());
             if (options.showAst) {
                 System.out.println(program.toString());
             }
@@ -124,40 +126,30 @@ public class Main  {
             program = parsedProgram;
         }
         program.accept(new FunctionAdder());
-
         try {
             measurement.start("Execution time");
             program.execute();
-
         } catch (_StopExeption ex) {
-            // skip
-
+            /**/
         } catch (Exception ex) {
-
             Console.handleException(Thread.currentThread(), ex);
-        }
-        finally {
+        } finally {
             if (options.showMeasurements) {
                 measurement.stop("Execution time");
                 System.out.println("======================");
                 System.out.println(measurement.summary(TimeUnit.MILLISECONDS, true));
-
-
-
             }
-
         }
-
 
     }
 
-    private static class RunOptions {
+    private static class Settings {
         boolean showTokens, showAst, showMeasurements;
         boolean lintMode;
         boolean beautifyMode;
         int optimizationLevel;
 
-        RunOptions() {
+        Settings() {
             showTokens = false;
             showAst = false;
             showMeasurements = false;

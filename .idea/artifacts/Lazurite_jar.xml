@@ -1,0 +1,30 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="Lazurite:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/Lazurite_jar</output-path>
+    <root id="archive" name="Lazurite.jar">
+      <element id="module-output" name="Lazurite" />
+      <element id="extracted-dir" path="M:/_DESKTOP_/закинь в либ/org.json.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="M:/_DESKTOP_/закинь в либ/java-json.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="M:/_DESKTOP_/закинь в либ/javafx-swt.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="M:/_DESKTOP_/закинь в либ/javafx.web.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="M:/_DESKTOP_/закинь в либ/okio-3.2.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="M:/_DESKTOP_/закинь в либ/dom4j-2.1.3.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="M:/_DESKTOP_/закинь в либ/javafx.base.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="M:/_DESKTOP_/закинь в либ/javafx.fxml.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="M:/_DESKTOP_/закинь в либ/javafx.media.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="M:/_DESKTOP_/закинь в либ/javafx.swing.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="M:/_DESKTOP_/закинь в либ/okhttp-3.9.1.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="M:/_DESKTOP_/закинь в либ/json-20230618.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="M:/_DESKTOP_/закинь в либ/okhttp-4.11.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="M:/_DESKTOP_/закинь в либ/okio-jvm-3.2.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="M:/_DESKTOP_/закинь в либ/javafx.controls.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="M:/_DESKTOP_/закинь в либ/javafx.graphics.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="M:/_DESKTOP_/закинь в либ/annotations-13.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="M:/_DESKTOP_/закинь в либ/kotlin-stdlib-1.6.20.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="M:/_DESKTOP_/закинь в либ/okhttp-3.9.1-javadoc.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="M:/_DESKTOP_/закинь в либ/kotlin-stdlib-jdk7-1.6.20.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="M:/_DESKTOP_/закинь в либ/kotlin-stdlib-jdk8-1.6.20.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="M:/_DESKTOP_/закинь в либ/kotlin-stdlib-common-1.6.20.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>

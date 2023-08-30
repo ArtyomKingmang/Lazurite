@@ -1,9 +1,0 @@
-<component name="libraryTable">
-  <library name="lzr">
-    <CLASSES>
-      <root url="jar://$PROJECT_DIR$/LZR/lzr.jar!/" />
-    </CLASSES>
-    <JAVADOC />
-    <SOURCES />
-  </library>
-</component>

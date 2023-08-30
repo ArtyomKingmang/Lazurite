@@ -8,13 +8,14 @@ import java.util.Map;
 
 import com.kingmang.lazurite.runtime.*;
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 public final class ValueUtils {
 
     private ValueUtils() { }
 
-    public static Object toObject(Value val) {
+    public static Object toObject(Value val) throws JSONException {
         switch (val.type()) {
             case Types.ARRAY:
                 return toObject((ArrayValue) val);
@@ -29,7 +30,7 @@ public final class ValueUtils {
         }
     }
 
-    public static JSONObject toObject(MapValue map) {
+    public static JSONObject toObject(MapValue map) throws JSONException {
         final JSONObject result = new JSONObject(new LinkedHashMap<String, Object>());
         for (Map.Entry<Value, Value> entry : map) {
             final String key = entry.getKey().asString();
@@ -39,7 +40,7 @@ public final class ValueUtils {
         return result;
     }
 
-    public static JSONArray toObject(ArrayValue array) {
+    public static JSONArray toObject(ArrayValue array) throws JSONException {
         final JSONArray result = new JSONArray();
         for (Value value : array) {
             result.put(toObject(value));
@@ -47,7 +48,7 @@ public final class ValueUtils {
         return result;
     }
 
-    public static Value toValue(Object obj) {
+    public static Value toValue(Object obj) throws JSONException {
         if (obj instanceof JSONObject) {
             return toValue((JSONObject) obj);
         }
@@ -67,7 +68,7 @@ public final class ValueUtils {
         return NumberValue.ZERO;
     }
 
-    public static MapValue toValue(JSONObject json) {
+    public static MapValue toValue(JSONObject json) throws JSONException {
         final MapValue result = new MapValue(new LinkedHashMap<>(json.length()));
         final Iterator<String> it = json.keys();
         while(it.hasNext()) {
@@ -78,7 +79,7 @@ public final class ValueUtils {
         return result;
     }
 
-    public static ArrayValue toValue(JSONArray json) {
+    public static ArrayValue toValue(JSONArray json) throws JSONException {
         final int length = json.length();
         final ArrayValue result = new ArrayValue(length);
         for (int i = 0; i < length; i++) {

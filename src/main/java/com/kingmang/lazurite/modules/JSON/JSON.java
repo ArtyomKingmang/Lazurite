@@ -12,7 +12,6 @@ public final class JSON implements Module {
     @Override
     public void init() {
         initConstants();
-        Functions.set("JSONEncode", new JSONEncode());
         Functions.set("JSONDecode", new JSONDecode());
     }
 }
