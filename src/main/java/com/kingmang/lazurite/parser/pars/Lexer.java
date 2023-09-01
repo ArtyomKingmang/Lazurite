@@ -20,7 +20,32 @@ public final class Lexer {
     }
     
     private static final String OPERATOR_CHARS = "+-*/%()[]{}=<>!&|.,^~?:";
-    
+
+    private static final Map<String, TokenType> KEYWORDS;
+    static {
+        KEYWORDS = new HashMap<>();
+        KEYWORDS.put("throw", TokenType.THROW);
+        KEYWORDS.put("print", TokenType.PRINT);
+        KEYWORDS.put("println", TokenType.PRINTLN);
+        KEYWORDS.put("if", TokenType.IF);
+        KEYWORDS.put("else", TokenType.ELSE);
+        KEYWORDS.put("while", TokenType.WHILE);
+        KEYWORDS.put("for", TokenType.FOR);
+        KEYWORDS.put("break", TokenType.BREAK);
+        KEYWORDS.put("continue", TokenType.CONTINUE);
+        KEYWORDS.put("func", TokenType.FUNC);
+        KEYWORDS.put("return", TokenType.RETURN);
+        KEYWORDS.put("using", TokenType.USING);
+        KEYWORDS.put("match", TokenType.SWITCH);
+        KEYWORDS.put("case", TokenType.CASE);
+        KEYWORDS.put("include", TokenType.INCLUDE);
+        KEYWORDS.put("class", TokenType.CLASS);
+        KEYWORDS.put("new", TokenType.NEW);
+
+
+
+    }
+
     private static final Map<String, TokenType> OPERATORS;
     static {
         OPERATORS = new HashMap<>();
@@ -88,29 +113,7 @@ public final class Lexer {
         OPERATORS.put("??", TokenType.QUESTIONQUESTION);
     }
     
-    private static final Map<String, TokenType> KEYWORDS;
-    static {
-        KEYWORDS = new HashMap<>();
-        KEYWORDS.put("print", TokenType.PRINT);
-        KEYWORDS.put("println", TokenType.PRINTLN);
-        KEYWORDS.put("if", TokenType.IF);
-        KEYWORDS.put("else", TokenType.ELSE);
-        KEYWORDS.put("while", TokenType.WHILE);
-        KEYWORDS.put("for", TokenType.FOR);
-        KEYWORDS.put("break", TokenType.BREAK);
-        KEYWORDS.put("continue", TokenType.CONTINUE);
-        KEYWORDS.put("func", TokenType.FUNC);
-        KEYWORDS.put("return", TokenType.RETURN);
-        KEYWORDS.put("using", TokenType.USING);
-        KEYWORDS.put("match", TokenType.SWITCH);
-        KEYWORDS.put("case", TokenType.CASE);
-        KEYWORDS.put("include", TokenType.INCLUDE);
-        KEYWORDS.put("class", TokenType.CLASS);
-        KEYWORDS.put("new", TokenType.NEW);
 
-
-
-    }
 
     public static Set<String> getKeywords() {
         return KEYWORDS.keySet();

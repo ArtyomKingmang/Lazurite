@@ -3,7 +3,7 @@ package com.kingmang.lazurite.parser.pars;
 
 public enum TokenType {
 
-
+    THROW,
     MINUSGT,//->
     ENUM,
     FOREACH,

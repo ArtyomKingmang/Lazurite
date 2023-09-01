@@ -1,10 +1,10 @@
 package com.kingmang.lazurite.parser.pars;
 
+import com.kingmang.lazurite.lib._OperExeption;
 import com.kingmang.lazurite.lib._PExeption;
 import com.kingmang.lazurite.modules.std.FOREACH;
-import com.kingmang.lazurite.runtime.NumberValue;
-import com.kingmang.lazurite.runtime.StringValue;
-import com.kingmang.lazurite.runtime.UserDefinedFunction;
+import com.kingmang.lazurite.parser.ast.FunctionDefineStatement;
+import com.kingmang.lazurite.runtime.*;
 import com.kingmang.lazurite.parser.ast.*;
 
 import java.util.ArrayList;
@@ -158,10 +158,18 @@ public final class Parser {
         }
         if (lookMatch(0, TokenType.WORD) && lookMatch(1, TokenType.LPAREN)) {
             return new ExprStatement(functionChain(qualifiedName()));
+
+        }else if (match(TokenType.THROW)){
+            return throwSt();
         }
         return assignmentStatement();
     }
 
+    private Statement throwSt() {
+        String type = consume(TokenType.WORD).getText();
+        Expression expr = expression();
+        return new ThrowStatement(type, expr);
+    }
     private Statement assignmentStatement() {
 
         final Expression expression = expression();
@@ -744,6 +752,7 @@ public final class Parser {
         }
         return variable();
     }
+
 
     private Expression variable() {
 
