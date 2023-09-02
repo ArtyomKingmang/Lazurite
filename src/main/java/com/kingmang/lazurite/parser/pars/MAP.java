@@ -1,4 +1,4 @@
-package com.kingmang.lazurite.modules.std;
+package com.kingmang.lazurite.parser.pars;
 
 import com.kingmang.lazurite.lib._TExeprion;
 import com.kingmang.lazurite.lib.Arguments;

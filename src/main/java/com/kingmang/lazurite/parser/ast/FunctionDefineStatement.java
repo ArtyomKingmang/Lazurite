@@ -1,6 +1,6 @@
 package com.kingmang.lazurite.parser.ast;
 
-import com.kingmang.lazurite.lib.Functions;
+import com.kingmang.lazurite.lib.KEYWORD;
 import com.kingmang.lazurite.runtime.UserDefinedFunction;
 
 
@@ -18,7 +18,7 @@ public final class FunctionDefineStatement implements Statement {
 
     @Override
     public void execute() {
-        Functions.set(name, new UserDefinedFunction(arguments, body));
+        KEYWORD.put(name, new UserDefinedFunction(arguments, body));
     }
     
     @Override

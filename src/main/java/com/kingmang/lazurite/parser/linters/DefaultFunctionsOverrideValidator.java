@@ -1,7 +1,7 @@
 package com.kingmang.lazurite.parser.linters;
 
 import com.kingmang.lazurite.parser.pars.Console;
-import com.kingmang.lazurite.lib.Functions;
+import com.kingmang.lazurite.lib.KEYWORD;
 import com.kingmang.lazurite.parser.ast.FunctionDefineStatement;
 import com.kingmang.lazurite.parser.ast.IncludeStatement;
 import com.kingmang.lazurite.parser.ast.UsingStatement;
@@ -11,7 +11,7 @@ public final class DefaultFunctionsOverrideValidator extends LintVisitor {
     @Override
     public void visit(FunctionDefineStatement s) {
         super.visit(s);
-        if (Functions.isExists(s.name)) {
+        if (KEYWORD.isExists(s.name)) {
             Console.error(String.format(
                     "Warning: function \"%s\" overrides default module function", s.name));
         }

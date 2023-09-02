@@ -156,28 +156,28 @@ public final class LGL implements Module {
     @Override
     public void init() {
         initConstants();
-        Functions.set("LWindow", new CreateWindow());
-        Functions.set("Redraw", new Redraw());
+        KEYWORD.put("LWindow", new CreateWindow());
+        KEYWORD.put("Redraw", new Redraw());
         
-        Functions.set("Blend", new BlendEffect());
-        Functions.set("Bloom", new BloomEffect());
-        Functions.set("BoxBlur", new BoxBlurEffect());
-        Functions.set("ColorAdjust", new ColorAdjustEffect());
-        Functions.set("ColorInput", new ColorInputEffect());
-        Functions.set("DropShadow", new DropShadowEffect());
-        Functions.set("GaussianBlur", new GaussianBlurEffect());
-        Functions.set("Glow", new GlowEffect());
-        Functions.set("InnerShadow", new InnerShadowEffect());
-        Functions.set("Lighting", new LightingEffect());
-        Functions.set("MotionBlur", new MotionBlurEffect());
-        Functions.set("PerspectiveTransform", new PerspectiveTransformEffect());
-        Functions.set("Reflection", new ReflectionEffect());
-        Functions.set("SepiaTone", new SepiaToneEffect());
-        Functions.set("Shadow", new ShadowEffect());
+        KEYWORD.put("Blend", new BlendEffect());
+        KEYWORD.put("Bloom", new BloomEffect());
+        KEYWORD.put("BoxBlur", new BoxBlurEffect());
+        KEYWORD.put("ColorAdjust", new ColorAdjustEffect());
+        KEYWORD.put("ColorInput", new ColorInputEffect());
+        KEYWORD.put("DropShadow", new DropShadowEffect());
+        KEYWORD.put("GaussianBlur", new GaussianBlurEffect());
+        KEYWORD.put("Glow", new GlowEffect());
+        KEYWORD.put("InnerShadow", new InnerShadowEffect());
+        KEYWORD.put("Lighting", new LightingEffect());
+        KEYWORD.put("MotionBlur", new MotionBlurEffect());
+        KEYWORD.put("PerspectiveTransform", new PerspectiveTransformEffect());
+        KEYWORD.put("Reflection", new ReflectionEffect());
+        KEYWORD.put("SepiaTone", new SepiaToneEffect());
+        KEYWORD.put("Shadow", new ShadowEffect());
         
-        Functions.set("EFilter", new addEventFilter());
-        Functions.set("EHandler", new addEventHandler());
-        Functions.set("loadImage", new createImage());
+        KEYWORD.put("EFilter", new addEventFilter());
+        KEYWORD.put("EHandler", new addEventHandler());
+        KEYWORD.put("loadImage", new createImage());
     }
     
     private static class ColorValue implements Value {

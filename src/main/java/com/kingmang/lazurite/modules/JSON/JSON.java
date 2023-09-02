@@ -1,6 +1,6 @@
 package com.kingmang.lazurite.modules.JSON;
 
-import com.kingmang.lazurite.lib.Functions;
+import com.kingmang.lazurite.lib.KEYWORD;
 import com.kingmang.lazurite.modules.Module;
 
 
@@ -12,6 +12,6 @@ public final class JSON implements Module {
     @Override
     public void init() {
         initConstants();
-        Functions.set("JSONDecode", new JSONDecode());
+        KEYWORD.put("JSONDecode", new JSONDecode());
     }
 }

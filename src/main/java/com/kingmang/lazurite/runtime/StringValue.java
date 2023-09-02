@@ -55,8 +55,8 @@ public final class StringValue implements Value {
                 return Converters.voidToBoolean(value::isEmpty);
 
             default:
-                if (Functions.isExists(prop)) {
-                    final Function f = Functions.get(prop);
+                if (KEYWORD.isExists(prop)) {
+                    final Function f = KEYWORD.get(prop);
                     return new FunctionValue(args -> {
                         final Value[] newArgs = new Value[args.length + 1];
                         newArgs[0] = this;

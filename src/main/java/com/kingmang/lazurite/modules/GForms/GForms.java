@@ -118,22 +118,22 @@ public final class GForms implements Module {
     public void init() {
         initConstants();
         // Components
-        Functions.set("Button", Components::newButton);
-        Functions.set("Label", Components::newLabel);
-        Functions.set("Panel", Components::newPanel);
-        Functions.set("ProgressBar", Components::newProgressBar);
-        Functions.set("ScrollPane", Components::newScrollPane);
-        Functions.set("TextArea", Components::newTextArea);
-        Functions.set("TextField", Components::newTextField);
-        Functions.set("Frame", Components::newWindow);
+        KEYWORD.put("Button", Components::newButton);
+        KEYWORD.put("Label", Components::newLabel);
+        KEYWORD.put("Panel", Components::newPanel);
+        KEYWORD.put("ProgressBar", Components::newProgressBar);
+        KEYWORD.put("ScrollPane", Components::newScrollPane);
+        KEYWORD.put("TextArea", Components::newTextArea);
+        KEYWORD.put("TextField", Components::newTextField);
+        KEYWORD.put("Frame", Components::newWindow);
 
 
         // LayoutManagers
-        Functions.set("borderLayout", LayoutManagers::borderLayout);
-        Functions.set("boxLayout", LayoutManagers::boxLayout);
-        Functions.set("cardLayout", LayoutManagers::cardLayout);
-        Functions.set("gridLayout", LayoutManagers::gridLayout);
-        Functions.set("flowLayout", LayoutManagers::flowLayout);
+        KEYWORD.put("borderLayout", LayoutManagers::borderLayout);
+        KEYWORD.put("boxLayout", LayoutManagers::boxLayout);
+        KEYWORD.put("cardLayout", LayoutManagers::cardLayout);
+        KEYWORD.put("gridLayout", LayoutManagers::gridLayout);
+        KEYWORD.put("flowLayout", LayoutManagers::flowLayout);
 
     }
 }

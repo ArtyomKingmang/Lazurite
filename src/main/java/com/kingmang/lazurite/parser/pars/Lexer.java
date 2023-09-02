@@ -1,16 +1,18 @@
 package com.kingmang.lazurite.parser.pars;
 
-import com.kingmang.lazurite.lib.Functions;
+import com.kingmang.lazurite.lib.KEYWORD;
+import com.kingmang.lazurite.lib.Types;
 import com.kingmang.lazurite.lib._LExeption;
-import com.kingmang.lazurite.modules.std.FOREACH;
-import com.kingmang.lazurite.runtime.NumberValue;
-import com.kingmang.lazurite.runtime.StringValue;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
+import com.kingmang.lazurite.runtime.NumberValue;
+import com.kingmang.lazurite.runtime.StringValue;
+import com.kingmang.lazurite.runtime.Variables;
 
 
 public final class Lexer {
@@ -21,8 +23,29 @@ public final class Lexer {
     
     private static final String OPERATOR_CHARS = "+-*/%()[]{}=<>!&|.,^~?:";
 
+    public static void types() {
+        Variables.define("object", NumberValue.of(Types.OBJECT));
+        Variables.define("num", NumberValue.of(Types.NUMBER));
+        Variables.define("string", NumberValue.of(Types.STRING));
+        Variables.define("array", NumberValue.of(Types.ARRAY));
+        Variables.define("map", NumberValue.of(Types.MAP));
+        Variables.define("function", NumberValue.of(Types.FUNCTION));
+    }
+    public static void convertTypes(){
+        KEYWORD.put("str", args -> new StringValue(args[0].asString()));
+        KEYWORD.put("num", args -> NumberValue.of(args[0].asNumber()));
+        KEYWORD.put("byte", args -> NumberValue.of((byte)args[0].asInt()));
+        KEYWORD.put("short", args -> NumberValue.of((short)args[0].asInt()));
+        KEYWORD.put("int", args -> NumberValue.of(args[0].asInt()));
+        KEYWORD.put("long", args -> NumberValue.of((long)args[0].asNumber()));
+        KEYWORD.put("float", args -> NumberValue.of((float)args[0].asNumber()));
+        KEYWORD.put("double", args -> NumberValue.of(args[0].asNumber()));
+    }
     private static final Map<String, TokenType> KEYWORDS;
     static {
+        types();
+        convertTypes();
+
         KEYWORDS = new HashMap<>();
         KEYWORDS.put("throw", TokenType.THROW);
         KEYWORDS.put("print", TokenType.PRINT);
@@ -41,6 +64,17 @@ public final class Lexer {
         KEYWORDS.put("include", TokenType.INCLUDE);
         KEYWORDS.put("class", TokenType.CLASS);
         KEYWORDS.put("new", TokenType.NEW);
+        KEYWORD.put("echo", new ECHO());
+        KEYWORD.put("readln", new INPUT());
+        KEYWORD.put("length", new LEN());
+        KEYWORD.put("getBytes", STR::getBytes);
+        KEYWORD.put("sprintf", new SPRINTF());
+        KEYWORD.put("range", new RANGE());
+        KEYWORD.put("substring", new SUBSTR());
+        KEYWORD.put("parseInt", PARSE::parseInt);
+        KEYWORD.put("parseLong", PARSE::parseLong);
+        KEYWORD.put("foreach", new FOREACH());
+        KEYWORD.put("filter", new FILTER(false));
 
 
 

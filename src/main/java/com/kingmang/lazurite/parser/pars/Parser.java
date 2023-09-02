@@ -1,8 +1,6 @@
 package com.kingmang.lazurite.parser.pars;
 
-import com.kingmang.lazurite.lib._OperExeption;
 import com.kingmang.lazurite.lib._PExeption;
-import com.kingmang.lazurite.modules.std.FOREACH;
 import com.kingmang.lazurite.parser.ast.FunctionDefineStatement;
 import com.kingmang.lazurite.runtime.*;
 import com.kingmang.lazurite.parser.ast.*;

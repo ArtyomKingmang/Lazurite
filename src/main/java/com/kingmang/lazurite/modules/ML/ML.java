@@ -22,12 +22,12 @@ public final class ML implements Module {
     @Override
     public void init() {
         initConstants();
-        Functions.set("abs", ML::abs);
-        Functions.set("cos", functionConvert(Math::cos));
-        Functions.set("log", functionConvert(Math::log));
-        Functions.set("sin", functionConvert(Math::sin));
-        Functions.set("sqrt", functionConvert(Math::sqrt));
-        Functions.set("tan", functionConvert(Math::tan));
+        KEYWORD.put("abs", ML::abs);
+        KEYWORD.put("cos", functionConvert(Math::cos));
+        KEYWORD.put("log", functionConvert(Math::log));
+        KEYWORD.put("sin", functionConvert(Math::sin));
+        KEYWORD.put("sqrt", functionConvert(Math::sqrt));
+        KEYWORD.put("tan", functionConvert(Math::tan));
     }
 
     private static Value abs(Value... args) {

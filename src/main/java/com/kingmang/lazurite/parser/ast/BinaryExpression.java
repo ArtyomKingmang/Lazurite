@@ -3,7 +3,7 @@ package com.kingmang.lazurite.parser.ast;
 import com.kingmang.lazurite.lib._OperExeption;
 import com.kingmang.lazurite.lib._TExeprion;
 import com.kingmang.lazurite.runtime.ArrayValue;
-import com.kingmang.lazurite.lib.Functions;
+import com.kingmang.lazurite.lib.KEYWORD;
 import com.kingmang.lazurite.runtime.MapValue;
 import com.kingmang.lazurite.runtime.NumberValue;
 import com.kingmang.lazurite.runtime.StringValue;
@@ -61,8 +61,8 @@ public final class BinaryExpression implements Expression {
         try {
             return eval(value1, value2);
         } catch (_OperExeption ex) {
-            if (Functions.isExists(operation.toString())) {
-                return Functions.get(operation.toString()).execute(value1, value2);
+            if (KEYWORD.isExists(operation.toString())) {
+                return KEYWORD.get(operation.toString()).execute(value1, value2);
             }
             throw ex;
         }

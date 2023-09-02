@@ -23,7 +23,7 @@ public class Main  {
         return "2.5";
     }
     public static int check = 0;
-
+    static Settings setting = new Settings();
 
     public static void main(String[] args) throws IOException{
         System.out.println("\n\t*****************LAZURITE******************\n" +
@@ -41,6 +41,7 @@ public class Main  {
                 "\n--run / -r - asks for the path to the file and runs it\n" +
                         "--version / -v - returns the version of Lazurite\n" +
                         "--help / -h - show help commands\n" +
+                        "--timetest/ -tt - shows how long it took to run the program\n"+
                         "cls - clears the command line\n"
         );
 
@@ -69,7 +70,9 @@ public class Main  {
             System.out.print("\n\nEnter path to your file: ");
             Scanner scan = new Scanner(System.in);
             String in = scan.nextLine();
+
             RUN(in);
+
 
         } else if (cmd.contains("cls")) {
             System.out.print("\033[H\033[2J");
@@ -82,8 +85,8 @@ public class Main  {
 
 
     public static void RUN(String input) throws IOException {
-        final Settings options = new Settings();
-        RunProgram(SourceLoader.readSource(input), options);
+
+        RunProgram(SourceLoader.readSource(input), setting);
 
     }
 

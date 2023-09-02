@@ -1,6 +1,6 @@
 package com.kingmang.lazurite.modules.HTTP;
 
-import com.kingmang.lazurite.lib.Functions;
+import com.kingmang.lazurite.lib.KEYWORD;
 import com.kingmang.lazurite.modules.Module;
 
 
@@ -12,7 +12,7 @@ public final class HTTP implements Module {
     @Override
     public void init() {
         initConstants();
-        Functions.set("URLEncode", new URLEncode());
-        Functions.set("HTTP", new http_http());
+        KEYWORD.put("URLEncode", new URLEncode());
+        KEYWORD.put("HTTP", new http_http());
     }
 }

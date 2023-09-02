@@ -22,10 +22,10 @@ public final class java implements Module {
     @Override
     public void init() {
 
-        Functions.set("isNull", this::isNull);
-        Functions.set("JClass", this::JClass);
-        Functions.set("JObject", this::JObject);
-        Functions.set("LzrValue", this::LzrValue);
+        KEYWORD.put("isNull", this::isNull);
+        KEYWORD.put("JClass", this::JClass);
+        KEYWORD.put("JObject", this::JObject);
+        KEYWORD.put("LzrValue", this::LzrValue);
     }
 
 

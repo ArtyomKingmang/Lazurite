@@ -34,30 +34,30 @@ public final class LFS implements Module {
         files = new HashMap<>();
 
 
-        Functions.set("isDir", fileToBoolean(File::isDirectory));
-        Functions.set("isFile", fileToBoolean(File::isFile));
-        Functions.set("FileSize", new fileSize());
+        KEYWORD.put("isDir", fileToBoolean(File::isDirectory));
+        KEYWORD.put("isFile", fileToBoolean(File::isFile));
+        KEYWORD.put("FileSize", new fileSize());
 
-        Functions.set("open", new open());
-        Functions.set("close", new close());
+        KEYWORD.put("open", new open());
+        KEYWORD.put("close", new close());
 
-        Functions.set("copy", new copy());
-        Functions.set("delete", fileToBoolean(File::delete));
-        Functions.set("scanDir", new listFiles());
-        Functions.set("addFolder", fileToBoolean(File::mkdir));
-        Functions.set("rename", new rename());
+        KEYWORD.put("copy", new copy());
+        KEYWORD.put("delete", fileToBoolean(File::delete));
+        KEYWORD.put("scanDir", new listFiles());
+        KEYWORD.put("addFolder", fileToBoolean(File::mkdir));
+        KEYWORD.put("rename", new rename());
 
-        Functions.set("WBool", new WBool());
-        Functions.set("WByte", new WByte());
-        Functions.set("WChar", new WChar());
-        Functions.set("WShort", new WShort());
-        Functions.set("WInt", new WInt());
-        Functions.set("WLong", new WLong());
-        Functions.set("WFloat", new WFloat());
-        Functions.set("WDouble", new WDouble());
-        Functions.set("WUTF", new WUTF());
-        Functions.set("WLine", new WLine());
-        Functions.set("WText", new WText());
+        KEYWORD.put("WBool", new WBool());
+        KEYWORD.put("WByte", new WByte());
+        KEYWORD.put("WChar", new WChar());
+        KEYWORD.put("WShort", new WShort());
+        KEYWORD.put("WInt", new WInt());
+        KEYWORD.put("WLong", new WLong());
+        KEYWORD.put("WFloat", new WFloat());
+        KEYWORD.put("WDouble", new WDouble());
+        KEYWORD.put("WUTF", new WUTF());
+        KEYWORD.put("WLine", new WLine());
+        KEYWORD.put("WText", new WText());
     }
 
 

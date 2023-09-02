@@ -1,8 +1,8 @@
 package com.kingmang.lazurite.modules.Arrays;
-import com.kingmang.lazurite.lib.Functions;
+import com.kingmang.lazurite.lib.KEYWORD;
 
 import com.kingmang.lazurite.modules.Module;
-import com.kingmang.lazurite.modules.std.LEN;
+import com.kingmang.lazurite.parser.pars.LEN;
 
 
 public final class Arrays implements Module {
@@ -13,10 +13,10 @@ public final class Arrays implements Module {
 
 
         // Arrays and maps
-        Functions.set("Array", new NEWARR());
-        Functions.set("join", new JOIN());
-        Functions.set("sort", new SORT());
-        Functions.set("length", new LEN());
+        KEYWORD.put("Array", new NEWARR());
+        KEYWORD.put("join", new JOIN());
+        KEYWORD.put("sort", new SORT());
+        KEYWORD.put("length", new LEN());
 
     }
 }

@@ -4,14 +4,14 @@ import java.util.HashMap;
 import java.util.Map;
 
 
-public final class Functions {
+public final class KEYWORD {
 
     private static final Map<String, Function> functions;
     static {
         functions = new HashMap<>();
     }
 
-    private Functions() { }
+    private KEYWORD() { }
 
     public static void clear() {
         functions.clear();
@@ -30,7 +30,7 @@ public final class Functions {
         return functions.get(key);
     }
     
-    public static void set(String key, Function function) {
+    public static void put(String key, Function function) {
         functions.put(key, function);
     }
 }

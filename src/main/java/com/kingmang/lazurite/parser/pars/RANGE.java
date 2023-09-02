@@ -1,4 +1,4 @@
-package com.kingmang.lazurite.modules.std;
+package com.kingmang.lazurite.parser.pars;
 
 import com.kingmang.lazurite.lib.*;
 import com.kingmang.lazurite.runtime.ArrayValue;
