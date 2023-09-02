@@ -1,4 +1,4 @@
-package com.kingmang.lazurite.modules.java;
+package com.kingmang.lazurite.modules.Reflection;
 
 import com.kingmang.lazurite.lib.*;
 import com.kingmang.lazurite.modules.Module;
@@ -13,7 +13,7 @@ import java.util.Arrays;
 import java.util.List;
 
 
-public final class java implements Module {
+public final class Reflection implements Module {
 
     private static final Value NULL = new NullValue();
 

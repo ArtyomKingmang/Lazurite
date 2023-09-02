@@ -1,4 +1,1 @@
-x = ["5", "10", "89"]
-print(int(x.length) + 3)
 
-//C:\Users\crowb\OneDrive\Рабочий стол\lzgit\Lazurite\src\test.lzr
