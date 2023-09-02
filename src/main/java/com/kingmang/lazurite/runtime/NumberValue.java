@@ -45,7 +45,7 @@ public final class NumberValue implements Value {
 
     private final Number value;
     
-    private NumberValue(Number value) {
+    public NumberValue(Number value) {
         this.value = value;
     }
     
