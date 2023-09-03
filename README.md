@@ -14,7 +14,8 @@ print("Hello World!")
 ```
 
 ## Download
-You can download Lazurite in the official <a href = "https://t.me/kingmangapps">telegram channel</a>. There is an archive that includes: exe file Lazurite interpreter with included jdk; jar interpreter file; Lazurite IDE. Also in this repository in the folder: "LZR" everything is present
+
+Download jar and exe files of the language interpreter can be downloaded in the <a href = "https://github.com/ArtyomKingmang/Lazurite/releases">Releases</a> tab (Old versions in the official <a href = https://t.me/kingmangapps>telegram channel</a>)
 
 ## Why Lazurite?
 Why should you choose Lazurite?:
@@ -36,6 +37,6 @@ To get started, you can write Lazurite code in its IDE. Then, opening: "Lazurite
 
 
 
-<a href="https://sites.google.com/view/lazurite-lang/lazurite">DOCUMENTATION 2.0</a>
+<a href="https://sites.google.com/view/lazurite-lang/lazurite">DOCUMENTATION </a>
 
 <h1 align="middle" style="font-size: 20px;">❤ Thank you for choosing us ❤</h1>
