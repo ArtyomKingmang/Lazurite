@@ -1,5 +1,6 @@
 package com.kingmang.lazurite.parser.pars;
 
+import com.kingmang.lazurite.lib._OperExeption;
 import com.kingmang.lazurite.lib._PExeption;
 import com.kingmang.lazurite.parser.ast.FunctionDefineStatement;
 import com.kingmang.lazurite.runtime.*;
@@ -43,6 +44,7 @@ public final class Parser {
         ASSIGN_OPERATORS.put(TokenType.GTGTGTEQ, BinaryExpression.Operator.URSHIFT);
         ASSIGN_OPERATORS.put(TokenType.EQ, null);
         ASSIGN_OPERATORS.put(TokenType.ATEQ, BinaryExpression.Operator.AT);
+
     }
 
     private final List<Token> tokens;

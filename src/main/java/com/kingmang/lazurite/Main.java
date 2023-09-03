@@ -47,36 +47,38 @@ public class Main  {
 
     }
     public static void Start() throws IOException {
-        transcompiler compiler = new transcompiler();
-        compiler.CreateSuperClass();
         System.out.println("\n\n\n------------------------------------------------------------\n\n");
         BufferedReader sc = new BufferedReader(new InputStreamReader(System.in));
         String cmd = sc.readLine();
         if (cmd.contains("--help")||cmd.contains("-h")) {
             Help();
+            check = 0;
 
         } else if (cmd.contains("--run")||cmd.contains("-r")) {
             System.out.print("\n\nEnter path to your file: ");
             Scanner scan = new Scanner(System.in);
             String in = scan.nextLine();
+            check = 0;
             RUN(in);
 
         } else if (cmd.contains("--version")||cmd.contains("-v")) {
             System.out.println("---------------------------------");
             System.out.println("Lazurite version: " + VERSION());
             System.out.println("---------------------------------");
+            check = 0;
 
         }else if (cmd.contains("--timetest")||cmd.contains("-tt")){
             System.out.print("\n\nEnter path to your file: ");
             Scanner scan = new Scanner(System.in);
             String in = scan.nextLine();
-
+            check = 1;
             RUN(in);
 
 
         } else if (cmd.contains("cls")) {
             System.out.print("\033[H\033[2J");
             System.out.flush();
+            check = 0;
 
         } else {
             System.out.println("Command not found!");
@@ -85,7 +87,8 @@ public class Main  {
 
 
     public static void RUN(String input) throws IOException {
-
+        Settings setting = new Settings();
+        if(check==1)setting.showMeasurements = true;
         RunProgram(SourceLoader.readSource(input), setting);
 
     }
@@ -142,7 +145,7 @@ public class Main  {
         } finally {
             if (options.showMeasurements) {
                 measurement.stop("Execution time");
-                System.out.println("======================");
+                System.out.println("\n\n======================");
                 System.out.println(measurement.summary(TimeUnit.MILLISECONDS, true));
             }
         }
