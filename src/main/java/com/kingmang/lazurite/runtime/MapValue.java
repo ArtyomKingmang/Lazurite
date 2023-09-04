@@ -1,6 +1,7 @@
 package com.kingmang.lazurite.runtime;
 
-import com.kingmang.lazurite.lib.*;
+import com.kingmang.lazurite.LzrExeption;
+import com.kingmang.lazurite.base.*;
 
 import java.util.Iterator;
 import java.util.LinkedHashMap;
@@ -94,12 +95,12 @@ public class MapValue implements Value, Iterable<Map.Entry<Value, Value>> {
     
     @Override
     public int asInt() {
-        throw new _TExeprion("Cannot cast map to integer");
+        throw new LzrExeption("TypeExeprion","Cannot cast map to integer");
     }
 
     @Override
     public double asNumber() {
-        throw new _TExeprion("Cannot cast map to number");
+        throw new LzrExeption("TypeExeprtion","Cannot cast map to number");
     }
 
     @Override

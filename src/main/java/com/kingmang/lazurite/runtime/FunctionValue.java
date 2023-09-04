@@ -1,8 +1,8 @@
 package com.kingmang.lazurite.runtime;
 
-import com.kingmang.lazurite.lib.Function;
-import com.kingmang.lazurite.lib.Types;
-import com.kingmang.lazurite.lib._TExeprion;
+import com.kingmang.lazurite.LzrExeption;
+import com.kingmang.lazurite.base.Function;
+import com.kingmang.lazurite.base.Types;
 
 import java.util.Objects;
 
@@ -29,12 +29,12 @@ public class FunctionValue implements Value {
     
     @Override
     public int asInt() {
-        throw new _TExeprion("Cannot cast function to integer");
+        throw new LzrExeption("TypeExeption","Cannot cast function to integer");
     }
     
     @Override
     public double asNumber() {
-        throw new _TExeprion("Cannot cast function to number");
+        throw new LzrExeption("TypeExeption","Cannot cast function to number");
     }
 
     @Override

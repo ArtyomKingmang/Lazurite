@@ -3,7 +3,7 @@ package com.kingmang.lazurite.parser.pars;
 import com.kingmang.lazurite.parser.linters.AssignValidator;
 import com.kingmang.lazurite.parser.linters.UsingWithNonStringValueValidator;
 import com.kingmang.lazurite.parser.linters.DefaultFunctionsOverrideValidator;
-import com.kingmang.lazurite.lib.KEYWORD;
+import com.kingmang.lazurite.base.KEYWORD;
 import com.kingmang.lazurite.runtime.Variables;
 import com.kingmang.lazurite.parser.ast.Statement;
 import com.kingmang.lazurite.parser.ast.Visitor;

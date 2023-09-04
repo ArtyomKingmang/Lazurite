@@ -1,6 +1,6 @@
 package com.kingmang.lazurite.parser.ast;
 
-import com.kingmang.lazurite.lib.KEYWORD;
+import com.kingmang.lazurite.base.KEYWORD;
 import com.kingmang.lazurite.runtime.UserDefinedFunction;
 
 

@@ -1,9 +1,9 @@
 package com.kingmang.lazurite.parser.pars;
 
-import com.kingmang.lazurite.lib.Arguments;
-import com.kingmang.lazurite.lib.Function;
+import com.kingmang.lazurite.base.Arguments;
+import com.kingmang.lazurite.base.Function;
 import com.kingmang.lazurite.runtime.StringValue;
-import com.kingmang.lazurite.lib.Types;
+import com.kingmang.lazurite.base.Types;
 import com.kingmang.lazurite.runtime.Value;
 
 public final class SPRINTF implements Function {

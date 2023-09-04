@@ -1,6 +1,6 @@
 package com.kingmang.lazurite.parser.pars;
 
-import com.kingmang.lazurite.lib.Function;
+import com.kingmang.lazurite.base.Function;
 import com.kingmang.lazurite.runtime.StringValue;
 import com.kingmang.lazurite.runtime.Value;
 

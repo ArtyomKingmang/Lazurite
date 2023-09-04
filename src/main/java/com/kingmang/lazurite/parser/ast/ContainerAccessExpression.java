@@ -1,7 +1,7 @@
 package com.kingmang.lazurite.parser.ast;
 
-import com.kingmang.lazurite.lib._TExeprion;
-import com.kingmang.lazurite.lib.*;
+import com.kingmang.lazurite.LzrExeption;
+import com.kingmang.lazurite.base.*;
 import com.kingmang.lazurite.runtime.*;
 
 
@@ -55,7 +55,7 @@ public final class ContainerAccessExpression implements Expression, Accessible {
                 return ((ClassInstanceValue) container).access(lastIndex);
                 
             default:
-                throw new _TExeprion("Array or map expected. Got " + Types.typeToString(container.type()));
+                throw new LzrExeption("TypeExeption","Array or map expected. Got " + Types.typeToString(container.type()));
         }
     }
 
@@ -78,7 +78,7 @@ public final class ContainerAccessExpression implements Expression, Accessible {
                 return value;
                 
             default:
-                throw new _TExeprion("Array or map expected. Got " + container.type());
+                throw new LzrExeption("TypeExeption","Array or map expected. Got " + container.type());
         }
     }
     

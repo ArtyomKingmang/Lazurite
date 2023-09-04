@@ -1,7 +1,5 @@
 package com.kingmang.lazurite.parser.ast;
 
-import com.kingmang.lazurite.lib._OperExeption;
-
 public class ThrowStatement implements Statement{
 
     private String type;

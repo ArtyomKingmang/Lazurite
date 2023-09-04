@@ -1,6 +1,5 @@
 package com.kingmang.lazurite.parser.optimization;
 
-import com.kingmang.lazurite.lib._OperExeption;
 import com.kingmang.lazurite.parser.ast.BinaryExpression;
 import com.kingmang.lazurite.parser.ast.ConditionalExpression;
 import com.kingmang.lazurite.parser.ast.FunctionDefineStatement;

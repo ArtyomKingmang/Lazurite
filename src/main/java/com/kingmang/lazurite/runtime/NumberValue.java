@@ -1,7 +1,7 @@
 package com.kingmang.lazurite.runtime;
 
 
-import com.kingmang.lazurite.lib.Types;
+import com.kingmang.lazurite.base.Types;
 
 public final class NumberValue implements Value {
 

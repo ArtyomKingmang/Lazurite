@@ -1,6 +1,5 @@
 package com.kingmang.lazurite.parser.ast;
 
-import com.kingmang.lazurite.lib._VarExeption;
 import com.kingmang.lazurite.runtime.Value;
 import com.kingmang.lazurite.runtime.Variables;
 

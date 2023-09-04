@@ -1,8 +1,8 @@
 package com.kingmang.lazurite.parser.ast;
 
-import com.kingmang.lazurite.lib._OperExeption;
+import com.kingmang.lazurite.base._OperExeption;
 import com.kingmang.lazurite.runtime.NumberValue;
-import com.kingmang.lazurite.lib.Types;
+import com.kingmang.lazurite.base.Types;
 import com.kingmang.lazurite.runtime.Value;
 
 

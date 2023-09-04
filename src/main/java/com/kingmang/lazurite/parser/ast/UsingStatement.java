@@ -1,10 +1,10 @@
 package com.kingmang.lazurite.parser.ast;
 
-import com.kingmang.lazurite.lib._TExeprion;
+import com.kingmang.lazurite.LzrExeption;
 import com.kingmang.lazurite.runtime.ArrayValue;
-import com.kingmang.lazurite.lib.Types;
+import com.kingmang.lazurite.base.Types;
 import com.kingmang.lazurite.runtime.Value;
-import com.kingmang.lazurite.modules.Module;
+import com.kingmang.lazurite.libraries.libraries;
 
 import java.lang.reflect.Method;
 
@@ -40,7 +40,7 @@ public final class UsingStatement extends InterruptableNode implements Statement
 
     private void loadModule(String name) {
         try {
-            final Module module = (Module) Class.forName(String.format(PACKAGE, name, name)).newInstance();
+            final libraries module = (libraries) Class.forName(String.format(PACKAGE, name, name)).newInstance();
             module.init();
         } catch (Exception ex) {
             throw new RuntimeException("Unable to load module " + name, ex);
@@ -60,8 +60,8 @@ public final class UsingStatement extends InterruptableNode implements Statement
         }
     }
 
-    private _TExeprion typeException(Value value) {
-        return new _TExeprion("Array or string required in 'use' statement, " +
+    private LzrExeption typeException(Value value) {
+        return new LzrExeption("Type","Array or string required in 'use' statement, " +
                 "got " + Types.typeToString(value.type()) + " " + value);
     }
 

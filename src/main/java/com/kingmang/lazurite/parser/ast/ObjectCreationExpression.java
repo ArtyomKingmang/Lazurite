@@ -1,7 +1,6 @@
 package com.kingmang.lazurite.parser.ast;
 
-import com.kingmang.lazurite.lib._UClassExeption;
-import com.kingmang.lazurite.lib.*;
+import com.kingmang.lazurite.base.*;
 import com.kingmang.lazurite.runtime.ClassInstanceValue;
 import com.kingmang.lazurite.runtime.ClassMethod;
 import com.kingmang.lazurite.runtime.Value;

@@ -1,6 +1,5 @@
 package com.kingmang.lazurite.parser.ast;
 
-import com.kingmang.lazurite.lib._PExeption;
 import com.kingmang.lazurite.parser.pars.Lexer;
 import com.kingmang.lazurite.parser.pars.Parser;
 import com.kingmang.lazurite.parser.pars.SourceLoader;

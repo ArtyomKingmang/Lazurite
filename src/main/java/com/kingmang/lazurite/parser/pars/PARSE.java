@@ -1,6 +1,6 @@
 package com.kingmang.lazurite.parser.pars;
 
-import com.kingmang.lazurite.lib.Arguments;
+import com.kingmang.lazurite.base.Arguments;
 import com.kingmang.lazurite.runtime.NumberValue;
 import com.kingmang.lazurite.runtime.Value;
 

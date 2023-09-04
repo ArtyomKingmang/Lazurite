@@ -1,7 +1,7 @@
 package com.kingmang.lazurite.parser.pars;
 
 import com.kingmang.lazurite.runtime.*;
-import com.kingmang.lazurite.lib.*;
+import com.kingmang.lazurite.base.*;
 import java.util.Map;
 
 public final class FOREACH implements Function {

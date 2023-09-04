@@ -1,17 +1,15 @@
 package com.kingmang.lazurite;
 
-import com.kingmang.lazurite.lib._StopExeption;
 import com.kingmang.lazurite.parser.ast.Statement;
 import com.kingmang.lazurite.parser.pars.*;
 import com.kingmang.lazurite.parser.pars.FunctionAdder;
-import com.kingmang.lazurite.runtime.TimeMeasurement;
+import com.kingmang.lazurite.runtime.Time;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
-import com.kingmang.lazurite.compiler.transcompiler;
 
 import java.util.Scanner;
 
@@ -97,7 +95,7 @@ public class Main  {
 
     private static void RunProgram(String input, Settings options) throws IOException {
         options.validate();
-        final TimeMeasurement measurement = new TimeMeasurement();
+        final Time measurement = new Time();
         measurement.start("Tokenize time");
         final List<Token> tokens = Lexer.tokenize(input);
         measurement.stop("Tokenize time");

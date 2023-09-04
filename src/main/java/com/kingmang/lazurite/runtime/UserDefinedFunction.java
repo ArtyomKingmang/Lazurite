@@ -1,7 +1,6 @@
 package com.kingmang.lazurite.runtime;
 
-import com.kingmang.lazurite.lib.Function;
-import com.kingmang.lazurite.lib._AExeption;
+import com.kingmang.lazurite.base.Function;
 import com.kingmang.lazurite.parser.ast.Argument;
 import com.kingmang.lazurite.parser.ast.Arguments;
 import com.kingmang.lazurite.parser.ast.ReturnStatement;

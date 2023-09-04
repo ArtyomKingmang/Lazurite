@@ -1,3 +1,4 @@
 for(i=0, i<1000000, i++){
     print("Hello")
 }
+//C:\Users\crowb\OneDrive\Рабочий стол\lzgit\Lazurite\src\test.lzr

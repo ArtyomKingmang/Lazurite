@@ -1,7 +1,7 @@
 package com.kingmang.lazurite.parser.linters;
 
 import com.kingmang.lazurite.parser.pars.Console;
-import com.kingmang.lazurite.lib.Types;
+import com.kingmang.lazurite.base.Types;
 import com.kingmang.lazurite.runtime.Value;
 import com.kingmang.lazurite.parser.ast.*;
 
