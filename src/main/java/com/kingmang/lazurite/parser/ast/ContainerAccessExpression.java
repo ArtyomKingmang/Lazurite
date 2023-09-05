@@ -1,6 +1,6 @@
 package com.kingmang.lazurite.parser.ast;
 
-import com.kingmang.lazurite.LZREx.LzrExeption;
+import com.kingmang.lazurite.LZREx.LZRExeption;
 import com.kingmang.lazurite.base.*;
 import com.kingmang.lazurite.runtime.*;
 
@@ -55,7 +55,7 @@ public final class ContainerAccessExpression implements Expression, Accessible {
                 return ((ClassInstanceValue) container).access(lastIndex);
                 
             default:
-                throw new LzrExeption("TypeExeption","Array or map expected. Got " + Types.typeToString(container.type()));
+                throw new LZRExeption("TypeExeption","Array or map expected. Got " + Types.typeToString(container.type()));
         }
     }
 
@@ -78,7 +78,7 @@ public final class ContainerAccessExpression implements Expression, Accessible {
                 return value;
                 
             default:
-                throw new LzrExeption("TypeExeption","Array or map expected. Got " + container.type());
+                throw new LZRExeption("TypeExeption","Array or map expected. Got " + container.type());
         }
     }
     
@@ -98,7 +98,7 @@ public final class ContainerAccessExpression implements Expression, Accessible {
                     break;
                     
                 default:
-                    throw new LzrExeption("TypeExeption","Array or map expected");
+                    throw new LZRExeption("TypeExeption","Array or map expected");
             }
         }
         return container;
@@ -114,7 +114,7 @@ public final class ContainerAccessExpression implements Expression, Accessible {
     
     public MapValue consumeMap(Value value) {
         if (value.type() != Types.MAP) {
-            throw new LzrExeption("TypeExeption","Map expected");
+            throw new LZRExeption("TypeExeption","Map expected");
         }
         return (MapValue) value;
     }

@@ -1,6 +1,6 @@
 package com.kingmang.lazurite.modules.LGL;
 
-import com.kingmang.lazurite.LZREx.LzrExeption;
+import com.kingmang.lazurite.LZREx.LZRExeption;
 import com.kingmang.lazurite.base.*;
 import com.kingmang.lazurite.modules.Module;
 import static com.kingmang.lazurite.base.Converters.*;
@@ -280,12 +280,12 @@ public final class LGL implements Module {
         
         @Override
         public int asInt() {
-            throw new LzrExeption("TypeExeption ","Cannot cast JavaFX Effect to integer");
+            throw new LZRExeption("TypeExeption ","Cannot cast JavaFX Effect to integer");
         }
         
         @Override
         public double asNumber() {
-            throw new LzrExeption("TypeExeption ", "Cannot cast JavaFX Effect to number");
+            throw new LZRExeption("TypeExeption ", "Cannot cast JavaFX Effect to number");
         }
         
         @Override
@@ -661,7 +661,7 @@ public final class LGL implements Module {
         private Value drawImage(Value... args) {
             Arguments.checkAtLeast(3, args.length);
             if (!(args[0] instanceof ImageFXValue)) {
-                throw new LzrExeption("TypeExeption ", "ImageFX expected");
+                throw new LZRExeption("TypeExeption ", "ImageFX expected");
             }
             final Image image = ((ImageFXValue) args[0]).image;
 
@@ -725,7 +725,7 @@ public final class LGL implements Module {
 
         private Value setEffect(Value... args) {
             if (args[0].type() != FX_EFFECT_TYPE) {
-                throw new LzrExeption("TypeExeption ","Effect expected, found " + Types.typeToString(args[0].type()));
+                throw new LZRExeption("TypeExeption ","Effect expected, found " + Types.typeToString(args[0].type()));
             }
             graphics.setEffect((Effect) args[0].raw());
             return NumberValue.ZERO;

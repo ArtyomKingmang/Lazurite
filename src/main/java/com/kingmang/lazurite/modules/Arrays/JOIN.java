@@ -1,6 +1,6 @@
 package com.kingmang.lazurite.modules.Arrays;
 
-import com.kingmang.lazurite.LZREx.LzrExeption;
+import com.kingmang.lazurite.LZREx.LZRExeption;
 import com.kingmang.lazurite.base.*;
 import com.kingmang.lazurite.runtime.ArrayValue;
 import com.kingmang.lazurite.runtime.Value;
@@ -12,7 +12,7 @@ public final class JOIN implements Function {
     public Value execute(Value... args) {
         Arguments.checkRange(1, 4, args.length);
         if (args[0].type() != Types.ARRAY) {
-            throw new LzrExeption("TypeExeption ","Array expected in first argument");
+            throw new LZRExeption("TypeExeption ","Array expected in first argument");
         }
         
         final ArrayValue array = (ArrayValue) args[0];
@@ -26,7 +26,7 @@ public final class JOIN implements Function {
             case 4:
                 return ArrayValue.joinToString(array, args[1].asString(), args[2].asString(), args[3].asString());
             default:
-                throw new LzrExeption("ArgumentsMismatchException ","Wrong number of arguments");
+                throw new LZRExeption("ArgumentsMismatchException ","Wrong number of arguments");
         }
     }
 }

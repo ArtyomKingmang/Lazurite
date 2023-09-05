@@ -1,6 +1,6 @@
 package com.kingmang.lazurite.runtime;
 
-import com.kingmang.lazurite.LZREx.LzrExeption;
+import com.kingmang.lazurite.LZREx.LZRExeption;
 import com.kingmang.lazurite.base.*;
 
 import java.util.Iterator;
@@ -95,12 +95,12 @@ public class MapValue implements Value, Iterable<Map.Entry<Value, Value>> {
     
     @Override
     public int asInt() {
-        throw new LzrExeption("TypeExeprion","Cannot cast map to integer");
+        throw new LZRExeption("TypeExeprion","Cannot cast map to integer");
     }
 
     @Override
     public double asNumber() {
-        throw new LzrExeption("TypeExeprtion","Cannot cast map to number");
+        throw new LZRExeption("TypeExeprtion","Cannot cast map to number");
     }
 
     @Override

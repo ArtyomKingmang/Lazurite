@@ -1,6 +1,6 @@
 package com.kingmang.lazurite.modules.Arrays;
 
-import com.kingmang.lazurite.LZREx.LzrExeption;
+import com.kingmang.lazurite.LZREx.LZRExeption;
 import com.kingmang.lazurite.base.*;
 import com.kingmang.lazurite.runtime.ArrayValue;
 import com.kingmang.lazurite.runtime.Value;
@@ -14,7 +14,7 @@ public final class SORT implements Function {
     public Value execute(Value... args) {
         Arguments.checkAtLeast(1, args.length);
         if (args[0].type() != Types.ARRAY) {
-            throw new LzrExeption("TypeExeption ","Array expected in first argument");
+            throw new LZRExeption("TypeExeption ","Array expected in first argument");
         }
         final Value[] elements = ((ArrayValue) args[0]).getCopyElements();
         
@@ -27,7 +27,7 @@ public final class SORT implements Function {
                 Arrays.sort(elements, (o1, o2) -> comparator.execute(o1, o2).asInt());
                 break;
             default:
-                throw new LzrExeption("ArgumentsMismatchException ","Wrong number of arguments");
+                throw new LZRExeption("ArgumentsMismatchException ","Wrong number of arguments");
         }
         
         return new ArrayValue(elements);

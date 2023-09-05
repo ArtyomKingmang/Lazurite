@@ -1,6 +1,6 @@
 package com.kingmang.lazurite.runtime;
 
-import com.kingmang.lazurite.LZREx.LzrExeption;
+import com.kingmang.lazurite.LZREx.LZRExeption;
 import com.kingmang.lazurite.base.*;
 
 import java.util.Objects;
@@ -68,7 +68,7 @@ public final class StringValue implements Value {
                 }
                 break;
         }
-        throw new LzrExeption("UnknownPropertyException ",prop);
+        throw new LZRExeption("UnknownPropertyException ",prop);
     }
 
     public int length() {

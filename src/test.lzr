@@ -1,4 +1,7 @@
-using "std"
+using "System"
+using "Colors"
+
+println(sprintf(GREEN))
 
 println(_OsName_)
 println(_UserName_)
@@ -6,5 +9,4 @@ println(_OsArch_)
 println(_OsVersion_)
 println(_FileSeparator_)
 println(_PathSeparator_)
-println(_LineSeparator_)
-//C:\Users\crowb\OneDrive\Рабочий стол\lzgit\Lazurite\src\test.lzr
+print(_LineSeparator_)

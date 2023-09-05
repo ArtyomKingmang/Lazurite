@@ -1,7 +1,7 @@
 package com.kingmang.lazurite.modules.LFS;
 
 
-import com.kingmang.lazurite.LZREx.LzrExeption;
+import com.kingmang.lazurite.LZREx.LZRExeption;
 import com.kingmang.lazurite.base.*;
 import com.kingmang.lazurite.modules.Module;
 import com.kingmang.lazurite.runtime.*;
@@ -107,7 +107,7 @@ public final class LFS implements Module {
         
         @Override
         public Value execute(Value... args) {
-            if (args.length < 1) throw new LzrExeption("ArgumentsMismatchException ","File descriptor expected");
+            if (args.length < 1) throw new LZRExeption("ArgumentsMismatchException ","File descriptor expected");
             final int key = args[0].asInt();
             try {
                 return execute(files.get(key), args);
