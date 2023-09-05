@@ -1,5 +1,7 @@
 package com.kingmang.lazurite.parser.ast;
 
+import com.kingmang.lazurite.LZREx.LzrExeption;
+import com.kingmang.lazurite.LZREx.VarExeption;
 import com.kingmang.lazurite.base.*;
 import com.kingmang.lazurite.runtime.FunctionValue;
 import com.kingmang.lazurite.runtime.Value;
@@ -44,7 +46,7 @@ public final class FunctionalExpression extends InterruptableNode implements Exp
             final Value result = f.execute(values);
             CallStack.exit();
             return result;
-        } catch (_AExeption | _TExeprion | _VarExeption ex) {
+        } catch (LzrExeption ex) {
             throw new RuntimeException(ex.getMessage() + " in function " + functionExpr, ex);
         }
     }
@@ -56,7 +58,7 @@ public final class FunctionalExpression extends InterruptableNode implements Exp
                 return ((FunctionValue) value).getValue();
             }
             return getFunction(value.asString());
-        } catch (_VarExeption ex) {
+        } catch (VarExeption ex) {
             return getFunction(ex.getVariable());
         }
     }
@@ -71,7 +73,7 @@ public final class FunctionalExpression extends InterruptableNode implements Exp
                 return ((FunctionValue)variable).getValue();
             }
         }
-        throw new _UFuncExeption(key);
+        throw new LzrExeption("UnknownFunctionException ","Unknown function "+ key);
     }
     
     @Override

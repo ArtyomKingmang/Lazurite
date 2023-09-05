@@ -1,5 +1,6 @@
 package com.kingmang.lazurite;
 
+import com.kingmang.lazurite.base.Stop;
 import com.kingmang.lazurite.parser.ast.Statement;
 import com.kingmang.lazurite.parser.pars.*;
 import com.kingmang.lazurite.parser.pars.FunctionAdder;
@@ -136,7 +137,7 @@ public class Main  {
         try {
             measurement.start("Execution time");
             program.execute();
-        } catch (_StopExeption ex) {
+        } catch (Stop ex) {
             /**/
         } catch (Exception ex) {
             Console.handleException(Thread.currentThread(), ex);

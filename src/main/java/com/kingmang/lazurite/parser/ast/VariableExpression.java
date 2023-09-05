@@ -1,5 +1,6 @@
 package com.kingmang.lazurite.parser.ast;
 
+import com.kingmang.lazurite.LZREx.VarExeption;
 import com.kingmang.lazurite.runtime.Value;
 import com.kingmang.lazurite.runtime.Variables;
 
@@ -20,7 +21,7 @@ public final class VariableExpression extends InterruptableNode implements Expre
     
     @Override
     public Value get() {
-        if (!Variables.isExists(name)) throw new _VarExeption(name);
+        if (!Variables.isExists(name)) throw new VarExeption(name);
         return Variables.get(name);
     }
 

@@ -1,6 +1,6 @@
 package com.kingmang.lazurite.parser.ast;
 
-import com.kingmang.lazurite.LzrExeption;
+import com.kingmang.lazurite.LZREx.LzrExeption;
 import com.kingmang.lazurite.base.*;
 import com.kingmang.lazurite.runtime.*;
 
@@ -98,7 +98,7 @@ public final class ContainerAccessExpression implements Expression, Accessible {
                     break;
                     
                 default:
-                    throw new _TExeprion("Array or map expected");
+                    throw new LzrExeption("TypeExeption","Array or map expected");
             }
         }
         return container;
@@ -114,7 +114,7 @@ public final class ContainerAccessExpression implements Expression, Accessible {
     
     public MapValue consumeMap(Value value) {
         if (value.type() != Types.MAP) {
-            throw new _TExeprion("Map expected");
+            throw new LzrExeption("TypeExeption","Map expected");
         }
         return (MapValue) value;
     }

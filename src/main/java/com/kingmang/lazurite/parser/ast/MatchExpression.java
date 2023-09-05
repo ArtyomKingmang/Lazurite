@@ -1,5 +1,6 @@
 package com.kingmang.lazurite.parser.ast;
 
+import com.kingmang.lazurite.LZREx.LzrExeption;
 import com.kingmang.lazurite.runtime.ArrayValue;
 import com.kingmang.lazurite.runtime.NumberValue;
 import com.kingmang.lazurite.base.Types;
@@ -73,7 +74,7 @@ public final class MatchExpression extends InterruptableNode implements Expressi
                 }
             }
         }
-        throw new _SWExeption("No pattern were matched");
+        throw new LzrExeption("PatternMatchingException ","No pattern were matched");
     }
 
     private boolean matchTuplePattern(ArrayValue array, TuplePattern p) {

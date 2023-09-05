@@ -1,5 +1,6 @@
 package com.kingmang.lazurite.parser.pars;
 
+import com.kingmang.lazurite.LZREx.LzrExeption;
 import com.kingmang.lazurite.runtime.*;
 import com.kingmang.lazurite.base.*;
 import java.util.Map;
@@ -56,7 +57,7 @@ public final class FOREACH implements Function {
                 return map;
 
             default:
-                throw new _TExeprion("Cannot iterate " + Types.typeToString(container.type()));
+                throw new LzrExeption("TypeExeption ","Cannot iterate " + Types.typeToString(container.type()));
         }
     }
 }

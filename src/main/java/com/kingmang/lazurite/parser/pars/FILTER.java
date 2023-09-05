@@ -1,5 +1,6 @@
 package com.kingmang.lazurite.parser.pars;
 
+import com.kingmang.lazurite.LZREx.LzrExeption;
 import com.kingmang.lazurite.runtime.*;
 import com.kingmang.lazurite.base.*;
 import java.util.ArrayList;
@@ -27,7 +28,7 @@ public final class FILTER implements Function {
             return filterMap((MapValue) container, predicate, takeWhile);
         }
 
-        throw new _TExeprion("Invalid first argument. Array or map expected");
+        throw new LzrExeption("TypeExeption", "Invalid first argument. Array or map expected");
     }
     
     private Value filterArray(ArrayValue array, Function predicate, boolean takeWhile) {

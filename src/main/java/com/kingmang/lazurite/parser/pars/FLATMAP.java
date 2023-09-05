@@ -1,5 +1,6 @@
 package com.kingmang.lazurite.parser.pars;
 
+import com.kingmang.lazurite.LZREx.LzrExeption;
 import com.kingmang.lazurite.base.Arguments;
 import com.kingmang.lazurite.runtime.ArrayValue;
 import com.kingmang.lazurite.base.Function;
@@ -15,7 +16,7 @@ public final class FLATMAP implements Function {
     public Value execute(Value... args) {
         Arguments.check(2, args.length);
         if (args[0].type() != Types.ARRAY) {
-            throw new _TExeprion("Array expected in first argument");
+            throw new LzrExeption("TypeExeption ", "Array expected in first argument");
         }
         final Function mapper = ValueUtils.consumeFunction(args[1], 1);
         return flatMapArray((ArrayValue) args[0], mapper);
@@ -27,7 +28,7 @@ public final class FLATMAP implements Function {
         for (int i = 0; i < size; i++) {
             final Value inner = mapper.execute(array.get(i));
             if (inner.type() != Types.ARRAY) {
-                throw new _TExeprion("Array expected " + inner);
+                throw new LzrExeption("TypeExeption ", "Array expected " + inner);
             }
             for (Value value : (ArrayValue) inner) {
                 values.add(value);

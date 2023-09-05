@@ -1,6 +1,6 @@
 package com.kingmang.lazurite.parser.pars;
 
-import com.kingmang.lazurite.LzrExeption;
+import com.kingmang.lazurite.LZREx.LzrExeption;
 import com.kingmang.lazurite.base.KEYWORD;
 import com.kingmang.lazurite.base.Types;
 

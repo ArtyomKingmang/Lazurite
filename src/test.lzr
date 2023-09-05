@@ -1,4 +1,10 @@
-for(i=0, i<1000000, i++){
-    print("Hello")
-}
+using "std"
+
+println(_OsName_)
+println(_UserName_)
+println(_OsArch_)
+println(_OsVersion_)
+println(_FileSeparator_)
+println(_PathSeparator_)
+println(_LineSeparator_)
 //C:\Users\crowb\OneDrive\Рабочий стол\lzgit\Lazurite\src\test.lzr

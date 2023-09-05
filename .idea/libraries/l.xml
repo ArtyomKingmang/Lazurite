@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="l">
+    <CLASSES>
+      <root url="jar://M:/_DESKTOP_/l.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../../Новая папка (4)/json.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/../../Новая папка (4)/json.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../../Новая папка (4)/lib.zip!/src" />
+    </SOURCES>
+  </library>
+</component>

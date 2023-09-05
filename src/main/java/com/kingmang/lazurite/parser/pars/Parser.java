@@ -1,5 +1,6 @@
 package com.kingmang.lazurite.parser.pars;
 
+import com.kingmang.lazurite.LZREx.LzrExeption;
 import com.kingmang.lazurite.parser.ast.FunctionDefineStatement;
 import com.kingmang.lazurite.runtime.*;
 import com.kingmang.lazurite.parser.ast.*;
@@ -18,7 +19,7 @@ public final class Parser {
         final Parser parser = new Parser(tokens);
         final Statement program = parser.parse();
         if (parser.getParseErrors().hasErrors()) {
-            throw new _PExeption();
+            throw new LzrExeption("ParseException ", "");
         }
         return program;
     }
@@ -174,7 +175,7 @@ public final class Parser {
         if (expression instanceof Statement) {
             return (Statement) expression;
         }
-        throw new _PExeption("Unknown statement: " + get(0));
+        throw new LzrExeption("ParseException ","Unknown statement: " + get(0));
     }
 
 
@@ -275,7 +276,7 @@ public final class Parser {
             } else if (!startsOptionalArgs) {
                 arguments.addRequired(name);
             } else {
-                throw new _PExeption("Required argument cannot be after optional");
+                throw new LzrExeption("ParseException ","Required argument cannot be after optional");
             }
             match(TokenType.COMMA);
         }
@@ -397,7 +398,7 @@ public final class Parser {
             }
 
             if (pattern == null) {
-                throw new _PExeption("Wrong pattern in match expression: " + current);
+                throw new LzrExeption("ParseException ","Wrong pattern in match expression: " + current);
             }
             if (match(TokenType.IF)) {
 
@@ -429,7 +430,7 @@ public final class Parser {
                 if (fieldDeclaration != null) {
                     classDeclaration.addField(fieldDeclaration);
                 } else {
-                    throw new _PExeption("Class can contain only assignments and function declarations");
+                    throw new LzrExeption("ParseException ","Class can contain only assignments and function declarations");
                 }
             }
         } while (!match(TokenType.RBRACE));
@@ -842,7 +843,7 @@ public final class Parser {
             }
             return strExpr;
         }
-        throw new _PExeption("Unknown expression: " + current);
+        throw new LzrExeption("ParseException ","Unknown expression: " + current);
     }
 
     private Number createNumber(String text, int radix) {
@@ -861,7 +862,7 @@ public final class Parser {
     private Token consume(TokenType type) {
         final Token current = get(0);
         if (type != current.getType()) {
-            throw new _PExeption("Token " + current + " doesn't match " + type);
+            throw new LzrExeption("ParseException ","Token " + current + " doesn't match " + type);
         }
         pos++;
         return current;

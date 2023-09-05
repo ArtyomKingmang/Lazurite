@@ -1,10 +1,10 @@
 package com.kingmang.lazurite.parser.ast;
 
-import com.kingmang.lazurite.LzrExeption;
+import com.kingmang.lazurite.LZREx.LzrExeption;
 import com.kingmang.lazurite.runtime.ArrayValue;
 import com.kingmang.lazurite.base.Types;
 import com.kingmang.lazurite.runtime.Value;
-import com.kingmang.lazurite.libraries.libraries;
+import com.kingmang.lazurite.modules.Module;
 
 import java.lang.reflect.Method;
 
@@ -40,7 +40,7 @@ public final class UsingStatement extends InterruptableNode implements Statement
 
     private void loadModule(String name) {
         try {
-            final libraries module = (libraries) Class.forName(String.format(PACKAGE, name, name)).newInstance();
+            final Module module = (Module) Class.forName(String.format(PACKAGE, name, name)).newInstance();
             module.init();
         } catch (Exception ex) {
             throw new RuntimeException("Unable to load module " + name, ex);

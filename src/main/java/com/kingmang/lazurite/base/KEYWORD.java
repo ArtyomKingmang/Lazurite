@@ -1,5 +1,7 @@
 package com.kingmang.lazurite.base;
 
+import com.kingmang.lazurite.LZREx.LzrExeption;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -26,7 +28,7 @@ public final class KEYWORD {
     }
     
     public static Function get(String key) {
-        if (!isExists(key)) throw new _UFuncExeption(key);
+        if (!isExists(key)) throw new LzrExeption("UnknownFunctionException ", "Unknown function " + key);
         return functions.get(key);
     }
     

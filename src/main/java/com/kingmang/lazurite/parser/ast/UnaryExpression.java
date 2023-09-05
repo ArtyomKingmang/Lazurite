@@ -1,5 +1,6 @@
 package com.kingmang.lazurite.parser.ast;
 
+import com.kingmang.lazurite.LZREx.LzrExeption;
 import com.kingmang.lazurite.runtime.NumberValue;
 import com.kingmang.lazurite.runtime.StringValue;
 import com.kingmang.lazurite.base.Types;
@@ -78,7 +79,7 @@ public final class UnaryExpression implements Expression, Statement {
             case COMPLEMENT: return complement(value);
             case NOT: return not(value);
             default:
-                throw new _OperExeption(operation);
+                throw new LzrExeption("OperationIsNotSupportedException ","Operation " + operation + " is not supported");
         }
     }
     

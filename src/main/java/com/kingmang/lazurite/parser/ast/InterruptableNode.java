@@ -1,6 +1,6 @@
 package com.kingmang.lazurite.parser.ast;
 
-import com.kingmang.lazurite.base._StopExeption;
+import com.kingmang.lazurite.base.Stop;
 
 public abstract class InterruptableNode implements Node {
 
@@ -23,7 +23,7 @@ public abstract class InterruptableNode implements Node {
     protected void interruptionCheck() {
         if (state == RUNNING) return;
         if (state == STOPPED) {
-            throw new _StopExeption();
+            throw new Stop();
         }
         try {
             while (state == PAUSED) {

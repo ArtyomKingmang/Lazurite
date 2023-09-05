@@ -1,5 +1,7 @@
 package com.kingmang.lazurite.parser.ast;
 
+import com.kingmang.lazurite.LZREx.OExeption;
+
 public class ThrowStatement implements Statement{
 
     private String type;
@@ -13,7 +15,7 @@ public class ThrowStatement implements Statement{
 
     @Override
     public void execute() {
-        throw new _OperExeption(type, expr.eval().toString());
+        throw new OExeption(type, expr.eval().toString());
     }
 
     @Override

@@ -1,5 +1,6 @@
 package com.kingmang.lazurite.parser.ast;
 
+import com.kingmang.lazurite.LZREx.LzrExeption;
 import com.kingmang.lazurite.parser.pars.Lexer;
 import com.kingmang.lazurite.parser.pars.Parser;
 import com.kingmang.lazurite.parser.pars.SourceLoader;
@@ -38,7 +39,7 @@ public final class IncludeStatement extends InterruptableNode implements Stateme
         final Parser parser = new Parser(tokens);
         final Statement program = parser.parse();
         if (parser.getParseErrors().hasErrors()) {
-            throw new _PExeption(parser.getParseErrors().toString());
+            throw new LzrExeption("ParseException ",parser.getParseErrors().toString());
         }
         return program;
     }

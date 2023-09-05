@@ -1,5 +1,6 @@
 package com.kingmang.lazurite.parser.pars;
 
+import com.kingmang.lazurite.LZREx.LzrExeption;
 import com.kingmang.lazurite.base.Arguments;
 import com.kingmang.lazurite.runtime.ArrayValue;
 import com.kingmang.lazurite.base.Function;
@@ -27,7 +28,7 @@ public final class MAP implements Function {
             return mapMap((MapValue) container, keyMapper, valueMapper);
         }
 
-        throw new _TExeprion("Invalid first argument. Array or map expected");
+        throw new LzrExeption("ArgumentsMismatchException ","Invalid first argument. Array or map expected");
     }
     
     private Value mapArray(ArrayValue array, Function mapper) {

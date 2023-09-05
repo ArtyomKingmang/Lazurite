@@ -1,5 +1,6 @@
 package com.kingmang.lazurite.runtime;
 
+import com.kingmang.lazurite.LZREx.LzrExeption;
 import com.kingmang.lazurite.base.Function;
 import com.kingmang.lazurite.parser.ast.Argument;
 import com.kingmang.lazurite.parser.ast.Arguments;
@@ -31,12 +32,12 @@ public class UserDefinedFunction implements Function {
         final int size = values.length;
         final int requiredArgsCount = arguments.getRequiredArgumentsCount();
         if (size < requiredArgsCount) {
-            throw new _AExeption(String.format(
+            throw new LzrExeption("ArgumentsMismatchException ",String.format(
                     "Arguments count mismatch. Required %d, got %d", requiredArgsCount, size));
         }
         final int totalArgsCount = getArgsCount();
         if (size > totalArgsCount) {
-            throw new _AExeption(String.format(
+            throw new LzrExeption("ArgumentsMismatchException ",String.format(
                     "Arguments count mismatch. Total %d, got %d", totalArgsCount, size));
         }
 

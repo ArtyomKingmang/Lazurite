@@ -1,6 +1,6 @@
 package com.kingmang.lazurite.runtime;
 
-import com.kingmang.lazurite.LzrExeption;
+import com.kingmang.lazurite.LZREx.LzrExeption;
 import com.kingmang.lazurite.base.*;
 
 import java.util.Objects;
@@ -15,6 +15,7 @@ public final class StringValue implements Value {
     public StringValue(String value) {
         this.value = value;
     }
+
 
     public Value access(Value propertyValue) {
         final String prop = propertyValue.asString();

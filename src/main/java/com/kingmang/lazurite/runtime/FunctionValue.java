@@ -1,6 +1,6 @@
 package com.kingmang.lazurite.runtime;
 
-import com.kingmang.lazurite.LzrExeption;
+import com.kingmang.lazurite.LZREx.LzrExeption;
 import com.kingmang.lazurite.base.Function;
 import com.kingmang.lazurite.base.Types;
 
