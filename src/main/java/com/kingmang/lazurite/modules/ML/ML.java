@@ -22,6 +22,7 @@ public final class ML implements Module {
     @Override
     public void init() {
         initConstants();
+
         KEYWORD.put("abs", ML::abs);
         KEYWORD.put("cos", functionConvert(Math::cos));
         KEYWORD.put("log", functionConvert(Math::log));
