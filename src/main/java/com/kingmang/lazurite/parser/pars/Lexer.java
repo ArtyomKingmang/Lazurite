@@ -49,6 +49,7 @@ public final class Lexer {
         KEYWORDS = new HashMap<>();
         KEYWORDS.put("throw", TokenType.THROW);
         KEYWORDS.put("and", TokenType.AMPAMP);
+        KEYWORDS.put("not", TokenType.EXCL);
         KEYWORDS.put("or", TokenType.BARBAR);
         KEYWORDS.put("print", TokenType.PRINT);
         KEYWORDS.put("println", TokenType.PRINTLN);
