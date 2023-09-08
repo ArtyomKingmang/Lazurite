@@ -8,8 +8,8 @@ import static com.kingmang.lazurite.Main.VERSION;
 
 public class System implements Module {
     public void init (){
-        Variables.set("_LZRVersion_", new StringValue("Lazurite version: " + VERSION()));
-        Variables.set("_JVMVersion_", new StringValue("JVM version: "+(java.lang.System.getProperty("java.vm.version"))));
+        Variables.set("_LZRVersion_", new StringValue(VERSION()));
+        Variables.set("_JVMVersion_", new StringValue(java.lang.System.getProperty("java.vm.version")));
         Variables.set("_UserDir_", new StringValue((java.lang.System.getProperty("user.dir"))));
         Variables.set("_OsName_", new StringValue((java.lang.System.getProperty("os.name"))));
         Variables.set("_UserName_", new StringValue((java.lang.System.getProperty("user.name"))));
