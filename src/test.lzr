@@ -13,37 +13,4 @@ println(_FileSeparator_)
 println(_PathSeparator_)
 print(_LineSeparator_)*/
 
-using "XML"
-root = xml.read("file.xml")
-println(root)
 
-node = xml.selectNode(root, "//note/body")
-println(node)
-
-mood = xml.getAttribute(node, "@mood")
-println("Mood: " + mood)
-
-println("Loops test")
-println("########################")
-
-nodes = xml.selectNodes(root, "//note/*")
-
-for (i = 0, i < length(nodes), i++) {
-    node = nodes[i]
-    println(xml.getNodeName(node) + " " + xml.getAttribute(node, "@mood"))
-}
-
-println("\nWrite test")
-println("#########################")
-
-println(document = xml.spawnRootElement(xml.createEmptyDocument(), "workers"))
-println(document)
-
-println(element1 = xml.createElement(document, "worker"))
-xml.addElementAttribute(element1, "name", "john")
-xml.setElementText(element1, "Hi! I'm John!")
-
-xml.dumpXML("new.xml", document)
-
-
-//C:\Users\crowb\OneDrive\Рабочий стол\lzgit\Lazurite\src\test.lzr
