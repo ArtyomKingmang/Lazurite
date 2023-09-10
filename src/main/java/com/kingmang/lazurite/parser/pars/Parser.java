@@ -152,6 +152,8 @@ public final class Parser {
         if (match(TokenType.SWITCH)) {
             return match();
         }
+
+
         if (match(TokenType.CLASS)) {
             return classDeclaration();
         }
@@ -163,6 +165,9 @@ public final class Parser {
         }
         return assignmentStatement();
     }
+
+
+
 
     private Statement throwSt() {
         String type = consume(TokenType.WORD).getText();

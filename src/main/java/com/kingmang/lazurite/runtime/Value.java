@@ -6,7 +6,6 @@ public interface Value extends Comparable<Value> {
     
     int asInt();
 
-
     double asNumber();
     
     String asString();

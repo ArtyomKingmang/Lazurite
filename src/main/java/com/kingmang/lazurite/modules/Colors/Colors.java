@@ -1,15 +1,8 @@
 package com.kingmang.lazurite.modules.Colors;
 
 
-import com.kingmang.lazurite.base.Arguments;
 import com.kingmang.lazurite.modules.Module;
 import com.kingmang.lazurite.runtime.*;
-import com.kingmang.lazurite.runtime.ClassValue;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 
 public class Colors implements Module {

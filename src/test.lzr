@@ -1,7 +1,5 @@
-/*using "System"
+using "System"
 using "Colors"
-
-println(sprintf(GREEN))
 
 println(_JVMVersion_)
 println(_LZRVersion_)
@@ -11,6 +9,8 @@ println(_OsArch_)
 println(_OsVersion_)
 println(_FileSeparator_)
 println(_PathSeparator_)
-print(_LineSeparator_)*/
+print(_LineSeparator_)
+
+
 
 

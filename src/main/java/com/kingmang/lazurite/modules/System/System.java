@@ -1,8 +1,7 @@
 package com.kingmang.lazurite.modules.System;
 
 import com.kingmang.lazurite.modules.Module;
-import com.kingmang.lazurite.runtime.StringValue;
-import com.kingmang.lazurite.runtime.Variables;
+import com.kingmang.lazurite.runtime.*;
 
 import static com.kingmang.lazurite.Main.VERSION;
 
@@ -18,7 +17,6 @@ public class System implements Module {
         Variables.set("_FileSeparator_", new StringValue((java.lang.System.getProperty("file.separator"))));
         Variables.set("_PathSeparator_", new StringValue((java.lang.System.getProperty("path.separator"))));
         Variables.set("_LineSeparator_", new StringValue((java.lang.System.getProperty("line.separator"))));
-
     }
 
 }
