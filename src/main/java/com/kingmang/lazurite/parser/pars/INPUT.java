@@ -12,6 +12,6 @@ public final class INPUT implements Function {
     public Value execute(Value... args) {
         Scanner sc = new Scanner(System.in);
             return new StringValue(sc.nextLine());
-
     }
+
 }

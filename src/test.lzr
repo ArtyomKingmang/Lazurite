@@ -1,16 +1,23 @@
+using "time"
 using "System"
 using "Colors"
 
+
+
+
 println(_JVMVersion_)
 println(_LZRVersion_)
+
 println(_OsName_)
 println(_UserName_)
 println(_OsArch_)
 println(_OsVersion_)
 println(_FileSeparator_)
 println(_PathSeparator_)
-print(_LineSeparator_)
+println(_LineSeparator_)
 
 
 
 
+
+//C:\Users\crowb\OneDrive\Рабочий стол\lzgit\Lazurite\src\test.lzr

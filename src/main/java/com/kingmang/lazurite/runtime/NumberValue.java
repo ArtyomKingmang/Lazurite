@@ -3,6 +3,8 @@ package com.kingmang.lazurite.runtime;
 
 import com.kingmang.lazurite.base.Types;
 
+import java.time.LocalDate;
+
 public final class NumberValue implements Value {
 
     private static final int CACHE_MIN = -128;
@@ -27,7 +29,8 @@ public final class NumberValue implements Value {
         ZERO = NUMBER_CACHE[zeroIndex];
         ONE = NUMBER_CACHE[zeroIndex + 1];
     }
-    
+
+
     public static NumberValue fromBoolean(boolean b) {
         return b ? ONE : ZERO;
     }
