@@ -7,8 +7,12 @@ import com.kingmang.lazurite.parser.pars.FunctionAdder;
 import com.kingmang.lazurite.runtime.Time;
 
 import java.io.BufferedReader;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.net.URL;
+import java.nio.channels.Channels;
+import java.nio.channels.ReadableByteChannel;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -21,6 +25,7 @@ public class Main  {
     public static String VERSION(){
         return "2.6";
     }
+    public static String link = "";
     public static int check = 0;
     static Settings setting = new Settings();
 
@@ -59,6 +64,15 @@ public class Main  {
             String in = scan.nextLine();
             check = 0;
             RUN(in);
+
+        } else if (cmd.contains("-lpm")|| cmd.contains("--lpm")) {
+            String[] objs = cmd.split(" ");
+            if (objs[1].equals("install")) {
+                URL website = new URL(link + objs[2] + ".spk");
+                ReadableByteChannel rbc = Channels.newChannel(website.openStream());
+                FileOutputStream fos = new FileOutputStream("User Modules\\" + objs[2] + ".lzr");
+                fos.getChannel().transferFrom(rbc, 0, Long.MAX_VALUE);
+            }
 
         } else if (cmd.contains("--version")||cmd.contains("-v")) {
             System.out.println("---------------------------------");
