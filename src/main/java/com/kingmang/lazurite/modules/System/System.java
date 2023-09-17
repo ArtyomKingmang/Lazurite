@@ -24,6 +24,7 @@ public class System implements Module {
 
     public void init (){
         initConstant();
+
         KEYWORD.put("exit", (Value... args) -> {
             Arguments.check(1, args.length);
             try {

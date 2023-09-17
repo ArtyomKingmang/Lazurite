@@ -16,19 +16,19 @@ public final class ML implements Module {
 
     public static void initConstants() {
         Variables.define("PI", NumberValue.of(Math.PI));
-
     }
 
     @Override
     public void init() {
         initConstants();
-
+        KEYWORD.put("acos", functionConvert(Math::acos));
         KEYWORD.put("abs", ML::abs);
         KEYWORD.put("cos", functionConvert(Math::cos));
         KEYWORD.put("log", functionConvert(Math::log));
         KEYWORD.put("sin", functionConvert(Math::sin));
         KEYWORD.put("sqrt", functionConvert(Math::sqrt));
         KEYWORD.put("tan", functionConvert(Math::tan));
+
     }
 
     private static Value abs(Value... args) {
