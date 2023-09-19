@@ -15,7 +15,6 @@ public class Colors implements Module {
         Variables.set("WHITE", new StringValue("\u001b[37m"));
         Variables.set("BLACK", new StringValue("\u001b[40m"));
         Variables.set("PURPLE", new StringValue("\u001b[35m"));
-        Variables.set("PINK", new NumberValue(16761037));
         Variables.set("YELLOW", new StringValue("\u001b[33m"));
         Variables.set("CYAN",new StringValue("\u001b[36m"));
     }
