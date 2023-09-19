@@ -106,7 +106,7 @@ public class Graph implements Module {
     public void init() {
         initColors();
         initKeys();
-
+        KEYWORD.put("background", new background());
         KEYWORD.put("Frame", new Frame());
         KEYWORD.put("fill3d", intConsumer4Convert(Graph::fill3d));
         KEYWORD.put("cube", intConsumer4Convert(Graph::Cude));
@@ -119,7 +119,7 @@ public class Graph implements Module {
         KEYWORD.put("rect", intConsumer4Convert(Graph::rect));
         KEYWORD.put("clip", intConsumer4Convert(Graph::clip));
         KEYWORD.put("text", new DrawText());
-        KEYWORD.put("fill", new SetColor());
+        KEYWORD.put("fill", new fill());
         KEYWORD.put("Redraw", (Function) new Redraw());
         lastKey = MINUS_ONE;
         mouseHover = new ArrayValue(new Value[]{NumberValue.ZERO, NumberValue.ZERO});
@@ -144,6 +144,7 @@ public class Graph implements Module {
     private static void lellipse(int x, int y, int w, int h) {
         graphics.drawOval(x, y, w, h);
     }
+
 
     private static void ellipse(int x, int y, int w, int h) {
         graphics.fillOval(x, y, w, h);
@@ -273,7 +274,6 @@ public class Graph implements Module {
 
 
     private static class Redraw implements Function {
-
         @Override
         public Value execute(Value... args) {
             panel.invalidate();
@@ -281,8 +281,23 @@ public class Graph implements Module {
             return NumberValue.ZERO;
         }
     }
+    private static class background implements Function {
 
-    private static class SetColor implements Function {
+        @Override
+        public Value execute(Value... args) {
+            if (args.length == 1) {
+                panel.setBackground(new Color((int) args[0].asNumber()));
+                return NumberValue.ZERO;
+            }
+            int r = (int) args[0].asNumber();
+            int g = (int) args[1].asNumber();
+            int b = (int) args[2].asNumber();
+            panel.setBackground(new Color(r, g, b));
+            return NumberValue.ZERO;
+        }
+    }
+
+    private static class fill implements Function {
 
         @Override
         public Value execute(Value... args) {

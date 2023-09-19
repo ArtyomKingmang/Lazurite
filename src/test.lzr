@@ -1,8 +1,9 @@
-using "JSON"
+using "Graph"
+Frame(500,500
+background(10,10,20)
 
-print(JSONDecode("{\"key1\":1,\"key2\":[1,2,3],\"key3\":\"text\"}"))
 
-//
+//C:\Users\crowb\OneDrive\Рабочий стол\lzgit\Lazurite\src\test.lzr
 
 
 
