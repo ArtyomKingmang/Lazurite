@@ -1,12 +1,8 @@
-using "Graph"
-using "Colors"
+using "JSON"
 
-Frame(500,500)
+print(JSONDecode("{\"key1\":1,\"key2\":[1,2,3],\"key3\":\"text\"}"))
 
-fill(PINK)
-rect(100,100,200,200)
-
-//C:\Users\crowb\OneDrive\Рабочий стол\lzgit\Lazurite\src\test.lzr
+//
 
 
 
