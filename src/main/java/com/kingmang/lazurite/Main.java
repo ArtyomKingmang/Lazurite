@@ -30,13 +30,37 @@ public class Main  {
     static Settings setting = new Settings();
 
     public static void main(String[] args) throws IOException{
-        System.out.println("\n\t*****************LAZURITE******************\n" +
-                "\tLazurite "+ VERSION() +" Author: Kingmang\n" +
-                "\t*******************************************");
-        Help();
         while(true)Start();
 
 
+
+    }
+
+    public static void Start() throws IOException {
+        System.out.println("\n");
+        BufferedReader sc = new BufferedReader(new InputStreamReader(System.in));
+        String cmd = sc.readLine();
+        if (cmd.contains("lazurite") || cmd.contains("lzr")) {
+            String[] objs = cmd.split(" ");
+            if (objs[1].equals("--run")||objs[1].equals("-r")) {
+                System.out.print("\n\nEnter path to your file: ");
+                Scanner scan = new Scanner(System.in);
+                String in = scan.nextLine();
+                check = 0;
+                RUN(in);
+            }else if(objs[1].equals("--help")||objs[1].equals("-h")){
+                Help();
+                check = 0;
+            }else if(objs[1].equals("--version")||objs[1].equals("-v")){
+                ver();
+                check = 0;
+            }
+         }else if(cmd.contains("cls")|| cmd.contains("clear")){
+            check = 0;
+            clear();
+        }else{
+            ver();
+        }
 
     }
 
@@ -50,54 +74,17 @@ public class Main  {
         );
 
     }
-    public static void Start() throws IOException {
-        System.out.println("\n\n\n------------------------------------------------------------\n\n");
-        BufferedReader sc = new BufferedReader(new InputStreamReader(System.in));
-        String cmd = sc.readLine();
-        if (cmd.contains("--help")||cmd.contains("-h")) {
-            Help();
-            check = 0;
-
-        } else if (cmd.contains("--run")||cmd.contains("-r")) {
-            System.out.print("\n\nEnter path to your file: ");
-            Scanner scan = new Scanner(System.in);
-            String in = scan.nextLine();
-            check = 0;
-            RUN(in);
-
-        } else if (cmd.contains("-lpm")|| cmd.contains("--lpm")) {
-            String[] objs = cmd.split(" ");
-            if (objs[1].equals("install")) {
-                URL website = new URL(link + objs[2] + ".spk");
-                ReadableByteChannel rbc = Channels.newChannel(website.openStream());
-                FileOutputStream fos = new FileOutputStream("User Modules\\" + objs[2] + ".lzr");
-                fos.getChannel().transferFrom(rbc, 0, Long.MAX_VALUE);
-            }
-
-        } else if (cmd.contains("--version")||cmd.contains("-v")) {
-            System.out.println("---------------------------------");
-            System.out.println("Lazurite version: " + VERSION());
-            System.out.println("---------------------------------");
-            check = 0;
-
-        }else if (cmd.contains("--timetest")||cmd.contains("-tt")){
-            System.out.print("\n\nEnter path to your file: ");
-            Scanner scan = new Scanner(System.in);
-            String in = scan.nextLine();
-            check = 1;
-            RUN(in);
-
-
-        } else if (cmd.contains("cls")) {
-            System.out.print("\033[H\033[2J");
-            System.out.flush();
-            check = 0;
-
-        } else {
-            System.out.println("Command not found!");
-        }
+    public static void ver(){
+        System.out.println("---------------------------------");
+        System.out.println("Lazurite version: " + VERSION());
+        System.out.println("---------------------------------");
     }
 
+    public static void clear(){
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
+        check = 0;
+    }
 
     public static void RUN(String input) throws IOException {
         Settings setting = new Settings();
