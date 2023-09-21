@@ -125,6 +125,7 @@ public final class Parser {
         if (match(TokenType.IF)) {
             return ifElse();
         }
+
         if (match(TokenType.WHILE)) {
             return whileStatement();
         }

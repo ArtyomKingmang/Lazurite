@@ -1,5 +1,6 @@
 package com.kingmang.lazurite.modules.Graph;
 
+import com.kingmang.lazurite.LZREx.LZRExeption;
 import com.kingmang.lazurite.base.Function;
 import com.kingmang.lazurite.base.KEYWORD;
 import com.kingmang.lazurite.lib.Functions;
@@ -9,6 +10,7 @@ import com.kingmang.lazurite.runtime.NumberValue;
 import com.kingmang.lazurite.runtime.Value;
 import com.kingmang.lazurite.runtime.Variables;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyAdapter;
@@ -16,6 +18,9 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
 import java.awt.image.BufferedImage;
+import java.awt.image.ImageObserver;
+import java.io.File;
+import java.io.IOException;
 
 public class Graph implements Module {
 
@@ -107,8 +112,12 @@ public class Graph implements Module {
         initColors();
         initKeys();
         KEYWORD.put("background", new background());
+        KEYWORD.put("LImage", new LImage());
+        KEYWORD.put("image", new image());
         KEYWORD.put("rotate", new rotate());
         KEYWORD.put("scale", new scale());
+        KEYWORD.put("font", new font());
+        KEYWORD.put("stroke", new stroke());
         KEYWORD.put("translate", new translate());
         KEYWORD.put("Frame", new Frame());
         KEYWORD.put("fill3d", intConsumer4Convert(Graph::fill3d));
@@ -139,39 +148,6 @@ public class Graph implements Module {
             consumer.accept(x, y, w, h);
             return NumberValue.ZERO;
         };
-    }
-    private static void line(int x1, int y1, int x2, int y2) {
-        graphics.drawLine(x1, y1, x2, y2);
-    }
-
-    private static void lellipse(int x, int y, int w, int h) {
-        graphics.drawOval(x, y, w, h);
-    }
-
-
-    private static void ellipse(int x, int y, int w, int h) {
-        graphics.fillOval(x, y, w, h);
-    }
-
-    private static void lrect(int x, int y, int w, int h) {
-        graphics.drawRect(x, y, w, h);
-    }
-    private static void Cude(int x, int y, int w, int h) {
-        graphics.draw3DRect(x,y,w,h,true);
-    }
-
-    private static void fill3d(int x, int y, int w, int h) {
-        graphics.fill3DRect(x,y,w,h,true);
-    }
-
-    private static void rect(int x, int y, int w, int h) {
-        graphics.fillRect(x, y, w, h);
-    }
-
-
-
-    private static void clip(int x, int y, int w, int h) {
-        graphics.setClip(x, y, w, h);
     }
 
 
@@ -303,6 +279,52 @@ public class Graph implements Module {
         }
     }
 
+    private static class font implements Function {
+        @Override
+        public Value execute(Value... args) {
+           graphics.setFont((Font) args[0]);
+            return NumberValue.ZERO;
+        }
+    }
+    private static class stroke implements Function {
+        @Override
+        public Value execute(Value... args) {
+            graphics.setStroke((Stroke) args[0]);
+            return NumberValue.ZERO;
+        }
+    }
+    private static class LImage implements Function {
+        @Override
+        public Value execute(Value... args) {
+            try {
+                ImageIO.read(new File("C:\\Projects\\MavenSandbox\\src\\main\\resources\\img.jpg"));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return NumberValue.ZERO;
+        }
+    }
+
+    private static class image implements Function {
+        @Override
+        public Value execute(Value... args) {
+
+
+            int x = (int) args[1].asNumber();
+            int y = (int) args[2].asNumber();
+            if (args.length == 3){
+                graphics.drawImage((Image) args[0], x, y, null);
+            }else if(args.length == 4) {
+                graphics.drawImage((Image) args[0], x, y, (ImageObserver) args[3]);
+            }else{
+                throw new LZRExeption("RuntimeExeption", "Three args expected");
+            }
+            return NumberValue.ZERO;
+        }
+    }
+
+
+
     private static class rotate implements Function {
         @Override
         public Value execute(Value... args) {
@@ -351,4 +373,24 @@ public class Graph implements Module {
         }
     }
 
+    private static void line(int x1, int y1, int x2, int y2) {
+        graphics.drawLine(x1, y1, x2, y2);
+    }
+    private static void lellipse(int x, int y, int w, int h) {
+        graphics.drawOval(x, y, w, h);
+    }
+    private static void ellipse(int x, int y, int w, int h) {
+        graphics.fillOval(x, y, w, h);
+    }
+    private static void lrect(int x, int y, int w, int h) {
+        graphics.drawRect(x, y, w, h);
+    }
+    private static void Cude(int x, int y, int w, int h) {
+        graphics.draw3DRect(x,y,w,h,true);
+    }
+    private static void fill3d(int x, int y, int w, int h) {graphics.fill3DRect(x,y,w,h,true);}
+    private static void rect(int x, int y, int w, int h) {graphics.fillRect(x, y, w, h);}
+    private static void clip(int x, int y, int w, int h) {
+        graphics.setClip(x, y, w, h);
+    }
 }
