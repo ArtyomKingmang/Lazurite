@@ -41,7 +41,9 @@ public class Main  {
         BufferedReader sc = new BufferedReader(new InputStreamReader(System.in));
         String cmd = sc.readLine();
         if (cmd.contains("lazurite") || cmd.contains("lzr")) {
+
             String[] objs = cmd.split(" ");
+
             if (objs[1].equals("--run")||objs[1].equals("-r")) {
                 System.out.print("\n\nEnter path to your file: ");
                 Scanner scan = new Scanner(System.in);
@@ -59,7 +61,7 @@ public class Main  {
             check = 0;
             clear();
         }else{
-            ver();
+            about();
         }
 
     }
@@ -77,6 +79,12 @@ public class Main  {
     public static void ver(){
         System.out.println("---------------------------------");
         System.out.println("Lazurite version: " + VERSION());
+        System.out.println("---------------------------------");
+    }
+
+    public static void about(){
+        ver();
+        System.out.println("Author: Artyom Kingmang");
         System.out.println("---------------------------------");
     }
 

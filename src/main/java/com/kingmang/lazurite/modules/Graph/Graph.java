@@ -107,6 +107,7 @@ public class Graph implements Module {
         initColors();
         initKeys();
         KEYWORD.put("background", new background());
+        KEYWORD.put("translate", new translate());
         KEYWORD.put("Frame", new Frame());
         KEYWORD.put("fill3d", intConsumer4Convert(Graph::fill3d));
         KEYWORD.put("cube", intConsumer4Convert(Graph::Cude));
@@ -164,6 +165,8 @@ public class Graph implements Module {
     private static void rect(int x, int y, int w, int h) {
         graphics.fillRect(x, y, w, h);
     }
+
+
 
     private static void clip(int x, int y, int w, int h) {
         graphics.setClip(x, y, w, h);
@@ -281,6 +284,15 @@ public class Graph implements Module {
             return NumberValue.ZERO;
         }
     }
+
+    private static class translate implements Function {
+        @Override
+        public Value execute(Value... args) {
+            graphics.translate(args[0].asNumber(),args[1].asNumber());
+            return NumberValue.ZERO;
+        }
+    }
+
     private static class background implements Function {
 
         @Override
