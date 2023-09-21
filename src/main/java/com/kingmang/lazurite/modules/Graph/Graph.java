@@ -107,6 +107,8 @@ public class Graph implements Module {
         initColors();
         initKeys();
         KEYWORD.put("background", new background());
+        KEYWORD.put("rotate", new rotate());
+        KEYWORD.put("scale", new scale());
         KEYWORD.put("translate", new translate());
         KEYWORD.put("Frame", new Frame());
         KEYWORD.put("fill3d", intConsumer4Convert(Graph::fill3d));
@@ -292,6 +294,30 @@ public class Graph implements Module {
             return NumberValue.ZERO;
         }
     }
+
+    private static class scale implements Function {
+        @Override
+        public Value execute(Value... args) {
+            graphics.scale(args[0].asNumber(),args[1].asNumber());
+            return NumberValue.ZERO;
+        }
+    }
+
+    private static class rotate implements Function {
+        @Override
+        public Value execute(Value... args) {
+            if (args.length == 1) {
+                graphics.rotate(args[0].asNumber());
+                return NumberValue.ZERO;
+            } else if (args.length == 3) {
+                graphics.rotate(args[0].asNumber(), args[1].asNumber(), args[3].asNumber());
+            }else{
+                if (args.length >= 3) throw new RuntimeException("Three args expected");
+            }
+            return NumberValue.ZERO;
+        }
+    }
+
 
     private static class background implements Function {
 
