@@ -1,6 +1,5 @@
-using "Graph"
+print("Hello")
 
-Frame(500,500)
+//C:\Users\crowb\OneDrive\Рабочий стол\lzgit\Lazurite\src\test.lzr
 
-img = LImage("person.png")
-image(img,100,100)
+

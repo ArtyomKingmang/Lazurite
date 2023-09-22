@@ -32,8 +32,6 @@ public class Main  {
     public static void main(String[] args) throws IOException{
         while(true)Start();
 
-
-
     }
 
     public static void Start() throws IOException {
@@ -48,8 +46,22 @@ public class Main  {
                 System.out.print("\n\nEnter path to your file: ");
                 Scanner scan = new Scanner(System.in);
                 String in = scan.nextLine();
-                check = 0;
-                RUN(in);
+                RUN(in, false, false, false, 0);
+
+            }else if (objs[1].equals("--optimize")||objs[1].equals("-op")) {
+                System.out.print("\n\nEnter path to your file: ");
+                Scanner scan = new Scanner(System.in);
+                String in = scan.nextLine();
+                System.out.print("\n\nEnter optimization lvl: ");
+                int lvl = scan.nextInt();
+                RUN(in, false, false, false, lvl);
+
+            }else if (objs[1].equals("--lint")||objs[1].equals("-l")) {
+            System.out.print("\n\nEnter path to your file: ");
+            Scanner scan = new Scanner(System.in);
+            String in = scan.nextLine();
+            RUN(in,false,true, false, 0);
+
             }else if(objs[1].equals("--help")||objs[1].equals("-h")){
                 Help();
                 check = 0;
@@ -60,6 +72,8 @@ public class Main  {
          }else if(cmd.contains("cls")|| cmd.contains("clear")){
             check = 0;
             clear();
+        }else if(cmd.contains("--help") || cmd.contains("-h")){
+               Help();
         }else{
             about();
         }
@@ -68,10 +82,12 @@ public class Main  {
 
     public  static void Help(){
         System.out.println(
+                "lazurite/ lzr +\n" +
                 "\n--run / -r - asks for the path to the file and runs it\n" +
                         "--version / -v - returns the version of Lazurite\n" +
                         "--help / -h - show help commands\n" +
-                        "--timetest/ -tt - shows how long it took to run the program\n"+
+                        "--lint/ -l - lint Mode\n"+
+                        "--optimize/ -op - optimize program (5 levels)\n" +
                         "cls - clears the command line\n"
         );
 
@@ -86,6 +102,8 @@ public class Main  {
         ver();
         System.out.println("Author: Artyom Kingmang");
         System.out.println("---------------------------------");
+        System.out.println("Enter: --help for more information");
+        System.out.println("---------------------------------");
     }
 
     public static void clear(){
@@ -94,17 +112,27 @@ public class Main  {
         check = 0;
     }
 
-    public static void RUN(String input) throws IOException {
-        Settings setting = new Settings();
-        if(check==1)setting.showMeasurements = true;
-        RunProgram(SourceLoader.readSource(input), setting);
-
+    public static void RUN(String input, boolean showMeasurement, boolean lintMde, boolean beautifyMod, int optLvl ) throws IOException {
+        RunProgram(SourceLoader.readSource(input), showMeasurement, lintMde, beautifyMod,optLvl);
+        /*
+         1. showTokens = false;
+         2. showAst = false;
+         3. showMeasurements = false;
+         4. lintMode = false;
+         5. beautifyMode = false;
+         6. optimizationLevel = 0;
+         */
     }
 
 
 
-    private static void RunProgram(String input, Settings options) throws IOException {
+    private static void RunProgram(String input, boolean showMeasuremen,boolean lintMd, boolean beautifyMd, int optLv) throws IOException {
+        final Settings options = new Settings();
         options.validate();
+        options.showMeasurements = showMeasuremen;
+        options.lintMode = lintMd;
+        options.beautifyMode = beautifyMd;
+
         final Time measurement = new Time();
         measurement.start("Tokenize time");
         final List<Token> tokens = Lexer.tokenize(input);
