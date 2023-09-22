@@ -3,7 +3,6 @@ package com.kingmang.lazurite.modules.Graph;
 import com.kingmang.lazurite.LZREx.LZRExeption;
 import com.kingmang.lazurite.base.Function;
 import com.kingmang.lazurite.base.KEYWORD;
-import com.kingmang.lazurite.lib.Functions;
 import com.kingmang.lazurite.modules.Module;
 import com.kingmang.lazurite.runtime.ArrayValue;
 import com.kingmang.lazurite.runtime.NumberValue;
