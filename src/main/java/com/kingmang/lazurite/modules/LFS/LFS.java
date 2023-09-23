@@ -6,6 +6,8 @@ import com.kingmang.lazurite.base.*;
 import com.kingmang.lazurite.modules.Module;
 import com.kingmang.lazurite.runtime.*;
 import com.kingmang.lazurite.parser.pars.Console;
+import com.kingmang.lazurite.runtime.LZR.LZRArray;
+import com.kingmang.lazurite.runtime.LZR.LZRNumber;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -75,7 +77,7 @@ public final class LFS implements Module {
                 }
                 return process(file, "r");
             } catch (IOException ioe) {
-                return NumberValue.MINUS_ONE;
+                return LZRNumber.MINUS_ONE;
             }
         }
         
@@ -99,7 +101,7 @@ public final class LFS implements Module {
             
             final int key = files.size();
             files.put(key, new FileInfo(file, dis, dos, reader, writer));
-            return NumberValue.of(key);
+            return LZRNumber.of(key);
         }
     }
     
@@ -112,7 +114,7 @@ public final class LFS implements Module {
             try {
                 return execute(files.get(key), args);
             } catch (IOException ioe) {
-                return NumberValue.MINUS_ONE;
+                return LZRNumber.MINUS_ONE;
             }
         }
         
@@ -122,7 +124,7 @@ public final class LFS implements Module {
     private static class listFiles extends FileFunction {
         @Override
         protected Value execute(FileInfo fileInfo, Value[] args) throws IOException {
-            return ArrayValue.of(fileInfo.file.list());
+            return LZRArray.of(fileInfo.file.list());
         }
     }
 
@@ -138,9 +140,9 @@ public final class LFS implements Module {
                 ic.transferTo(0, ic.size(), os.getChannel());
                 is.close();
                 os.close();
-                return NumberValue.ONE;
+                return LZRNumber.ONE;
             } catch (IOException ioe) {
-                return NumberValue.MINUS_ONE;
+                return LZRNumber.MINUS_ONE;
             }
         }
     }
@@ -150,14 +152,14 @@ public final class LFS implements Module {
         @Override
         public Value execute(Value... args) {
             Arguments.check(2, args.length);
-            return NumberValue.fromBoolean( fileFrom(args[0]).renameTo(fileFrom(args[1])) );
+            return LZRNumber.fromBoolean( fileFrom(args[0]).renameTo(fileFrom(args[1])) );
         }
     }
     
     private static class fileSize extends FileFunction {
         @Override
         protected Value execute(FileInfo fileInfo, Value[] args) throws IOException {
-            return NumberValue.of(fileInfo.file.length());
+            return LZRNumber.of(fileInfo.file.length());
         }
     }
 
@@ -166,7 +168,7 @@ public final class LFS implements Module {
         @Override
         protected Value execute(FileInfo fileInfo, Value[] args) throws IOException {
             fileInfo.dos.writeBoolean(args[1].asInt() != 0);
-            return NumberValue.ONE;
+            return LZRNumber.ONE;
         }
     }
     
@@ -174,7 +176,7 @@ public final class LFS implements Module {
         @Override
         protected Value execute(FileInfo fileInfo, Value[] args) throws IOException {
             fileInfo.dos.writeByte((byte) args[1].asInt());
-            return NumberValue.ONE;
+            return LZRNumber.ONE;
         }
     }
 
@@ -187,7 +189,7 @@ public final class LFS implements Module {
                     ? ((char) args[1].asInt())
                     : args[1].asString().charAt(0);
             fileInfo.dos.writeChar(ch);
-            return NumberValue.ONE;
+            return LZRNumber.ONE;
         }
     }
     
@@ -195,7 +197,7 @@ public final class LFS implements Module {
         @Override
         protected Value execute(FileInfo fileInfo, Value[] args) throws IOException {
             fileInfo.dos.writeShort((short) args[1].asInt());
-            return NumberValue.ONE;
+            return LZRNumber.ONE;
         }
     }
     
@@ -203,7 +205,7 @@ public final class LFS implements Module {
         @Override
         protected Value execute(FileInfo fileInfo, Value[] args) throws IOException {
             fileInfo.dos.writeInt(args[1].asInt());
-            return NumberValue.ONE;
+            return LZRNumber.ONE;
         }
     }
     
@@ -212,12 +214,12 @@ public final class LFS implements Module {
         protected Value execute(FileInfo fileInfo, Value[] args) throws IOException {
             final long value;
             if (args[1].type() == Types.NUMBER) {
-                value = ((NumberValue)args[1]).asLong();
+                value = ((LZRNumber)args[1]).asLong();
             } else {
                 value = (long) args[1].asNumber();
             }
             fileInfo.dos.writeLong(value);
-            return NumberValue.ONE;
+            return LZRNumber.ONE;
         }
     }
     
@@ -226,12 +228,12 @@ public final class LFS implements Module {
         protected Value execute(FileInfo fileInfo, Value[] args) throws IOException {
             final float value;
             if (args[1].type() == Types.NUMBER) {
-                value = ((NumberValue)args[1]).asFloat();
+                value = ((LZRNumber)args[1]).asFloat();
             } else {
                 value = (float) args[1].asNumber();
             }
             fileInfo.dos.writeFloat(value);
-            return NumberValue.ONE;
+            return LZRNumber.ONE;
         }
     }
     
@@ -239,7 +241,7 @@ public final class LFS implements Module {
         @Override
         protected Value execute(FileInfo fileInfo, Value[] args) throws IOException {
             fileInfo.dos.writeDouble(args[1].asNumber());
-            return NumberValue.ONE;
+            return LZRNumber.ONE;
         }
     }
     
@@ -247,7 +249,7 @@ public final class LFS implements Module {
         @Override
         protected Value execute(FileInfo fileInfo, Value[] args) throws IOException {
             fileInfo.dos.writeUTF(args[1].asString());
-            return NumberValue.ONE;
+            return LZRNumber.ONE;
         }
     }
     
@@ -256,7 +258,7 @@ public final class LFS implements Module {
         protected Value execute(FileInfo fileInfo, Value[] args) throws IOException {
             fileInfo.writer.write(args[1].asString());
             fileInfo.writer.newLine();
-            return NumberValue.ONE;
+            return LZRNumber.ONE;
         }
     }
 
@@ -264,7 +266,7 @@ public final class LFS implements Module {
         @Override
         protected Value execute(FileInfo fileInfo, Value[] args) throws IOException {
             fileInfo.writer.write(args[1].asString());
-            return NumberValue.ONE;
+            return LZRNumber.ONE;
         }
     }
     
@@ -285,7 +287,7 @@ public final class LFS implements Module {
             if (fileInfo.writer != null) {
                 fileInfo.writer.close();
             }
-            return NumberValue.ONE;
+            return LZRNumber.ONE;
         }
     }
 
@@ -304,7 +306,7 @@ public final class LFS implements Module {
     private static Function fileToBoolean(FileToBooleanFunction f) {
         return args -> {
             Arguments.check(1, args.length);
-            return NumberValue.fromBoolean(f.apply(fileFrom(args[0])));
+            return LZRNumber.fromBoolean(f.apply(fileFrom(args[0])));
         };
     }
     

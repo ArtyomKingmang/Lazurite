@@ -9,7 +9,6 @@ public final class Arrays implements Module {
 
     @Override
     public void init() {
-
         KEYWORD.put("Array", new NEWARR());
         KEYWORD.put("join", new JOIN());
         KEYWORD.put("sort", new SORT());

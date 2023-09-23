@@ -1,7 +1,7 @@
 package com.kingmang.lazurite.parser.pars;
 
 import com.kingmang.lazurite.base.Function;
-import com.kingmang.lazurite.runtime.NumberValue;
+import com.kingmang.lazurite.runtime.LZR.LZRNumber;
 import com.kingmang.lazurite.runtime.Value;
 
 public final class ECHO implements Function {
@@ -14,6 +14,6 @@ public final class ECHO implements Function {
             sb.append(" ");
         }
         Console.println(sb.toString());
-        return NumberValue.ZERO;
+        return LZRNumber.ZERO;
     }
 }

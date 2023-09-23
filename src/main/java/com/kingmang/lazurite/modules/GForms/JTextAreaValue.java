@@ -2,8 +2,8 @@ package com.kingmang.lazurite.modules.GForms;
 
 
 import com.kingmang.lazurite.base.*;
-import com.kingmang.lazurite.runtime.FunctionValue;
-import com.kingmang.lazurite.runtime.NumberValue;
+import com.kingmang.lazurite.runtime.LZR.LZRFunction;
+import com.kingmang.lazurite.runtime.LZR.LZRNumber;
 import com.kingmang.lazurite.runtime.Value;
 
 import javax.swing.JTextArea;
@@ -42,19 +42,19 @@ public class JTextAreaValue extends JTextComponentValue {
     private Value insert(Value[] args) {
         Arguments.check(2, args.length);
         textArea.insert(args[0].asString(), args[1].asInt());
-        return NumberValue.ZERO;
+        return LZRNumber.ZERO;
     }
     
     private interface OffsetFunction {
         int accept(int line) throws BadLocationException;
     }
     
-    private FunctionValue offsetFunction(OffsetFunction f) {
-        return new FunctionValue(args -> {
+    private LZRFunction offsetFunction(OffsetFunction f) {
+        return new LZRFunction(args -> {
             Arguments.check(1, args.length);
             try {
                 int result = f.accept(args[0].asInt());
-                return NumberValue.of(result);
+                return LZRNumber.of(result);
             } catch (BadLocationException ex) {
                 throw new RuntimeException(ex);
             }

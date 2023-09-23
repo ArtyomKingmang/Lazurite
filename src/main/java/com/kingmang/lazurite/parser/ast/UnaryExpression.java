@@ -1,8 +1,8 @@
 package com.kingmang.lazurite.parser.ast;
 
 import com.kingmang.lazurite.LZREx.LZRExeption;
-import com.kingmang.lazurite.runtime.NumberValue;
-import com.kingmang.lazurite.runtime.StringValue;
+import com.kingmang.lazurite.runtime.LZR.LZRNumber;
+import com.kingmang.lazurite.runtime.LZR.LZRString;
 import com.kingmang.lazurite.base.Types;
 import com.kingmang.lazurite.runtime.Value;
 
@@ -87,66 +87,66 @@ public final class UnaryExpression implements Expression, Statement {
         if (value.type() == Types.NUMBER) {
             final Number number = (Number) value.raw();
             if (number instanceof Double) {
-                return NumberValue.of(number.doubleValue() + 1);
+                return LZRNumber.of(number.doubleValue() + 1);
             }
             if (number instanceof Float) {
-                return NumberValue.of(number.floatValue() + 1);
+                return LZRNumber.of(number.floatValue() + 1);
             }
             if (number instanceof Long) {
-                return NumberValue.of(number.longValue() + 1);
+                return LZRNumber.of(number.longValue() + 1);
             }
         }
-        return NumberValue.of(value.asInt() + 1);
+        return LZRNumber.of(value.asInt() + 1);
     }
     
     private Value decrement(Value value) {
         if (value.type() == Types.NUMBER) {
             final Number number = (Number) value.raw();
             if (number instanceof Double) {
-                return NumberValue.of(number.doubleValue() - 1);
+                return LZRNumber.of(number.doubleValue() - 1);
             }
             if (number instanceof Float) {
-                return NumberValue.of(number.floatValue() - 1);
+                return LZRNumber.of(number.floatValue() - 1);
             }
             if (number instanceof Long) {
-                return NumberValue.of(number.longValue() - 1);
+                return LZRNumber.of(number.longValue() - 1);
             }
         }
-        return NumberValue.of(value.asInt() - 1);
+        return LZRNumber.of(value.asInt() - 1);
     }
     
     private Value negate(Value value) {
         if (value.type() == Types.STRING) {
             final StringBuilder sb = new StringBuilder(value.asString());
-            return new StringValue(sb.reverse().toString());
+            return new LZRString(sb.reverse().toString());
         }
         if (value.type() == Types.NUMBER) {
             final Number number = (Number) value.raw();
             if (number instanceof Double) {
-                return NumberValue.of(-number.doubleValue());
+                return LZRNumber.of(-number.doubleValue());
             }
             if (number instanceof Float) {
-                return NumberValue.of(-number.floatValue());
+                return LZRNumber.of(-number.floatValue());
             }
             if (number instanceof Long) {
-                return NumberValue.of(-number.longValue());
+                return LZRNumber.of(-number.longValue());
             }
         }
-        return NumberValue.of(-value.asInt());
+        return LZRNumber.of(-value.asInt());
     }
     
     private Value complement(Value value) {
         if (value.type() == Types.NUMBER) {
             final Number number = (Number) value.raw();
             if (number instanceof Long) {
-                return NumberValue.of(~number.longValue());
+                return LZRNumber.of(~number.longValue());
             }
         }
-        return NumberValue.of(~value.asInt());
+        return LZRNumber.of(~value.asInt());
     }
     
     private Value not(Value value) {
-        return NumberValue.fromBoolean(value.asInt() == 0);
+        return LZRNumber.fromBoolean(value.asInt() == 0);
     }
     
     @Override

@@ -4,6 +4,8 @@ import com.kingmang.lazurite.LZREx.LZRExeption;
 import com.kingmang.lazurite.parser.ast.FunctionDefineStatement;
 import com.kingmang.lazurite.runtime.*;
 import com.kingmang.lazurite.parser.ast.*;
+import com.kingmang.lazurite.runtime.LZR.LZRNumber;
+import com.kingmang.lazurite.runtime.LZR.LZRString;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -364,17 +366,17 @@ public final class Parser {
             if (match(TokenType.NUMBER)) {
                 // case 0.5:
                 pattern = new MatchExpression.ConstantPattern(
-                        NumberValue.of(createNumber(current.getText(), 10))
+                        LZRNumber.of(createNumber(current.getText(), 10))
                 );
             } else if (match(TokenType.HEX_NUMBER)) {
                 // case #FF:
                 pattern = new MatchExpression.ConstantPattern(
-                        NumberValue.of(createNumber(current.getText(), 16))
+                        LZRNumber.of(createNumber(current.getText(), 16))
                 );
             } else if (match(TokenType.TEXT)) {
                 // case "text":
                 pattern = new MatchExpression.ConstantPattern(
-                        new StringValue(current.getText())
+                        new LZRString(current.getText())
                 );
             } else if (match(TokenType.WORD)) {
                 // case value:

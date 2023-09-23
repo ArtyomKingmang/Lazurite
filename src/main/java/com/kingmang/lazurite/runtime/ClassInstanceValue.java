@@ -2,22 +2,23 @@ package com.kingmang.lazurite.runtime;
 
 import com.kingmang.lazurite.LZREx.LZRExeption;
 import com.kingmang.lazurite.base.Types;
+import com.kingmang.lazurite.runtime.LZR.LZRMap;
 
 import java.util.Objects;
 
 public class ClassInstanceValue implements Value {
     
     private final String className;
-    private final MapValue thisMap;
+    private final LZRMap thisMap;
     private ClassMethod constructor;
     private UserDefinedFunction toString;
 
     public ClassInstanceValue(String name) {
         this.className = name;
-        thisMap = new MapValue(10);
+        thisMap = new LZRMap(10);
     }
 
-    public MapValue getThisMap() {
+    public LZRMap getThisMap() {
         return thisMap;
     }
 

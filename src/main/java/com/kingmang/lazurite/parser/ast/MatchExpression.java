@@ -1,8 +1,8 @@
 package com.kingmang.lazurite.parser.ast;
 
 import com.kingmang.lazurite.LZREx.LZRExeption;
-import com.kingmang.lazurite.runtime.ArrayValue;
-import com.kingmang.lazurite.runtime.NumberValue;
+import com.kingmang.lazurite.runtime.LZR.LZRArray;
+import com.kingmang.lazurite.runtime.LZR.LZRNumber;
 import com.kingmang.lazurite.base.Types;
 import com.kingmang.lazurite.runtime.Value;
 import com.kingmang.lazurite.runtime.Variables;
@@ -58,7 +58,7 @@ public final class MatchExpression extends InterruptableNode implements Expressi
             }
             if ((value.type() == Types.ARRAY) && (p instanceof ListPattern)) {
                 final ListPattern pattern = (ListPattern) p;
-                if (matchListPattern((ArrayValue) value, pattern)) {
+                if (matchListPattern((LZRArray) value, pattern)) {
 
                     final Value result = evalResult(p.result);
                     for (String var : pattern.parts) {
@@ -69,7 +69,7 @@ public final class MatchExpression extends InterruptableNode implements Expressi
             }
             if ((value.type() == Types.ARRAY) && (p instanceof TuplePattern)) {
                 final TuplePattern pattern = (TuplePattern) p;
-                if (matchTuplePattern((ArrayValue) value, pattern) && optMatches(p)) {
+                if (matchTuplePattern((LZRArray) value, pattern) && optMatches(p)) {
                     return evalResult(p.result);
                 }
             }
@@ -77,7 +77,7 @@ public final class MatchExpression extends InterruptableNode implements Expressi
         throw new LZRExeption("PatternMatchingException ","No pattern were matched");
     }
 
-    private boolean matchTuplePattern(ArrayValue array, TuplePattern p) {
+    private boolean matchTuplePattern(LZRArray array, TuplePattern p) {
         if (p.values.size() != array.size()) return false;
 
         final int size = array.size();
@@ -90,7 +90,7 @@ public final class MatchExpression extends InterruptableNode implements Expressi
         return true;
     }
 
-    private boolean matchListPattern(ArrayValue array, ListPattern p) {
+    private boolean matchListPattern(LZRArray array, ListPattern p) {
         final List<String> parts = p.parts;
         final int partsSize = parts.size();
         final int arraySize = array.size();
@@ -123,7 +123,7 @@ public final class MatchExpression extends InterruptableNode implements Expressi
         }
     }
 
-    private boolean matchListPatternEqualsSize(ListPattern p, List<String> parts, int partsSize, ArrayValue array) {
+    private boolean matchListPatternEqualsSize(ListPattern p, List<String> parts, int partsSize, LZRArray array) {
 
         for (int i = 0; i < partsSize; i++) {
             Variables.define(parts.get(i), array.get(i));
@@ -139,14 +139,14 @@ public final class MatchExpression extends InterruptableNode implements Expressi
         return false;
     }
 
-    private boolean matchListPatternWithTail(ListPattern p, List<String> parts, int partsSize, ArrayValue array, int arraySize) {
+    private boolean matchListPatternWithTail(ListPattern p, List<String> parts, int partsSize, LZRArray array, int arraySize) {
 
         final int lastPart = partsSize - 1;
         for (int i = 0; i < lastPart; i++) {
             Variables.define(parts.get(i), array.get(i));
         }
 
-        final ArrayValue tail = new ArrayValue(arraySize - partsSize + 1);
+        final LZRArray tail = new LZRArray(arraySize - partsSize + 1);
         for (int i = lastPart; i < arraySize; i++) {
             tail.set(i - lastPart, array.get(i));
         }
@@ -170,7 +170,7 @@ public final class MatchExpression extends InterruptableNode implements Expressi
 
     private boolean optMatches(Pattern pattern) {
         if (pattern.optCondition == null) return true;
-        return pattern.optCondition.eval() != NumberValue.ZERO;
+        return pattern.optCondition.eval() != LZRNumber.ZERO;
     }
 
     private Value evalResult(Statement s) {
@@ -179,7 +179,7 @@ public final class MatchExpression extends InterruptableNode implements Expressi
         } catch (ReturnStatement ret) {
             return ret.getResult();
         }
-        return NumberValue.ZERO;
+        return LZRNumber.ZERO;
     }
 
     @Override
@@ -312,7 +312,7 @@ public final class MatchExpression extends InterruptableNode implements Expressi
         private static final Expression ANY = new Expression() {
             @Override
             public Value eval() {
-                return NumberValue.ONE;
+                return LZRNumber.ONE;
             }
 
             @Override

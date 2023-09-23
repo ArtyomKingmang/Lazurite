@@ -3,6 +3,9 @@ package com.kingmang.lazurite.parser.ast;
 import com.kingmang.lazurite.LZREx.LZRExeption;
 import com.kingmang.lazurite.base.*;
 import com.kingmang.lazurite.runtime.*;
+import com.kingmang.lazurite.runtime.LZR.LZRArray;
+import com.kingmang.lazurite.runtime.LZR.LZRMap;
+import com.kingmang.lazurite.runtime.LZR.LZRString;
 
 
 import java.util.Map;
@@ -31,10 +34,10 @@ public final class ForeachAStatement extends InterruptableNode implements Statem
                 iterateString(containerValue.asString());
                 break;
             case Types.ARRAY:
-                iterateArray((ArrayValue) containerValue);
+                iterateArray((LZRArray) containerValue);
                 break;
             case Types.MAP:
-                iterateMap((MapValue) containerValue);
+                iterateMap((LZRMap) containerValue);
                 break;
             default:
                 throw new LZRExeption("TypeExeption","Cannot iterate " + Types.typeToString(containerValue.type()));
@@ -50,7 +53,7 @@ public final class ForeachAStatement extends InterruptableNode implements Statem
 
     private void iterateString(String str) {
         for (char ch : str.toCharArray()) {
-            Variables.set(variable, new StringValue(String.valueOf(ch)));
+            Variables.set(variable, new LZRString(String.valueOf(ch)));
             try {
                 body.execute();
             } catch (BreakStatement bs) {
@@ -61,7 +64,7 @@ public final class ForeachAStatement extends InterruptableNode implements Statem
         }
     }
 
-    private void iterateArray(ArrayValue containerValue) {
+    private void iterateArray(LZRArray containerValue) {
         for (Value value : containerValue) {
             Variables.set(variable, value);
             try {
@@ -74,9 +77,9 @@ public final class ForeachAStatement extends InterruptableNode implements Statem
         }
     }
 
-    private void iterateMap(MapValue containerValue) {
+    private void iterateMap(LZRMap containerValue) {
         for (Map.Entry<Value, Value> entry : containerValue) {
-            Variables.set(variable, new ArrayValue(new Value[] {
+            Variables.set(variable, new LZRArray(new Value[] {
                     entry.getKey(),
                     entry.getValue()
             }));

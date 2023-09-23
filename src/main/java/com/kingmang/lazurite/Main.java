@@ -114,19 +114,11 @@ public class Main  {
 
     public static void RUN(String input, boolean showMeasurement, boolean lintMde, boolean beautifyMod, int optLvl ) throws IOException {
         RunProgram(SourceLoader.readSource(input), showMeasurement, lintMde, beautifyMod,optLvl);
-        /*
-         1. showTokens = false;
-         2. showAst = false;
-         3. showMeasurements = false;
-         4. lintMode = false;
-         5. beautifyMode = false;
-         6. optimizationLevel = 0;
-         */
     }
 
 
 
-    private static void RunProgram(String input, boolean showMeasuremen,boolean lintMd, boolean beautifyMd, int optLv) throws IOException {
+    public static void RunProgram(String input, boolean showMeasuremen,boolean lintMd, boolean beautifyMd, int optLv) throws IOException {
         final Settings options = new Settings();
         options.validate();
         options.showMeasurements = showMeasuremen;

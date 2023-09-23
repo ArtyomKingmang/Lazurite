@@ -2,8 +2,8 @@ package com.kingmang.lazurite.modules.GForms;
 
 
 import com.kingmang.lazurite.base.*;
-import com.kingmang.lazurite.runtime.FunctionValue;
-import com.kingmang.lazurite.runtime.NumberValue;
+import com.kingmang.lazurite.runtime.LZR.LZRFunction;
+import com.kingmang.lazurite.runtime.LZR.LZRNumber;
 import com.kingmang.lazurite.runtime.Value;
 
 import java.awt.Component;
@@ -21,8 +21,8 @@ public abstract class ContainerValue extends ComponentValue {
     }
 
     private void init() {
-        set("add", new FunctionValue(this::add));
-        set("remove", new FunctionValue(this::remove));
+        set("add", new LZRFunction(this::add));
+        set("remove", new LZRFunction(this::remove));
         set("removeAll", Converters.voidToVoid(container::removeAll));
         set("getAlignmentX", Converters.voidToFloat(container::getAlignmentX));
         set("getAlignmentY", Converters.voidToFloat(container::getAlignmentY));
@@ -30,7 +30,7 @@ public abstract class ContainerValue extends ComponentValue {
         set("isFocusCycleRoot", Converters.voidToBoolean(container::isFocusCycleRoot));
         set("isValidateRoot", Converters.voidToBoolean(container::isValidateRoot));
         set("setFocusCycleRoot", Converters.booleanToVoid(container::setFocusCycleRoot));
-        set("setLayout", new FunctionValue(this::setLayout));
+        set("setLayout", new LZRFunction(this::setLayout));
     }
 
     private Value add(Value... args) {
@@ -60,7 +60,7 @@ public abstract class ContainerValue extends ComponentValue {
                 container.add(newComponent, args[1].raw(), args[2].asInt());
                 break;
         }
-        return NumberValue.ZERO;
+        return LZRNumber.ZERO;
     }
 
     private Value remove(Value... args) {
@@ -70,12 +70,12 @@ public abstract class ContainerValue extends ComponentValue {
         } else {
             container.remove(args[0].asInt());
         }
-        return NumberValue.ZERO;
+        return LZRNumber.ZERO;
     }
 
     private Value setLayout(Value... args) {
         Arguments.check(1, args.length);
         container.setLayout(((LayoutManagerValue) args[0]).layout);
-        return NumberValue.ZERO;
+        return LZRNumber.ZERO;
     }
 }

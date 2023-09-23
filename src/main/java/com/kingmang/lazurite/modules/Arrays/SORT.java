@@ -2,7 +2,7 @@ package com.kingmang.lazurite.modules.Arrays;
 
 import com.kingmang.lazurite.LZREx.LZRExeption;
 import com.kingmang.lazurite.base.*;
-import com.kingmang.lazurite.runtime.ArrayValue;
+import com.kingmang.lazurite.runtime.LZR.LZRArray;
 import com.kingmang.lazurite.runtime.Value;
 
 
@@ -16,7 +16,7 @@ public final class SORT implements Function {
         if (args[0].type() != Types.ARRAY) {
             throw new LZRExeption("TypeExeption ","Array expected in first argument");
         }
-        final Value[] elements = ((ArrayValue) args[0]).getCopyElements();
+        final Value[] elements = ((LZRArray) args[0]).getCopyElements();
         
         switch (args.length) {
             case 1:
@@ -30,7 +30,7 @@ public final class SORT implements Function {
                 throw new LZRExeption("ArgumentsMismatchException ","Wrong number of arguments");
         }
         
-        return new ArrayValue(elements);
+        return new LZRArray(elements);
     }
     
 }

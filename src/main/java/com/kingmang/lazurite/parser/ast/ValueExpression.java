@@ -1,9 +1,9 @@
 package com.kingmang.lazurite.parser.ast;
 
 import com.kingmang.lazurite.base.Function;
-import com.kingmang.lazurite.runtime.FunctionValue;
-import com.kingmang.lazurite.runtime.NumberValue;
-import com.kingmang.lazurite.runtime.StringValue;
+import com.kingmang.lazurite.runtime.LZR.LZRFunction;
+import com.kingmang.lazurite.runtime.LZR.LZRNumber;
+import com.kingmang.lazurite.runtime.LZR.LZRString;
 import com.kingmang.lazurite.base.Types;
 import com.kingmang.lazurite.runtime.Value;
 
@@ -13,15 +13,15 @@ public final class ValueExpression extends InterruptableNode implements Expressi
     public final Value value;
     
     public ValueExpression(Number value) {
-        this.value = NumberValue.of(value);
+        this.value = LZRNumber.of(value);
     }
     
     public ValueExpression(String value) {
-        this.value = new StringValue(value);
+        this.value = new LZRString(value);
     }
     
     public ValueExpression(Function value) {
-        this.value = new FunctionValue(value);
+        this.value = new LZRFunction(value);
     }
     
     public ValueExpression(Value value) {

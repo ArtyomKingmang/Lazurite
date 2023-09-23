@@ -6,6 +6,7 @@ import com.kingmang.lazurite.parser.ast.Argument;
 import com.kingmang.lazurite.parser.ast.Arguments;
 import com.kingmang.lazurite.parser.ast.ReturnStatement;
 import com.kingmang.lazurite.parser.ast.Statement;
+import com.kingmang.lazurite.runtime.LZR.LZRNumber;
 
 
 public class UserDefinedFunction implements Function {
@@ -52,7 +53,7 @@ public class UserDefinedFunction implements Function {
                 Variables.define(arg.getName(), arg.getValueExpr().eval());
             }
             body.execute();
-            return NumberValue.ZERO;
+            return LZRNumber.ZERO;
         } catch (ReturnStatement rt) {
             return rt.getResult();
         } finally {

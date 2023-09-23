@@ -1,7 +1,7 @@
 package com.kingmang.lazurite.parser.ast;
 
 import com.kingmang.lazurite.LZREx.LZRExeption;
-import com.kingmang.lazurite.runtime.ArrayValue;
+import com.kingmang.lazurite.runtime.LZR.LZRArray;
 import com.kingmang.lazurite.base.Types;
 import com.kingmang.lazurite.runtime.Value;
 import com.kingmang.lazurite.modules.Module;
@@ -26,7 +26,7 @@ public final class UsingStatement extends InterruptableNode implements Statement
         final Value value = expression.eval();
         switch (value.type()) {
             case Types.ARRAY:
-                for (Value module : ((ArrayValue) value)) {
+                for (Value module : ((LZRArray) value)) {
                     loadModule(module.asString());
                 }
                 break;

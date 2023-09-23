@@ -1,19 +1,20 @@
-package com.kingmang.lazurite.runtime;
+package com.kingmang.lazurite.runtime.LZR;
 
 import com.kingmang.lazurite.LZREx.LZRExeption;
 import com.kingmang.lazurite.base.Function;
 import com.kingmang.lazurite.base.Types;
+import com.kingmang.lazurite.runtime.Value;
 
 import java.util.Objects;
 
 
-public class FunctionValue implements Value {
+public class LZRFunction implements Value {
     
-    public static final FunctionValue EMPTY = new FunctionValue(args -> NumberValue.ZERO);
+    public static final LZRFunction EMPTY = new LZRFunction(args -> LZRNumber.ZERO);
 
     private final Function value;
 
-    public FunctionValue(Function value) {
+    public LZRFunction(Function value) {
         this.value = value;
     }
     
@@ -59,7 +60,7 @@ public class FunctionValue implements Value {
         if (obj == null) return false;
         if (getClass() != obj.getClass())
             return false;
-        final FunctionValue other = (FunctionValue) obj;
+        final LZRFunction other = (LZRFunction) obj;
         return Objects.equals(this.value, other.value);
     }
     

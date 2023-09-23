@@ -3,7 +3,7 @@ package com.kingmang.lazurite.parser.ast;
 import com.kingmang.lazurite.LZREx.LZRExeption;
 import com.kingmang.lazurite.LZREx.VarExeption;
 import com.kingmang.lazurite.base.*;
-import com.kingmang.lazurite.runtime.FunctionValue;
+import com.kingmang.lazurite.runtime.LZR.LZRFunction;
 import com.kingmang.lazurite.runtime.Value;
 import com.kingmang.lazurite.runtime.Variables;
 
@@ -55,7 +55,7 @@ public final class FunctionalExpression extends InterruptableNode implements Exp
         try {
             final Value value = expr.eval();
             if (value.type() == Types.FUNCTION) {
-                return ((FunctionValue) value).getValue();
+                return ((LZRFunction) value).getValue();
             }
             return getFunction(value.asString());
         } catch (VarExeption ex) {
@@ -70,7 +70,7 @@ public final class FunctionalExpression extends InterruptableNode implements Exp
         if (Variables.isExists(key)) {
             final Value variable = Variables.get(key);
             if (variable.type() == Types.FUNCTION) {
-                return ((FunctionValue)variable).getValue();
+                return ((LZRFunction)variable).getValue();
             }
         }
         throw new LZRExeption("UnknownFunctionException ","Unknown function "+ key);

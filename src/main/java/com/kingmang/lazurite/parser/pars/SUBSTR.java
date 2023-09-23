@@ -2,7 +2,7 @@ package com.kingmang.lazurite.parser.pars;
 
 import com.kingmang.lazurite.base.Arguments;
 import com.kingmang.lazurite.base.Function;
-import com.kingmang.lazurite.runtime.StringValue;
+import com.kingmang.lazurite.runtime.LZR.LZRString;
 import com.kingmang.lazurite.runtime.Value;
 
 public final class SUBSTR implements Function {
@@ -22,6 +22,6 @@ public final class SUBSTR implements Function {
             result = input.substring(startIndex, endIndex);
         }
         
-        return new StringValue(result);
+        return new LZRString(result);
     }
 }

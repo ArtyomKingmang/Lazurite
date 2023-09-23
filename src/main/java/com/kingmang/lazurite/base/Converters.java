@@ -1,8 +1,8 @@
 package com.kingmang.lazurite.base;
 
-import com.kingmang.lazurite.runtime.FunctionValue;
-import com.kingmang.lazurite.runtime.NumberValue;
-import com.kingmang.lazurite.runtime.StringValue;
+import com.kingmang.lazurite.runtime.LZR.LZRFunction;
+import com.kingmang.lazurite.runtime.LZR.LZRNumber;
+import com.kingmang.lazurite.runtime.LZR.LZRString;
 
 import java.util.function.Predicate;
 
@@ -93,161 +93,161 @@ public final class Converters {
     }
 
 
-    public static FunctionValue voidToVoid(VoidToVoidFunction f) {
-        return new FunctionValue(args -> {
+    public static LZRFunction voidToVoid(VoidToVoidFunction f) {
+        return new LZRFunction(args -> {
             f.apply();
-            return NumberValue.ZERO;
+            return LZRNumber.ZERO;
         });
     }
 
-    public static FunctionValue voidToBoolean(VoidToBooleanFunction f) {
-        return new FunctionValue(args -> NumberValue.fromBoolean(f.apply()));
+    public static LZRFunction voidToBoolean(VoidToBooleanFunction f) {
+        return new LZRFunction(args -> LZRNumber.fromBoolean(f.apply()));
     }
 
-    public static FunctionValue voidToInt(VoidToIntFunction f) {
-        return new FunctionValue(args -> NumberValue.of(f.apply()));
+    public static LZRFunction voidToInt(VoidToIntFunction f) {
+        return new LZRFunction(args -> LZRNumber.of(f.apply()));
     }
 
-    public static FunctionValue voidToLong(VoidToLongFunction f) {
-        return new FunctionValue(args -> NumberValue.of(f.apply()));
+    public static LZRFunction voidToLong(VoidToLongFunction f) {
+        return new LZRFunction(args -> LZRNumber.of(f.apply()));
     }
 
-    public static FunctionValue voidToFloat(VoidToFloatFunction f) {
-        return new FunctionValue(args -> NumberValue.of(f.apply()));
+    public static LZRFunction voidToFloat(VoidToFloatFunction f) {
+        return new LZRFunction(args -> LZRNumber.of(f.apply()));
     }
 
-    public static FunctionValue voidToDouble(VoidToDoubleFunction f) {
-        return new FunctionValue(args -> NumberValue.of(f.apply()));
+    public static LZRFunction voidToDouble(VoidToDoubleFunction f) {
+        return new LZRFunction(args -> LZRNumber.of(f.apply()));
     }
 
-    public static FunctionValue voidToCharSequence(VoidToCharSequenceFunction f) {
-        return new FunctionValue(args -> new StringValue(f.apply().toString()));
+    public static LZRFunction voidToCharSequence(VoidToCharSequenceFunction f) {
+        return new LZRFunction(args -> new LZRString(f.apply().toString()));
     }
     
-    public static FunctionValue voidToString(VoidToStringFunction f) {
-        return new FunctionValue(args -> new StringValue(f.apply()));
+    public static LZRFunction voidToString(VoidToStringFunction f) {
+        return new LZRFunction(args -> new LZRString(f.apply()));
     }
 
-    public static <E extends Enum<E>> FunctionValue enumOrdinal(VoidToEnumFunction<E> f) {
-        return new FunctionValue(args -> NumberValue.of(f.apply().ordinal()));
+    public static <E extends Enum<E>> LZRFunction enumOrdinal(VoidToEnumFunction<E> f) {
+        return new LZRFunction(args -> LZRNumber.of(f.apply().ordinal()));
     }
 
-    public static FunctionValue booleanToVoid(BooleanToVoidFunction f) {
-        return new FunctionValue(args -> {
+    public static LZRFunction booleanToVoid(BooleanToVoidFunction f) {
+        return new LZRFunction(args -> {
             Arguments.check(1, args.length);
             f.apply(args[0].asInt() != 0);
-            return NumberValue.ZERO;
+            return LZRNumber.ZERO;
         });
     }
 
-    public static FunctionValue booleanOptToVoid(BooleanToVoidFunction f) {
+    public static LZRFunction booleanOptToVoid(BooleanToVoidFunction f) {
         return booleanOptToVoid(f, true);
     }
-    public static FunctionValue booleanOptToVoid(BooleanToVoidFunction f, final boolean def) {
-        return new FunctionValue(args -> {
+    public static LZRFunction booleanOptToVoid(BooleanToVoidFunction f, final boolean def) {
+        return new LZRFunction(args -> {
             Arguments.checkOrOr(0, 1, args.length);
             f.apply( (args.length == 1) ? (args[0].asInt() != 0) : def );
-            return NumberValue.ZERO;
+            return LZRNumber.ZERO;
         });
     }
 
-    public static FunctionValue intToVoid(IntToVoidFunction f) {
-        return new FunctionValue(args -> {
+    public static LZRFunction intToVoid(IntToVoidFunction f) {
+        return new LZRFunction(args -> {
             Arguments.check(1, args.length);
             f.apply(args[0].asInt());
-            return NumberValue.ZERO;
+            return LZRNumber.ZERO;
         });
     }
     
-    public static FunctionValue intOptToVoid(VoidToVoidFunction f1, IntToVoidFunction f2) {
-        return new FunctionValue(args -> {
+    public static LZRFunction intOptToVoid(VoidToVoidFunction f1, IntToVoidFunction f2) {
+        return new LZRFunction(args -> {
             Arguments.checkOrOr(0, 1, args.length);
             if (args.length == 0) {
                 f1.apply();
             } else {
                 f2.apply(args[0].asInt());
             }
-            return NumberValue.ZERO;
+            return LZRNumber.ZERO;
         });
     }
 
-    public static FunctionValue intToLong(IntToLongFunction f) {
-        return new FunctionValue(args -> {
+    public static LZRFunction intToLong(IntToLongFunction f) {
+        return new LZRFunction(args -> {
             Arguments.check(1, args.length);
-            return NumberValue.of(f.apply(args[0].asInt()));
+            return LZRNumber.of(f.apply(args[0].asInt()));
         });
     }
 
-    public static FunctionValue int2ToVoid(Int2ToVoidFunction f) {
-        return new FunctionValue(args -> {
+    public static LZRFunction int2ToVoid(Int2ToVoidFunction f) {
+        return new LZRFunction(args -> {
             Arguments.check(2, args.length);
             f.apply(args[0].asInt(),
                     args[1].asInt());
-            return NumberValue.ZERO;
+            return LZRNumber.ZERO;
         });
     }
 
-    public static FunctionValue int4ToVoid(Int4ToVoidFunction f) {
-        return new FunctionValue(args -> {
+    public static LZRFunction int4ToVoid(Int4ToVoidFunction f) {
+        return new LZRFunction(args -> {
             Arguments.check(4, args.length);
             f.apply(args[0].asInt(),
                     args[1].asInt(),
                     args[2].asInt(),
                     args[3].asInt());
-            return NumberValue.ZERO;
+            return LZRNumber.ZERO;
         });
     }
 
-    public static FunctionValue floatToVoid(FloatToVoidFunction f) {
-        return new FunctionValue(args -> {
+    public static LZRFunction floatToVoid(FloatToVoidFunction f) {
+        return new LZRFunction(args -> {
             Arguments.check(1, args.length);
             f.apply(ValueUtils.getFloatNumber(args[0]));
-            return NumberValue.ZERO;
+            return LZRNumber.ZERO;
         });
     }
 
-    public static FunctionValue float4ToVoid(Float4ToVoidFunction f) {
-        return new FunctionValue(args -> {
+    public static LZRFunction float4ToVoid(Float4ToVoidFunction f) {
+        return new LZRFunction(args -> {
             Arguments.check(4, args.length);
             f.apply(ValueUtils.getFloatNumber(args[0]),
                     ValueUtils.getFloatNumber(args[1]),
                     ValueUtils.getFloatNumber(args[2]),
                     ValueUtils.getFloatNumber(args[3]));
-            return NumberValue.ZERO;
+            return LZRNumber.ZERO;
         });
     }
 
-    public static FunctionValue doubleToVoid(DoubleToVoidFunction f) {
-        return new FunctionValue(args -> {
+    public static LZRFunction doubleToVoid(DoubleToVoidFunction f) {
+        return new LZRFunction(args -> {
             Arguments.check(1, args.length);
             f.apply(args[0].asNumber());
-            return NumberValue.ZERO;
+            return LZRNumber.ZERO;
         });
     }
 
-    public static FunctionValue double2ToVoid(Double2ToVoidFunction f) {
-        return new FunctionValue(args -> {
+    public static LZRFunction double2ToVoid(Double2ToVoidFunction f) {
+        return new LZRFunction(args -> {
             Arguments.check(2, args.length);
             f.apply(args[0].asNumber(), args[1].asNumber());
-            return NumberValue.ZERO;
+            return LZRNumber.ZERO;
         });
     }
 
-    public static FunctionValue double4ToVoid(Double4ToVoidFunction f) {
-        return new FunctionValue(args -> {
+    public static LZRFunction double4ToVoid(Double4ToVoidFunction f) {
+        return new LZRFunction(args -> {
             Arguments.check(4, args.length);
             f.apply(args[0].asNumber(), args[1].asNumber(),
                     args[2].asNumber(), args[3].asNumber());
-            return NumberValue.ZERO;
+            return LZRNumber.ZERO;
         });
     }
 
-    public static FunctionValue charSequenceToVoid(CharSequenceToVoidFunction f) {
+    public static LZRFunction charSequenceToVoid(CharSequenceToVoidFunction f) {
         return charSequenceToVoid(f, false);
     }
 
-    public static FunctionValue charSequenceToVoid(CharSequenceToVoidFunction f, boolean emptyAsNull) {
-        return new FunctionValue(args -> {
+    public static LZRFunction charSequenceToVoid(CharSequenceToVoidFunction f, boolean emptyAsNull) {
+        return new LZRFunction(args -> {
             Arguments.check(1, args.length);
             final String text = args[0].asString();
             if (emptyAsNull && (text != null) && (text.isEmpty())) {
@@ -255,22 +255,22 @@ public final class Converters {
             } else {
                 f.apply(text);
             }
-            return NumberValue.ZERO;
+            return LZRNumber.ZERO;
         });
     }
 
-    public static FunctionValue stringToVoid(StringToVoidFunction f) {
-        return new FunctionValue(args -> {
+    public static LZRFunction stringToVoid(StringToVoidFunction f) {
+        return new LZRFunction(args -> {
             Arguments.check(1, args.length);
             f.apply(args[0].asString());
-            return NumberValue.ZERO;
+            return LZRNumber.ZERO;
         });
     }
 
-    public static FunctionValue stringToBoolean(Predicate<String> f) {
-        return new FunctionValue(args -> {
+    public static LZRFunction stringToBoolean(Predicate<String> f) {
+        return new LZRFunction(args -> {
             Arguments.check(1, args.length);
-            return NumberValue.fromBoolean(f.test(args[0].asString()));
+            return LZRNumber.fromBoolean(f.test(args[0].asString()));
         });
     }
 }

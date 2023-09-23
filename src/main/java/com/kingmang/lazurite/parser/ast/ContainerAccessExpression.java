@@ -3,6 +3,9 @@ package com.kingmang.lazurite.parser.ast;
 import com.kingmang.lazurite.LZREx.LZRExeption;
 import com.kingmang.lazurite.base.*;
 import com.kingmang.lazurite.runtime.*;
+import com.kingmang.lazurite.runtime.LZR.LZRArray;
+import com.kingmang.lazurite.runtime.LZR.LZRMap;
+import com.kingmang.lazurite.runtime.LZR.LZRString;
 
 
 import java.util.List;
@@ -43,13 +46,13 @@ public final class ContainerAccessExpression implements Expression, Accessible {
         final Value lastIndex = lastIndex();
         switch (container.type()) {
             case Types.ARRAY:
-                return ((ArrayValue) container).get(lastIndex);
+                return ((LZRArray) container).get(lastIndex);
 
             case Types.MAP:
-                return ((MapValue) container).get(lastIndex);
+                return ((LZRMap) container).get(lastIndex);
 
             case Types.STRING:
-                return ((StringValue) container).access(lastIndex);
+                return ((LZRString) container).access(lastIndex);
                 
             case Types.CLASS:
                 return ((ClassInstanceValue) container).access(lastIndex);
@@ -66,11 +69,11 @@ public final class ContainerAccessExpression implements Expression, Accessible {
         switch (container.type()) {
             case Types.ARRAY:
                 final int arrayIndex = lastIndex.asInt();
-                ((ArrayValue) container).set(arrayIndex, value);
+                ((LZRArray) container).set(arrayIndex, value);
                 return value;
 
             case Types.MAP:
-                ((MapValue) container).set(lastIndex, value);
+                ((LZRMap) container).set(lastIndex, value);
                 return value;
                 
             case Types.CLASS:
@@ -90,11 +93,11 @@ public final class ContainerAccessExpression implements Expression, Accessible {
             switch (container.type()) {
                 case Types.ARRAY:
                     final int arrayIndex = index.asInt();
-                    container = ((ArrayValue) container).get(arrayIndex);
+                    container = ((LZRArray) container).get(arrayIndex);
                     break;
                     
                 case Types.MAP:
-                    container = ((MapValue) container).get(index);
+                    container = ((LZRMap) container).get(index);
                     break;
                     
                 default:
@@ -112,11 +115,11 @@ public final class ContainerAccessExpression implements Expression, Accessible {
         return indices.get(index).eval();
     }
     
-    public MapValue consumeMap(Value value) {
+    public LZRMap consumeMap(Value value) {
         if (value.type() != Types.MAP) {
             throw new LZRExeption("TypeExeption","Map expected");
         }
-        return (MapValue) value;
+        return (LZRMap) value;
     }
     
     @Override

@@ -2,9 +2,9 @@ package com.kingmang.lazurite.modules.GForms;
 
 
 import com.kingmang.lazurite.base.*;
-import com.kingmang.lazurite.runtime.MapValue;
-import com.kingmang.lazurite.runtime.NumberValue;
-import com.kingmang.lazurite.runtime.StringValue;
+import com.kingmang.lazurite.runtime.LZR.LZRMap;
+import com.kingmang.lazurite.runtime.LZR.LZRNumber;
+import com.kingmang.lazurite.runtime.LZR.LZRString;
 import com.kingmang.lazurite.runtime.Value;
 
 import java.awt.Window;
@@ -84,14 +84,14 @@ public class WindowValue extends ContainerValue {
             }
             
             private void handleWindowEvent(String type, final WindowEvent e) {
-                final MapValue map = new MapValue(4);
-                map.set("id", NumberValue.of(e.getID()));
-                map.set("newState", NumberValue.of(e.getNewState()));
-                map.set("oldState", NumberValue.of(e.getOldState()));
-                map.set("paramString", new StringValue(e.paramString()));
-                action.execute(new StringValue(type), map);
+                final LZRMap map = new LZRMap(4);
+                map.set("id", LZRNumber.of(e.getID()));
+                map.set("newState", LZRNumber.of(e.getNewState()));
+                map.set("oldState", LZRNumber.of(e.getOldState()));
+                map.set("paramString", new LZRString(e.paramString()));
+                action.execute(new LZRString(type), map);
             }
         });
-        return NumberValue.ZERO;
+        return LZRNumber.ZERO;
     }
 }

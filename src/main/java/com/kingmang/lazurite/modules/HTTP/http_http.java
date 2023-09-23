@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.kingmang.lazurite.runtime.*;
+import com.kingmang.lazurite.runtime.LZR.*;
 import okhttp3.FormBody;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
@@ -19,11 +20,11 @@ import okhttp3.internal.http.HttpMethod;
 public final class http_http implements Function {
     
     private static final Value
-            HEADER_KEY = new StringValue("header"),
-            CHARSET_KEY = new StringValue("charset"),
-            ENCODED_KEY = new StringValue("encoded"),
-            CONTENT_TYPE = new StringValue("content_type"),
-            EXTENDED_RESULT = new StringValue("extended_result");
+            HEADER_KEY = new LZRString("header"),
+            CHARSET_KEY = new LZRString("charset"),
+            ENCODED_KEY = new LZRString("encoded"),
+            CONTENT_TYPE = new LZRString("content_type"),
+            EXTENDED_RESULT = new LZRString("extended_result");
     
     private static final MediaType URLENCODED_MEDIA_TYPE = MediaType.parse("application/x-www-form-urlencoded");
     
@@ -40,7 +41,7 @@ public final class http_http implements Function {
             case 2: // http(url, method) || http(url, callback)
                 url = args[0].asString();
                 if (args[1].type() == Types.FUNCTION) {
-                    return process(url, "GET", (FunctionValue) args[1]);
+                    return process(url, "GET", (LZRFunction) args[1]);
                 }
                 return process(url, args[1].asString());
                 
@@ -48,9 +49,9 @@ public final class http_http implements Function {
                 url = args[0].asString();
                 method = args[1].asString();
                 if (args[2].type() == Types.FUNCTION) {
-                    return process(url, method, (FunctionValue) args[2]);
+                    return process(url, method, (LZRFunction) args[2]);
                 }
-                return process(url, method, args[2], FunctionValue.EMPTY);
+                return process(url, method, args[2], LZRFunction.EMPTY);
                 
             case 4: // http(url, method, params, callback)
                 if (args[3].type() != Types.FUNCTION) {
@@ -58,7 +59,7 @@ public final class http_http implements Function {
                 }
                 url = args[0].asString();
                 method = args[1].asString();
-                return process(url, method, args[2], (FunctionValue) args[3]);
+                return process(url, method, args[2], (LZRFunction) args[3]);
                 
             case 5: // http(url, method, params, headerParams, callback)
                 if (args[3].type() != Types.MAP) {
@@ -69,7 +70,7 @@ public final class http_http implements Function {
                 }
                 url = args[0].asString();
                 method = args[1].asString();
-                return process(url, method, args[2], (MapValue) args[3], (FunctionValue) args[4]);
+                return process(url, method, args[2], (LZRMap) args[3], (LZRFunction) args[4]);
                 
             default:
                 throw new LZRExeption("ArgumentsMismatchException ", "From 1 to 5 arguments expected, got " + args.length);
@@ -77,18 +78,18 @@ public final class http_http implements Function {
     }
     
     private Value process(String url, String method) {
-        return process(url, method, FunctionValue.EMPTY);
+        return process(url, method, LZRFunction.EMPTY);
     }
     
-    private Value process(String url, String method, FunctionValue function) {
-        return process(url, method, MapValue.EMPTY, function);
+    private Value process(String url, String method, LZRFunction function) {
+        return process(url, method, LZRMap.EMPTY, function);
     }
 
-    private Value process(String url, String method, Value params, FunctionValue function) {
-        return process(url, method, params, MapValue.EMPTY, function);
+    private Value process(String url, String method, Value params, LZRFunction function) {
+        return process(url, method, params, LZRMap.EMPTY, function);
     }
     
-    private Value process(String url, String methodStr, Value requestParams, MapValue options, FunctionValue function) {
+    private Value process(String url, String methodStr, Value requestParams, LZRMap options, LZRFunction function) {
         final String method = methodStr.toUpperCase();
         final Function callback = function.getValue();
         try {
@@ -96,56 +97,56 @@ public final class http_http implements Function {
                     .url(url)
                     .method(method, getRequestBody(method, requestParams, options));
             if (options.containsKey(HEADER_KEY)) {
-                applyHeaderParams((MapValue) options.get(HEADER_KEY), builder);
+                applyHeaderParams((LZRMap) options.get(HEADER_KEY), builder);
             }
             
             final Response response = client.newCall(builder.build()).execute();
             callback.execute(getResult(response, options));
-            return NumberValue.fromBoolean(response.isSuccessful());
+            return LZRNumber.fromBoolean(response.isSuccessful());
         } catch (IOException ex) {
-            return NumberValue.fromBoolean(false);
+            return LZRNumber.fromBoolean(false);
         }
     }
 
-    private Value getResult(Response response, MapValue options) throws IOException {
+    private Value getResult(Response response, LZRMap options) throws IOException {
         if (options.containsKey(EXTENDED_RESULT)) {
-            final MapValue map = new MapValue(10);
-            map.set("text", new StringValue(response.body().string()));
-            map.set("message", new StringValue(response.message()));
-            map.set("code", NumberValue.of(response.code()));
-            final MapValue headers = new MapValue(response.headers().size());
+            final LZRMap map = new LZRMap(10);
+            map.set("text", new LZRString(response.body().string()));
+            map.set("message", new LZRString(response.message()));
+            map.set("code", LZRNumber.of(response.code()));
+            final LZRMap headers = new LZRMap(response.headers().size());
             for (Map.Entry<String, List<String>> entry : response.headers().toMultimap().entrySet()) {
                 final int valuesSize = entry.getValue().size();
-                final ArrayValue values = new ArrayValue(valuesSize);
+                final LZRArray values = new LZRArray(valuesSize);
                 for (int i = 0; i < valuesSize; i++) {
-                    values.set(i, new StringValue(entry.getValue().get(i)));
+                    values.set(i, new LZRString(entry.getValue().get(i)));
                 }
                 headers.set(entry.getKey(), values);
             }
             map.set("headers", headers);
-            map.set("content_length", NumberValue.of(response.body().contentLength()));
-            map.set(CONTENT_TYPE, new StringValue(response.body().contentType().toString()));
+            map.set("content_length", LZRNumber.of(response.body().contentLength()));
+            map.set(CONTENT_TYPE, new LZRString(response.body().contentType().toString()));
             return map;
         }
-        return new StringValue(response.body().string());
+        return new LZRString(response.body().string());
     }
     
-    private void applyHeaderParams(MapValue headerParams, Request.Builder builder) {
+    private void applyHeaderParams(LZRMap headerParams, Request.Builder builder) {
         for (Map.Entry<Value, Value> p : headerParams) {
             builder.header(p.getKey().asString(), p.getValue().asString());
         }
     }
     
-    private RequestBody getRequestBody(String method, Value params, MapValue options) throws UnsupportedEncodingException {
+    private RequestBody getRequestBody(String method, Value params, LZRMap options) throws UnsupportedEncodingException {
         if (!HttpMethod.permitsRequestBody(method)) return null;
         
         if (params.type() == Types.MAP) {
-            return getMapRequestBody((MapValue) params, options);
+            return getMapRequestBody((LZRMap) params, options);
         }
         return getStringRequestBody(params, options);
     }
     
-    private RequestBody getMapRequestBody(MapValue params, MapValue options) {
+    private RequestBody getMapRequestBody(LZRMap params, LZRMap options) {
         final FormBody.Builder form = new FormBody.Builder();
         final boolean alreadyEncoded = (options.containsKey(ENCODED_KEY)
                 && options.get(ENCODED_KEY).asInt() != 0);
@@ -160,7 +161,7 @@ public final class http_http implements Function {
         return form.build();
     }
 
-    private RequestBody getStringRequestBody(Value params, MapValue options) throws UnsupportedEncodingException {
+    private RequestBody getStringRequestBody(Value params, LZRMap options) throws UnsupportedEncodingException {
         final MediaType type;
         if (options.containsKey(CONTENT_TYPE)) {
             type = MediaType.parse(options.get(CONTENT_TYPE).asString());

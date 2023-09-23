@@ -1,7 +1,7 @@
 package com.kingmang.lazurite.parser.pars;
 
 import com.kingmang.lazurite.base.Function;
-import com.kingmang.lazurite.runtime.FunctionValue;
+import com.kingmang.lazurite.runtime.LZR.LZRFunction;
 import com.kingmang.lazurite.base.Types;
 import com.kingmang.lazurite.runtime.UserDefinedFunction;
 import com.kingmang.lazurite.parser.ast.*;
@@ -361,7 +361,7 @@ public class PrintVisitor implements ResultVisitor<StringBuilder, StringBuilder>
                 t.append('"').append(str).append('"');
                 break;
             case Types.FUNCTION:  {
-                final Function function = ((FunctionValue) s.value).getValue();
+                final Function function = ((LZRFunction) s.value).getValue();
                 if (function instanceof UserDefinedFunction) {
                     UserDefinedFunction f = (UserDefinedFunction) function;
                     t.append("def");

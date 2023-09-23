@@ -1,7 +1,7 @@
 package com.kingmang.lazurite.parser.ast;
 
 import com.kingmang.lazurite.LZREx.OExeption;
-import com.kingmang.lazurite.runtime.NumberValue;
+import com.kingmang.lazurite.runtime.LZR.LZRNumber;
 import com.kingmang.lazurite.base.Types;
 import com.kingmang.lazurite.runtime.Value;
 
@@ -46,15 +46,15 @@ public final class ConditionalExpression implements Expression {
     public Value eval() {
         switch (operation) {
             case AND:
-                return NumberValue.fromBoolean((expr1AsInt() != 0) && (expr2AsInt() != 0));
+                return LZRNumber.fromBoolean((expr1AsInt() != 0) && (expr2AsInt() != 0));
             case OR:
-                return NumberValue.fromBoolean((expr1AsInt() != 0) || (expr2AsInt() != 0));
+                return LZRNumber.fromBoolean((expr1AsInt() != 0) || (expr2AsInt() != 0));
 
             case NULL_COALESCE:
                 return nullCoalesce();
 
             default:
-                return NumberValue.fromBoolean(evalAndCompare());
+                return LZRNumber.fromBoolean(evalAndCompare());
         }
     }
 

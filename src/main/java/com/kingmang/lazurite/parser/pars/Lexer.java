@@ -10,8 +10,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import com.kingmang.lazurite.runtime.NumberValue;
-import com.kingmang.lazurite.runtime.StringValue;
+import com.kingmang.lazurite.runtime.LZR.LZRNumber;
+import com.kingmang.lazurite.runtime.LZR.LZRString;
 import com.kingmang.lazurite.runtime.Variables;
 
 
@@ -24,22 +24,22 @@ public final class Lexer {
     private static final String OPERATOR_CHARS = "+-*/%()[]{}=<>!&|.,^~?:";
 
     public static void types() {
-        Variables.define("object", NumberValue.of(Types.OBJECT));
-        Variables.define("num", NumberValue.of(Types.NUMBER));
-        Variables.define("string", NumberValue.of(Types.STRING));
-        Variables.define("array", NumberValue.of(Types.ARRAY));
-        Variables.define("map", NumberValue.of(Types.MAP));
-        Variables.define("function", NumberValue.of(Types.FUNCTION));
+        Variables.define("object", LZRNumber.of(Types.OBJECT));
+        Variables.define("num", LZRNumber.of(Types.NUMBER));
+        Variables.define("string", LZRNumber.of(Types.STRING));
+        Variables.define("array", LZRNumber.of(Types.ARRAY));
+        Variables.define("map", LZRNumber.of(Types.MAP));
+        Variables.define("function", LZRNumber.of(Types.FUNCTION));
     }
     public static void convertTypes(){
-        KEYWORD.put("str", args -> new StringValue(args[0].asString()));
-        KEYWORD.put("num", args -> NumberValue.of(args[0].asNumber()));
-        KEYWORD.put("byte", args -> NumberValue.of((byte)args[0].asInt()));
-        KEYWORD.put("short", args -> NumberValue.of((short)args[0].asInt()));
-        KEYWORD.put("int", args -> NumberValue.of(args[0].asInt()));
-        KEYWORD.put("long", args -> NumberValue.of((long)args[0].asNumber()));
-        KEYWORD.put("float", args -> NumberValue.of((float)args[0].asNumber()));
-        KEYWORD.put("double", args -> NumberValue.of(args[0].asNumber()));
+        KEYWORD.put("str", args -> new LZRString(args[0].asString()));
+        KEYWORD.put("num", args -> LZRNumber.of(args[0].asNumber()));
+        KEYWORD.put("byte", args -> LZRNumber.of((byte)args[0].asInt()));
+        KEYWORD.put("short", args -> LZRNumber.of((short)args[0].asInt()));
+        KEYWORD.put("int", args -> LZRNumber.of(args[0].asInt()));
+        KEYWORD.put("long", args -> LZRNumber.of((long)args[0].asNumber()));
+        KEYWORD.put("float", args -> LZRNumber.of((float)args[0].asNumber()));
+        KEYWORD.put("double", args -> LZRNumber.of(args[0].asNumber()));
     }
     private static final Map<String, TokenType> KEYWORDS;
     static {

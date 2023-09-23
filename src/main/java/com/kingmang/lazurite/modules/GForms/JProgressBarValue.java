@@ -2,8 +2,8 @@ package com.kingmang.lazurite.modules.GForms;
 
 
 import com.kingmang.lazurite.base.*;
-import com.kingmang.lazurite.runtime.FunctionValue;
-import com.kingmang.lazurite.runtime.NumberValue;
+import com.kingmang.lazurite.runtime.LZR.LZRFunction;
+import com.kingmang.lazurite.runtime.LZR.LZRNumber;
 import com.kingmang.lazurite.runtime.Value;
 
 import javax.swing.JProgressBar;
@@ -19,8 +19,8 @@ public class JProgressBarValue extends JComponentValue {
     }
 
     private void init() {
-        set("onChange", new FunctionValue(this::addChangeListener));
-        set("addChangeListener", new FunctionValue(this::addChangeListener));
+        set("onChange", new LZRFunction(this::addChangeListener));
+        set("addChangeListener", new LZRFunction(this::addChangeListener));
         set("getMinimum", Converters.voidToInt(progressBar::getMinimum));
         set("getMaximum", Converters.voidToInt(progressBar::getMaximum));
         set("getOrientation", Converters.voidToInt(progressBar::getOrientation));
@@ -45,6 +45,6 @@ public class JProgressBarValue extends JComponentValue {
         Arguments.check(1, args.length);
         final Function action = ValueUtils.consumeFunction(args[0], 0);
         progressBar.addChangeListener(e -> action.execute());
-        return NumberValue.ZERO;
+        return LZRNumber.ZERO;
     }
 }

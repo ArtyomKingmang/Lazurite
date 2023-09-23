@@ -2,6 +2,7 @@ package com.kingmang.lazurite.parser.pars;
 
 import com.kingmang.lazurite.base.*;
 import com.kingmang.lazurite.runtime.*;
+import com.kingmang.lazurite.runtime.LZR.*;
 
 
 public final class LEN implements Function {
@@ -14,16 +15,16 @@ public final class LEN implements Function {
         final int length;
         switch (val.type()) {
             case Types.ARRAY:
-                length = ((ArrayValue) val).size();
+                length = ((LZRArray) val).size();
                 break;
             case Types.MAP:
-                length = ((MapValue) val).size();
+                length = ((LZRMap) val).size();
                 break;
             case Types.STRING:
-                length = ((StringValue) val).length();
+                length = ((LZRString) val).length();
                 break;
             case Types.FUNCTION:
-                final Function func = ((FunctionValue) val).getValue();
+                final Function func = ((LZRFunction) val).getValue();
                 if (func instanceof UserDefinedFunction) {
                     length = ((UserDefinedFunction) func).getArgsCount();
                 } else {
@@ -34,6 +35,6 @@ public final class LEN implements Function {
                 length = 0;
                 
         }
-        return NumberValue.of(length);
+        return LZRNumber.of(length);
     }
 }

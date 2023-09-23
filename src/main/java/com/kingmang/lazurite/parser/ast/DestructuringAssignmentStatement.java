@@ -1,7 +1,7 @@
 package com.kingmang.lazurite.parser.ast;
 
-import com.kingmang.lazurite.runtime.ArrayValue;
-import com.kingmang.lazurite.runtime.MapValue;
+import com.kingmang.lazurite.runtime.LZR.LZRArray;
+import com.kingmang.lazurite.runtime.LZR.LZRMap;
 import com.kingmang.lazurite.base.Types;
 import com.kingmang.lazurite.runtime.Value;
 import com.kingmang.lazurite.runtime.Variables;
@@ -27,15 +27,15 @@ public final class DestructuringAssignmentStatement extends InterruptableNode im
         final Value container = containerExpression.eval();
         switch (container.type()) {
             case Types.ARRAY:
-                execute((ArrayValue) container);
+                execute((LZRArray) container);
                 break;
             case Types.MAP:
-                execute((MapValue) container);
+                execute((LZRMap) container);
                 break;
         }
     }
     
-    private void execute(ArrayValue array) {
+    private void execute(LZRArray array) {
         final int size = variables.size();
         for (int i = 0; i < size; i++) {
             final String variable = variables.get(i);
@@ -44,12 +44,12 @@ public final class DestructuringAssignmentStatement extends InterruptableNode im
             }
         }
     }
-    private void execute(MapValue map) {
+    private void execute(LZRMap map) {
         int i = 0;
         for (Map.Entry<Value, Value> entry : map) {
             final String variable = variables.get(i);
             if (variable != null) {
-                Variables.define(variable, new ArrayValue(
+                Variables.define(variable, new LZRArray(
                         new Value[] { entry.getKey(), entry.getValue() }
                 ));
             }
