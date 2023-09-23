@@ -4,14 +4,8 @@ package com.kingmang.lazurite.modules.time;
 import com.kingmang.lazurite.base.Arguments;
 import com.kingmang.lazurite.base.KEYWORD;
 import com.kingmang.lazurite.modules.Module;
-import com.kingmang.lazurite.runtime.NumberValue;
-import com.kingmang.lazurite.runtime.StringValue;
+import com.kingmang.lazurite.runtime.LZR.LZRNumber;
 import com.kingmang.lazurite.runtime.Value;
-import com.kingmang.lazurite.runtime.Variables;
-
-
-
-
 
 
 public final class time implements Module {
@@ -29,7 +23,7 @@ public final class time implements Module {
             } catch (InterruptedException ex) {
                 Thread.currentThread().interrupt();
             }
-            return NumberValue.MINUS_ONE;
+            return LZRNumber.MINUS_ONE;
         });
 
 

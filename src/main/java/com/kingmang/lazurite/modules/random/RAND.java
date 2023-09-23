@@ -2,7 +2,7 @@ package com.kingmang.lazurite.modules.random;
 
 import com.kingmang.lazurite.base.Arguments;
 import com.kingmang.lazurite.base.Function;
-import com.kingmang.lazurite.runtime.NumberValue;
+import com.kingmang.lazurite.runtime.LZR.LZRNumber;
 import com.kingmang.lazurite.runtime.Value;
 
 import java.util.Random;
@@ -14,7 +14,7 @@ public final class RAND implements Function {
     @Override
     public Value execute(Value... args) {
         Arguments.checkRange(0, 2, args.length);
-        if (args.length == 0) return NumberValue.of(RND.nextDouble());
+        if (args.length == 0) return LZRNumber.of(RND.nextDouble());
 
         final Object raw = args[0].raw();
         if (raw instanceof Long) {
@@ -24,10 +24,10 @@ public final class RAND implements Function {
                 to = (long) raw;
             } else if (args.length == 2) {
                 from = (long) raw;
-                to = ((NumberValue) args[1]).asLong();
+                to = ((LZRNumber) args[1]).asLong();
             }
             final long randomLong = RND.nextLong() >>> 1;
-            return NumberValue.of(randomLong % (to - from) + from);
+            return LZRNumber.of(randomLong % (to - from) + from);
         }
 
         int from = 0;
@@ -38,6 +38,6 @@ public final class RAND implements Function {
             from = args[0].asInt();
             to = args[1].asInt();
         }
-        return NumberValue.of(RND.nextInt(to - from) + from);
+        return LZRNumber.of(RND.nextInt(to - from) + from);
     }
 }

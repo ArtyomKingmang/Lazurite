@@ -8,6 +8,7 @@ import java.util.Map;
 
 import com.kingmang.lazurite.LZREx.LZRExeption;
 import com.kingmang.lazurite.runtime.*;
+import com.kingmang.lazurite.runtime.LZR.*;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -19,9 +20,9 @@ public final class ValueUtils {
     public static Object toObject(Value val) throws JSONException {
         switch (val.type()) {
             case Types.ARRAY:
-                return toObject((ArrayValue) val);
+                return toObject((LZRArray) val);
             case Types.MAP:
-                return toObject((MapValue) val);
+                return toObject((LZRMap) val);
             case Types.NUMBER:
                 return val.raw();
             case Types.STRING:
@@ -31,7 +32,7 @@ public final class ValueUtils {
         }
     }
 
-    public static JSONObject toObject(MapValue map) throws JSONException {
+    public static JSONObject toObject(LZRMap map) throws JSONException {
         final JSONObject result = new JSONObject(new LinkedHashMap<String, Object>());
         for (Map.Entry<Value, Value> entry : map) {
             final String key = entry.getKey().asString();
@@ -41,7 +42,7 @@ public final class ValueUtils {
         return result;
     }
 
-    public static JSONArray toObject(ArrayValue array) throws JSONException {
+    public static JSONArray toObject(LZRArray array) throws JSONException {
         final JSONArray result = new JSONArray();
         for (Value value : array) {
             result.put(toObject(value));
@@ -57,32 +58,32 @@ public final class ValueUtils {
             return toValue((JSONArray) obj);
         }
         if (obj instanceof String) {
-            return new StringValue((String) obj);
+            return new LZRString((String) obj);
         }
         if (obj instanceof Number) {
-            return NumberValue.of(((Number) obj));
+            return LZRNumber.of(((Number) obj));
         }
         if (obj instanceof Boolean) {
-            return NumberValue.fromBoolean((Boolean) obj);
+            return LZRNumber.fromBoolean((Boolean) obj);
         }
         // NULL or other
-        return NumberValue.ZERO;
+        return LZRNumber.ZERO;
     }
 
-    public static MapValue toValue(JSONObject json) throws JSONException {
-        final MapValue result = new MapValue(new LinkedHashMap<>(json.length()));
+    public static LZRMap toValue(JSONObject json) throws JSONException {
+        final LZRMap result = new LZRMap(new LinkedHashMap<>(json.length()));
         final Iterator<String> it = json.keys();
         while(it.hasNext()) {
             final String key = it.next();
             final Value value = toValue(json.get(key));
-            result.set(new StringValue(key), value);
+            result.set(new LZRString(key), value);
         }
         return result;
     }
 
-    public static ArrayValue toValue(JSONArray json) throws JSONException {
+    public static LZRArray toValue(JSONArray json) throws JSONException {
         final int length = json.length();
-        final ArrayValue result = new ArrayValue(length);
+        final LZRArray result = new LZRArray(length);
         for (int i = 0; i < length; i++) {
             final Value value = toValue(json.get(i));
             result.set(i, value);
@@ -91,16 +92,16 @@ public final class ValueUtils {
     }
 
     public static Number getNumber(Value value) {
-        if (value.type() == Types.NUMBER) return ((NumberValue) value).raw();
+        if (value.type() == Types.NUMBER) return ((LZRNumber) value).raw();
         return value.asInt();
     }
 
     public static float getFloatNumber(Value value) {
-        if (value.type() == Types.NUMBER) return ((NumberValue) value).raw().floatValue();
+        if (value.type() == Types.NUMBER) return ((LZRNumber) value).raw().floatValue();
         return (float) value.asNumber();
     }
 
-    public static byte[] toByteArray(ArrayValue array) {
+    public static byte[] toByteArray(LZRArray array) {
         final int size = array.size();
         final byte[] result = new byte[size];
         for (int i = 0; i < size; i++) {
@@ -119,16 +120,16 @@ public final class ValueUtils {
             throw new LZRExeption("TypeExeption ", "Function expected" + errorMessage
                     + ", but found " + Types.typeToString(type));
         }
-        return ((FunctionValue) value).getValue();
+        return ((LZRFunction) value).getValue();
     }
 
-    public static <T extends Number> MapValue collectNumberConstants(Class<?> clazz, Class<T> type) {
-        MapValue result = new MapValue(20);
+    public static <T extends Number> LZRMap collectNumberConstants(Class<?> clazz, Class<T> type) {
+        LZRMap result = new LZRMap(20);
         for (Field field : clazz.getDeclaredFields()) {
             if (!Modifier.isStatic(field.getModifiers())) continue;
             if (!field.getType().equals(type)) continue;
             try {
-                result.set(field.getName(), NumberValue.of((T) field.get(type)));
+                result.set(field.getName(), LZRNumber.of((T) field.get(type)));
             } catch (IllegalAccessException ignore) {
             }
         }

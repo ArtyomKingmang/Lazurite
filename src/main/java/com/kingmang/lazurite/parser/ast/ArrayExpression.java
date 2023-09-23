@@ -1,6 +1,6 @@
 package com.kingmang.lazurite.parser.ast;
 
-import com.kingmang.lazurite.runtime.ArrayValue;
+import com.kingmang.lazurite.runtime.LZR.LZRArray;
 import com.kingmang.lazurite.runtime.Value;
 
 import java.util.List;
@@ -17,7 +17,7 @@ public final class ArrayExpression implements Expression {
     @Override
     public Value eval() {
         final int size = elements.size();
-        final ArrayValue array = new ArrayValue(size);
+        final LZRArray array = new LZRArray(size);
         for (int i = 0; i < size; i++) {
             array.set(i, elements.get(i).eval());
         }

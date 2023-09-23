@@ -1,8 +1,8 @@
 package com.kingmang.lazurite.parser.ast;
 
 import com.kingmang.lazurite.LZREx.LZRExeption;
-import com.kingmang.lazurite.runtime.NumberValue;
-import com.kingmang.lazurite.runtime.StringValue;
+import com.kingmang.lazurite.runtime.LZR.LZRNumber;
+import com.kingmang.lazurite.runtime.LZR.LZRString;
 import com.kingmang.lazurite.runtime.Value;
 import com.kingmang.lazurite.runtime.Variables;
 
@@ -36,25 +36,25 @@ public final class AssignmentStatement implements Statement {
                 // =========
                 if (mode == 1){
                     final Value result = expression.eval();
-                    Variables.set(variable, NumberValue.of(Variables.get(variable).asInt() + result.asInt()));
+                    Variables.set(variable, LZRNumber.of(Variables.get(variable).asInt() + result.asInt()));
                 }
                 else if(mode == 2){
                     final Value result = expression.eval();
-                    Variables.set(variable, NumberValue.of(Variables.get(variable).asInt() - result.asInt()));
+                    Variables.set(variable, LZRNumber.of(Variables.get(variable).asInt() - result.asInt()));
                 }
                 else if(mode == 3){
                     final Value result = expression.eval();
-                    Variables.set(variable, NumberValue.of(Variables.get(variable).asInt() * result.asInt()));
+                    Variables.set(variable, LZRNumber.of(Variables.get(variable).asInt() * result.asInt()));
                 }
                 else if(mode == 4){
                     final Value result = expression.eval();
-                    Variables.set(variable, NumberValue.of(Variables.get(variable).asInt() / result.asInt()));
+                    Variables.set(variable, LZRNumber.of(Variables.get(variable).asInt() / result.asInt()));
                 }
             }
             catch (Exception ex){
                 if (mode == 1){
                     final Value result = expression.eval();
-                    Variables.set(variable, new StringValue(Variables.get(variable).toString() + result.toString()));
+                    Variables.set(variable, new LZRString(Variables.get(variable).toString() + result.toString()));
                 }
                 else{
                     throw new LZRExeption("TypeError", "non-applicable operation to string");

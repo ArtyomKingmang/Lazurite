@@ -1,7 +1,7 @@
 package com.kingmang.lazurite.modules.ML;
 import com.kingmang.lazurite.base.*;
 import com.kingmang.lazurite.modules.Module;
-import com.kingmang.lazurite.runtime.NumberValue;
+import com.kingmang.lazurite.runtime.LZR.LZRNumber;
 import com.kingmang.lazurite.runtime.Value;
 import com.kingmang.lazurite.runtime.Variables;
 
@@ -12,10 +12,10 @@ import java.util.function.DoubleUnaryOperator;
 
 public final class ML implements Module {
 
-    private static final DoubleFunction<NumberValue> doubleToNumber = NumberValue::of;
+    private static final DoubleFunction<LZRNumber> doubleToNumber = LZRNumber::of;
 
     public static void initConstants() {
-        Variables.define("PI", NumberValue.of(Math.PI));
+        Variables.define("PI", LZRNumber.of(Math.PI));
     }
 
     @Override
@@ -35,15 +35,15 @@ public final class ML implements Module {
         Arguments.check(1, args.length);
         final Object raw = args[0].raw();
         if (raw instanceof Double) {
-            return NumberValue.of(Math.abs((double) raw));
+            return LZRNumber.of(Math.abs((double) raw));
         }
         if (raw instanceof Float) {
-            return NumberValue.of(Math.abs((float) raw));
+            return LZRNumber.of(Math.abs((float) raw));
         }
         if (raw instanceof Long) {
-            return NumberValue.of(Math.abs((long) raw));
+            return LZRNumber.of(Math.abs((long) raw));
         }
-        return NumberValue.of(Math.abs(args[0].asInt()));
+        return LZRNumber.of(Math.abs(args[0].asInt()));
     }
 
 

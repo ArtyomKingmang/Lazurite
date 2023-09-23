@@ -2,9 +2,9 @@ package com.kingmang.lazurite.parser.pars;
 
 import com.kingmang.lazurite.LZREx.LZRExeption;
 import com.kingmang.lazurite.base.Arguments;
-import com.kingmang.lazurite.runtime.ArrayValue;
+import com.kingmang.lazurite.runtime.LZR.LZRArray;
 import com.kingmang.lazurite.base.Function;
-import com.kingmang.lazurite.runtime.MapValue;
+import com.kingmang.lazurite.runtime.LZR.LZRMap;
 import com.kingmang.lazurite.base.Types;
 import com.kingmang.lazurite.runtime.Value;
 import com.kingmang.lazurite.base.ValueUtils;
@@ -21,7 +21,7 @@ public final class REDUCE implements Function {
         final Function accumulator = ValueUtils.consumeFunction(args[2], 2);
         if (container.type() == Types.ARRAY) {
             Value result = identity;
-            final ArrayValue array = (ArrayValue) container;
+            final LZRArray array = (LZRArray) container;
             for (Value element : array) {
                 result = accumulator.execute(result, element);
             }
@@ -29,7 +29,7 @@ public final class REDUCE implements Function {
         }
         if (container.type() == Types.MAP) {
             Value result = identity;
-            final MapValue map = (MapValue) container;
+            final LZRMap map = (LZRMap) container;
             for (Map.Entry<Value, Value> element : map) {
                 result = accumulator.execute(result, element.getKey(), element.getValue());
             }

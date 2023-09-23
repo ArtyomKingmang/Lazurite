@@ -3,6 +3,8 @@ package com.kingmang.lazurite.modules.Reflection;
 import com.kingmang.lazurite.base.*;
 import com.kingmang.lazurite.modules.Module;
 import com.kingmang.lazurite.runtime.*;
+import com.kingmang.lazurite.runtime.LZR.*;
+
 import java.lang.reflect.Array;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
@@ -68,7 +70,7 @@ public final class Reflection implements Module {
         }
     }
 
-    private static class ClassValue extends MapValue implements Instantiable {
+    private static class ClassValue extends LZRMap implements Instantiable {
 
         public static Value classOrNull(Class<?> clazz) {
             if (clazz == null) return NULL;
@@ -84,12 +86,12 @@ public final class Reflection implements Module {
         }
 
         private void init(Class<?> clazz) {
-            set("isAnnotation", NumberValue.fromBoolean(clazz.isAnnotation()));
-            set("isAnonymousClass", NumberValue.fromBoolean(clazz.isAnonymousClass()));
-            set("isArray", NumberValue.fromBoolean(clazz.isArray()));
-            set("isEnum", NumberValue.fromBoolean(clazz.isEnum()));
-            set("isInterface", NumberValue.fromBoolean(clazz.isInterface()));
-            set("new", new FunctionValue(this::newInstance));
+            set("isAnnotation", LZRNumber.fromBoolean(clazz.isAnnotation()));
+            set("isAnonymousClass", LZRNumber.fromBoolean(clazz.isAnonymousClass()));
+            set("isArray", LZRNumber.fromBoolean(clazz.isArray()));
+            set("isEnum", LZRNumber.fromBoolean(clazz.isEnum()));
+            set("isInterface", LZRNumber.fromBoolean(clazz.isInterface()));
+            set("new", new LZRFunction(this::newInstance));
 
         }
 
@@ -120,7 +122,7 @@ public final class Reflection implements Module {
         }
     }
 
-    private static class ObjectValue extends MapValue {
+    private static class ObjectValue extends LZRMap {
 
 
 
@@ -156,9 +158,9 @@ public final class Reflection implements Module {
     private Value isNull(Value[] args) {
         Arguments.checkAtLeast(1, args.length);
         for (Value arg : args) {
-            if (arg.raw() == null) return NumberValue.ONE;
+            if (arg.raw() == null) return LZRNumber.ONE;
         }
-        return NumberValue.ZERO;
+        return LZRNumber.ZERO;
     }
 
     private Value JClass(Value[] args) {
@@ -208,9 +210,9 @@ public final class Reflection implements Module {
                 }
             }
             if (methods.isEmpty()) {
-                return FunctionValue.EMPTY;
+                return LZRFunction.EMPTY;
             }
-            return new FunctionValue(methodsToFunction(object, methods));
+            return new LZRFunction(methodsToFunction(object, methods));
         } catch (SecurityException ex) {
             // ignore and go to the next step
         }
@@ -244,7 +246,7 @@ public final class Reflection implements Module {
                     if (method.getReturnType() != void.class) {
                         return objectToValue(result);
                     }
-                    return NumberValue.ONE;
+                    return LZRNumber.ONE;
                 } catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException ex) {
                     // skip
                 }
@@ -309,30 +311,30 @@ public final class Reflection implements Module {
         if (o == null || o == NULL) return NULL;
         if (clazz.isPrimitive()) {
             if (int.class.isAssignableFrom(clazz))
-                return NumberValue.of((int) o);
+                return LZRNumber.of((int) o);
             if (boolean.class.isAssignableFrom(clazz))
-                return NumberValue.fromBoolean((boolean) o);
+                return LZRNumber.fromBoolean((boolean) o);
             if (double.class.isAssignableFrom(clazz))
-                return NumberValue.of((double) o);
+                return LZRNumber.of((double) o);
             if (float.class.isAssignableFrom(clazz))
-                return NumberValue.of((float) o);
+                return LZRNumber.of((float) o);
             if (long.class.isAssignableFrom(clazz))
-                return NumberValue.of((long) o);
+                return LZRNumber.of((long) o);
             if (byte.class.isAssignableFrom(clazz))
-                return NumberValue.of((byte) o);
+                return LZRNumber.of((byte) o);
             if (char.class.isAssignableFrom(clazz))
-                return NumberValue.of((char) o);
+                return LZRNumber.of((char) o);
             if (short.class.isAssignableFrom(clazz))
-                return NumberValue.of((short) o);
+                return LZRNumber.of((short) o);
         }
         if (Number.class.isAssignableFrom(clazz)) {
-            return NumberValue.of((Number) o);
+            return LZRNumber.of((Number) o);
         }
         if (String.class.isAssignableFrom(clazz)) {
-            return new StringValue((String) o);
+            return new LZRString((String) o);
         }
         if (CharSequence.class.isAssignableFrom(clazz)) {
-            return new StringValue( ((CharSequence) o).toString() );
+            return new LZRString( ((CharSequence) o).toString() );
         }
         if (o instanceof Value) {
             return (Value) o;
@@ -349,40 +351,40 @@ public final class Reflection implements Module {
 
     private static Value arrayToValue(Class<?> clazz, Object o) {
         final int length = Array.getLength(o);
-        final ArrayValue result = new ArrayValue(length);
+        final LZRArray result = new LZRArray(length);
         final Class<?> componentType = clazz.getComponentType();
         int i = 0;
         if (boolean.class.isAssignableFrom(componentType)) {
             for (boolean element : (boolean[]) o) {
-                result.set(i++, NumberValue.fromBoolean(element));
+                result.set(i++, LZRNumber.fromBoolean(element));
             }
         } else if (byte.class.isAssignableFrom(componentType)) {
             for (byte element : (byte[]) o) {
-                result.set(i++, NumberValue.of(element));
+                result.set(i++, LZRNumber.of(element));
             }
         } else if (char.class.isAssignableFrom(componentType)) {
             for (char element : (char[]) o) {
-                result.set(i++, NumberValue.of(element));
+                result.set(i++, LZRNumber.of(element));
             }
         } else if (double.class.isAssignableFrom(componentType)) {
             for (double element : (double[]) o) {
-                result.set(i++, NumberValue.of(element));
+                result.set(i++, LZRNumber.of(element));
             }
         } else if (float.class.isAssignableFrom(componentType)) {
             for (float element : (float[]) o) {
-                result.set(i++, NumberValue.of(element));
+                result.set(i++, LZRNumber.of(element));
             }
         } else if (int.class.isAssignableFrom(componentType)) {
             for (int element : (int[]) o) {
-                result.set(i++, NumberValue.of(element));
+                result.set(i++, LZRNumber.of(element));
             }
         } else if (long.class.isAssignableFrom(componentType)) {
             for (long element : (long[]) o) {
-                result.set(i++, NumberValue.of(element));
+                result.set(i++, LZRNumber.of(element));
             }
         } else if (short.class.isAssignableFrom(componentType)) {
             for (short element : (short[]) o) {
-                result.set(i++, NumberValue.of(element));
+                result.set(i++, LZRNumber.of(element));
             }
         } else {
             for (Object element : (Object[]) o) {
@@ -408,7 +410,7 @@ public final class Reflection implements Module {
             case Types.STRING:
                 return value.asString();
             case Types.ARRAY:
-                return arrayToObject((ArrayValue) value);
+                return arrayToObject((LZRArray) value);
         }
         if (value instanceof ObjectValue) {
             return ((ObjectValue) value).object;
@@ -419,7 +421,7 @@ public final class Reflection implements Module {
         return value.raw();
     }
 
-    private static Object arrayToObject(ArrayValue value) {
+    private static Object arrayToObject(LZRArray value) {
         final int size = value.size();
         final Object[] array = new Object[size];
         if (size == 0) {

@@ -1,8 +1,8 @@
 package com.kingmang.lazurite.parser.pars;
 
 import com.kingmang.lazurite.base.*;
-import com.kingmang.lazurite.runtime.ArrayValue;
-import com.kingmang.lazurite.runtime.NumberValue;
+import com.kingmang.lazurite.runtime.LZR.LZRArray;
+import com.kingmang.lazurite.runtime.LZR.LZRNumber;
 import com.kingmang.lazurite.runtime.Value;
 
 
@@ -38,19 +38,19 @@ public final class RANGE implements Function {
 
     private static long getLong(Value v) {
         if (v.type() == Types.NUMBER) {
-            return ((NumberValue) v).asLong();
+            return ((LZRNumber) v).asLong();
         }
         return v.asInt();
     }
 
-    private static class RangeValue extends ArrayValue {
+    private static class RangeValue extends LZRArray {
 
-        public static ArrayValue of(long from, long to, long step) {
+        public static LZRArray of(long from, long to, long step) {
             boolean isInvalid = false;
             isInvalid = isInvalid || (step == 0);
             isInvalid = isInvalid || ((step > 0) && (from >= to));
             isInvalid = isInvalid || ((step < 0) && (to >= from));
-            if (isInvalid) return new ArrayValue(0);
+            if (isInvalid) return new LZRArray(0);
             return new RangeValue(from, to, step);
         }
 
@@ -75,11 +75,11 @@ public final class RANGE implements Function {
                 final int toInt = (int) to;
                 final int stepInt = (int) step;
                 for (int value = (int) from; value < toInt; value += stepInt) {
-                    result[i++] = NumberValue.of(value);
+                    result[i++] = LZRNumber.of(value);
                 }
             } else {
                 for (long value = from; value < to; value += step) {
-                    result[i++] = NumberValue.of(value);
+                    result[i++] = LZRNumber.of(value);
                 }
             }
             return result;
@@ -100,9 +100,9 @@ public final class RANGE implements Function {
         @Override
         public Value get(int index) {
             if (isIntegerRange()) {
-                return NumberValue.of((int) (from + index * step));
+                return LZRNumber.of((int) (from + index * step));
             }
-            return NumberValue.of(from + (long) index * step);
+            return LZRNumber.of(from + (long) index * step);
         }
 
         @Override
@@ -146,7 +146,7 @@ public final class RANGE implements Function {
                     public Value next() {
                         final int result = value;
                         value += stepInt;
-                        return NumberValue.of(result);
+                        return LZRNumber.of(result);
                     }
 
                     @Override
@@ -166,7 +166,7 @@ public final class RANGE implements Function {
                 public Value next() {
                     final long result = value;
                     value += step;
-                    return NumberValue.of(result);
+                    return LZRNumber.of(result);
                 }
 
                 @Override
@@ -199,7 +199,7 @@ public final class RANGE implements Function {
         @Override
         public int compareTo(Value o) {
             if (o.type() == Types.ARRAY) {
-                final int lengthCompare = Integer.compare(size(), ((ArrayValue) o).size());
+                final int lengthCompare = Integer.compare(size(), ((LZRArray) o).size());
                 if (lengthCompare != 0) return lengthCompare;
 
                 if (o instanceof RangeValue) {

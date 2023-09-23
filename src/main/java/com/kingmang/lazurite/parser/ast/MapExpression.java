@@ -1,6 +1,6 @@
 package com.kingmang.lazurite.parser.ast;
 
-import com.kingmang.lazurite.runtime.MapValue;
+import com.kingmang.lazurite.runtime.LZR.LZRMap;
 import com.kingmang.lazurite.runtime.Value;
 
 import java.util.Iterator;
@@ -18,7 +18,7 @@ public final class MapExpression implements Expression {
     @Override
     public Value eval() {
         final int size = elements.size();
-        final MapValue map = new MapValue(size);
+        final LZRMap map = new LZRMap(size);
         for (Map.Entry<Expression, Expression> entry : elements.entrySet()) {
             map.set(entry.getKey().eval(), entry.getValue().eval());
         }

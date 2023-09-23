@@ -1,7 +1,6 @@
 package com.kingmang.lazurite.base;
 
 import com.kingmang.lazurite.LZREx.LZRExeption;
-import com.kingmang.lazurite.runtime.FunctionValue;
 
 import java.util.HashMap;
 import java.util.Map;

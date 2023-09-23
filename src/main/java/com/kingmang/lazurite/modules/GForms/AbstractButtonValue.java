@@ -2,8 +2,8 @@ package com.kingmang.lazurite.modules.GForms;
 
 
 import com.kingmang.lazurite.base.*;
-import com.kingmang.lazurite.runtime.FunctionValue;
-import com.kingmang.lazurite.runtime.NumberValue;
+import com.kingmang.lazurite.runtime.LZR.LZRFunction;
+import com.kingmang.lazurite.runtime.LZR.LZRNumber;
 import com.kingmang.lazurite.runtime.Value;
 
 import javax.swing.AbstractButton;
@@ -19,10 +19,10 @@ public class AbstractButtonValue extends JComponentValue {
     }
 
     private void init() {
-        set("onClick", new FunctionValue(this::addActionListener));
-        set("addActionListener", new FunctionValue(this::addActionListener));
-        set("onChange", new FunctionValue(this::addChangeListener));
-        set("addChangeListener", new FunctionValue(this::addChangeListener));
+        set("onClick", new LZRFunction(this::addActionListener));
+        set("addActionListener", new LZRFunction(this::addActionListener));
+        set("onChange", new LZRFunction(this::addChangeListener));
+        set("addChangeListener", new LZRFunction(this::addChangeListener));
         set("doClick", Converters.intOptToVoid(abstractButton::doClick, abstractButton::doClick));
         set("getActionCommand", Converters.voidToString(abstractButton::getActionCommand));
         set("getDisplayedMnemonicIndex", Converters.voidToInt(abstractButton::getDisplayedMnemonicIndex));
@@ -47,13 +47,13 @@ public class AbstractButtonValue extends JComponentValue {
         Arguments.check(1, args.length);
         final Function action = ValueUtils.consumeFunction(args[0], 0);
         abstractButton.addActionListener(e -> action.execute());
-        return NumberValue.ZERO;
+        return LZRNumber.ZERO;
     }
     
     private Value addChangeListener(Value[] args) {
         Arguments.check(1, args.length);
         final Function action = ValueUtils.consumeFunction(args[0], 0);
         abstractButton.addChangeListener(e -> action.execute());
-        return NumberValue.ZERO;
+        return LZRNumber.ZERO;
     }
 }

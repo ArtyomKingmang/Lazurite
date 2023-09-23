@@ -2,8 +2,8 @@ package com.kingmang.lazurite.modules.GForms;
 
 
 import com.kingmang.lazurite.base.*;
-import com.kingmang.lazurite.runtime.FunctionValue;
-import com.kingmang.lazurite.runtime.NumberValue;
+import com.kingmang.lazurite.runtime.LZR.LZRFunction;
+import com.kingmang.lazurite.runtime.LZR.LZRNumber;
 import com.kingmang.lazurite.runtime.Value;
 
 import javax.swing.JTextField;
@@ -20,8 +20,8 @@ public class JTextFieldValue extends JTextComponentValue {
     }
 
     private void init() {
-        set("onAction", new FunctionValue(this::addActionListener));
-        set("addActionListener", new FunctionValue(this::addActionListener));
+        set("onAction", new LZRFunction(this::addActionListener));
+        set("addActionListener", new LZRFunction(this::addActionListener));
         set("getColumns", Converters.voidToInt(textField::getColumns));
         set("getHorizontalAlignment", Converters.voidToInt(textField::getHorizontalAlignment));
         set("getScrollOffset", Converters.voidToInt(textField::getScrollOffset));
@@ -36,6 +36,6 @@ public class JTextFieldValue extends JTextComponentValue {
         Arguments.check(1, args.length);
         Function action = ValueUtils.consumeFunction(args[0], 1);
         textField.addActionListener(e -> action.execute());
-        return NumberValue.ZERO;
+        return LZRNumber.ZERO;
     }
 }

@@ -1,6 +1,6 @@
 package com.kingmang.lazurite.parser.pars;
 
-import com.kingmang.lazurite.runtime.NumberValue;
+import com.kingmang.lazurite.runtime.LZR.LZRNumber;
 import com.kingmang.lazurite.base.Types;
 import com.kingmang.lazurite.runtime.Value;
 import com.kingmang.lazurite.parser.ast.BinaryExpression;
@@ -43,7 +43,7 @@ public final class VisitorUtils {
         final Value value = ((ValueExpression) node).value;
         if (value.type() != Types.NUMBER) return false;
 
-        final Number number = ((NumberValue) value).raw();
+        final Number number = ((LZRNumber) value).raw();
         if ( (number instanceof Integer) || (number instanceof Short) || (number instanceof Byte)) {
             return number.intValue() == valueToCheck;
         }

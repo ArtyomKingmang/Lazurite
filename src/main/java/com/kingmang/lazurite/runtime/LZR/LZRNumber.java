@@ -1,27 +1,26 @@
-package com.kingmang.lazurite.runtime;
+package com.kingmang.lazurite.runtime.LZR;
 
 
 import com.kingmang.lazurite.base.Types;
+import com.kingmang.lazurite.runtime.Value;
 
-import java.time.LocalDate;
-
-public final class NumberValue implements Value {
+public final class LZRNumber implements Value {
 
     private static final int CACHE_MIN = -128;
     private static final int CACHE_MAX = 127;
 
-    public static final NumberValue MINUS_ONE;
-    public static final NumberValue ZERO;
-    public static final NumberValue ONE;
+    public static final LZRNumber MINUS_ONE;
+    public static final LZRNumber ZERO;
+    public static final LZRNumber ONE;
 
-    private static final NumberValue[] NUMBER_CACHE;
+    private static final LZRNumber[] NUMBER_CACHE;
 
     static {
         final int length = CACHE_MAX - CACHE_MIN + 1;
-        NUMBER_CACHE = new NumberValue[length];
+        NUMBER_CACHE = new LZRNumber[length];
         int value = CACHE_MIN;
         for (int i = 0; i < length; i++) {
-            NUMBER_CACHE[i] = new NumberValue(value++);
+            NUMBER_CACHE[i] = new LZRNumber(value++);
         }
 
         final int zeroIndex = -CACHE_MIN;
@@ -31,24 +30,24 @@ public final class NumberValue implements Value {
     }
 
 
-    public static NumberValue fromBoolean(boolean b) {
+    public static LZRNumber fromBoolean(boolean b) {
         return b ? ONE : ZERO;
     }
 
-    public static NumberValue of(int value) {
+    public static LZRNumber of(int value) {
         if (CACHE_MIN <= value && value <= CACHE_MAX) {
             return NUMBER_CACHE[-CACHE_MIN + value];
         }
-        return new NumberValue(value);
+        return new LZRNumber(value);
     }
 
-    public static NumberValue of(Number value) {
-        return new NumberValue(value);
+    public static LZRNumber of(Number value) {
+        return new LZRNumber(value);
     }
 
     private final Number value;
     
-    public NumberValue(Number value) {
+    public LZRNumber(Number value) {
         this.value = value;
     }
     
@@ -114,7 +113,7 @@ public final class NumberValue implements Value {
         if (obj == null) return false;
         if (getClass() != obj.getClass())
             return false;
-        final Number other = ((NumberValue) obj).value;
+        final Number other = ((LZRNumber) obj).value;
         if (value instanceof Double || other instanceof Double) {
             return Double.compare(value.doubleValue(), other.doubleValue()) == 0;
         }
@@ -130,7 +129,7 @@ public final class NumberValue implements Value {
     @Override
     public int compareTo(Value o) {
         if (o.type() == Types.NUMBER) {
-            final Number other = ((NumberValue) o).value;
+            final Number other = ((LZRNumber) o).value;
             if (value instanceof Double || other instanceof Double) {
                 return Double.compare(value.doubleValue(), other.doubleValue());
             }

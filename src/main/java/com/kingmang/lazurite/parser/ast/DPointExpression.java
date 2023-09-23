@@ -1,6 +1,6 @@
 package com.kingmang.lazurite.parser.ast;
 
-import com.kingmang.lazurite.runtime.FunctionValue;
+import com.kingmang.lazurite.runtime.LZR.LZRFunction;
 import com.kingmang.lazurite.base.KEYWORD;
 
 
@@ -13,9 +13,9 @@ public final class DPointExpression extends InterruptableNode implements Express
     }
 
     @Override
-    public FunctionValue eval() {
+    public LZRFunction eval() {
         super.interruptionCheck();
-        return new FunctionValue(KEYWORD.get(name));
+        return new LZRFunction(KEYWORD.get(name));
     }
     
     @Override

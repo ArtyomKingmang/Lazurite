@@ -1,7 +1,8 @@
-package com.kingmang.lazurite.runtime;
+package com.kingmang.lazurite.runtime.LZR;
 
 import com.kingmang.lazurite.LZREx.LZRExeption;
 import com.kingmang.lazurite.base.*;
+import com.kingmang.lazurite.runtime.Value;
 
 import java.util.Iterator;
 import java.util.LinkedHashMap;
@@ -10,12 +11,12 @@ import java.util.Objects;
 import java.util.function.Consumer;
 
 
-public class MapValue implements Value, Iterable<Map.Entry<Value, Value>> {
+public class LZRMap implements Value, Iterable<Map.Entry<Value, Value>> {
     
-    public static final MapValue EMPTY = new MapValue(1);
+    public static final LZRMap EMPTY = new LZRMap(1);
     
-    public static MapValue merge(MapValue map1, MapValue map2) {
-        final MapValue result = new MapValue(map1.size() + map2.size());
+    public static LZRMap merge(LZRMap map1, LZRMap map2) {
+        final LZRMap result = new LZRMap(map1.size() + map2.size());
         result.map.putAll(map1.map);
         result.map.putAll(map2.map);
         return result;
@@ -23,16 +24,16 @@ public class MapValue implements Value, Iterable<Map.Entry<Value, Value>> {
 
     private final Map<Value, Value> map;
 
-    public MapValue(int size) {
+    public LZRMap(int size) {
         this.map = new LinkedHashMap<>(size);
     }
 
-    public MapValue(Map<Value, Value> map) {
+    public LZRMap(Map<Value, Value> map) {
         this.map = map;
     }
 
     public boolean ifPresent(String key, Consumer<Value> consumer) {
-        return ifPresent(new StringValue(key), consumer);
+        return ifPresent(new LZRString(key), consumer);
     }
 
     public boolean ifPresent(Value key, Consumer<Value> consumer) {
@@ -43,12 +44,12 @@ public class MapValue implements Value, Iterable<Map.Entry<Value, Value>> {
         return false;
     }
 
-    public ArrayValue toPairs() {
+    public LZRArray toPairs() {
         final int size = map.size();
-        final ArrayValue result = new ArrayValue(size);
+        final LZRArray result = new LZRArray(size);
         int index = 0;
         for (Map.Entry<Value, Value> entry : map.entrySet()) {
-            result.set(index++, new ArrayValue(new Value[] {
+            result.set(index++, new LZRArray(new Value[] {
                 entry.getKey(), entry.getValue()
             }));
         }
@@ -73,11 +74,11 @@ public class MapValue implements Value, Iterable<Map.Entry<Value, Value>> {
     }
 
     public void set(String key, Value value) {
-        set(new StringValue(key), value);
+        set(new LZRString(key), value);
     }
 
     public void set(String key, Function function) {
-        set(new StringValue(key), new FunctionValue(function));
+        set(new LZRString(key), new LZRFunction(function));
     }
     
     public void set(Value key, Value value) {
@@ -126,14 +127,14 @@ public class MapValue implements Value, Iterable<Map.Entry<Value, Value>> {
         if (obj == null) return false;
         if (getClass() != obj.getClass())
             return false;
-        final MapValue other = (MapValue) obj;
+        final LZRMap other = (LZRMap) obj;
         return Objects.equals(this.map, other.map);
     }
     
     @Override
     public int compareTo(Value o) {
         if (o.type() == Types.MAP) {
-            final int lengthCompare = Integer.compare(size(), ((MapValue) o).size());
+            final int lengthCompare = Integer.compare(size(), ((LZRMap) o).size());
             if (lengthCompare != 0) return lengthCompare;
         }
         return asString().compareTo(o.asString());
