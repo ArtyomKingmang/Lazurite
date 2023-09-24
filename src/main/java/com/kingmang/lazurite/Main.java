@@ -1,18 +1,14 @@
 package com.kingmang.lazurite;
 
-import com.kingmang.lazurite.base.Stop;
+import com.kingmang.lazurite.core.Stop;
 import com.kingmang.lazurite.parser.ast.Statement;
 import com.kingmang.lazurite.parser.pars.*;
 import com.kingmang.lazurite.parser.pars.FunctionAdder;
 import com.kingmang.lazurite.runtime.Time;
 
 import java.io.BufferedReader;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.net.URL;
-import java.nio.channels.Channels;
-import java.nio.channels.ReadableByteChannel;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -41,7 +37,6 @@ public class Main  {
         if (cmd.contains("lazurite") || cmd.contains("lzr")) {
 
             String[] objs = cmd.split(" ");
-
             if (objs[1].equals("--run")||objs[1].equals("-r")) {
                 System.out.print("\n\nEnter path to your file: ");
                 Scanner scan = new Scanner(System.in);

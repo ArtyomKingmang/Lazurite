@@ -1,6 +1,6 @@
 package com.kingmang.lazurite.parser.pars;
 
-import com.kingmang.lazurite.base.CallStack;
+import com.kingmang.lazurite.core.CallStack;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;

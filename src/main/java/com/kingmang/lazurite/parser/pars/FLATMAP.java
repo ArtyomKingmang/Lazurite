@@ -1,12 +1,12 @@
 package com.kingmang.lazurite.parser.pars;
 
 import com.kingmang.lazurite.LZREx.LZRExeption;
-import com.kingmang.lazurite.base.Arguments;
+import com.kingmang.lazurite.core.Arguments;
 import com.kingmang.lazurite.runtime.LZR.LZRArray;
-import com.kingmang.lazurite.base.Function;
-import com.kingmang.lazurite.base.Types;
+import com.kingmang.lazurite.core.Function;
+import com.kingmang.lazurite.core.Types;
 import com.kingmang.lazurite.runtime.Value;
-import com.kingmang.lazurite.base.ValueUtils;
+import com.kingmang.lazurite.core.ValueUtils;
 import java.util.ArrayList;
 import java.util.List;
 

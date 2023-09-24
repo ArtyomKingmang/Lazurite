@@ -1,7 +1,7 @@
 package com.kingmang.lazurite.runtime;
 
 import com.kingmang.lazurite.LZREx.LZRExeption;
-import com.kingmang.lazurite.base.Function;
+import com.kingmang.lazurite.core.Function;
 import com.kingmang.lazurite.parser.ast.Argument;
 import com.kingmang.lazurite.parser.ast.Arguments;
 import com.kingmang.lazurite.parser.ast.ReturnStatement;

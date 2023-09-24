@@ -1,7 +1,7 @@
 package com.kingmang.lazurite.parser.linters;
 
 import com.kingmang.lazurite.parser.pars.Console;
-import com.kingmang.lazurite.base.KEYWORD;
+import com.kingmang.lazurite.core.KEYWORD;
 import com.kingmang.lazurite.parser.ast.FunctionDefineStatement;
 import com.kingmang.lazurite.parser.ast.IncludeStatement;
 import com.kingmang.lazurite.parser.ast.UsingStatement;

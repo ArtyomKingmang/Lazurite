@@ -3,7 +3,7 @@ package com.kingmang.lazurite.parser.ast;
 import com.kingmang.lazurite.LZREx.LZRExeption;
 import com.kingmang.lazurite.runtime.LZR.LZRNumber;
 import com.kingmang.lazurite.runtime.LZR.LZRString;
-import com.kingmang.lazurite.base.Types;
+import com.kingmang.lazurite.core.Types;
 import com.kingmang.lazurite.runtime.Value;
 
 

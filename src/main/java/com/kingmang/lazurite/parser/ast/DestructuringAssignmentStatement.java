@@ -2,7 +2,7 @@ package com.kingmang.lazurite.parser.ast;
 
 import com.kingmang.lazurite.runtime.LZR.LZRArray;
 import com.kingmang.lazurite.runtime.LZR.LZRMap;
-import com.kingmang.lazurite.base.Types;
+import com.kingmang.lazurite.core.Types;
 import com.kingmang.lazurite.runtime.Value;
 import com.kingmang.lazurite.runtime.Variables;
 

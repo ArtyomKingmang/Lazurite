@@ -1,6 +1,6 @@
 package com.kingmang.lazurite.parser.optimization;
 
-import com.kingmang.lazurite.base.Types;
+import com.kingmang.lazurite.core.Types;
 import com.kingmang.lazurite.runtime.UserDefinedFunction;
 import com.kingmang.lazurite.runtime.Value;
 import com.kingmang.lazurite.parser.ast.*;

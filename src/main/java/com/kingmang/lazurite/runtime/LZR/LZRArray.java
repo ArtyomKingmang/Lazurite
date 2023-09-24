@@ -1,7 +1,7 @@
 package com.kingmang.lazurite.runtime.LZR;
 
 import com.kingmang.lazurite.LZREx.LZRExeption;
-import com.kingmang.lazurite.base.*;
+import com.kingmang.lazurite.core.*;
 import com.kingmang.lazurite.runtime.Value;
 
 import java.util.Arrays;

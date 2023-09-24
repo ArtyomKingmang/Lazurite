@@ -1,6 +1,6 @@
 package com.kingmang.lazurite.parser.optimization;
 
-import com.kingmang.lazurite.base.Types;
+import com.kingmang.lazurite.core.Types;
 import com.kingmang.lazurite.parser.ast.AssignmentExpression;
 import com.kingmang.lazurite.parser.ast.MStatement;
 import com.kingmang.lazurite.parser.ast.ExprStatement;

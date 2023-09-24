@@ -1,7 +1,7 @@
 package com.kingmang.lazurite.runtime.LZR;
 
 
-import com.kingmang.lazurite.base.Types;
+import com.kingmang.lazurite.core.Types;
 import com.kingmang.lazurite.runtime.Value;
 
 public final class LZRNumber implements Value {

@@ -1,6 +1,6 @@
 package com.kingmang.lazurite.parser.ast;
 
-import com.kingmang.lazurite.base.Stop;
+import com.kingmang.lazurite.core.Stop;
 
 public abstract class InterruptableNode implements Node {
 

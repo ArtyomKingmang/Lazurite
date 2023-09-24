@@ -2,16 +2,16 @@ package com.kingmang.lazurite.parser.ast;
 
 import com.kingmang.lazurite.LZREx.LZRExeption;
 import com.kingmang.lazurite.runtime.LZR.LZRArray;
-import com.kingmang.lazurite.base.Types;
+import com.kingmang.lazurite.core.Types;
 import com.kingmang.lazurite.runtime.Value;
-import com.kingmang.lazurite.modules.Module;
+import com.kingmang.lazurite.libraries.Module;
 
 import java.lang.reflect.Method;
 
 
 public final class UsingStatement extends InterruptableNode implements Statement {
 
-    private static final String PACKAGE = "com.kingmang.lazurite.modules.%s.%s";
+    private static final String PACKAGE = "com.kingmang.lazurite.libraries.%s.%s";
     private static final String INIT_CONSTANTS_METHOD = "initConstants";
     
     public final Expression expression;

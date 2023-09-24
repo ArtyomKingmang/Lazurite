@@ -1,6 +1,6 @@
 package com.kingmang.lazurite.parser.ast;
 
-import com.kingmang.lazurite.base.ClassDeclarations;
+import com.kingmang.lazurite.core.ClassDeclarations;
 
 import java.util.ArrayList;
 import java.util.List;

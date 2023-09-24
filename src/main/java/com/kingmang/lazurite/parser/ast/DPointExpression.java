@@ -1,7 +1,7 @@
 package com.kingmang.lazurite.parser.ast;
 
 import com.kingmang.lazurite.runtime.LZR.LZRFunction;
-import com.kingmang.lazurite.base.KEYWORD;
+import com.kingmang.lazurite.core.KEYWORD;
 
 
 public final class DPointExpression extends InterruptableNode implements Expression {

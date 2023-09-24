@@ -1,8 +1,8 @@
 package com.kingmang.lazurite.parser.pars;
 
 import com.kingmang.lazurite.LZREx.LZRExeption;
-import com.kingmang.lazurite.base.KEYWORD;
-import com.kingmang.lazurite.base.Types;
+import com.kingmang.lazurite.core.KEYWORD;
+import com.kingmang.lazurite.core.Types;
 
 import java.util.ArrayList;
 import java.util.HashMap;

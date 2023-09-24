@@ -1,8 +1,8 @@
 package com.kingmang.lazurite.parser.pars;
 
-import com.kingmang.lazurite.base.Function;
+import com.kingmang.lazurite.core.Function;
 import com.kingmang.lazurite.runtime.LZR.LZRFunction;
-import com.kingmang.lazurite.base.Types;
+import com.kingmang.lazurite.core.Types;
 import com.kingmang.lazurite.runtime.UserDefinedFunction;
 import com.kingmang.lazurite.parser.ast.*;
 
