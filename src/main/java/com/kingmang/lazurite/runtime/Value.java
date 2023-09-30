@@ -1,5 +1,7 @@
 package com.kingmang.lazurite.runtime;
 
+import javax.imageio.plugins.jpeg.JPEGHuffmanTable;
+
 public interface Value extends Comparable<Value> {
     
     Object raw();
@@ -11,4 +13,5 @@ public interface Value extends Comparable<Value> {
     String asString();
     
     int type();
+
 }

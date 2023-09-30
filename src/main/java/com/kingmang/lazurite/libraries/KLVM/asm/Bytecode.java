@@ -1,4 +1,4 @@
-package com.kingmang.lazurite.libraries.vm.asm;
+package com.kingmang.lazurite.libraries.KLVM.asm;
 
 public enum Bytecode {
     JUMPT("jumpt",1),

@@ -111,6 +111,7 @@ public class Graph implements Module {
         initColors();
         initKeys();
         KEYWORD.put("background", new background());
+        KEYWORD.put("dispose", new background());
         KEYWORD.put("LImage", new LImage());
         KEYWORD.put("image", new image());
         KEYWORD.put("rotate", new rotate());
@@ -188,6 +189,7 @@ public class Graph implements Module {
         protected void paintComponent(Graphics g) {
             super.paintComponent(g);
             g.drawImage(img, 0, 0, null);
+
         }
     }
 
@@ -289,6 +291,14 @@ public class Graph implements Module {
         @Override
         public Value execute(Value... args) {
             graphics.setStroke((Stroke) args[0]);
+            return LZRNumber.ZERO;
+        }
+    }
+
+    private static class dispose implements Function {
+        @Override
+        public Value execute(Value... args) {
+            graphics.dispose();
             return LZRNumber.ZERO;
         }
     }

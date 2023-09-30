@@ -1,4 +1,6 @@
-package com.kingmang.lazurite.libraries.vm.asm;
+package com.kingmang.lazurite.libraries.KLVM.asm;
+
+import com.kingmang.lazurite.runtime.Value;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -11,7 +13,7 @@ public class VM {
 
     public static final int STACK_SIZE = 100;
 
-    private int[] code;
+    public int[] code;
     public int[] stack;
     private int[] globals;
     private Set<Integer> usedGlobalIndexes = new HashSet<Integer>();
@@ -23,8 +25,8 @@ public class VM {
     public boolean trace = false;
     private int lineNum = 0;
 
-    public VM(int[] code, int ipmain, int datasize) {
-        this.code = code;
+    public VM(int[] codee, int ipmain, int datasize) {
+        this.code = codee;
         this.stack = new int[STACK_SIZE];
         this.globals = new int[datasize];
 
@@ -32,6 +34,8 @@ public class VM {
         this.sp = -1;
         this.fp = 0;
     }
+
+
 
     public void exec() throws Exception {
         loop:
@@ -129,6 +133,9 @@ public class VM {
         pushStack(result);
     }
     private void pushStack(int value) {
+        if (sp >= stack.length) {
+            throw new RuntimeException("Stack overflow");
+        }
         stack[++sp] = value;
     }
     private int getStack(int offset) throws IndexOutOfBoundsException {
@@ -138,6 +145,9 @@ public class VM {
     }
 
     private int popStack() {
+        if (sp < 0) {
+            throw new RuntimeException("Stack underflow");
+        }
         return stack[sp--];
     }
 
@@ -168,4 +178,9 @@ public class VM {
 
         return "Global: " + list;
     }
+
+
+
+
+
 }
