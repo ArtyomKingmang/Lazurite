@@ -444,7 +444,7 @@ public final class Parser {
         return classDeclaration;
     }
 
-    private Expression expression() {
+    public Expression expression() {
         return assignment();
     }
 

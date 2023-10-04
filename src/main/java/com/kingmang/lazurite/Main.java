@@ -3,12 +3,16 @@ package com.kingmang.lazurite;
 import com.kingmang.lazurite.core.Stop;
 import com.kingmang.lazurite.parser.ast.Statement;
 import com.kingmang.lazurite.parser.pars.*;
+import com.kingmang.lazurite.parser.pars.Console;
 import com.kingmang.lazurite.parser.pars.FunctionAdder;
+import com.kingmang.lazurite.runtime.LZR.LZRString;
 import com.kingmang.lazurite.runtime.Time;
+import com.kingmang.lazurite.runtime.Variables;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -23,8 +27,8 @@ public class Main  {
     }
     public static String link = "";
     public static int check = 0;
-    static Settings setting = new Settings();
-
+   // static Settings setting = new Settings();
+    public static Path path1;
     public static void main(String[] args) throws IOException{
         while(true)Start();
 
@@ -37,27 +41,7 @@ public class Main  {
         if (cmd.contains("lazurite") || cmd.contains("lzr")) {
 
             String[] objs = cmd.split(" ");
-            if (objs[1].equals("--run")||objs[1].equals("-r")) {
-                System.out.print("\n\nEnter path to your file: ");
-                Scanner scan = new Scanner(System.in);
-                String in = scan.nextLine();
-                RUN(in, false, false, false, 0);
-
-            }else if (objs[1].equals("--optimize")||objs[1].equals("-op")) {
-                System.out.print("\n\nEnter path to your file: ");
-                Scanner scan = new Scanner(System.in);
-                String in = scan.nextLine();
-                System.out.print("\n\nEnter optimization lvl: ");
-                int lvl = scan.nextInt();
-                RUN(in, false, false, false, lvl);
-
-            }else if (objs[1].equals("--lint")||objs[1].equals("-l")) {
-            System.out.print("\n\nEnter path to your file: ");
-            Scanner scan = new Scanner(System.in);
-            String in = scan.nextLine();
-            RUN(in,false,true, false, 0);
-
-            }else if(objs[1].equals("--help")||objs[1].equals("-h")){
+           if(objs[1].equals("--help")||objs[1].equals("-h")){
                 Help();
                 check = 0;
             }else if(objs[1].equals("--version")||objs[1].equals("-v")){
@@ -67,8 +51,37 @@ public class Main  {
          }else if(cmd.contains("cls")|| cmd.contains("clear")){
             check = 0;
             clear();
-        }else if(cmd.contains("--help") || cmd.contains("-h")){
-               Help();
+        }else if(cmd.contains("--help") || cmd.contains("-h")) {
+            Help();
+        }
+        else if (cmd.contains("LZRRun ")) {
+                String path = cmd.contains(".lzr") ?
+                        cmd.split(" ")[1] :
+                        cmd.split(" ")[1] + ".lzr";
+                path1 = Paths.get(path).getParent();
+
+                try {
+                    if (!path.contains("\\")) {
+                        Variables.set("__cwd_run__", new LZRString(System.getProperty("user.dir")));
+                    } else {
+                        Variables.set("__cwd_run__", new LZRString(new File(path).getParent()));
+                    }
+                    File file = new File(path);
+                    FileReader fr = new FileReader(file);
+                    BufferedReader reader = new BufferedReader(fr);
+                    String line = reader.readLine();
+                    StringBuilder content = new StringBuilder();
+                    while (line != null) {
+                        content.append(line).append("\n");
+                        line = reader.readLine();
+                    }
+                    Handler.handle(content.toString(), path, false); // Класс Handler сделан для удобного отлова ошибок
+                } catch (FileNotFoundException e) {
+                    System.out.println("File is not found!");
+                } catch (IOException e) {
+                    System.out.println("File read error!");
+                }
+
         }else{
             about();
         }
@@ -107,97 +120,5 @@ public class Main  {
         check = 0;
     }
 
-    public static void RUN(String input, boolean showMeasurement, boolean lintMde, boolean beautifyMod, int optLvl ) throws IOException {
-        RunProgram(SourceLoader.readSource(input), showMeasurement, lintMde, beautifyMod,optLvl);
-    }
-
-
-
-    public static void RunProgram(String input, boolean showMeasuremen,boolean lintMd, boolean beautifyMd, int optLv) throws IOException {
-        final Settings options = new Settings();
-        options.validate();
-        options.showMeasurements = showMeasuremen;
-        options.lintMode = lintMd;
-        options.beautifyMode = beautifyMd;
-
-        final Time measurement = new Time();
-        measurement.start("Tokenize time");
-        final List<Token> tokens = Lexer.tokenize(input);
-        measurement.stop("Tokenize time");
-        if (options.showTokens) {
-            final int tokensCount = tokens.size();
-            for (int i = 0; i < tokensCount; i++) {
-                System.out.println(i + " " + tokens.get(i));
-            }
-        }
-
-        measurement.start("Parse time");
-        final Parser parser = new Parser(tokens);
-        final Statement parsedProgram = parser.parse();
-        measurement.stop("Parse time");
-        if (options.showAst) {
-            System.out.println(parsedProgram.toString());
-        }
-        if (parser.getParseErrors().hasErrors()) {
-            System.out.println(parser.getParseErrors());
-            return;
-        }
-        if (options.lintMode) {
-            Linter.lint(parsedProgram);
-            return;
-        }
-        final Statement program;
-        if (options.optimizationLevel > 0) {
-            measurement.start("Optimization time");
-            program = Optimizer.optimize(parsedProgram, options.optimizationLevel, options.showAst);
-            measurement.stop("Optimization time");
-            if (options.showAst) {
-                System.out.println(program.toString());
-            }
-        } else {
-            program = parsedProgram;
-        }
-        program.accept(new FunctionAdder());
-        try {
-            measurement.start("Execution time");
-            program.execute();
-        } catch (Stop ex) {
-            /**/
-        } catch (Exception ex) {
-            Console.handleException(Thread.currentThread(), ex);
-        } finally {
-            if (options.showMeasurements) {
-                measurement.stop("Execution time");
-                System.out.println("\n\n======================");
-                System.out.println(measurement.summary(TimeUnit.MILLISECONDS, true));
-            }
-        }
-
-    }
-
-    private static class Settings {
-        boolean showTokens, showAst, showMeasurements;
-        boolean lintMode;
-        boolean beautifyMode;
-        int optimizationLevel;
-
-        Settings() {
-            showTokens = false;
-            showAst = false;
-            showMeasurements = false;
-            lintMode = false;
-            beautifyMode = false;
-            optimizationLevel = 0;
-        }
-
-        void validate() {
-            if (lintMode) {
-                showTokens = false;
-                showAst = false;
-                showMeasurements = false;
-                optimizationLevel = 0;
-            }
-        }
-    }
 
 }
