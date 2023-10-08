@@ -16,18 +16,50 @@ import java.util.List;
 
 
 public final class Reflection implements Module {
-
     private static final Value NULL = new NullValue();
 
-
+    public static void initConstants() {
+    }
 
     @Override
     public void init() {
+        initConstants();
+        Variables.define("null", NULL);
+        Variables.define("boolean.class", new ClassValue(boolean.class));
+        Variables.define("boolean[].class", new ClassValue(boolean[].class));
+        Variables.define("boolean[][].class", new ClassValue(boolean[][].class));
+        Variables.define("byte.class", new ClassValue(byte.class));
+        Variables.define("byte[].class", new ClassValue(byte[].class));
+        Variables.define("byte[][].class", new ClassValue(byte[][].class));
+        Variables.define("short.class", new ClassValue(short.class));
+        Variables.define("short[].class", new ClassValue(short[].class));
+        Variables.define("short[][].class", new ClassValue(short[][].class));
+        Variables.define("char.class", new ClassValue(char.class));
+        Variables.define("char[].class", new ClassValue(char[].class));
+        Variables.define("char[][].class", new ClassValue(char[][].class));
+        Variables.define("int.class", new ClassValue(int.class));
+        Variables.define("int[].class", new ClassValue(int[].class));
+        Variables.define("int[][].class", new ClassValue(int[][].class));
+        Variables.define("long.class", new ClassValue(long.class));
+        Variables.define("long[].class", new ClassValue(long[].class));
+        Variables.define("long[][].class", new ClassValue(long[][].class));
+        Variables.define("float.class", new ClassValue(float.class));
+        Variables.define("float[].class", new ClassValue(float[].class));
+        Variables.define("float[][].class", new ClassValue(float[][].class));
+        Variables.define("double.class", new ClassValue(double.class));
+        Variables.define("double[].class", new ClassValue(double[].class));
+        Variables.define("double[][].class", new ClassValue(double[][].class));
+        Variables.define("String.class", new ClassValue(String.class));
+        Variables.define("String[].class", new ClassValue(String[].class));
+        Variables.define("String[][].class", new ClassValue(String[][].class));
+        Variables.define("Object.class", new ClassValue(Object.class));
+        Variables.define("Object[].class", new ClassValue(Object[].class));
+        Variables.define("Object[][].class", new ClassValue(Object[][].class));
 
         KEYWORD.put("isNull", this::isNull);
-        KEYWORD.put("JClass", this::JClass);
-        KEYWORD.put("JObject", this::JObject);
-        KEYWORD.put("LzrValue", this::LzrValue);
+        KEYWORD.put("JClass", this::newClass);
+        KEYWORD.put("JObject", this::toObject);
+        KEYWORD.put("LZRValue", this::toValue);
     }
 
 
@@ -57,7 +89,6 @@ public final class Reflection implements Module {
         public int[] asArray() {
             return new int[0];
         }
-
 
         @Override
         public int type() {
@@ -97,17 +128,53 @@ public final class Reflection implements Module {
             set("isArray", LZRNumber.fromBoolean(clazz.isArray()));
             set("isEnum", LZRNumber.fromBoolean(clazz.isEnum()));
             set("isInterface", LZRNumber.fromBoolean(clazz.isInterface()));
-            set("new", new LZRFunction(this::newInstance));
+            set("isLocalClass", LZRNumber.fromBoolean(clazz.isLocalClass()));
+            set("isMemberClass", LZRNumber.fromBoolean(clazz.isMemberClass()));
+            set("isPrimitive", LZRNumber.fromBoolean(clazz.isPrimitive()));
+            set("isSynthetic", LZRNumber.fromBoolean(clazz.isSynthetic()));
 
+            set("modifiers", LZRNumber.of(clazz.getModifiers()));
+
+            set("canonicalName", new LZRString(clazz.getCanonicalName()));
+            set("name", new LZRString(clazz.getName()));
+            set("simpleName", new LZRString(clazz.getSimpleName()));
+            set("typeName", new LZRString(clazz.getTypeName()));
+            set("genericString", new LZRString(clazz.toGenericString()));
+
+            set("getComponentType", new LZRFunction(v -> classOrNull(clazz.getComponentType()) ));
+            set("getDeclaringClass", new LZRFunction(v -> classOrNull(clazz.getDeclaringClass()) ));
+            set("getEnclosingClass", new LZRFunction(v -> classOrNull(clazz.getEnclosingClass()) ));
+            set("getSuperclass", new LZRFunction(v -> new ClassValue(clazz.getSuperclass()) ));
+
+            set("getClasses", new LZRFunction(v -> array(clazz.getClasses()) ));
+            set("getDeclaredClasses", new LZRFunction(v -> array(clazz.getDeclaredClasses()) ));
+            set("getInterfaces", new LZRFunction(v -> array(clazz.getInterfaces()) ));
+
+            set("asSubclass", new LZRFunction(this::asSubclass));
+            set("isAssignableFrom", new LZRFunction(this::isAssignableFrom));
+            set("new", new LZRFunction(this::newInstance));
+            set("cast", new LZRFunction(this::cast));
         }
 
+        private Value asSubclass(Value[] args) {
+            Arguments.check(1, args.length);
+            return new ClassValue(clazz.asSubclass( ((ClassValue)args[0]).clazz ));
+        }
+
+        private Value isAssignableFrom(Value[] args) {
+            Arguments.check(1, args.length);
+            return LZRNumber.fromBoolean(clazz.isAssignableFrom( ((ClassValue)args[0]).clazz ));
+        }
 
         @Override
         public Value newInstance(Value[] args) {
             return findConstructorAndInstantiate(args, clazz.getConstructors());
         }
 
-
+        private Value cast(Value[] args) {
+            Arguments.check(1, args.length);
+            return objectToValue(clazz, clazz.cast(((ObjectValue)args[0]).object));
+        }
 
         @Override
         public boolean containsKey(Value key) {
@@ -126,16 +193,14 @@ public final class Reflection implements Module {
         public String toString() {
             return "ClassValue " + clazz.toString();
         }
-
-        @Override
-        public int[] asArray() {
-            return new int[0];
-        }
     }
 
     private static class ObjectValue extends LZRMap {
 
-
+        public static Value objectOrNull(Object object) {
+            if (object == null) return NULL;
+            return new ObjectValue(object);
+        }
 
         private final Object object;
 
@@ -164,7 +229,7 @@ public final class Reflection implements Module {
             return "ObjectValue " + asString();
         }
     }
-
+//</editor-fold>
 
     private Value isNull(Value[] args) {
         Arguments.checkAtLeast(1, args.length);
@@ -174,7 +239,7 @@ public final class Reflection implements Module {
         return LZRNumber.ZERO;
     }
 
-    private Value JClass(Value[] args) {
+    private Value newClass(Value[] args) {
         Arguments.check(1, args.length);
 
         final String className = args[0].asString();
@@ -185,13 +250,13 @@ public final class Reflection implements Module {
         }
     }
 
-    private Value JObject(Value[] args) {
+    private Value toObject(Value[] args) {
         Arguments.check(1, args.length);
         if (args[0] == NULL) return NULL;
         return new ObjectValue(valueToObject(args[0]));
     }
 
-    private Value LzrValue(Value[] args) {
+    private Value toValue(Value[] args) {
         Arguments.check(1, args.length);
         if (args[0] instanceof ObjectValue) {
             return objectToValue( ((ObjectValue) args[0]).object );
@@ -200,7 +265,7 @@ public final class Reflection implements Module {
     }
 
 
-
+    //<editor-fold defaultstate="collapsed" desc="Helpers">
     private static Value getValue(Class<?> clazz, Object object, String key) {
         // Trying to get field
         try {
@@ -230,7 +295,7 @@ public final class Reflection implements Module {
 
         return NULL;
     }
-    
+
     private static Value findConstructorAndInstantiate(Value[] args, Constructor<?>[] ctors) {
         for (Constructor<?> ctor : ctors) {
             if (ctor.getParameterCount() != args.length) continue;
@@ -264,7 +329,7 @@ public final class Reflection implements Module {
             }
             final String className = (object == null ? "null" : object.getClass().getName());
             throw new RuntimeException("Method for " + args.length + " arguments"
-                + " not found or non accessible in " + className);
+                    + " not found or non accessible in " + className);
         };
     }
 
@@ -311,7 +376,13 @@ public final class Reflection implements Module {
         return clazz;
     }
 
-
+    private static LZRArray array(Class<?>[] classes) {
+        final LZRArray result = new LZRArray(classes.length);
+        for (int i = 0; i < classes.length; i++) {
+            result.set(i, ClassValue.classOrNull(classes[i]));
+        }
+        return result;
+    }
 
     private static Value objectToValue(Object o) {
         if (o == null) return NULL;
@@ -404,7 +475,7 @@ public final class Reflection implements Module {
         }
         return result;
     }
-    
+
     private static Object[] valuesToObjects(Value[] args) {
         Object[] result = new Object[args.length];
         for (int i = 0; i < args.length; i++) {
@@ -438,7 +509,7 @@ public final class Reflection implements Module {
         if (size == 0) {
             return array;
         }
-        
+
         Class<?> elementsType = null;
         for (int i = 0; i < size; i++) {
             array[i] = valueToObject(value.get(i));
@@ -448,20 +519,20 @@ public final class Reflection implements Module {
                 elementsType = mostCommonType(elementsType, array[i].getClass());
             }
         }
-        
+
         if (elementsType.equals(Object[].class)) {
             return array;
         }
         return typedArray(array, size, elementsType);
     }
-    
+
     private static <T, U> T[] typedArray(U[] elements, int newLength, Class<?> elementsType) {
         @SuppressWarnings("unchecked")
         T[] copy = (T[]) Array.newInstance(elementsType, newLength);
         System.arraycopy(elements, 0, copy, 0, Math.min(elements.length, newLength));
         return copy;
     }
-    
+
     private static Class<?> mostCommonType(Class<?> c1, Class<?> c2) {
         if (c1.equals(c2)) {
             return c1;
@@ -494,12 +565,11 @@ public final class Reflection implements Module {
                 return c2;
             }
         }
-        
+
         if (s1 != null) {
             return mostCommonType(s1, c2);
         } else {
             return mostCommonType(c1, s2);
         }
     }
-
 }

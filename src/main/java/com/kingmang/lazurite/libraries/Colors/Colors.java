@@ -1,9 +1,17 @@
 package com.kingmang.lazurite.libraries.Colors;
 
 
+import com.kingmang.lazurite.Handler;
+import com.kingmang.lazurite.core.Arguments;
+import com.kingmang.lazurite.core.KEYWORD;
 import com.kingmang.lazurite.libraries.Module;
+import com.kingmang.lazurite.parser.pars.SourceLoader;
 import com.kingmang.lazurite.runtime.*;
 import com.kingmang.lazurite.runtime.LZR.LZRString;
+
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.Serializable;
 
 
 public class Colors implements Module {
@@ -20,9 +28,7 @@ public class Colors implements Module {
         Variables.set("CYAN",new LZRString("\u001b[36m"));
     }
     public void init() {
-
         initConstant();
-
     }
 
 }
