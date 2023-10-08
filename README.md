@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="icon.png" width="300" alt="SPK">
+  <img src="icon.png" width="300">
 
 Lazurite is a general purpose object-oriented programming language. Even a child can handle it!
 </div>
