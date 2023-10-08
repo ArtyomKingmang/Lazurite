@@ -84,6 +84,12 @@ public class ClassInstanceValue implements Value {
     }
 
     @Override
+    public int[] asArray() {
+        return new int[0];
+    }
+
+
+    @Override
     public int type() {
         return Types.CLASS;
     }

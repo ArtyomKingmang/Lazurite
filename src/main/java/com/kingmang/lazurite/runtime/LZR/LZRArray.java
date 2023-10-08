@@ -156,6 +156,11 @@ public class LZRArray implements Value, Iterable<Value> {
     }
 
     @Override
+    public int[] asArray() {
+        return new int[0];
+    }
+
+    @Override
     public Iterator<Value> iterator() {
         return Arrays.asList(elements).iterator();
     }

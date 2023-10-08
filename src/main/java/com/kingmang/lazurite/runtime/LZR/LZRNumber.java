@@ -101,6 +101,12 @@ public final class LZRNumber implements Value {
     }
 
     @Override
+    public int[] asArray() {
+        return new int[0];
+    }
+
+
+    @Override
     public int hashCode() {
         int hash = 3;
         hash = 71 * hash + value.hashCode();

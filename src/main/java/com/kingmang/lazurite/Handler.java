@@ -7,7 +7,6 @@ import com.kingmang.lazurite.parser.pars.Token;
 import com.kingmang.lazurite.parser.pars.Parser;
 import com.kingmang.lazurite.parser.ast.MStatement;
 import com.kingmang.lazurite.parser.ast.Expression;
-import com.kingmang.lazurite.log;
 import com.kingmang.lazurite.runtime.LZR.LZRNumber;
 import com.kingmang.lazurite.runtime.Value;
 import com.kingmang.lazurite.runtime.Variables;

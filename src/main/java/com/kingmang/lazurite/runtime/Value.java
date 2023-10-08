@@ -11,7 +11,9 @@ public interface Value extends Comparable<Value> {
     double asNumber();
     
     String asString();
-    
+
+    int[] asArray();
+
     int type();
 
 }

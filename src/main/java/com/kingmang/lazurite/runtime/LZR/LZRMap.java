@@ -110,6 +110,12 @@ public class LZRMap implements Value, Iterable<Map.Entry<Value, Value>> {
     }
 
     @Override
+    public int[] asArray() {
+        return new int[0];
+    }
+
+
+    @Override
     public Iterator<Map.Entry<Value, Value>> iterator() {
         return map.entrySet().iterator();
     }

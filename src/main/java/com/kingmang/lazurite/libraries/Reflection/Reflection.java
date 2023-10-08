@@ -54,6 +54,12 @@ public final class Reflection implements Module {
         }
 
         @Override
+        public int[] asArray() {
+            return new int[0];
+        }
+
+
+        @Override
         public int type() {
             return 482862660;
         }
@@ -119,6 +125,11 @@ public final class Reflection implements Module {
         @Override
         public String toString() {
             return "ClassValue " + clazz.toString();
+        }
+
+        @Override
+        public int[] asArray() {
+            return new int[0];
         }
     }
 

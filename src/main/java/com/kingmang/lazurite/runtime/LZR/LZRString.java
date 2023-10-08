@@ -102,6 +102,12 @@ public final class LZRString implements Value {
     }
 
     @Override
+    public int[] asArray() {
+        return new int[0];
+    }
+
+
+    @Override
     public int hashCode() {
         int hash = 3;
         hash = 97 * hash + Objects.hashCode(this.value);

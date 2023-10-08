@@ -43,6 +43,12 @@ public class LZRFunction implements Value {
         return value.toString();
     }
 
+    @Override
+    public int[] asArray() {
+        return new int[0];
+    }
+
+
     public Function getValue() {
         return value;
     }
