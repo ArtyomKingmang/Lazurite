@@ -36,4 +36,8 @@ public final class KEYWORD {
         functions.put(key, function);
     }
 
+    public static void define(String key, Function function) {
+        if (isExists(key)) throw new LZRExeption("DuplicateFunctionException ", "Function " + key + " already exists");
+        put(key, function);
+    }
 }

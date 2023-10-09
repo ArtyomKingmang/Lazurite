@@ -1,16 +1,19 @@
 package com.kingmang.lazurite.runtime.LZR;
 
 import com.kingmang.lazurite.LZREx.LZRExeption;
+import com.kingmang.lazurite.core.Arguments;
 import com.kingmang.lazurite.core.Function;
 import com.kingmang.lazurite.core.Types;
 import com.kingmang.lazurite.runtime.Value;
+import com.kingmang.lazurite.runtime.Variables;
 
 import java.util.Objects;
 
 
 public class LZRFunction implements Value {
-    
+
     public static final LZRFunction EMPTY = new LZRFunction(args -> LZRNumber.ZERO);
+
 
     private final Function value;
 
@@ -49,6 +52,7 @@ public class LZRFunction implements Value {
     }
 
 
+
     public Function getValue() {
         return value;
     }
@@ -59,6 +63,7 @@ public class LZRFunction implements Value {
         hash = 71 * hash + Objects.hashCode(this.value);
         return hash;
     }
+
 
     @Override
     public boolean equals(Object obj) {
