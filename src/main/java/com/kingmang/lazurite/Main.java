@@ -1,6 +1,7 @@
 package com.kingmang.lazurite;
 
 
+import com.kingmang.lazurite.consoleeditor.editor;
 import com.kingmang.lazurite.parser.ast.Statement;
 import com.kingmang.lazurite.parser.pars.*;
 import com.kingmang.lazurite.parser.pars.FunctionAdder;
@@ -19,6 +20,7 @@ import java.util.Scanner;
 
 public class Main  {
 
+
     public static String VERSION(){
         return "2.6.3";
     }
@@ -34,8 +36,6 @@ public class Main  {
         Help();
         while(true)Start();
 
-
-
     }
 
     public  static void Help(){
@@ -43,6 +43,7 @@ public class Main  {
                 "\n--run / -r - asks for the path to the file and runs it\n" +
                         "--version / -v - returns the version of Lazurite\n" +
                         "--help / -h - show help commands\n" +
+                        "--editor / -e - open code editor\n" +
                         "cls - clears the command line\n"
         );
 
@@ -55,6 +56,9 @@ public class Main  {
             Help();
         } else if (cmd.contains("--run")||cmd.contains("-r")) {
             RUN();
+        } else if (cmd.contains("--editor")||cmd.contains("-e")) {
+            editor.openEditor();
+
         } else if (cmd.contains("--version")||cmd.contains("-v")) {
             System.out.println("---------------------------------");
             System.out.println("Lazurite version: "+ VERSION());
@@ -79,7 +83,7 @@ public class Main  {
 
 
 
-    private static void RunProgram(String input) throws IOException {
+    public static void RunProgram(String input) throws IOException {
 
         final List<Token> tokens = Lexer.tokenize(input);
         final Parser parser = new Parser(tokens);

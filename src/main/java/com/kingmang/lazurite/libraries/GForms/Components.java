@@ -29,6 +29,7 @@ public final class Components {
         return new JFrameValue(frame);
     }
 
+
     static Value newPanel(Value[] args) {
         Arguments.checkOrOr(0, 1, args.length);
         final JPanel panel = new JPanel();
