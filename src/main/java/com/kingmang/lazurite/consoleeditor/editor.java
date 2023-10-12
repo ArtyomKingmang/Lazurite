@@ -22,7 +22,6 @@ public class editor {
         System.out.println("           -close   - close editor");
         System.out.println("           -save    - save the code to the file INDEX.lzr ");
         System.out.println("============================================================");
-
         StringBuilder code = new StringBuilder();
 
         while (true) {
