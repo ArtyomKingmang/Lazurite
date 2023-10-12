@@ -8,6 +8,8 @@ import com.kingmang.lazurite.runtime.LZR.LZRMap;
 import com.kingmang.lazurite.runtime.LZR.LZRNumber;
 import com.kingmang.lazurite.runtime.Value;
 
+import java.util.HashMap;
+
 
 public final class Arrays implements Module {
 
@@ -21,6 +23,7 @@ public final class Arrays implements Module {
         KEYWORD.put("ArrayKeyExists", new arrayKeyExists());
 
     }
+
     private final class arrayCombine implements Function {
 
         @Override

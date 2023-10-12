@@ -4,24 +4,37 @@ import com.kingmang.lazurite.core.Arguments;
 import com.kingmang.lazurite.core.KEYWORD;
 import com.kingmang.lazurite.libraries.Module;
 import com.kingmang.lazurite.runtime.*;
+import com.kingmang.lazurite.runtime.LZR.LZRMap;
 import com.kingmang.lazurite.runtime.LZR.LZRNumber;
 import com.kingmang.lazurite.runtime.LZR.LZRString;
+
 
 import static com.kingmang.lazurite.Main.VERSION;
 
 public class System implements Module {
 
     public void initConstant(){
-        Variables.set("_LZRVersion_", new LZRString(VERSION()));
-        Variables.set("_JVMVersion_", new LZRString(java.lang.System.getProperty("java.vm.version")));
-        Variables.set("_UserDir_", new LZRString((java.lang.System.getProperty("user.dir"))));
-        Variables.set("_OsName_", new LZRString((java.lang.System.getProperty("os.name"))));
-        Variables.set("_UserName_", new LZRString((java.lang.System.getProperty("user.name"))));
-        Variables.set("_OsArch_", new LZRString((java.lang.System.getProperty("os.arch"))));
-        Variables.set("_OsVersion_", new LZRString((java.lang.System.getProperty("os.version"))));
-        Variables.set("_FileSeparator_", new LZRString((java.lang.System.getProperty("file.separator"))));
-        Variables.set("_PathSeparator_", new LZRString((java.lang.System.getProperty("path.separator"))));
-        Variables.set("_LineSeparator_", new LZRString((java.lang.System.getProperty("line.separator"))));
+
+        LZRMap values = new LZRMap(5);
+        values.set("LZRVersion", new LZRString(VERSION()));
+        values.set("JVMVersion", new LZRString(java.lang.System.getProperty("java.vm.version")));
+        values.set("name", new LZRString(java.lang.System.getProperty("os.name")));
+        values.set("arch", new LZRString(java.lang.System.getProperty("os.arch")));
+        values.set("version", new LZRString(java.lang.System.getProperty("os.version")));
+
+        LZRMap sep = new LZRMap(5);
+        sep.set("file", new LZRString(java.lang.System.getProperty("file.separator")));
+        sep.set("path", new LZRString(java.lang.System.getProperty("path.separator")));
+        sep.set("line", new LZRString(java.lang.System.getProperty("line.separator")));
+
+        LZRMap user = new LZRMap(5);
+        user.set("dir", new LZRString(java.lang.System.getProperty("user.dir")));
+        user.set("name", new LZRString(java.lang.System.getProperty("user.name")));
+
+        Variables.define("os", values);
+        Variables.define("separator", sep);
+        Variables.define("user", user);
+
     }
 
     public void init (){
