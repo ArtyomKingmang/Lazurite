@@ -2,16 +2,14 @@ package com.kingmang.lazurite.libraries.Arrays;
 import com.kingmang.lazurite.LZREx.LZRExeption;
 import com.kingmang.lazurite.core.*;
 
-import com.kingmang.lazurite.libraries.Module;
+import com.kingmang.lazurite.libraries.Library;
 import com.kingmang.lazurite.runtime.LZR.LZRArray;
 import com.kingmang.lazurite.runtime.LZR.LZRMap;
 import com.kingmang.lazurite.runtime.LZR.LZRNumber;
 import com.kingmang.lazurite.runtime.Value;
 
-import java.util.HashMap;
 
-
-public final class Arrays implements Module {
+public final class Arrays implements Library {
 
 
     @Override

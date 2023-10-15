@@ -1,23 +1,12 @@
 package com.kingmang.lazurite.libraries.Colors;
 
 
-import com.kingmang.lazurite.Handler;
-import com.kingmang.lazurite.core.Arguments;
-import com.kingmang.lazurite.core.Function;
-import com.kingmang.lazurite.core.KEYWORD;
-import com.kingmang.lazurite.libraries.Module;
-import com.kingmang.lazurite.parser.pars.SourceLoader;
+import com.kingmang.lazurite.libraries.Library;
 import com.kingmang.lazurite.runtime.*;
 import com.kingmang.lazurite.runtime.LZR.LZRString;
 
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.Serializable;
-import java.util.HashMap;
-import java.util.Stack;
 
-
-public class Colors implements Module {
+public class Colors implements Library {
 
     public void initConstant(){
         Variables.set("RESET",new LZRString("\u001b[10m"));

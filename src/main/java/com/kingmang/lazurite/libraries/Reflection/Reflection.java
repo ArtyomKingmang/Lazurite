@@ -1,7 +1,7 @@
 package com.kingmang.lazurite.libraries.Reflection;
 
 import com.kingmang.lazurite.core.*;
-import com.kingmang.lazurite.libraries.Module;
+import com.kingmang.lazurite.libraries.Library;
 import com.kingmang.lazurite.runtime.*;
 import com.kingmang.lazurite.runtime.LZR.*;
 
@@ -15,7 +15,7 @@ import java.util.Arrays;
 import java.util.List;
 
 
-public final class Reflection implements Module {
+public final class Reflection implements Library {
     private static final Value NULL = new NullValue();
 
     public static void initConstants() {

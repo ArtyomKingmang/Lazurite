@@ -22,7 +22,7 @@ public class Main  {
 
 
     public static String VERSION(){
-        return "2.6.3";
+        return "2.7";
     }
     public static int check = 0;
 
@@ -33,8 +33,9 @@ public class Main  {
                 "\t*******************************************");
 
 
-        Help();
-        while(true)Start();
+        /*Help();
+        while(true)Start();*/
+        RUN();
 
     }
 
@@ -74,9 +75,9 @@ public class Main  {
 
 
     private static void RUN() throws IOException {
-        System.out.print("\n\nEnter path to your file: ");
-        Scanner scan = new Scanner(System.in);
-        String in = scan.nextLine();
+        /*System.out.print("\n\nEnter path to your file: ");
+        Scanner scan = new Scanner(System.in);*/
+        String in = "C:\\Users\\crowb\\OneDrive\\Рабочий стол\\index.lzr";
         RunProgram(SourceLoader.readSource(in));
 
     }

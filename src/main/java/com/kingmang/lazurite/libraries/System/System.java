@@ -2,7 +2,7 @@ package com.kingmang.lazurite.libraries.System;
 
 import com.kingmang.lazurite.core.Arguments;
 import com.kingmang.lazurite.core.KEYWORD;
-import com.kingmang.lazurite.libraries.Module;
+import com.kingmang.lazurite.libraries.Library;
 import com.kingmang.lazurite.runtime.*;
 import com.kingmang.lazurite.runtime.LZR.LZRMap;
 import com.kingmang.lazurite.runtime.LZR.LZRNumber;
@@ -11,7 +11,7 @@ import com.kingmang.lazurite.runtime.LZR.LZRString;
 
 import static com.kingmang.lazurite.Main.VERSION;
 
-public class System implements Module {
+public class System implements Library {
 
     public void initConstant(){
 

@@ -1,7 +1,7 @@
 package com.kingmang.lazurite.libraries;
 
 
-public interface Module {
+public interface Library {
 
     void init();
 }

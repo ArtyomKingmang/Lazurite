@@ -2,7 +2,7 @@ package com.kingmang.lazurite.libraries.GForms;
 
 import com.kingmang.lazurite.core.*;
 
-import com.kingmang.lazurite.libraries.Module;
+import com.kingmang.lazurite.libraries.Library;
 import com.kingmang.lazurite.runtime.LZR.LZRMap;
 import com.kingmang.lazurite.runtime.LZR.LZRNumber;
 import com.kingmang.lazurite.runtime.LZR.LZRString;
@@ -17,7 +17,7 @@ import javax.swing.JFrame;
 
 
 
-public final class GForms implements Module {
+public final class GForms implements Library {
 
     public static void initConstants() {
         // JFrame constants

@@ -3,7 +3,7 @@ package com.kingmang.lazurite.libraries.LFS;
 
 import com.kingmang.lazurite.LZREx.LZRExeption;
 import com.kingmang.lazurite.core.*;
-import com.kingmang.lazurite.libraries.Module;
+import com.kingmang.lazurite.libraries.Library;
 import com.kingmang.lazurite.runtime.*;
 import com.kingmang.lazurite.parser.pars.Console;
 import com.kingmang.lazurite.runtime.LZR.LZRArray;
@@ -25,7 +25,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 
-public final class LFS implements Module {
+public final class LFS implements Library {
 
    private static Map<Integer, FileInfo> files;
 

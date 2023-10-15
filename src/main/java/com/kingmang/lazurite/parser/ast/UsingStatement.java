@@ -4,7 +4,7 @@ import com.kingmang.lazurite.LZREx.LZRExeption;
 import com.kingmang.lazurite.runtime.LZR.LZRArray;
 import com.kingmang.lazurite.core.Types;
 import com.kingmang.lazurite.runtime.Value;
-import com.kingmang.lazurite.libraries.Module;
+import com.kingmang.lazurite.libraries.Library;
 
 import java.lang.reflect.Method;
 
@@ -40,7 +40,7 @@ public final class UsingStatement extends InterruptableNode implements Statement
 
     private void loadModule(String name) {
         try {
-            final Module module = (Module) Class.forName(String.format(PACKAGE, name, name)).newInstance();
+            final Library module = (Library) Class.forName(String.format(PACKAGE, name, name)).newInstance();
             module.init();
         } catch (Exception ex) {
             throw new RuntimeException("Unable to load module " + name, ex);

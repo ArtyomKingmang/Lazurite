@@ -1,13 +1,13 @@
 package com.kingmang.lazurite.libraries.JSON;
 
 import com.kingmang.lazurite.core.*;
-import com.kingmang.lazurite.libraries.Module;
+import com.kingmang.lazurite.libraries.Library;
 import com.kingmang.lazurite.runtime.Value;
 import org.json.JSONException;
 import org.json.JSONTokener;
 
 
-public final class JSON implements Module {
+public final class JSON implements Library {
 
     public static void initConstants() {
     }

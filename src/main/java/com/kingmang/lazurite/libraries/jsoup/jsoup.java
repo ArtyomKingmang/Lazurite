@@ -1,26 +1,33 @@
 package com.kingmang.lazurite.libraries.jsoup;
 
+import com.annimon.ownlang.lib.MapValue;
 import com.kingmang.lazurite.core.Function;
 import com.kingmang.lazurite.core.KEYWORD;
-import com.kingmang.lazurite.libraries.Module;
-import com.kingmang.lazurite.runtime.LZR.LZRNumber;
+import com.kingmang.lazurite.libraries.Library;
+import com.kingmang.lazurite.runtime.LZR.LZRFunction;
+import com.kingmang.lazurite.runtime.LZR.LZRMap;
 import com.kingmang.lazurite.runtime.LZR.LZRString;
 import com.kingmang.lazurite.runtime.Value;
 import com.kingmang.lazurite.runtime.Variables;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Map;
+import java.util.Set;
 
-public class jsoup implements Module{
+public class jsoup implements Library {
 
     public static String docs = "";
     public static Document docum;
     public static Elements element;
+
 
     @Override
     public void init() {

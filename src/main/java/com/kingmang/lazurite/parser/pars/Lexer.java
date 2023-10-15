@@ -41,13 +41,28 @@ public final class Lexer {
         KEYWORD.put("float", args -> LZRNumber.of((float)args[0].asNumber()));
         KEYWORD.put("double", args -> LZRNumber.of(args[0].asNumber()));
     }
+
+    private static void standart(){
+        KEYWORD.put("echo", new ECHO());
+        KEYWORD.put("readln", new INPUT());
+        KEYWORD.put("length", new LEN());
+        KEYWORD.put("getBytes", STR::getBytes);
+        KEYWORD.put("sprintf", new SPRINTF());
+        KEYWORD.put("range", new RANGE());
+        KEYWORD.put("substring", new SUBSTR());
+        KEYWORD.put("parseInt", PARSE::parseInt);
+        KEYWORD.put("parseLong", PARSE::parseLong);
+        KEYWORD.put("foreach", new FOREACH());
+        KEYWORD.put("split", new split());
+        KEYWORD.put("filter", new FILTER(false));
+    }
     private static final Map<String, TokenType> KEYWORDS;
     static {
         types();
         convertTypes();
-
         KEYWORDS = new HashMap<>();
         KEYWORDS.put("throw", TokenType.THROW);
+        KEYWORDS.put("ref", TokenType.COLONCOLON);
         KEYWORDS.put("and", TokenType.AMPAMP);
         KEYWORDS.put("not", TokenType.EXCL);
         KEYWORDS.put("or", TokenType.BARBAR);
@@ -67,19 +82,7 @@ public final class Lexer {
         KEYWORDS.put("include", TokenType.INCLUDE);
         KEYWORDS.put("class", TokenType.CLASS);
         KEYWORDS.put("new", TokenType.NEW);
-        KEYWORD.put("echo", new ECHO());
-        KEYWORD.put("readln", new INPUT());
-        KEYWORD.put("length", new LEN());
-        KEYWORD.put("getBytes", STR::getBytes);
-        KEYWORD.put("sprintf", new SPRINTF());
-        KEYWORD.put("range", new RANGE());
-        KEYWORD.put("substring", new SUBSTR());
-        KEYWORD.put("parseInt", PARSE::parseInt);
-        KEYWORD.put("parseLong", PARSE::parseLong);
-        KEYWORD.put("foreach", new FOREACH());
-        KEYWORD.put("filter", new FILTER(false));
-
-
+        standart();
 
     }
 

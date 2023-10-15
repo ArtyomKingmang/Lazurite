@@ -1,6 +1,6 @@
 package com.kingmang.lazurite.libraries.ML;
 import com.kingmang.lazurite.core.*;
-import com.kingmang.lazurite.libraries.Module;
+import com.kingmang.lazurite.libraries.Library;
 import com.kingmang.lazurite.runtime.LZR.LZRNumber;
 import com.kingmang.lazurite.runtime.Value;
 import com.kingmang.lazurite.runtime.Variables;
@@ -10,7 +10,7 @@ import java.util.function.DoubleUnaryOperator;
 
 
 
-public final class ML implements Module {
+public final class ML implements Library {
 
     private static final DoubleFunction<LZRNumber> doubleToNumber = LZRNumber::of;
 

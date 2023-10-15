@@ -3,7 +3,7 @@ package com.kingmang.lazurite.libraries.Graph;
 import com.kingmang.lazurite.LZREx.LZRExeption;
 import com.kingmang.lazurite.core.Function;
 import com.kingmang.lazurite.core.KEYWORD;
-import com.kingmang.lazurite.libraries.Module;
+import com.kingmang.lazurite.libraries.Library;
 import com.kingmang.lazurite.runtime.LZR.LZRArray;
 import com.kingmang.lazurite.runtime.LZR.LZRNumber;
 import com.kingmang.lazurite.runtime.Value;
@@ -21,7 +21,7 @@ import java.awt.image.ImageObserver;
 import java.io.File;
 import java.io.IOException;
 
-public class Graph implements Module {
+public class Graph implements Library {
 
     private static final LZRNumber MINUS_ONE = new LZRNumber(-1);
 

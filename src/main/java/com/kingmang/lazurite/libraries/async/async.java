@@ -4,7 +4,7 @@ import com.kingmang.lazurite.core.Arguments;
 import com.kingmang.lazurite.core.Function;
 import com.kingmang.lazurite.core.KEYWORD;
 import com.kingmang.lazurite.core.ValueUtils;
-import com.kingmang.lazurite.libraries.Module;
+import com.kingmang.lazurite.libraries.Library;
 import com.kingmang.lazurite.runtime.LZR.LZRFunction;
 import com.kingmang.lazurite.runtime.LZR.LZRNumber;
 import com.kingmang.lazurite.runtime.Value;
@@ -12,7 +12,7 @@ import com.kingmang.lazurite.runtime.Value;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
-public class async implements Module {
+public class async implements Library {
     public static void initConstants() {
 
     }

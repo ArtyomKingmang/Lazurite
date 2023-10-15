@@ -1,10 +1,10 @@
 package com.kingmang.lazurite.libraries.HTTP;
 
 import com.kingmang.lazurite.core.KEYWORD;
-import com.kingmang.lazurite.libraries.Module;
+import com.kingmang.lazurite.libraries.Library;
 
 
-public final class HTTP implements Module {
+public final class HTTP implements Library {
 
     public static void initConstants() {
     }
