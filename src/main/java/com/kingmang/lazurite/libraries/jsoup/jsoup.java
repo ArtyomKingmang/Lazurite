@@ -1,6 +1,6 @@
 package com.kingmang.lazurite.libraries.jsoup;
 
-import com.annimon.ownlang.lib.MapValue;
+
 import com.kingmang.lazurite.core.Function;
 import com.kingmang.lazurite.core.KEYWORD;
 import com.kingmang.lazurite.libraries.Library;

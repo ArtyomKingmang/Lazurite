@@ -8,7 +8,7 @@ import com.kingmang.lazurite.runtime.Value;
 
 import java.util.Iterator;
 
-public final class RANGE implements Function {
+public final class range implements Function {
 
     @Override
     public Value execute(Value... args) {

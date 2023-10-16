@@ -9,7 +9,6 @@ public class LZRExeption extends RuntimeException {
         this.type = type;
         this.text = "\u001b[31m" + text;
     }
-
     public String getType() {
         return type;
     }

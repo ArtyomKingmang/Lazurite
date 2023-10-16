@@ -43,15 +43,15 @@ public final class Lexer {
     }
 
     private static void standart(){
-        KEYWORD.put("echo", new ECHO());
-        KEYWORD.put("readln", new INPUT());
-        KEYWORD.put("length", new LEN());
-        KEYWORD.put("getBytes", STR::getBytes);
-        KEYWORD.put("sprintf", new SPRINTF());
-        KEYWORD.put("range", new RANGE());
-        KEYWORD.put("substring", new SUBSTR());
-        KEYWORD.put("parseInt", PARSE::parseInt);
-        KEYWORD.put("parseLong", PARSE::parseLong);
+        KEYWORD.put("echo", new Standart.ECHO());
+        KEYWORD.put("readln", new Standart.INPUT());
+        KEYWORD.put("length", new Standart.LEN());
+        KEYWORD.put("getBytes", Standart.STR::getBytes);
+        KEYWORD.put("sprintf", new Standart.SPRINTF());
+        KEYWORD.put("range", new range());
+        KEYWORD.put("substring", new Standart.SUBSTR());
+        KEYWORD.put("parseInt", Standart.PARSE::parseInt);
+        KEYWORD.put("parseLong", Standart.PARSE::parseLong);
         KEYWORD.put("foreach", new FOREACH());
         KEYWORD.put("split", new split());
         KEYWORD.put("filter", new FILTER(false));
