@@ -28,7 +28,7 @@ Why should you choose Lazurite?:
 
 
 ## License
-Lazurite is relseased under <a href="https://ru.wikipedia.org/wiki/%D0%9B%D0%B8%D1%86%D0%B5%D0%BD%D0%B7%D0%B8%D1%8F_MIT">MIT License 2.0</a>
+Lazurite is relseased under <a href="https://github.com/ArtyomKingmang/Lazurite/wiki">MIT License 2.0</a>
 
 See more about it!
 
@@ -37,6 +37,6 @@ To get started, you can write Lazurite code in its IDE. Then, opening: "Lazurite
 
 
 
-<a href="https://sites.google.com/view/lazurite-lang/lazurite">DOCUMENTATION </a>
+<a href="https://github.com/ArtyomKingmang/Lazurite/wiki">DOCUMENTATION </a>
 
 <h1 align="middle" style="font-size: 20px;">❤ Thank you for choosing us ❤</h1>
