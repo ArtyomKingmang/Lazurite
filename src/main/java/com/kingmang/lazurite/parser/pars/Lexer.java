@@ -46,15 +46,16 @@ public final class Lexer {
         KEYWORD.put("echo", new Standart.ECHO());
         KEYWORD.put("readln", new Standart.INPUT());
         KEYWORD.put("length", new Standart.LEN());
-        KEYWORD.put("getBytes", Standart.STR::getBytes);
+        KEYWORD.put("getBytes", Standart.string::getBytes);
         KEYWORD.put("sprintf", new Standart.SPRINTF());
         KEYWORD.put("range", new range());
         KEYWORD.put("substring", new Standart.SUBSTR());
         KEYWORD.put("parseInt", Standart.PARSE::parseInt);
         KEYWORD.put("parseLong", Standart.PARSE::parseLong);
-        KEYWORD.put("foreach", new FOREACH());
-        KEYWORD.put("split", new split());
-        KEYWORD.put("filter", new FILTER(false));
+        KEYWORD.put("foreach", new Standart.FOREACH());
+        KEYWORD.put("flatmap", new Standart.FLATMAP());
+        KEYWORD.put("split", new Standart.split());
+        KEYWORD.put("filter", new Standart.FILTER(false));
     }
     private static final Map<String, TokenType> KEYWORDS;
     static {
@@ -181,7 +182,7 @@ public final class Lexer {
         while (pos < length) {
             final char current = peek(0);
             if (Character.isDigit(current)) tokenizeNumber();
-            else if (isOwnLangIdentifierStart(current)) tokenizeWord();
+            else if (isLZRIdentifier(current)) tokenizeWord();
             else if (current == '`') tokenizeExtendedWord();
             else if (current == '"') tokenizeText();
             else if (current == '#') {
@@ -273,7 +274,7 @@ public final class Lexer {
         buffer.append(peek(0));
         char current = next();
         while (true) {
-            if (!isOwnLangIdentifierPart(current)) {
+            if (!isLZRIdentifierPart(current)) {
                 break;
             }
             buffer.append(current);
@@ -370,13 +371,15 @@ public final class Lexer {
         next(); // /
     }
 
-    private boolean isOwnLangIdentifierStart(char current) {
+    private boolean isLZRIdentifierPart(char current) {
+        return (Character.isLetterOrDigit(current) || (current == '_') || (current == '$'));
+    }
+
+    private boolean isLZRIdentifier(char current) {
         return (Character.isLetter(current) || (current == '_') || (current == '$'));
     }
 
-    private boolean isOwnLangIdentifierPart(char current) {
-        return (Character.isLetterOrDigit(current) || (current == '_') || (current == '$'));
-    }
+
     
     private void clearBuffer() {
         buffer.setLength(0);
@@ -407,7 +410,6 @@ public final class Lexer {
     }
     
     private LZRExeption error(String text) {
-        //return new LexerException(row, col, text);
         return new LZRExeption("Lexer exeption","Lexer error");
     }
 }

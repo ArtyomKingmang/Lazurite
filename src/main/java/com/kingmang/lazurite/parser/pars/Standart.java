@@ -1,13 +1,18 @@
 package com.kingmang.lazurite.parser.pars;
 
+import com.kingmang.lazurite.LZREx.LZRExeption;
 import com.kingmang.lazurite.core.Arguments;
 import com.kingmang.lazurite.core.Function;
 import com.kingmang.lazurite.core.Types;
+import com.kingmang.lazurite.core.ValueUtils;
 import com.kingmang.lazurite.runtime.LZR.*;
 import com.kingmang.lazurite.runtime.UserDefinedFunction;
 import com.kingmang.lazurite.runtime.Value;
 
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
 public class Standart {
@@ -34,9 +39,9 @@ public class Standart {
         }
     }
 
-    public static final class STR {
+    public static final class string {
 
-        private STR() { }
+        private string() { }
 
         static LZRArray getBytes(Value[] args) {
             Arguments.checkOrOr(1, 2, args.length);
@@ -141,5 +146,149 @@ public class Standart {
 
     }
 
+    public static final class FOREACH implements Function {
 
+        private static final int UNKNOWN = -1;
+
+        @Override
+        public Value execute(Value... args) {
+            Arguments.check(2, args.length);
+            final Value container = args[0];
+            final Function consumer = ValueUtils.consumeFunction(args[1], 1);
+            final int argsCount;
+            if (consumer instanceof UserDefinedFunction) {
+                argsCount = ((UserDefinedFunction) consumer).getArgsCount();
+            } else {
+                argsCount = UNKNOWN;
+            }
+
+            switch (container.type()) {
+                case Types.STRING:
+                    final LZRString string = (LZRString) container;
+                    if (argsCount == 2) {
+                        for (char ch : string.asString().toCharArray()) {
+                            consumer.execute(new LZRString(String.valueOf(ch)), LZRNumber.of(ch));
+                        }
+                    } else {
+                        for (char ch : string.asString().toCharArray()) {
+                            consumer.execute(new LZRString(String.valueOf(ch)));
+                        }
+                    }
+                    return string;
+
+                case Types.ARRAY:
+                    final LZRArray array = (LZRArray) container;
+                    if (argsCount == 2) {
+                        int index = 0;
+                        for (Value element : array) {
+                            consumer.execute(element, LZRNumber.of(index++));
+                        }
+                    } else {
+                        for (Value element : array) {
+                            consumer.execute(element);
+                        }
+                    }
+                    return array;
+
+                case Types.MAP:
+                    final LZRMap map = (LZRMap) container;
+                    for (Map.Entry<Value, Value> element : map) {
+                        consumer.execute(element.getKey(), element.getValue());
+                    }
+                    return map;
+
+                default:
+                    throw new LZRExeption("TypeExeption ","Cannot iterate " + Types.typeToString(container.type()));
+            }
+        }
+    }
+
+    public final static class FLATMAP implements Function {
+
+        @Override
+        public Value execute(Value... args) {
+            Arguments.check(2, args.length);
+            if (args[0].type() != Types.ARRAY) {
+                throw new LZRExeption("TypeExeption ", "Array expected in first argument");
+            }
+            final Function mapper = ValueUtils.consumeFunction(args[1], 1);
+            return flatMapArray((LZRArray) args[0], mapper);
+        }
+
+        private Value flatMapArray(LZRArray array, Function mapper) {
+            final List<Value> values = new ArrayList<>();
+            final int size = array.size();
+            for (int i = 0; i < size; i++) {
+                final Value inner = mapper.execute(array.get(i));
+                if (inner.type() != Types.ARRAY) {
+                    throw new LZRExeption("TypeExeption ", "Array expected " + inner);
+                }
+                for (Value value : (LZRArray) inner) {
+                    values.add(value);
+                }
+            }
+            return new LZRArray(values);
+        }
+    }
+    public static final class FILTER implements Function {
+
+        private final boolean takeWhile;
+
+        public FILTER(boolean takeWhile) {
+            this.takeWhile = takeWhile;
+        }
+
+        @Override
+        public Value execute(Value... args) {
+            Arguments.check(2, args.length);
+            final Value container = args[0];
+            final Function predicate = ValueUtils.consumeFunction(args[1], 1);
+            if (container.type() == Types.ARRAY) {
+                return filterArray((LZRArray) container, predicate, takeWhile);
+            }
+
+            if (container.type() == Types.MAP) {
+                return filterMap((LZRMap) container, predicate, takeWhile);
+            }
+
+            throw new LZRExeption("TypeExeption", "Invalid first argument. Array or map expected");
+        }
+
+        private Value filterArray(LZRArray array, Function predicate, boolean takeWhile) {
+            final int size = array.size();
+            final List<Value> values = new ArrayList<>(size);
+            for (Value value : array) {
+                if (predicate.execute(value) != LZRNumber.ZERO) {
+                    values.add(value);
+                } else if (takeWhile) break;
+            }
+            final int newSize = values.size();
+            return new LZRArray(values.toArray(new Value[newSize]));
+        }
+
+        private Value filterMap(LZRMap map, Function predicate, boolean takeWhile) {
+            final LZRMap result = new LZRMap(map.size());
+            for (Map.Entry<Value, Value> element : map) {
+                if (predicate.execute(element.getKey(), element.getValue()) != LZRNumber.ZERO) {
+                    result.set(element.getKey(), element.getValue());
+                } else if (takeWhile) break;
+            }
+            return result;
+        }
+    }
+
+    public static final class split implements Function {
+
+        @Override
+        public Value execute(Value... args) {
+            Arguments.checkOrOr(2, 3, args.length);
+
+            final String input = args[0].asString();
+            final String regex = args[1].asString();
+            final int limit = (args.length == 3) ? args[2].asInt() : 0;
+
+            final String[] parts = input.split(regex, limit);
+            return LZRArray.of(parts);
+        }
+    }
 }
