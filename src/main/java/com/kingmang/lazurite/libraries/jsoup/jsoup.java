@@ -31,7 +31,7 @@ public class jsoup implements Library {
 
     @Override
     public void init() {
-        KEYWORD.put("pars", new pars());
+        KEYWORD.put("parse", new pars());
         KEYWORD.put("select", new select());
 
     }

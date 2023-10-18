@@ -28,9 +28,9 @@ public class Main  {
 
 
     public static void main(String[] args) throws IOException{
-        System.out.println("\n\t*****************LAZURITE******************\n" +
+        /*System.out.println("\n\t*****************LAZURITE******************\n" +
                 "\tLazurite "+ VERSION() +" Author: Kingmang\n" +
-                "\t*******************************************");
+                "\t*******************************************");*/
 
 
         /*Help();
@@ -77,7 +77,7 @@ public class Main  {
     private static void RUN() throws IOException {
         /*System.out.print("\n\nEnter path to your file: ");
         Scanner scan = new Scanner(System.in);*/
-        String in = "C:\\Users\\crowb\\OneDrive\\Рабочий стол\\index.lzr";
+        String in = "C:\\Users\\crowb\\OneDrive\\Рабочий стол\\lazr\\test.lzr";
         RunProgram(SourceLoader.readSource(in));
 
     }
