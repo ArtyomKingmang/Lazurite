@@ -30,4 +30,6 @@ public class IceCream implements Library {
             return LZRNumber.ZERO;
         }
     }
+
+
 }
