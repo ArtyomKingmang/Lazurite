@@ -4,6 +4,7 @@ import com.kingmang.lazurite.LZREx.LZRExeption;
 import com.kingmang.lazurite.parser.ast.FunctionDefineStatement;
 import com.kingmang.lazurite.runtime.*;
 import com.kingmang.lazurite.parser.ast.*;
+import com.kingmang.lazurite.runtime.LZR.LZRFunction;
 import com.kingmang.lazurite.runtime.LZR.LZRNumber;
 import com.kingmang.lazurite.runtime.LZR.LZRString;
 
@@ -138,6 +139,9 @@ public final class Parser {
         if (match(TokenType.RETURN)) {
             return new ReturnStatement(expression());
         }
+        if (match(TokenType.ENUM)) {
+            return enums();
+        }
         if (match(TokenType.USING)) {
             return new UsingStatement(expression());
         }
@@ -169,6 +173,17 @@ public final class Parser {
 
 
 
+    private Statement enums() {
+        String name = consume(TokenType.WORD).getText();
+        Map<String, LZRString> enums = new HashMap<>();
+        consume(TokenType.LBRACE);
+        while (!(match(TokenType.RBRACE))) {
+            String en = consume(TokenType.WORD).getText();
+            match(TokenType.COMMA);
+            enums.put(en, new LZRString(en));
+        }
+        return new AssignmentStatement(name, new ValueExpression(new EnumValue(enums)));
+    }
 
     private Statement throwSt() {
         String type = consume(TokenType.WORD).getText();

@@ -10,7 +10,6 @@ import com.kingmang.lazurite.runtime.Value;
 
 import java.util.Random;
 
-
 public final class random implements Library {
 
 
