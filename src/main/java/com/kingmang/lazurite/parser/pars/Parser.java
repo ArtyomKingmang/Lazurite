@@ -139,9 +139,6 @@ public final class Parser {
         if (match(TokenType.RETURN)) {
             return new ReturnStatement(expression());
         }
-        if (match(TokenType.ENUM)) {
-            return enums();
-        }
         if (match(TokenType.USING)) {
             return new UsingStatement(expression());
         }
@@ -171,19 +168,6 @@ public final class Parser {
         return assignmentStatement();
     }
 
-
-
-    private Statement enums() {
-        String name = consume(TokenType.WORD).getText();
-        Map<String, LZRString> enums = new HashMap<>();
-        consume(TokenType.LBRACE);
-        while (!(match(TokenType.RBRACE))) {
-            String en = consume(TokenType.WORD).getText();
-            match(TokenType.COMMA);
-            enums.put(en, new LZRString(en));
-        }
-        return new AssignmentStatement(name, new ValueExpression(new EnumValue(enums)));
-    }
 
     private Statement throwSt() {
         String type = consume(TokenType.WORD).getText();

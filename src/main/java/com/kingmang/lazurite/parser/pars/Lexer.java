@@ -1,6 +1,7 @@
 package com.kingmang.lazurite.parser.pars;
 
 import com.kingmang.lazurite.LZREx.LZRExeption;
+import com.kingmang.lazurite.Main;
 import com.kingmang.lazurite.core.KEYWORD;
 import com.kingmang.lazurite.core.Types;
 
@@ -10,6 +11,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import com.kingmang.lazurite.runtime.LZR.LZRArray;
 import com.kingmang.lazurite.runtime.LZR.LZRNumber;
 import com.kingmang.lazurite.runtime.LZR.LZRString;
 import com.kingmang.lazurite.runtime.Variables;
@@ -23,13 +25,14 @@ public final class Lexer {
     
     private static final String OPERATOR_CHARS = "+-*/%()[]{}=<>!&|.,^~?:";
 
-    public static void types() {
+    public static void Variables() {
         Variables.define("object", LZRNumber.of(Types.OBJECT));
         Variables.define("num", LZRNumber.of(Types.NUMBER));
         Variables.define("string", LZRNumber.of(Types.STRING));
         Variables.define("array", LZRNumber.of(Types.ARRAY));
         Variables.define("map", LZRNumber.of(Types.MAP));
         Variables.define("function", LZRNumber.of(Types.FUNCTION));
+        Variables.define("ARGS", LZRArray.of(Main.Args()));
     }
     public static void convertTypes(){
         KEYWORD.put("str", args -> new LZRString(args[0].asString()));
@@ -59,8 +62,9 @@ public final class Lexer {
     }
     private static final Map<String, TokenType> KEYWORDS;
     static {
-        types();
+        Variables();
         convertTypes();
+
         KEYWORDS = new HashMap<>();
         KEYWORDS.put("throw", TokenType.THROW);
         KEYWORDS.put("enum", TokenType.ENUM);

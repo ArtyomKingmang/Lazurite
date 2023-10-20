@@ -27,6 +27,7 @@ public class Main  {
     public static int check = 0;
 
 
+
     public static void main(String[] args) throws IOException{
         /*System.out.println("\n\t*****************LAZURITE******************\n" +
                 "\tLazurite "+ VERSION() +" Author: Kingmang\n" +
@@ -111,6 +112,10 @@ public class Main  {
 
     }
 
+    private static String[] LZRArgs = new String[0];
+    public static String[] Args() {
+        return LZRArgs;
+    }
 
 }
 

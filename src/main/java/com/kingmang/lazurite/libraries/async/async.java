@@ -20,7 +20,6 @@ public class async implements Library {
     public void init(){
         initConstants();
         KEYWORD.put("sync", new sync());
-
     }
 
     private final class sync implements Function {
