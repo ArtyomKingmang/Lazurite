@@ -28,8 +28,8 @@ public final class HTTP implements Library {
         initConstants();
         KEYWORD.put("URLEncode", new URLEncode());
         KEYWORD.put("HTTP", new http_http());
-        KEYWORD.put("getContentLength", this::getContentLength);
-        KEYWORD.put("downloader", this::downloader);
+        KEYWORD.put("HTTPGetContentLength", this::getContentLength);
+        KEYWORD.put("HTTPDownload", this::downloader);
     }
 
     private Value getContentLength(Value... args) {
