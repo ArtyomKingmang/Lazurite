@@ -32,7 +32,7 @@ public final class Lexer {
         Variables.define("array", LZRNumber.of(Types.ARRAY));
         Variables.define("map", LZRNumber.of(Types.MAP));
         Variables.define("function", LZRNumber.of(Types.FUNCTION));
-        Variables.define("ARGS", LZRArray.of(Main.Args()));
+        Variables.define("args", LZRArray.of(Main.Args()));
     }
     public static void convertTypes(){
         KEYWORD.put("str", args -> new LZRString(args[0].asString()));
