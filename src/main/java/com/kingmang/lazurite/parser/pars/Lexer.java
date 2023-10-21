@@ -72,6 +72,7 @@ public final class Lexer {
         KEYWORDS.put("and", TokenType.AMPAMP);
         KEYWORDS.put("not", TokenType.EXCL);
         KEYWORDS.put("or", TokenType.BARBAR);
+        KEYWORDS.put("in", TokenType.COLON);
         KEYWORDS.put("print", TokenType.PRINT);
         KEYWORDS.put("println", TokenType.PRINTLN);
         KEYWORDS.put("if", TokenType.IF);
