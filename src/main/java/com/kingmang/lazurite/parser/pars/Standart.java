@@ -53,8 +53,6 @@ public class Standart {
             }
         }
 
-
-
     }
 
     public static final class LEN implements Function {
@@ -142,8 +140,6 @@ public class Standart {
             final int radix = (args.length == 2) ? args[1].asInt() : 10;
             return LZRNumber.of(Long.parseLong(args[0].asString(), radix));
         }
-
-
     }
 
     public static final class FOREACH implements Function {

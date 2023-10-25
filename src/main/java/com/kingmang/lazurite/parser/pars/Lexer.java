@@ -22,7 +22,6 @@ public final class Lexer {
     public static List<Token> tokenize(String input) {
         return new Lexer(input).tokenize();
     }
-    
     private static final String OPERATOR_CHARS = "+-*/%()[]{}=<>!&|.,^~?:";
 
     public static void Variables() {
@@ -34,6 +33,7 @@ public final class Lexer {
         Variables.define("function", LZRNumber.of(Types.FUNCTION));
         Variables.define("args", LZRArray.of(Main.Args()));
     }
+
     public static void convertTypes(){
         KEYWORD.put("str", args -> new LZRString(args[0].asString()));
         KEYWORD.put("num", args -> LZRNumber.of(args[0].asNumber()));
