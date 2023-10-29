@@ -29,13 +29,18 @@ public class editor {
             String line = scanner.nextLine();
 
             if ("-close".equals(line)) {
+                try {
+                    FileWriter writer = new FileWriter("INDEX.lzr");
+                    writer.write(code.toString());
+                    writer.close();
+                    System.out.println("Код сохранен в файл INDEX.lzr");
+                } catch (IOException e) {
+                    System.out.println("IOException");
+                }
                 System.out.print("\033[H\033[2J");
                 System.out.flush();
-                try {
-                    Start();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                break;
+
             } else if ("-save".equals(line)) {
                 try {
                     FileWriter writer = new FileWriter("INDEX.lzr");

@@ -13,7 +13,6 @@ public class IceCream implements Library {
     public void init(){
         KEYWORD.put("ic", new ic());
         KEYWORD.put("setPrefix", new setPrefix());
-
     }
 
     private static class ic implements Function {

@@ -84,6 +84,7 @@ public final class Lexer {
         KEYWORDS.put("func", TokenType.FUNC);
         KEYWORDS.put("return", TokenType.RETURN);
         KEYWORDS.put("using", TokenType.USING);
+        //KEYWORDS.put("import", TokenType.USING);
         KEYWORDS.put("match", TokenType.SWITCH);
         KEYWORDS.put("case", TokenType.CASE);
         KEYWORDS.put("include", TokenType.INCLUDE);

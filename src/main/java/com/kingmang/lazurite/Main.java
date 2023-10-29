@@ -29,14 +29,13 @@ public class Main  {
 
 
     public static void main(String[] args) throws IOException{
-        /*System.out.println("\n\t*****************LAZURITE******************\n" +
+        System.out.println("\n\t*****************LAZURITE******************\n" +
                 "\tLazurite "+ VERSION() +" Author: Kingmang\n" +
-                "\t*******************************************");*/
+                "\t*******************************************");
 
 
-        /*Help();
-        while(true)Start();*/
-        RUN();
+        Help();
+        while(true)Start();
 
     }
 
@@ -57,10 +56,12 @@ public class Main  {
         if (cmd.contains("--help")||cmd.contains("-h")) {
             Help();
         } else if (cmd.contains("--run")||cmd.contains("-r")) {
-            RUN();
+            System.out.print("\n\nEnter path to your file: ");
+            Scanner scan = new Scanner(System.in);
+            String in = scan.nextLine();
+            RUN(in);
         } else if (cmd.contains("--editor")||cmd.contains("-e")) {
             editor.openEditor();
-
         } else if (cmd.contains("--version")||cmd.contains("-v")) {
             System.out.println("---------------------------------");
             System.out.println("Lazurite version: "+ VERSION());
@@ -75,12 +76,16 @@ public class Main  {
     }
 
 
-    private static void RUN() throws IOException {
-        /*System.out.print("\n\nEnter path to your file: ");
-        Scanner scan = new Scanner(System.in);*/
-        String in = "C:\\Users\\crowb\\OneDrive\\Рабочий стол\\lazr\\test.lzr";
+    /*private static void RUN() throws IOException {
+        System.out.print("\n\nEnter path to your file: ");
+        Scanner scan = new Scanner(System.in);
+        String in = scan.nextLine();
+        //String in = "C:\\Users\\crowb\\OneDrive\\Рабочий стол\\lazr\\test.lzr";
         RunProgram(SourceLoader.readSource(in));
 
+    }*/
+    private static void RUN(String path) throws IOException{
+        RunProgram(SourceLoader.readSource(path));
     }
 
 
