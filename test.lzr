@@ -1,0 +1,5 @@
+using "JS"
+
+print(eval("54 + 9"))
+
+//part 1: add eval

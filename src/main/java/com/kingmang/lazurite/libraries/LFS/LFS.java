@@ -29,13 +29,9 @@ public final class LFS implements Library {
 
    private static Map<Integer, FileInfo> files;
 
-
-
     @Override
     public void init() {
         files = new HashMap<>();
-
-
         KEYWORD.put("isDir", fileToBoolean(File::isDirectory));
         KEYWORD.put("isFile", fileToBoolean(File::isFile));
         KEYWORD.put("FileSize", new fileSize());

@@ -34,8 +34,10 @@ public class Main  {
                 "\t*******************************************");
 
 
-        Help();
-        while(true)Start();
+        //Help();
+        //while(true)Start();
+        String in = "C:\\Users\\crowb\\OneDrive\\Рабочий стол\\lazr\\test.lzr";
+        RUN(in);
 
     }
 
