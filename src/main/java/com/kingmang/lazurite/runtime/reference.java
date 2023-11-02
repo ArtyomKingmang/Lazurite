@@ -1,11 +1,9 @@
 package com.kingmang.lazurite.runtime;
 
-import com.kingmang.lazurite.LZREx.LZRExeption;
+import com.kingmang.lazurite.LZREx.LZRException;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
-import java.math.BigInteger;
 
 public class reference implements Value, Serializable {
 
@@ -17,12 +15,12 @@ public class reference implements Value, Serializable {
 
     @Override
     public int asInt() {
-        throw new LZRExeption("BadArithmetic", "Cannot cast REFERENCE to a NUMBER");
+        throw new LZRException("BadArithmetic", "Cannot cast REFERENCE to a NUMBER");
     }
 
     @Override
     public double asNumber() {
-        throw new LZRExeption("BadArithmetic", "Cannot cast REFERENCE to a NUMBER");
+        throw new LZRException("BadArithmetic", "Cannot cast REFERENCE to a NUMBER");
     }
 
     @Override

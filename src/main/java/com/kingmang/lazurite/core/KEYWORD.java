@@ -1,6 +1,6 @@
 package com.kingmang.lazurite.core;
 
-import com.kingmang.lazurite.LZREx.LZRExeption;
+import com.kingmang.lazurite.LZREx.LZRException;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -28,7 +28,7 @@ public final class KEYWORD {
     }
     
     public static Function get(String key) {
-        if (!isExists(key)) throw new LZRExeption("UnknownFunctionException ", "Unknown function " + key);
+        if (!isExists(key)) throw new LZRException("UnknownFunctionException ", "Unknown function " + key);
         return functions.get(key);
     }
     
@@ -37,7 +37,7 @@ public final class KEYWORD {
     }
 
     public static void define(String key, Function function) {
-        if (isExists(key)) throw new LZRExeption("DuplicateFunctionException ", "Function " + key + " already exists");
+        if (isExists(key)) throw new LZRException("DuplicateFunctionException ", "Function " + key + " already exists");
         put(key, function);
     }
 }

@@ -1,6 +1,6 @@
-package com.kingmang.lazurite.parser.pars;
+package com.kingmang.lazurite.parser.Standart;
 
-import com.kingmang.lazurite.LZREx.LZRExeption;
+import com.kingmang.lazurite.LZREx.LZRException;
 import com.kingmang.lazurite.core.Arguments;
 import com.kingmang.lazurite.runtime.LZR.LZRArray;
 import com.kingmang.lazurite.core.Function;
@@ -10,7 +10,7 @@ import com.kingmang.lazurite.runtime.Value;
 import com.kingmang.lazurite.core.ValueUtils;
 import java.util.Map;
 
-public final class REDUCE implements Function {
+public final class reduce implements Function {
 
     @Override
     public Value execute(Value... args) {
@@ -35,6 +35,6 @@ public final class REDUCE implements Function {
             }
             return result;
         }
-        throw new LZRExeption("TypeExeption", "Invalid first argument. Array or map expected");
+        throw new LZRException("TypeExeption", "Invalid first argument. Array or map expected");
     }
 }

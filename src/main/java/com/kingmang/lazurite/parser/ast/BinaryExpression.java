@@ -1,7 +1,7 @@
 package com.kingmang.lazurite.parser.ast;
 
-import com.kingmang.lazurite.LZREx.LZRExeption;
-import com.kingmang.lazurite.LZREx.OExeption;
+import com.kingmang.lazurite.LZREx.LZRException;
+import com.kingmang.lazurite.LZREx.OperationException;
 import com.kingmang.lazurite.runtime.LZR.LZRArray;
 import com.kingmang.lazurite.core.KEYWORD;
 import com.kingmang.lazurite.runtime.LZR.LZRMap;
@@ -60,7 +60,7 @@ public final class BinaryExpression implements Expression {
         final Value value2 = expr2.eval();
         try {
             return eval(value1, value2);
-        } catch (OExeption ex) {
+        } catch (OperationException ex) {
             if (KEYWORD.isExists(operation.toString())) {
                 return KEYWORD.get(operation.toString()).execute(value1, value2);
             }
@@ -83,7 +83,7 @@ public final class BinaryExpression implements Expression {
             case RSHIFT: return rshift(value1, value2);
             case URSHIFT: return urshift(value1, value2);
             default:
-                throw new OExeption(operation);
+                throw new OperationException(operation);
         }
     }
     
@@ -93,7 +93,7 @@ public final class BinaryExpression implements Expression {
             case Types.ARRAY: return LZRArray.add((LZRArray) value1, value2);
             case Types.MAP:
                 if (value2.type() != Types.MAP)
-                    throw new LZRExeption("TypeExeption","Cannot merge non map value to map");
+                    throw new LZRException("TypeExeption","Cannot merge non map value to map");
                 return LZRMap.merge((LZRMap) value1, (LZRMap) value2);
             case Types.FUNCTION: /* TODO: combining functions */
             case Types.STRING:
@@ -136,7 +136,7 @@ public final class BinaryExpression implements Expression {
         switch (value1.type()) {
             case Types.NUMBER: return subtract((LZRNumber) value1, value2);
             default:
-                throw new OExeption(operation,
+                throw new OperationException(operation,
                         "for " + Types.typeToString(value1.type()));
         }
     }
@@ -175,7 +175,7 @@ public final class BinaryExpression implements Expression {
             case Types.NUMBER: return multiply((LZRNumber) value1, value2);
             case Types.STRING: return multiply((LZRString) value1, value2);
             default:
-                throw new OExeption(operation,
+                throw new OperationException(operation,
                         "for " + Types.typeToString(value1.type()));
         }
     }
@@ -223,7 +223,7 @@ public final class BinaryExpression implements Expression {
         switch (value1.type()) {
             case Types.NUMBER: return divide((LZRNumber) value1, value2);
             default:
-                throw new OExeption(operation,
+                throw new OperationException(operation,
                         "for " + Types.typeToString(value1.type()));
         }
     }
@@ -261,7 +261,7 @@ public final class BinaryExpression implements Expression {
         switch (value1.type()) {
             case Types.NUMBER: return remainder((LZRNumber) value1, value2);
             default:
-                throw new OExeption(operation,
+                throw new OperationException(operation,
                         "for " + Types.typeToString(value1.type()));
         }
     }
@@ -299,7 +299,7 @@ public final class BinaryExpression implements Expression {
         switch (value1.type()) {
             case Types.ARRAY: return LZRArray.add((LZRArray) value1, value2);
             default:
-                throw new OExeption(operation,
+                throw new OperationException(operation,
                         "for " + Types.typeToString(value1.type()));
         }
     }
@@ -308,7 +308,7 @@ public final class BinaryExpression implements Expression {
         switch (value1.type()) {
             case Types.NUMBER: return and((LZRNumber) value1, value2);
             default:
-                throw new OExeption(operation,
+                throw new OperationException(operation,
                         "for " + Types.typeToString(value1.type()));
         }
     }
@@ -334,7 +334,7 @@ public final class BinaryExpression implements Expression {
         switch (value1.type()) {
             case Types.NUMBER: return or((LZRNumber) value1, value2);
             default:
-                throw new OExeption(operation,
+                throw new OperationException(operation,
                         "for " + Types.typeToString(value1.type()));
         }
     }
@@ -360,7 +360,7 @@ public final class BinaryExpression implements Expression {
         switch (value1.type()) {
             case Types.NUMBER: return xor((LZRNumber) value1, value2);
             default:
-                throw new OExeption(operation,
+                throw new OperationException(operation,
                         "for " + Types.typeToString(value1.type()));
         }
     }
@@ -387,7 +387,7 @@ public final class BinaryExpression implements Expression {
             case Types.NUMBER: return lshift((LZRNumber) value1, value2);
             case Types.ARRAY: return lshift((LZRArray) value1, value2);
             default:
-                throw new OExeption(operation,
+                throw new OperationException(operation,
                         "for " + Types.typeToString(value1.type()));
         }
     }
@@ -411,7 +411,7 @@ public final class BinaryExpression implements Expression {
 
     private Value lshift(LZRArray value1, Value value2) {
         if (value2.type() != Types.ARRAY)
-            throw new LZRExeption("TypeExeption", "Cannot merge non array value to array");
+            throw new LZRException("TypeExeption", "Cannot merge non array value to array");
         return LZRArray.merge(value1, (LZRArray) value2);
     }
     
@@ -419,7 +419,7 @@ public final class BinaryExpression implements Expression {
         switch (value1.type()) {
             case Types.NUMBER: return rshift((LZRNumber) value1, value2);
             default:
-                throw new OExeption(operation,
+                throw new OperationException(operation,
                         "for " + Types.typeToString(value1.type()));
         }
     }
@@ -445,7 +445,7 @@ public final class BinaryExpression implements Expression {
         switch (value1.type()) {
             case Types.NUMBER: return urshift((LZRNumber) value1, value2);
             default:
-                throw new OExeption(operation,
+                throw new OperationException(operation,
                         "for " + Types.typeToString(value1.type()));
         }
     }

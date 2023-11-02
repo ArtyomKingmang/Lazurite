@@ -1,6 +1,6 @@
 package com.kingmang.lazurite.parser.ast;
 
-import com.kingmang.lazurite.LZREx.OExeption;
+import com.kingmang.lazurite.LZREx.OperationException;
 
 public class ThrowStatement implements Statement{
 
@@ -15,7 +15,7 @@ public class ThrowStatement implements Statement{
 
     @Override
     public void execute() {
-        throw new OExeption(type, expr.eval().toString());
+        throw new OperationException(type, expr.eval().toString());
     }
 
     @Override

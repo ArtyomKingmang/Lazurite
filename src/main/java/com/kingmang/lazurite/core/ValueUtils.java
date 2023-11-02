@@ -6,7 +6,7 @@ import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import com.kingmang.lazurite.LZREx.LZRExeption;
+import com.kingmang.lazurite.LZREx.LZRException;
 import com.kingmang.lazurite.runtime.*;
 import com.kingmang.lazurite.runtime.LZR.*;
 import org.json.JSONArray;
@@ -117,7 +117,7 @@ public final class ValueUtils {
     public static Function consumeFunction(Value value, String errorMessage) {
         final int type = value.type();
         if (type != Types.FUNCTION) {
-            throw new LZRExeption("TypeExeption ", "Function expected" + errorMessage
+            throw new LZRException("TypeExeption ", "Function expected" + errorMessage
                     + ", but found " + Types.typeToString(type));
         }
         return ((LZRFunction) value).getValue();

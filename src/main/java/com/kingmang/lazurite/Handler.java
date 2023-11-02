@@ -1,6 +1,6 @@
 package com.kingmang.lazurite;
 
-import com.kingmang.lazurite.LZREx.LZRExeption;
+import com.kingmang.lazurite.LZREx.LZRException;
 import com.kingmang.lazurite.core.CallStack;
 import com.kingmang.lazurite.parser.pars.Lexer;
 import com.kingmang.lazurite.parser.pars.Token;
@@ -30,7 +30,7 @@ public class Handler {
             if(!isExec){
                 Variables.clear();
             }
-        } catch (LZRExeption ex) {
+        } catch (LZRException ex) {
             try{
                 log.append(String.format("%s: %s in %s (%s)\n", ex.getType(), ex.getText(), pathToScript, new Date()));
             }
@@ -53,7 +53,7 @@ public class Handler {
             final List<Token> tokens = new Lexer(input).tokenize();
             final Expression program = new Parser(tokens).expression();
             return program.eval();
-        } catch (LZRExeption ex) {
+        } catch (LZRException ex) {
             System.out.println(String.format("%s: %s in %s", ex.getType(), ex.getText(), pathToScript));
             return LZRNumber.ZERO;
         }

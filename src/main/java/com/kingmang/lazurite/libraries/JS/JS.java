@@ -27,6 +27,7 @@ public class JS implements Library {
             Object result = null;
             try{
                 result = engine.eval(args[0].asString());
+
             }catch (ScriptException e){
                 e.printStackTrace();
             }

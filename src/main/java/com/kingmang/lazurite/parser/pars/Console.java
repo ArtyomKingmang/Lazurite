@@ -11,7 +11,7 @@ public class Console {
 
     private Console() { }
     
-    private static OutputSettings outputSettings = new COUT_Setting();
+    private static OutputSettings outputSettings = new ConsoleOutSettings();
 
     public static void useSettings(OutputSettings outputSettings) {
         Console.outputSettings = outputSettings;

@@ -1,10 +1,11 @@
-package com.kingmang.lazurite.parser.pars;
+package com.kingmang.lazurite.parser.Standart;
 
-import com.kingmang.lazurite.LZREx.LZRExeption;
+import com.kingmang.lazurite.LZREx.LZRException;
 import com.kingmang.lazurite.core.Arguments;
 import com.kingmang.lazurite.core.Function;
 import com.kingmang.lazurite.core.Types;
 import com.kingmang.lazurite.core.ValueUtils;
+import com.kingmang.lazurite.parser.pars.Console;
 import com.kingmang.lazurite.runtime.LZR.*;
 import com.kingmang.lazurite.runtime.UserDefinedFunction;
 import com.kingmang.lazurite.runtime.Value;
@@ -43,7 +44,7 @@ public class Standart {
 
         private string() { }
 
-        static LZRArray getBytes(Value[] args) {
+        public static LZRArray getBytes(Value[] args) {
             Arguments.checkOrOr(1, 2, args.length);
             final String charset = (args.length == 2) ? args[1].asString() : "UTF-8";
             try {
@@ -130,12 +131,12 @@ public class Standart {
     public static final class PARSE {
         private PARSE() { }
 
-        static Value parseInt(Value[] args) {
+        public static Value parseInt(Value[] args) {
             Arguments.checkOrOr(1, 2, args.length);
             final int radix = (args.length == 2) ? args[1].asInt() : 10;
             return LZRNumber.of(Integer.parseInt(args[0].asString(), radix));
         }
-        static Value parseLong(Value[] args) {
+        public static Value parseLong(Value[] args) {
             Arguments.checkOrOr(1, 2, args.length);
             final int radix = (args.length == 2) ? args[1].asInt() : 10;
             return LZRNumber.of(Long.parseLong(args[0].asString(), radix));
@@ -194,7 +195,7 @@ public class Standart {
                     return map;
 
                 default:
-                    throw new LZRExeption("TypeExeption ","Cannot iterate " + Types.typeToString(container.type()));
+                    throw new LZRException("TypeExeption ","Cannot iterate " + Types.typeToString(container.type()));
             }
         }
     }
@@ -205,7 +206,7 @@ public class Standart {
         public Value execute(Value... args) {
             Arguments.check(2, args.length);
             if (args[0].type() != Types.ARRAY) {
-                throw new LZRExeption("TypeExeption ", "Array expected in first argument");
+                throw new LZRException("TypeExeption ", "Array expected in first argument");
             }
             final Function mapper = ValueUtils.consumeFunction(args[1], 1);
             return flatMapArray((LZRArray) args[0], mapper);
@@ -217,7 +218,7 @@ public class Standart {
             for (int i = 0; i < size; i++) {
                 final Value inner = mapper.execute(array.get(i));
                 if (inner.type() != Types.ARRAY) {
-                    throw new LZRExeption("TypeExeption ", "Array expected " + inner);
+                    throw new LZRException("TypeExeption ", "Array expected " + inner);
                 }
                 for (Value value : (LZRArray) inner) {
                     values.add(value);
@@ -247,7 +248,7 @@ public class Standart {
                 return filterMap((LZRMap) container, predicate, takeWhile);
             }
 
-            throw new LZRExeption("TypeExeption", "Invalid first argument. Array or map expected");
+            throw new LZRException("TypeExeption", "Invalid first argument. Array or map expected");
         }
 
         private Value filterArray(LZRArray array, Function predicate, boolean takeWhile) {

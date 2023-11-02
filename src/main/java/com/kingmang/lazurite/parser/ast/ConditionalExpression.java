@@ -1,6 +1,6 @@
 package com.kingmang.lazurite.parser.ast;
 
-import com.kingmang.lazurite.LZREx.OExeption;
+import com.kingmang.lazurite.LZREx.OperationException;
 import com.kingmang.lazurite.runtime.LZR.LZRNumber;
 import com.kingmang.lazurite.core.Types;
 import com.kingmang.lazurite.runtime.Value;
@@ -81,7 +81,7 @@ public final class ConditionalExpression implements Expression {
             case GTEQ: return number1 >= number2;
 
             default:
-                throw new OExeption(operation);
+                throw new OperationException(operation);
         }
     }
 

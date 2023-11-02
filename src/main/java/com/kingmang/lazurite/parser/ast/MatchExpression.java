@@ -1,6 +1,6 @@
 package com.kingmang.lazurite.parser.ast;
 
-import com.kingmang.lazurite.LZREx.LZRExeption;
+import com.kingmang.lazurite.LZREx.LZRException;
 import com.kingmang.lazurite.runtime.LZR.LZRArray;
 import com.kingmang.lazurite.runtime.LZR.LZRNumber;
 import com.kingmang.lazurite.core.Types;
@@ -74,7 +74,7 @@ public final class MatchExpression extends InterruptableNode implements Expressi
                 }
             }
         }
-        throw new LZRExeption("PatternMatchingException ","No pattern were matched");
+        throw new LZRException("PatternMatchingException ","No pattern were matched");
     }
 
     private boolean matchTuplePattern(LZRArray array, TuplePattern p) {

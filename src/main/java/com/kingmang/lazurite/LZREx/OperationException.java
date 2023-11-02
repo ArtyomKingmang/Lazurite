@@ -1,12 +1,12 @@
 package com.kingmang.lazurite.LZREx;
 
-public final class OExeption extends RuntimeException {
+public final class OperationException extends RuntimeException {
 
-    public OExeption(Object operation) {
+    public OperationException(Object operation) {
         super("Operation " + operation + " is not supported");
     }
 
-    public OExeption(Object operation, String message) {
+    public OperationException(Object operation, String message) {
         super("Operation " + operation + " is not supported " + message);
     }
 }

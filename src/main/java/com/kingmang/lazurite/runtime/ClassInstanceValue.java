@@ -1,6 +1,6 @@
 package com.kingmang.lazurite.runtime;
 
-import com.kingmang.lazurite.LZREx.LZRExeption;
+import com.kingmang.lazurite.LZREx.LZRException;
 import com.kingmang.lazurite.core.Types;
 import com.kingmang.lazurite.runtime.LZR.LZRMap;
 
@@ -67,12 +67,12 @@ public class ClassInstanceValue implements Value {
 
     @Override
     public int asInt() {
-        throw new LZRExeption("TypeExeption","Cannot cast class to integer");
+        throw new LZRException("TypeExeption","Cannot cast class to integer");
     }
 
     @Override
     public double asNumber() {
-        throw new LZRExeption("TypeExeption","Cannot cast class to integer");
+        throw new LZRException("TypeExeption","Cannot cast class to integer");
     }
 
     @Override

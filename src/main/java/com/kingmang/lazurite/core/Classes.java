@@ -1,6 +1,6 @@
 package com.kingmang.lazurite.core;
 
-import com.kingmang.lazurite.LZREx.LZRExeption;
+import com.kingmang.lazurite.LZREx.LZRException;
 import com.kingmang.lazurite.runtime.ClassInstanceValue;
 
 import java.util.HashMap;
@@ -28,7 +28,7 @@ public final class Classes {
     }
     
     public static ClassInstanceValue get(String key) {
-        if (!isExists(key)) throw new LZRExeption("UnknownClassException ", "Unknown class " + key);
+        if (!isExists(key)) throw new LZRException("UnknownClassException ", "Unknown class " + key);
         return classes.get(key);
     }
     

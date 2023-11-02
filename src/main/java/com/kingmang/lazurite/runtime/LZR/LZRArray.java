@@ -1,6 +1,6 @@
 package com.kingmang.lazurite.runtime.LZR;
 
-import com.kingmang.lazurite.LZREx.LZRExeption;
+import com.kingmang.lazurite.LZREx.LZRException;
 import com.kingmang.lazurite.core.*;
 import com.kingmang.lazurite.runtime.Value;
 
@@ -127,7 +127,7 @@ public class LZRArray implements Value, Iterable<Value> {
             case 3:
                 return joinToString(this, args[0].asString(), args[1].asString(), args[2].asString());
             default:
-                throw new LZRExeption("ArgumentsMismatchException","Wrong number of arguments");
+                throw new LZRException("ArgumentsMismatchException","Wrong number of arguments");
         }
     }
 
@@ -142,12 +142,12 @@ public class LZRArray implements Value, Iterable<Value> {
 
     @Override
     public int asInt() {
-        throw new LZRExeption("TypeExeption","Cannot cast array to integer");
+        throw new LZRException("TypeExeption","Cannot cast array to integer");
     }
 
     @Override
     public double asNumber() {
-        throw new LZRExeption("TypeExeption","Cannot cast array to number");
+        throw new LZRException("TypeExeption","Cannot cast array to number");
     }
 
     @Override

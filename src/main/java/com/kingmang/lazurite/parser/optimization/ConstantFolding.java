@@ -1,6 +1,6 @@
 package com.kingmang.lazurite.parser.optimization;
 
-import com.kingmang.lazurite.LZREx.OExeption;
+import com.kingmang.lazurite.LZREx.OperationException;
 import com.kingmang.lazurite.parser.ast.BinaryExpression;
 import com.kingmang.lazurite.parser.ast.ConditionalExpression;
 import com.kingmang.lazurite.parser.ast.FunctionDefineStatement;
@@ -64,7 +64,7 @@ public class ConstantFolding extends OptimizationVisitor<Void> implements Optimi
             binaryExpressionFoldingCount++;
             try {
                 return new ValueExpression(s.eval());
-            } catch (OExeption op) {
+            } catch (OperationException op) {
                 binaryExpressionFoldingCount--;
             }
         }
@@ -80,7 +80,7 @@ public class ConstantFolding extends OptimizationVisitor<Void> implements Optimi
             conditionalExpressionFoldingCount++;
             try {
                 return new ValueExpression(s.eval());
-            } catch (OExeption op) {
+            } catch (OperationException op) {
                 conditionalExpressionFoldingCount--;
             }
         }
@@ -96,7 +96,7 @@ public class ConstantFolding extends OptimizationVisitor<Void> implements Optimi
             unaryExpressionFoldingCount++;
             try {
                 return new ValueExpression(s.eval());
-            } catch (OExeption op) {
+            } catch (OperationException op) {
                 unaryExpressionFoldingCount--;
             }
         }

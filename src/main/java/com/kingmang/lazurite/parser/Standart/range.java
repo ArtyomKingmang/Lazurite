@@ -1,4 +1,4 @@
-package com.kingmang.lazurite.parser.pars;
+package com.kingmang.lazurite.parser.Standart;
 
 import com.kingmang.lazurite.core.*;
 import com.kingmang.lazurite.runtime.LZR.LZRArray;

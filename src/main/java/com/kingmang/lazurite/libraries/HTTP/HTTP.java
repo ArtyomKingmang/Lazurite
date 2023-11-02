@@ -1,6 +1,6 @@
 package com.kingmang.lazurite.libraries.HTTP;
 
-import com.kingmang.lazurite.LZREx.LZRExeption;
+import com.kingmang.lazurite.LZREx.LZRException;
 import com.kingmang.lazurite.core.Arguments;
 import com.kingmang.lazurite.core.Function;
 import com.kingmang.lazurite.core.KEYWORD;
@@ -162,7 +162,7 @@ public final class HTTP implements Library {
 
                 case 4: // http(url, method, params, callback)
                     if (args[3].type() != Types.FUNCTION) {
-                        throw new LZRExeption("TypeExeption ","Fourth arg must be a function callback");
+                        throw new LZRException("TypeExeption ","Fourth arg must be a function callback");
                     }
                     url = args[0].asString();
                     method = args[1].asString();
@@ -170,17 +170,17 @@ public final class HTTP implements Library {
 
                 case 5: // http(url, method, params, headerParams, callback)
                     if (args[3].type() != Types.MAP) {
-                        throw new LZRExeption("TypeExeption ","Third arg must be a map");
+                        throw new LZRException("TypeExeption ","Third arg must be a map");
                     }
                     if (args[4].type() != Types.FUNCTION) {
-                        throw new LZRExeption("TypeExeption ","Fifth arg must be a function callback");
+                        throw new LZRException("TypeExeption ","Fifth arg must be a function callback");
                     }
                     url = args[0].asString();
                     method = args[1].asString();
                     return process(url, method, args[2], (LZRMap) args[3], (LZRFunction) args[4]);
 
                 default:
-                    throw new LZRExeption("ArgumentsMismatchException ", "From 1 to 5 arguments expected, got " + args.length);
+                    throw new LZRException("ArgumentsMismatchException ", "From 1 to 5 arguments expected, got " + args.length);
             }
         }
 

@@ -1,6 +1,6 @@
 package com.kingmang.lazurite.parser.ast;
 
-import com.kingmang.lazurite.LZREx.LZRExeption;
+import com.kingmang.lazurite.LZREx.LZRException;
 import com.kingmang.lazurite.runtime.LZR.LZRArray;
 import com.kingmang.lazurite.core.Types;
 import com.kingmang.lazurite.runtime.Value;
@@ -60,8 +60,8 @@ public final class UsingStatement extends InterruptableNode implements Statement
         }
     }
 
-    private LZRExeption typeException(Value value) {
-        return new LZRExeption("Type","Array or string required in 'use' statement, " +
+    private LZRException typeException(Value value) {
+        return new LZRException("Type","Array or string required in 'use' statement, " +
                 "got " + Types.typeToString(value.type()) + " " + value);
     }
 

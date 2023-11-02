@@ -1,6 +1,6 @@
 package com.kingmang.lazurite.runtime.LZR;
 
-import com.kingmang.lazurite.LZREx.LZRExeption;
+import com.kingmang.lazurite.LZREx.LZRException;
 import com.kingmang.lazurite.core.*;
 import com.kingmang.lazurite.runtime.Value;
 
@@ -96,12 +96,12 @@ public class LZRMap implements Value, Iterable<Map.Entry<Value, Value>> {
     
     @Override
     public int asInt() {
-        throw new LZRExeption("TypeExeprion","Cannot cast map to integer");
+        throw new LZRException("TypeExeprion","Cannot cast map to integer");
     }
 
     @Override
     public double asNumber() {
-        throw new LZRExeption("TypeExeprtion","Cannot cast map to number");
+        throw new LZRException("TypeExeprtion","Cannot cast map to number");
     }
 
     @Override

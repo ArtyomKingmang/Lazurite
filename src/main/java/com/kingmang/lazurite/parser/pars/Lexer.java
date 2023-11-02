@@ -1,6 +1,6 @@
 package com.kingmang.lazurite.parser.pars;
 
-import com.kingmang.lazurite.LZREx.LZRExeption;
+import com.kingmang.lazurite.LZREx.LZRException;
 import com.kingmang.lazurite.Main;
 import com.kingmang.lazurite.core.KEYWORD;
 import com.kingmang.lazurite.core.Types;
@@ -11,6 +11,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import com.kingmang.lazurite.parser.Standart.Standart;
+import com.kingmang.lazurite.parser.Standart.range;
 import com.kingmang.lazurite.runtime.LZR.LZRArray;
 import com.kingmang.lazurite.runtime.LZR.LZRNumber;
 import com.kingmang.lazurite.runtime.LZR.LZRString;
@@ -416,7 +418,7 @@ public final class Lexer {
         tokens.add(new Token(type, text, row, col));
     }
     
-    private LZRExeption error(String text) {
-        return new LZRExeption("Lexer exeption","Lexer error");
+    private LZRException error(String text) {
+        return new LZRException("Lexer exeption","Lexer error");
     }
 }

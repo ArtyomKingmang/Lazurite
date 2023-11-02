@@ -1,6 +1,6 @@
 package com.kingmang.lazurite.libraries.Graph;
 
-import com.kingmang.lazurite.LZREx.LZRExeption;
+import com.kingmang.lazurite.LZREx.LZRException;
 import com.kingmang.lazurite.core.Function;
 import com.kingmang.lazurite.core.KEYWORD;
 import com.kingmang.lazurite.libraries.Library;
@@ -326,7 +326,7 @@ public class Graph implements Library {
             }else if(args.length == 4) {
                 graphics.drawImage((Image) args[0], x, y, (ImageObserver) args[3]);
             }else{
-                throw new LZRExeption("RuntimeExeption", "Three args expected");
+                throw new LZRException("RuntimeExeption", "Three args expected");
             }
             return LZRNumber.ZERO;
         }

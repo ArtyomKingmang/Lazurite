@@ -2,7 +2,7 @@ package com.kingmang.lazurite.parser.pars;
 
 import java.io.File;
 
-public class COUT_Setting implements OutputSettings {
+public class ConsoleOutSettings implements OutputSettings {
 
     @Override
     public String newline() {
