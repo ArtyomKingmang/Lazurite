@@ -1,0 +1,110 @@
+using "HTTP"
+ using "JSON"
+
+token = ""
+
+ func sendMessage(text = "", chatId = 1) {
+   invoke("sendMessage", {
+     "chat_id": chatId,
+     "text": text
+   }, ::echo)
+ }
+
+ func sendImage(photoUrl = "", chatId = 1) {
+   invoke("sendPhoto", {
+     "chat_id": chatId,
+     "photo": photoUrl
+   }, ::echo)
+ }
+
+ func update() = invoke("getUpdates", {}, ::echo)
+
+ func sendAudio(audioUrl = "", chatId = 1) {
+   invoke("sendAudio", {
+     "chat_id": chatId,
+     "audio": audioUrl
+   }, ::echo)
+ }
+
+ func sendDocument(docUrl = "", chatId = 1) {
+   invoke("sendDocument", {
+     "chat_id": chatId,
+     "document": docUrl
+   }, ::echo)
+ }
+
+ func sendVideo(videoUrl = "", chatId = 1) {
+   invoke("sendVideo", {
+     "chat_id": chatId,
+     "video": videoUrl
+   }, ::echo)
+ }
+
+ func sendVoice(voiceUrl = "", chatId = 1) {
+   invoke("sendVoice", {
+     "chat_id": chatId,
+     "voice": voiceUrl
+   }, ::echo)
+ }
+
+ func sendSticker(stickerUrl = "", chatId = 1) {
+   invoke("sendSticker", {
+     "chat_id": chatId,
+     "sticker": stickerUrl
+   }, ::echo)
+ }
+
+ func sendContact(phoneNumber = "", firstName = "", chatId = 1) {
+   invoke("sendContact", {
+     "chat_id": chatId,
+     "phone_number": phoneNumber,
+     "first_name": firstName
+   }, ::echo)
+ }
+
+ func sendLocation(latitude = "", longitude = "", chatId = 1) {
+   invoke("sendLocation", {
+     "chat_id": chatId,
+     "latitude": latitude,
+     "longitude": longitude
+   }, ::echo)
+ }
+
+ func aboutMe() = invoke("getMe", {}, ::echo)
+
+ func getChat(chatId = 1) = invoke("getChat", {
+   "chat_id": chatId
+ }, ::echo)
+
+ func getChatMember(chatId = 1, userId = "") {
+   invoke("getChatMember", {
+     "chat_id": chatId,
+     "user_id": userId
+   }, ::echo)
+ }
+
+ func getChatAdministrators(chatId = 1) {
+   invoke("getChatAdministrators", {
+     "chat_id": chatId
+   }, ::echo)
+ }
+
+ func setWebhook(url = "") {
+   invoke("setWebhook", {
+     "url": url
+   }, ::echo)
+ }
+
+ func deleteWebhook() = invoke("deleteWebhook", {}, ::echo)
+
+  func toParams(obj) {
+    str = ""
+    for k, v : obj
+      str += k + "=" + v + "&"
+    return str
+  }
+
+  func createRawUrl(method, params, token = "") = "https://api.telegram.org/bot" + token + "/" + method + "?"+params+"access_token="+token
+  func createUrl(method, params, token = "") = createRawUrl(method, toParams(params), token)
+  func invokeJson(method, params, callback) = HTTP(createUrl(method, params, token), combine(::JSONDecode, callback))
+  func invoke(method, params, callback) = HTTP(createUrl(method, params, token), callback)

@@ -38,7 +38,7 @@ public class Main {
             //while(true)Start();
             //Scanner scan = new Scanner(System.in);
             String file = "test.lzr";
-            String in = "C:\\Users\\crowb\\OneDrive\\Рабочий стол\\Lazurite\\" + file;
+            String in = "C:\\Users\\crowb\\OneDrive\\Рабочий стол\\lzr\\Lazurite\\" + file;
             RUN(in);
 
     }
