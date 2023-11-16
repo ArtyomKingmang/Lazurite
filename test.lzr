@@ -1,2 +1,46 @@
-include "Telegram.lzr"
+using "Graph"
+using "random"
+using "time"
 
+Frame("Hello",500,500)
+background(255,255,255)
+fill(0)
+func circ(){
+    ellipse(x,y,10,10)
+    //sleep(1)
+    Redraw()
+}
+func draw(x,y){
+    while(true){
+        choice = random(4)
+        match (choice){
+            case 0:{
+                x+=5;
+                circ()
+                break;
+            }
+            case 1:{
+                x-=5;
+                circ()
+                break;
+            }
+            case 2:{
+                y+=5;
+                circ()
+                break;
+            }
+            case 3:{
+                y-=5;
+                circ()
+                break;
+            }
+
+        }
+    }
+}
+
+sc = 0
+while(sc < 25000){
+    draw(random(500), random(500))
+    sc++
+}

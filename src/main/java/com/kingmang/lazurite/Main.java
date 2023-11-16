@@ -16,8 +16,6 @@ import java.util.concurrent.TimeUnit;
 
 import java.util.Scanner;
 
-
-
 public class Main {
 
 
@@ -34,8 +32,8 @@ public class Main {
                 "\tLazurite " + VERSION() + " Author: Kingmang\n" +
                 "\t*******************************************");
 
-            //Help();
-            //while(true)Start();
+            /*Help();
+            while(true)Start();*/
             //Scanner scan = new Scanner(System.in);
             String file = "test.lzr";
             String in = "C:\\Users\\crowb\\OneDrive\\Рабочий стол\\lzr\\Lazurite\\" + file;
