@@ -205,7 +205,7 @@ public class Graph implements Library {
                     title = args[0].raw().toString();
                     break;
                 case 2:
-                    title = "Simple Application";
+                    title = "";
                     width = (int) args[0].asNumber();
                     height = (int) args[1].asNumber();
                     break;
@@ -355,7 +355,8 @@ public class Graph implements Library {
         @Override
         public Value execute(Value... args) {
             if (args.length == 1) {
-                panel.setBackground(new Color((int) args[0].asNumber()));
+                int rgb = (int) args[0].asNumber();
+                panel.setBackground(new Color(rgb));
                 return LZRNumber.ZERO;
             }
             int r = (int) args[0].asNumber();

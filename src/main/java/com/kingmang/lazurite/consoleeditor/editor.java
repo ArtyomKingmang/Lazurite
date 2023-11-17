@@ -3,10 +3,7 @@ package com.kingmang.lazurite.consoleeditor;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
-import com.kingmang.lazurite.*;
 
-import static com.kingmang.lazurite.Main.Start;
-import static com.kingmang.lazurite.Main.main;
 
 public class editor {
 

@@ -2,19 +2,16 @@ package com.kingmang.lazurite;
 
 
 import com.kingmang.lazurite.consoleeditor.editor;
-import com.kingmang.lazurite.parser.ast.Statement;
 import com.kingmang.lazurite.parser.pars.*;
-import com.kingmang.lazurite.parser.pars.FunctionAdder;
-
 
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.List;
-import java.util.concurrent.TimeUnit;
+
 
 import java.util.Scanner;
+import static com.kingmang.lazurite.Handler.handle;
 
 public class Main {
 
@@ -81,32 +78,10 @@ public class Main {
             }
         }
 
-        private static void RUN (String path) throws IOException {
-            RunProgram(SourceLoader.readSource(path));
+        public static void RUN (String path) throws IOException {
+            Handler.RunProgram(SourceLoader.readSource(path));
         }
-
-
-        public static void RunProgram (String input) throws IOException {
-
-            final List<Token> tokens = Lexer.tokenize(input);
-            final Parser parser = new Parser(tokens);
-            final Statement parsedProgram = parser.parse();
-            if (parser.getParseErrors().hasErrors()) {
-                System.out.println(parser.getParseErrors());
-                return;
-            }
-            final Statement program;
-            program = parsedProgram;
-            program.accept(new FunctionAdder());
-
-            try {
-                program.execute();
-            } catch (Exception ex) {
-                Console.handleException(Thread.currentThread(), ex);
-            }
-
-        }
-
     }
+
 
 
