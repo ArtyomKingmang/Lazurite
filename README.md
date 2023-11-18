@@ -39,24 +39,24 @@ To get started, you can write Lazurite code in its IDE. Then, opening: "Lazurite
 
 <a href="https://github.com/ArtyomKingmang/Lazurite/wiki">DOCUMENTATION (soon) </a>
 ## Plan for new documentation:
-- 1)Output to the console. The first program
-- 2) Data types
-- 3) Variables
-- 4) Console input
-- 5) Type Conversion
-- 7) Conditional constructions
-- 8) Unary operators
-- 9) Arrays
-- 10) For and while loops
-- 11) Functions 
-- 12) Libraries
-- 13) Third-party .lzr files
-- 14) pattern matching
-- 15) References to methods
-- 16) OOP
-- 17) STD functions
-- 18) Extension of the "assignment" operator
-- 19) Asynchronous programming
-- 20) Operator overload
+- Output to the console. The first program
+- Data types
+- Variables
+- Console input
+- Type Conversion
+- Conditional constructions
+- Unary operators
+- Arrays
+- For and while loops
+- Functions 
+- Libraries
+- Third-party .lzr files
+- Pattern matching
+- References to methods
+- OOP
+- STD functions
+- Extension of the "assignment" operator
+- Asynchronous programming
+- Operator overload
 
 <h1 align="middle" style="font-size: 20px;">❤ Thank you for choosing us ❤</h1>
