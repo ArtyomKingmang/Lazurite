@@ -38,7 +38,7 @@ To get started, you can write Lazurite code in its IDE. Then, opening: "Lazurite
 
 
 <a href="https://github.com/ArtyomKingmang/Lazurite/wiki">DOCUMENTATION (soon) </a>
-##Plan for new documentation:
+## Plan for new documentation:
 1)Output to the console. The first program
 2) Data types
 3) Variables
