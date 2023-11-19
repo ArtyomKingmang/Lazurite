@@ -48,6 +48,7 @@ To get started, you can write Lazurite code in its IDE. Then, opening: "Lazurite
 - Unary operators
 - Arrays
 - For and while loops
+- Foreach loop
 - Functions 
 - Libraries
 - Third-party .lzr files
