@@ -51,7 +51,7 @@ To get started, you can write Lazurite code in its IDE. Then, opening: "Lazurite
 - Foreach loop
 - Functions 
 - Libraries
-- Third-party .lzr files
+- including .lzr files
 - Pattern matching
 - References to methods
 - OOP
