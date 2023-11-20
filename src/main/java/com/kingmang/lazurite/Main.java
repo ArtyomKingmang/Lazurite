@@ -8,10 +8,8 @@ import com.kingmang.lazurite.parser.pars.*;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-
-
 import java.util.Scanner;
-import static com.kingmang.lazurite.Handler.handle;
+
 
 public class Main {
 
@@ -35,7 +33,6 @@ public class Main {
             String file = "test.lzr";
             String in = "C:\\Users\\crowb\\OneDrive\\Рабочий стол\\lzr\\Lazurite\\" + file;
             RUN(in);
-
     }
 
 

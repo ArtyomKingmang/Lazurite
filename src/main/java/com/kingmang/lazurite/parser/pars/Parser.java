@@ -27,7 +27,7 @@ public final class Parser {
     }
 
     private static final Token EOF = new Token(TokenType.EOF, "", -1, -1);
-
+    private final Map<String, Integer> macros;
     private static final EnumMap<TokenType, BinaryExpression.Operator> ASSIGN_OPERATORS;
     static {
         ASSIGN_OPERATORS = new EnumMap<>(TokenType.class);
@@ -57,6 +57,7 @@ public final class Parser {
     public Parser(List<Token> tokens) {
         this.tokens = tokens;
         size = tokens.size();
+        this.macros = new HashMap<>();
         parseErrors = new ParseErrors();
     }
 
@@ -116,7 +117,9 @@ public final class Parser {
     }
 
     private Statement statement() {
-        if (match(TokenType.PRINT)) {
+        if (lookMatch(0, TokenType.WORD) && macros.containsKey(get(0).getText())) {
+            return macroUsage();
+        }if (match(TokenType.PRINT)) {
             return new PrintStatement(expression());
         }
         if (match(TokenType.PRINTLN)) {
@@ -153,8 +156,9 @@ public final class Parser {
         if (match(TokenType.SWITCH)) {
             return match();
         }
-
-
+        if(match(TokenType.EVAL)){
+            return defmacro();
+        }
         if (match(TokenType.CLASS)) {
             return classDeclaration();
         }
@@ -167,6 +171,24 @@ public final class Parser {
         return assignmentStatement();
     }
 
+
+    private Statement macroUsage() {
+        String name = consume(TokenType.WORD).getText();
+        ArrayList<Expression> exprs = new ArrayList<>();
+        for (int i = 0; i < macros.get(name); i++) {
+            exprs.add(expression());
+        }
+        FunctionalExpression func = new FunctionalExpression(new VariableExpression(name));
+        return func;
+    }
+
+    private Statement defmacro() {
+        String name = consume(TokenType.WORD).getText();
+        Arguments args = arguments();
+        Statement block = statementOrBlock();
+        macros.put(name, args.size());
+        return new FunctionDefineStatement(name, args, block);
+    }
 
     private Statement throwSt() {
         String type = consume(TokenType.WORD).getText();
