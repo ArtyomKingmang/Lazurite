@@ -10,6 +10,7 @@
 - [Массивы](#array)
 - [Циклы for и while](#loops)
 - [Функции](#func)
+- [Анонимные функциии]()
 - [Библиотеки](#libs)
 - [Сторонние .lzr файлы](#files)
 - [Pattern matching](#patter)
