@@ -15,7 +15,7 @@ print("Hello World!")
 
 ## Download
 
-Download jar and exe files of the language interpreter can be downloaded in the <a href = "https://github.com/ArtyomKingmang/Lazurite/releases">Releases</a> tab (Old versions in the official <a href = https://t.me/kingmangapps>telegram channel</a>)
+Download jar and exe files of the language interpreter can be downloaded in the <a href = "https://github.com/ArtyomKingmang/Lazurite/releases">Releases</a> tab)
 
 ## Why Lazurite?
 Why should you choose Lazurite?:
