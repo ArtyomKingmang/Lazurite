@@ -68,8 +68,8 @@ public final class Lexer {
 
         KEYWORDS = new HashMap<>();
         KEYWORDS.put("throw", TokenType.THROW);
-        KEYWORDS.put("enum", TokenType.ENUM);
-        KEYWORDS.put("macro",TokenType.EVAL);
+        //KEYWORDS.put("enum", TokenType.ENUM);
+        //KEYWORDS.put("macro",TokenType.EVAL);
         KEYWORDS.put("ref", TokenType.COLONCOLON);
         KEYWORDS.put("and", TokenType.AMPAMP);
         KEYWORDS.put("not", TokenType.EXCL);
@@ -86,7 +86,6 @@ public final class Lexer {
         KEYWORDS.put("func", TokenType.FUNC);
         KEYWORDS.put("return", TokenType.RETURN);
         KEYWORDS.put("using", TokenType.USING);
-        //KEYWORDS.put("import", TokenType.USING);
         KEYWORDS.put("match", TokenType.SWITCH);
         KEYWORDS.put("case", TokenType.CASE);
         KEYWORDS.put("include", TokenType.INCLUDE);
