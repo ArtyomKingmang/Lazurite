@@ -1,5 +1,6 @@
 package com.kingmang.lazurite.parser.pars;
 
+import com.kingmang.lazurite.Handler;
 import com.kingmang.lazurite.LZREx.LZRException;
 import com.kingmang.lazurite.parser.ast.FunctionDefineStatement;
 import com.kingmang.lazurite.runtime.*;
@@ -7,6 +8,7 @@ import com.kingmang.lazurite.parser.ast.*;
 import com.kingmang.lazurite.runtime.LZR.LZRNumber;
 import com.kingmang.lazurite.runtime.LZR.LZRString;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.EnumMap;
@@ -117,9 +119,7 @@ public final class Parser {
     }
 
     private Statement statement() {
-        if (lookMatch(0, TokenType.WORD) && macros.containsKey(get(0).getText())) {
-            return macroUsage();
-        }if (match(TokenType.PRINT)) {
+       if (match(TokenType.PRINT)) {
             return new PrintStatement(expression());
         }
         if (match(TokenType.PRINTLN)) {
@@ -156,9 +156,6 @@ public final class Parser {
         if (match(TokenType.SWITCH)) {
             return match();
         }
-        if(match(TokenType.EVAL)){
-            return defmacro();
-        }
         if (match(TokenType.CLASS)) {
             return classDeclaration();
         }
@@ -172,7 +169,8 @@ public final class Parser {
     }
 
 
-    private Statement macroUsage() {
+
+    /*private Statement macroUsage() {
         String name = consume(TokenType.WORD).getText();
         ArrayList<Expression> exprs = new ArrayList<>();
         for (int i = 0; i < macros.get(name); i++) {
@@ -188,7 +186,7 @@ public final class Parser {
         Statement block = statementOrBlock();
         macros.put(name, args.size());
         return new FunctionDefineStatement(name, args, block);
-    }
+    }*/
 
     private Statement throwSt() {
         String type = consume(TokenType.WORD).getText();
