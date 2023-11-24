@@ -1,7 +1,7 @@
 package com.kingmang.lazurite;
 
 
-import com.kingmang.lazurite.consoleeditor.editor;
+import com.kingmang.lazurite.editors.editor;
 import com.kingmang.lazurite.parser.pars.*;
 
 

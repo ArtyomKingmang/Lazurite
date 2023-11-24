@@ -1,4 +1,4 @@
-package com.kingmang.lazurite.consoleeditor;
+package com.kingmang.lazurite.editors;
 
 import java.io.FileWriter;
 import java.io.IOException;
