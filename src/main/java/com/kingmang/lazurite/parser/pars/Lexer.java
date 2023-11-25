@@ -13,7 +13,6 @@ import java.util.Set;
 
 import com.kingmang.lazurite.parser.Standart.Standart;
 import com.kingmang.lazurite.parser.Standart.range;
-import com.kingmang.lazurite.runtime.LZR.LZRArray;
 import com.kingmang.lazurite.runtime.LZR.LZRNumber;
 import com.kingmang.lazurite.runtime.LZR.LZRString;
 import com.kingmang.lazurite.runtime.Variables;
@@ -25,8 +24,8 @@ public final class Lexer {
         return new Lexer(input).tokenize();
     }
     private static final String OPERATOR_CHARS = "+-*/%()[]{}=<>!&|.,^~?:";
-
-    private static String[] key = {
+    private static final TokenType[] tokenTypes = TokenType.values();
+    private static final String[] keywords = {
             "throw",
             "print",
             "println",
@@ -46,24 +45,21 @@ public final class Lexer {
             "new",
             "enum"
     };
-    static TokenType[] tokenTypes = TokenType.values();
 
-
+    //init keywords
     private static final Map<String, TokenType> KEYWORDS;
     static {
-        Variables();
-        convertTypes();
-
         KEYWORDS = new HashMap<>();
-        for (int i = 0; i < key.length; i++) {
+        for (int i = 0; i < keywords.length; i++) {
             if (i < tokenTypes.length) {
-                KEYWORDS.put(key[i], tokenTypes[i]);
+                KEYWORDS.put(keywords[i], tokenTypes[i]);
             } else {
                 System.out.println("Not enough token types for all tokens");
                 break;
             }
         }
-
+        Variables();
+        convertTypes();
         standart();
 
     }

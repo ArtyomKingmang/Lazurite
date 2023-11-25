@@ -23,7 +23,6 @@ public enum TokenType {
     ENUM,
 
     MINUSGT,//->
-
     EQ, // =
     EQEQ, // ==
     EXCL, // !
