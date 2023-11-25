@@ -2,13 +2,28 @@ package com.kingmang.lazurite.parser.pars;
 
 
 public enum TokenType {
-
-    STRUCT,
-    EVAL,
+    //KEYWORDS
     THROW,
-    MINUSGT,//->
+    PRINT,
+    PRINTLN,
+    IF,
+    ELSE,
+    WHILE,
+    FOR,
+    BREAK,
+    CONTINUE,
+    FUNC,
+    RETURN,
+    USING,
+    SWITCH,
+    CASE,
+    INCLUDE,
+    CLASS,
+    NEW,
     ENUM,
-    FOREACH,
+
+    MINUSGT,//->
+
     EQ, // =
     EQEQ, // ==
     EXCL, // !
@@ -70,22 +85,6 @@ public enum TokenType {
     WORD,
     TEXT,
 
-    PRINT,
-    PRINTLN,
-    IF,
-    ELSE,
-    WHILE,
-    FOR,
-    BREAK,
-    CONTINUE,
-    FUNC,
-    RETURN,
-    USING,
-    SWITCH,
-    CASE,
-    INCLUDE,
-    CLASS,
-    NEW,
 
     PLUS, // +
     MINUS, // -

@@ -26,6 +26,48 @@ public final class Lexer {
     }
     private static final String OPERATOR_CHARS = "+-*/%()[]{}=<>!&|.,^~?:";
 
+    private static String[] key = {
+            "throw",
+            "print",
+            "println",
+            "if",
+            "else",
+            "while",
+            "for",
+            "break",
+            "continue",
+            "func",
+            "return",
+            "using",
+            "match",
+            "case",
+            "include",
+            "class",
+            "new",
+            "enum"
+    };
+    static TokenType[] tokenTypes = TokenType.values();
+
+
+    private static final Map<String, TokenType> KEYWORDS;
+    static {
+        Variables();
+        convertTypes();
+
+        KEYWORDS = new HashMap<>();
+        for (int i = 0; i < key.length; i++) {
+            if (i < tokenTypes.length) {
+                KEYWORDS.put(key[i], tokenTypes[i]);
+            } else {
+                System.out.println("Not enough token types for all tokens");
+                break;
+            }
+        }
+
+        standart();
+
+    }
+
     public static void Variables() {
         Variables.define("object", LZRNumber.of(Types.OBJECT));
         Variables.define("num", LZRNumber.of(Types.NUMBER));
@@ -60,39 +102,6 @@ public final class Lexer {
         KEYWORD.put("flatmap", new Standart.FLATMAP());
         KEYWORD.put("split", new Standart.split());
         KEYWORD.put("filter", new Standart.FILTER(false));
-    }
-    private static final Map<String, TokenType> KEYWORDS;
-    static {
-        Variables();
-        convertTypes();
-
-        KEYWORDS = new HashMap<>();
-        KEYWORDS.put("throw", TokenType.THROW);
-        //KEYWORDS.put("enum", TokenType.ENUM);
-        //KEYWORDS.put("eval",TokenType.EVAL);
-        KEYWORDS.put("ref", TokenType.COLONCOLON);
-        KEYWORDS.put("and", TokenType.AMPAMP);
-        KEYWORDS.put("not", TokenType.EXCL);
-        KEYWORDS.put("or", TokenType.BARBAR);
-        KEYWORDS.put("in", TokenType.COLON);
-        KEYWORDS.put("print", TokenType.PRINT);
-        KEYWORDS.put("println", TokenType.PRINTLN);
-        KEYWORDS.put("if", TokenType.IF);
-        KEYWORDS.put("else", TokenType.ELSE);
-        KEYWORDS.put("while", TokenType.WHILE);
-        KEYWORDS.put("for", TokenType.FOR);
-        KEYWORDS.put("break", TokenType.BREAK);
-        KEYWORDS.put("continue", TokenType.CONTINUE);
-        KEYWORDS.put("func", TokenType.FUNC);
-        KEYWORDS.put("return", TokenType.RETURN);
-        KEYWORDS.put("using", TokenType.USING);
-        KEYWORDS.put("match", TokenType.SWITCH);
-        KEYWORDS.put("case", TokenType.CASE);
-        KEYWORDS.put("include", TokenType.INCLUDE);
-        KEYWORDS.put("class", TokenType.CLASS);
-        KEYWORDS.put("new", TokenType.NEW);
-        standart();
-
     }
 
     private static final Map<String, TokenType> OPERATORS;
