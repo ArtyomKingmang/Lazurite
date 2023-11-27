@@ -22,7 +22,18 @@ public enum TokenType {
     NEW,
     ENUM,
 
-    MINUSGT,//->
+    NUMBER,
+    HEX_NUMBER,
+    WORD,
+    TEXT,
+
+    PLUS, // +
+    MINUS, // -
+    STAR, // *
+    SLASH, // /
+    PERCENT,// %
+    AT, // @
+
     EQ, // =
     EQEQ, // ==
     EXCL, // !
@@ -31,7 +42,7 @@ public enum TokenType {
     LT, // <
     GT, // >
     GTEQ, // >=
-    
+
     PLUSEQ, // +=
     MINUSEQ, // -=
     STAREQ, // *=
@@ -45,10 +56,10 @@ public enum TokenType {
     LTLTEQ, // <<=
     GTGTEQ, // >>=
     GTGTGTEQ, // >>>=
-    
+
     PLUSPLUS, // ++
     MINUSMINUS, // --
-    
+
     LTLT, // <<
     GTGT, // >>
     GTGTGT, // >>>
@@ -57,7 +68,7 @@ public enum TokenType {
     STARSTAR, // **
     QUESTIONCOLON, // ?:
     QUESTIONQUESTION, // ??
-    
+
     TILDE, // ~
     CARET, // ^
     CARETCARET, // ^^
@@ -65,7 +76,7 @@ public enum TokenType {
     BARBAR, // ||
     AMP, // &
     AMPAMP, // &&
-    
+
     QUESTION, // ?
     COLON, // :
     COLONCOLON, // ::
@@ -79,18 +90,7 @@ public enum TokenType {
     COMMA, // ,
     DOT, // .
 
-    NUMBER,
-    HEX_NUMBER,
-    WORD,
-    TEXT,
-
-
-    PLUS, // +
-    MINUS, // -
-    STAR, // *
-    SLASH, // /
-    PERCENT,// %
-    AT, // @
-
     EOF
+
+
 }

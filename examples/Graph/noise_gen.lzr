@@ -12,7 +12,6 @@ func circle(){
     Redraw()
 }
 
-
 func draw(x,y){
     while(true){
         choice = random(4)

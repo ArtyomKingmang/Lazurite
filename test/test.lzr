@@ -1,3 +1,1 @@
-using "Reflection"
-Lexer = JClass("com.kingmang.lazurite.parser.pars.Lexer")
-print(Lexer.getKeywords())
+

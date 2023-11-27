@@ -25,6 +25,7 @@ public final class Lexer {
     }
     private static final String OPERATOR_CHARS = "+-*/%()[]{}=<>!&|.,^~?:";
     private static final TokenType[] tokenTypes = TokenType.values();
+
     private static final String[] keywords = {
             "throw",
             "print",
@@ -45,6 +46,7 @@ public final class Lexer {
             "new",
             "enum"
     };
+
 
     //init keywords
     private static final Map<String, TokenType> KEYWORDS;
@@ -99,75 +101,6 @@ public final class Lexer {
         KEYWORD.put("split", new Standart.split());
         KEYWORD.put("filter", new Standart.FILTER(false));
     }
-
-    private static final Map<String, TokenType> OPERATORS;
-    static {
-        OPERATORS = new HashMap<>();
-        OPERATORS.put("+", TokenType.PLUS);
-        OPERATORS.put("-", TokenType.MINUS);
-        OPERATORS.put("*", TokenType.STAR);
-        OPERATORS.put("/", TokenType.SLASH);
-        OPERATORS.put("%", TokenType.PERCENT);
-        OPERATORS.put("(", TokenType.LPAREN);
-        OPERATORS.put(")", TokenType.RPAREN);
-        OPERATORS.put("[", TokenType.LBRACKET);
-        OPERATORS.put("]", TokenType.RBRACKET);
-        OPERATORS.put("{", TokenType.LBRACE);
-        OPERATORS.put("}", TokenType.RBRACE);
-        OPERATORS.put("=", TokenType.EQ);
-        OPERATORS.put("<", TokenType.LT);
-        OPERATORS.put(">", TokenType.GT);
-        OPERATORS.put(".", TokenType.DOT);
-        OPERATORS.put(",", TokenType.COMMA);
-        OPERATORS.put("^", TokenType.CARET);
-        OPERATORS.put("~", TokenType.TILDE);
-        OPERATORS.put("?", TokenType.QUESTION);
-        OPERATORS.put(":", TokenType.COLON);
-        
-        OPERATORS.put("!", TokenType.EXCL);
-        OPERATORS.put("&", TokenType.AMP);
-        OPERATORS.put("|", TokenType.BAR);
-        
-        OPERATORS.put("==", TokenType.EQEQ);
-        OPERATORS.put("!=", TokenType.EXCLEQ);
-        OPERATORS.put("<=", TokenType.LTEQ);
-        OPERATORS.put(">=", TokenType.GTEQ);
-        
-        OPERATORS.put("+=", TokenType.PLUSEQ);
-        OPERATORS.put("-=", TokenType.MINUSEQ);
-        OPERATORS.put("*=", TokenType.STAREQ);
-        OPERATORS.put("/=", TokenType.SLASHEQ);
-        OPERATORS.put("%=", TokenType.PERCENTEQ);
-        OPERATORS.put("&=", TokenType.AMPEQ);
-        OPERATORS.put("^=", TokenType.CARETEQ);
-        OPERATORS.put("|=", TokenType.BAREQ);
-        OPERATORS.put("::=", TokenType.COLONCOLONEQ);
-        OPERATORS.put("<<=", TokenType.LTLTEQ);
-        OPERATORS.put(">>=", TokenType.GTGTEQ);
-        OPERATORS.put(">>>=", TokenType.GTGTGTEQ);
-
-        OPERATORS.put("++", TokenType.PLUSPLUS);
-        OPERATORS.put("--", TokenType.MINUSMINUS);
-        
-        OPERATORS.put("::", TokenType.COLONCOLON);
-        
-        OPERATORS.put("&&", TokenType.AMPAMP);
-        OPERATORS.put("||", TokenType.BARBAR);
-        
-        OPERATORS.put("<<", TokenType.LTLT);
-        OPERATORS.put(">>", TokenType.GTGT);
-        OPERATORS.put(">>>", TokenType.GTGTGT);
-
-        OPERATORS.put("@", TokenType.AT);
-        OPERATORS.put("@=", TokenType.ATEQ);
-        OPERATORS.put("..", TokenType.DOTDOT);
-        OPERATORS.put("**", TokenType.STARSTAR);
-        OPERATORS.put("^^", TokenType.CARETCARET);
-        OPERATORS.put("?:", TokenType.QUESTIONCOLON);
-        OPERATORS.put("??", TokenType.QUESTIONQUESTION);
-    }
-    
-
 
     public static Set<String> getKeywords() {
         return KEYWORDS.keySet();
@@ -364,6 +297,74 @@ public final class Lexer {
         next(); // skip closing "
         
         addToken(TokenType.TEXT, buffer.toString());
+    }
+
+    private static final Map<String, TokenType> OPERATORS;
+    static {
+        OPERATORS = new HashMap<>();
+
+        OPERATORS.put("+", TokenType.PLUS);
+        OPERATORS.put("-", TokenType.MINUS);
+        OPERATORS.put("*", TokenType.STAR);
+        OPERATORS.put("/", TokenType.SLASH);
+        OPERATORS.put("%", TokenType.PERCENT);
+        OPERATORS.put("(", TokenType.LPAREN);
+        OPERATORS.put(")", TokenType.RPAREN);
+        OPERATORS.put("[", TokenType.LBRACKET);
+        OPERATORS.put("]", TokenType.RBRACKET);
+        OPERATORS.put("{", TokenType.LBRACE);
+        OPERATORS.put("}", TokenType.RBRACE);
+        OPERATORS.put("=", TokenType.EQ);
+        OPERATORS.put("<", TokenType.LT);
+        OPERATORS.put(">", TokenType.GT);
+        OPERATORS.put(".", TokenType.DOT);
+        OPERATORS.put(",", TokenType.COMMA);
+        OPERATORS.put("^", TokenType.CARET);
+        OPERATORS.put("~", TokenType.TILDE);
+        OPERATORS.put("?", TokenType.QUESTION);
+        OPERATORS.put(":", TokenType.COLON);
+
+        OPERATORS.put("!", TokenType.EXCL);
+        OPERATORS.put("&", TokenType.AMP);
+        OPERATORS.put("|", TokenType.BAR);
+
+        OPERATORS.put("==", TokenType.EQEQ);
+        OPERATORS.put("!=", TokenType.EXCLEQ);
+        OPERATORS.put("<=", TokenType.LTEQ);
+        OPERATORS.put(">=", TokenType.GTEQ);
+
+        OPERATORS.put("+=", TokenType.PLUSEQ);
+        OPERATORS.put("-=", TokenType.MINUSEQ);
+        OPERATORS.put("*=", TokenType.STAREQ);
+        OPERATORS.put("/=", TokenType.SLASHEQ);
+        OPERATORS.put("%=", TokenType.PERCENTEQ);
+        OPERATORS.put("&=", TokenType.AMPEQ);
+        OPERATORS.put("^=", TokenType.CARETEQ);
+        OPERATORS.put("|=", TokenType.BAREQ);
+        OPERATORS.put("::=", TokenType.COLONCOLONEQ);
+        OPERATORS.put("<<=", TokenType.LTLTEQ);
+        OPERATORS.put(">>=", TokenType.GTGTEQ);
+        OPERATORS.put(">>>=", TokenType.GTGTGTEQ);
+
+        OPERATORS.put("++", TokenType.PLUSPLUS);
+        OPERATORS.put("--", TokenType.MINUSMINUS);
+
+        OPERATORS.put("::", TokenType.COLONCOLON);
+
+        OPERATORS.put("&&", TokenType.AMPAMP);
+        OPERATORS.put("||", TokenType.BARBAR);
+
+        OPERATORS.put("<<", TokenType.LTLT);
+        OPERATORS.put(">>", TokenType.GTGT);
+        OPERATORS.put(">>>", TokenType.GTGTGT);
+
+        OPERATORS.put("@", TokenType.AT);
+        OPERATORS.put("@=", TokenType.ATEQ);
+        OPERATORS.put("..", TokenType.DOTDOT);
+        OPERATORS.put("**", TokenType.STARSTAR);
+        OPERATORS.put("^^", TokenType.CARETCARET);
+        OPERATORS.put("?:", TokenType.QUESTIONCOLON);
+        OPERATORS.put("??", TokenType.QUESTIONQUESTION);
     }
     
     private void tokenizeComment() {
