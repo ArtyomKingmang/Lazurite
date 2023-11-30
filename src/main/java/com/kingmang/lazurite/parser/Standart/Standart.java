@@ -40,6 +40,14 @@ public class Standart {
         }
     }
 
+    public static final class equal implements Function {
+        @Override
+        public Value execute(Value... args) {
+           boolean check = args[0].equals(args[1]);
+           return LZRNumber.fromBoolean(check);
+        }
+    }
+
     public static final class string {
 
         private string() { }

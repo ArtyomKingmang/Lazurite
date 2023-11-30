@@ -26,6 +26,7 @@ public final class Lexer {
     private static final String OPERATOR_CHARS = "+-*/%()[]{}=<>!&|.,^~?:";
     private static final TokenType[] tokenTypes = TokenType.values();
 
+    //ключевые слова
     private static final String[] keywords = {
             "throw",
             "print",
@@ -48,7 +49,7 @@ public final class Lexer {
     };
 
 
-    //init keywords
+    //добавление ключевых слов из массива keywords в Map KEYWORDS
     private static final Map<String, TokenType> KEYWORDS;
     static {
         KEYWORDS = new HashMap<>();
@@ -87,6 +88,7 @@ public final class Lexer {
     }
 
     private static void standart(){
+        KEYWORD.put("equals", new Standart.equal());
         KEYWORD.put("echo", new Standart.ECHO());
         KEYWORD.put("readln", new Standart.INPUT());
         KEYWORD.put("length", new Standart.LEN());
@@ -123,7 +125,7 @@ public final class Lexer {
         buffer = new StringBuilder();
         row = col = 1;
     }
-    
+
     public List<Token> tokenize() {
         while (pos < length) {
             final char current = peek(0);
@@ -142,7 +144,7 @@ public final class Lexer {
                 next();
             }
         }
-        return tokens;
+        return tokens; // возвращает список из токенов
     }
     
     private void tokenizeNumber() {

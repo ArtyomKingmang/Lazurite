@@ -90,7 +90,7 @@ public enum TokenType {
     COMMA, // ,
     DOT, // .
 
-    EOF
+    EOF // конец парсинга
 
 
 }
