@@ -48,6 +48,8 @@ public class Standart {
         }
     }
 
+
+
     public static final class string {
 
         private string() { }

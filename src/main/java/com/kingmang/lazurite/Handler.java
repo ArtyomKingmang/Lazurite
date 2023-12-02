@@ -9,6 +9,7 @@ import com.kingmang.lazurite.parser.ast.Expression;
 import com.kingmang.lazurite.runtime.LZR.LZRNumber;
 import com.kingmang.lazurite.runtime.Value;
 import com.kingmang.lazurite.runtime.Variables;
+import com.kingmang.lazurite.LZREx.parenErrorCheckOptimize;
 
 import java.io.IOException;
 import java.util.Date;

@@ -1,3 +1,5 @@
+package com.kingmang.lazurite.LZREx;
+
 import java.util.Arrays;
 
 public class parenErrorCheckOptimize {
