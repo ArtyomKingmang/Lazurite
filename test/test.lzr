@@ -1,23 +1,2 @@
-using "Reflection"
-
-text = "100 - 7698 + 4";
-tokens = lexer(text);
-for (token : tokens) {
-      print("{" + getTokenName(token) + "(" + token + ")" + "}; ");
-}
-
-func lexer(text) {
-    return text.split(" ");
-}
-
-func getTokenName(token) {
-   if (equals(token, "+")) {
-       return "PLUS";
-   } else if (equals(token,"-")) {
-        return "MINUS";
-   } else if (equals(token,"*")) {
-        return "MULTIPLY";
-   } else {
-        return "NUMBER";
-   }
-}
+string = "pp"
+if(equals(string, "pp"))print("eq")
