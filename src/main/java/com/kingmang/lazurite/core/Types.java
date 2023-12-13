@@ -13,7 +13,7 @@ public final class Types {
     
     private static final int FIRST = OBJECT;
     private static final int LAST = CLASS;
-    private static final String[] NAMES = {
+    public static final String[] NAMES = {
         "object", "number", "string", "array", "map", "function", "class"
     };
     

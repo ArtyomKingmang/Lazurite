@@ -61,19 +61,20 @@ public final class Lexer {
                 break;
             }
         }
-        Variables();
+        types();
         convertTypes();
         standart();
 
     }
 
-    public static void Variables() {
+    public static void types() {
         Variables.define("object", LZRNumber.of(Types.OBJECT));
         Variables.define("num", LZRNumber.of(Types.NUMBER));
         Variables.define("string", LZRNumber.of(Types.STRING));
         Variables.define("array", LZRNumber.of(Types.ARRAY));
         Variables.define("map", LZRNumber.of(Types.MAP));
         Variables.define("function", LZRNumber.of(Types.FUNCTION));
+        KEYWORD.put("typeof", args -> LZRNumber.of(args[0].type()));
     }
 
     public static void convertTypes(){
