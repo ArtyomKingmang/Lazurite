@@ -19,7 +19,7 @@ public class async implements Library {
     @Override
     public void init(){
         initConstants();
-        KEYWORD.put("sync", new sync());
+        KEYWORD.put("async", new sync());
     }
 
     private final class sync implements Function {

@@ -1,10 +1,7 @@
 package com.kingmang.lazurite.libraries.HTTP;
 
 import com.kingmang.lazurite.LZREx.LZRException;
-import com.kingmang.lazurite.core.Arguments;
-import com.kingmang.lazurite.core.Function;
-import com.kingmang.lazurite.core.KEYWORD;
-import com.kingmang.lazurite.core.Types;
+import com.kingmang.lazurite.core.*;
 import com.kingmang.lazurite.libraries.Library;
 import com.kingmang.lazurite.parser.pars.Console;
 import com.kingmang.lazurite.runtime.LZR.*;
@@ -22,8 +19,7 @@ import java.util.Map;
 
 public final class HTTP implements Library {
 
-    public static void initConstants() {
-    }
+    public static void initConstants() {}
 
     @Override
     public void init() {
