@@ -13,6 +13,7 @@ import java.util.Set;
 
 import com.kingmang.lazurite.parser.Standart.Standart;
 import com.kingmang.lazurite.parser.Standart.range;
+import com.kingmang.lazurite.runtime.LZR.LZRMap;
 import com.kingmang.lazurite.runtime.LZR.LZRNumber;
 import com.kingmang.lazurite.runtime.LZR.LZRString;
 import com.kingmang.lazurite.runtime.Variables;
@@ -68,12 +69,14 @@ public final class Lexer {
     }
 
     public static void types() {
-        Variables.define("object", LZRNumber.of(Types.OBJECT));
-        Variables.define("num", LZRNumber.of(Types.NUMBER));
-        Variables.define("string", LZRNumber.of(Types.STRING));
-        Variables.define("array", LZRNumber.of(Types.ARRAY));
-        Variables.define("map", LZRNumber.of(Types.MAP));
-        Variables.define("function", LZRNumber.of(Types.FUNCTION));
+        LZRMap type = new LZRMap(5);
+        type.set("object", LZRNumber.of(Types.OBJECT));
+        type.set("num", LZRNumber.of(Types.NUMBER));
+        type.set("string", LZRNumber.of(Types.STRING));
+        type.set("array", LZRNumber.of(Types.ARRAY));
+        type.set("map", LZRNumber.of(Types.MAP));
+        type.set("function", LZRNumber.of(Types.FUNCTION));
+        Variables.define("type", type);
         KEYWORD.put("typeof", args -> LZRNumber.of(args[0].type()));
     }
 
