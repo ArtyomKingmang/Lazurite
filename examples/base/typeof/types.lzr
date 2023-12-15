@@ -1,0 +1,6 @@
+x = "100"
+if(typeof(x) == type.num){
+    print("x is number")
+}else if(typeof(x) == type.string){
+    print("x is string")
+}
