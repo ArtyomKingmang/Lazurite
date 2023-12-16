@@ -93,6 +93,7 @@ public final class Lexer {
 
     private static void standart(){
         KEYWORD.put("equals", new Standart.equal());
+        KEYWORD.put("Array", new Standart.Array());
         KEYWORD.put("echo", new Standart.ECHO());
         KEYWORD.put("readln", new Standart.INPUT());
         KEYWORD.put("length", new Standart.LEN());

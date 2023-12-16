@@ -1,0 +1,12 @@
+x = 11
+if(x>10){
+    println("Hello")
+}
+
+if(x < 10){
+    print("-10")
+}else if(x==10){
+    print("10")
+}else{
+    print("10+")
+}

@@ -47,7 +47,29 @@ public class Standart {
            return LZRNumber.fromBoolean(check);
         }
     }
+    public static final class Array implements Function {
 
+        @Override
+        public Value execute(Value... args) {
+            return createArray(args, 0);
+        }
+
+        private LZRArray createArray(Value[] args, int index) {
+            final int size = args[index].asInt();
+            final int last = args.length - 1;
+            LZRArray array = new LZRArray(size);
+            if (index == last) {
+                for (int i = 0; i < size; i++) {
+                    array.set(i, LZRNumber.ZERO);
+                }
+            } else if (index < last) {
+                for (int i = 0; i < size; i++) {
+                    array.set(i, createArray(args, index + 1));
+                }
+            }
+            return array;
+        }
+    }
     public static final class string {
 
         private string() { }
