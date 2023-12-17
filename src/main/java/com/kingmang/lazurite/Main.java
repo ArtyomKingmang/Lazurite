@@ -24,7 +24,7 @@ public class Main {
     public static void main(String[] args) throws IOException {
 
         System.out.println("\n\t*****************LAZURITE******************\n" +
-                "\tLazurite " + VERSION() + " Author: Kingmang\n" +
+                "\tLazurite " + VERSION() + "\n" +
                 "\t*******************************************");
 
             /*Help();

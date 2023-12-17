@@ -9,6 +9,7 @@ import com.kingmang.lazurite.runtime.Value;
 import com.kingmang.lazurite.runtime.Variables;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.io.IOException;
@@ -19,13 +20,25 @@ public class lsoup implements Library {
     public static String docs = "";
     public static Document docum;
     public static Elements element;
+    public static Element elem;
 
 
     @Override
     public void init() {
         KEYWORD.put("SoupParse", new pars());
         KEYWORD.put("SoupSelect", new select());
+        KEYWORD.put("SoupBody", new body());
+    }
 
+    private static class body implements Function {
+        @Override
+        public Value execute(Value... args) {
+            if (docum != null) {
+                return new LZRString(docum.body().toString());
+            } else {
+                return new LZRString("Document not parsed yet");
+            }
+        }
     }
 
     private static class pars implements Function {
