@@ -1,28 +1,20 @@
-package com.kingmang.lazurite.libraries.jsoup;
+package com.kingmang.lazurite.libraries.lsoup;
 
 
 import com.kingmang.lazurite.core.Function;
 import com.kingmang.lazurite.core.KEYWORD;
 import com.kingmang.lazurite.libraries.Library;
-import com.kingmang.lazurite.runtime.LZR.LZRFunction;
-import com.kingmang.lazurite.runtime.LZR.LZRMap;
 import com.kingmang.lazurite.runtime.LZR.LZRString;
 import com.kingmang.lazurite.runtime.Value;
 import com.kingmang.lazurite.runtime.Variables;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Map;
-import java.util.Set;
 
-public class jsoup implements Library {
+public class lsoup implements Library {
 
     public static String docs = "";
     public static Document docum;
@@ -31,8 +23,8 @@ public class jsoup implements Library {
 
     @Override
     public void init() {
-        KEYWORD.put("parse", new pars());
-        KEYWORD.put("select", new select());
+        KEYWORD.put("SoupParse", new pars());
+        KEYWORD.put("SoupSelect", new select());
 
     }
 

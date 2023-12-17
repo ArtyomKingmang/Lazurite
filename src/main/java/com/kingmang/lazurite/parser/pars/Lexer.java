@@ -172,7 +172,6 @@ public final class Lexer {
         }
         addToken(TokenType.NUMBER, buffer.toString());
     }
-    
     private void tokenizeHexNumber(int skipped) {
         clearBuffer();
         char current = peek(0);
