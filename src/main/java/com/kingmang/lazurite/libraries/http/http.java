@@ -1,4 +1,4 @@
-package com.kingmang.lazurite.libraries.HTTP;
+package com.kingmang.lazurite.libraries.http;
 
 import com.kingmang.lazurite.LZREx.LZRException;
 import com.kingmang.lazurite.core.*;
@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.Map;
 
 
-public final class HTTP implements Library {
+public final class http implements Library {
 
     public static void initConstants() {}
 

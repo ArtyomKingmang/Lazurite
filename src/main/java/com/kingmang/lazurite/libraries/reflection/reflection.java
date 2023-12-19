@@ -1,4 +1,4 @@
-package com.kingmang.lazurite.libraries.Reflection;
+package com.kingmang.lazurite.libraries.reflection;
 
 import com.kingmang.lazurite.core.*;
 import com.kingmang.lazurite.libraries.Library;
@@ -15,7 +15,7 @@ import java.util.Arrays;
 import java.util.List;
 
 
-public final class Reflection implements Library {
+public final class reflection implements Library {
     private static final Value NULL = new NullValue();
 
     public static void initConstants() {

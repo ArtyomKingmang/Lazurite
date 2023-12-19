@@ -6,6 +6,7 @@ import com.kingmang.lazurite.parser.pars.*;
 
 
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Scanner;
@@ -23,22 +24,23 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
 
-        System.out.println("\n\t*****************LAZURITE******************\n" +
-                "\tLazurite " + VERSION() + "\n" +
-                "\t*******************************************");
 
-            /*Help();
-            while(true)Start();*/
+            Help();
+            while(true)Start();
             //Scanner scan = new Scanner(System.in);
-            String file = "test.lzr";
+            /*String file = "test.lzr";
             String in = "C:\\Users\\crowb\\OneDrive\\Рабочий стол\\lzr\\Lazurite\\test\\" + file;
-            RUN(in);
+            RUN(in);*/
     }
 
 
         public static void Help () {
+            System.out.println("\n\t-------"+VERSION()+"-------\n" +
+                    "\tLazurite Console" + "\n" +
+                    "\t-----------------");
+            System.out.println("------------------------------------------------------------");
             System.out.println(
-                    "\n--run / -r - asks for the path to the file and runs it\n" +
+                    "--run / -r - asks for the path to the file and runs it\n" +
                             "--version / -v - returns the version of Lazurite\n" +
                             "--help / -h - show help commands\n" +
                             "--editor / -e - open code editor\n" +
@@ -48,17 +50,21 @@ public class Main {
         }
         public static void Start() throws IOException {
             String input = null;
-            System.out.println("\n\n\n------------------------------------------------------------\n\n");
+            System.out.println("\n------------------------------------------------------------\n");
             BufferedReader sc = new BufferedReader(new InputStreamReader(System.in));
             String cmd = sc.readLine();
             if (cmd.contains("--help") || cmd.contains("-h")) {
                 Help();
 
             } else if (cmd.contains("--run") || cmd.contains("-r")) {
-                System.out.print("\n\nEnter path to your file: ");
-                Scanner scan = new Scanner(System.in);
-                String in = scan.nextLine();
-                RUN(in);
+                String[] obj = cmd.split(" ");
+                try {
+                    RUN(obj[1]);
+                }catch(ArrayIndexOutOfBoundsException e){
+                    System.out.println("Correct entry form: -r <file>");
+                }catch (FileNotFoundException ex){
+                    System.out.println("File "+obj[1]+ " not found");
+                }
 
             } else if (cmd.contains("--editor") || cmd.contains("-e")) {
                 editor.openEditor();
