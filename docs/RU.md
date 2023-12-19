@@ -473,16 +473,26 @@ r = range(-5, 0) // [-5, -4, -3, -2, -1]
 println r[0] // -5
 ````
 
-`substring`
+`substring(str, startIndex, endIndex = ..)`- обрезает строку `str`, начиная от символа после позиции `startIndex` и по `endIndex`. Если `endIndex` не указан, обрезается до конца строки
+```python
+println substring("Artyom", 1) // rtyom
+```
+`foreach(data, consumer)` - для каждого элемента в массиве или объекте data вызывает функцию consumer
+```java
+//foreach in array
+names = ["Artyom", "Nikita", "Gleb"]
+foreach(names, func(i) {
+    print(i + ", ")
+})
+```
 
-`parseInt`
+`parseInt(str, radix)` - парсит строку в целое число с указанным основанием
 
-`parseLong`
+`parseLong(str, radix)` - парсит строку в длинное целое число с указанным основанием
 
-`foreach`
 
-`flatmap`
+`flatmap(array, mapper)` - преобразует каждый элемент массива в массив элементов
 
 `split`
 
-`filter`
+`filter(data, predicate)` - фильтрует массив или объект и возвращает массив только с теми элементами, которые удовлетворяют предикату predicate.
