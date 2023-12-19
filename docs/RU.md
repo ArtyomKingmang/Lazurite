@@ -458,7 +458,13 @@ print(getBytes(st))
 // [72, 101, 108, 108, 111, 32, 101, 118, 101, 114, 121, 111, 110, 101]
 ````
 
-`sprintf`
+`sprintf(format, args...)` - форматирует строку
+
+```cpp
+using "Colors"
+println(sprintf(color.red))
+print("Hello")
+```
 
 `range(from = 0, to, step = 1)` - создаёт массив с элементами числового промежутка. 
 ````java
