@@ -29,7 +29,7 @@ public class Main {
             while(true)Start();
             //Scanner scan = new Scanner(System.in);
             /*String file = "test.lzr";
-            String in = "C:\\Users\\crowb\\OneDrive\\Рабочий стол\\lzr\\Lazurite\\test\\" + file;
+            String in = "C:\\Users\\crowb\\OneDrive\\Рабочий стол\\lzr\\Lazurite\\test\\test.lzr" + file;
             RUN(in);*/
     }
 
