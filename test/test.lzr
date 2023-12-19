@@ -1,1 +1,1 @@
-print("Hello")
+print(equals(10,4))
