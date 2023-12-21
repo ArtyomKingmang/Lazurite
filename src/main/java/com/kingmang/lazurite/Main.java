@@ -16,7 +16,7 @@ public class Main {
 
 
     public static String VERSION() {
-        return "2.7";
+        return "2.8";
     }
 
     public static int check = 0;
