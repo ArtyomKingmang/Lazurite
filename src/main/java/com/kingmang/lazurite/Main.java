@@ -25,12 +25,12 @@ public class Main {
     public static void main(String[] args) throws IOException {
 
 
-            Help();
-            while(true)Start();
+            //Help();
+            //while(true)Start();
             //Scanner scan = new Scanner(System.in);
-            /*String file = "test.lzr";
-            String in = "C:\\Users\\crowb\\OneDrive\\Рабочий стол\\lzr\\Lazurite\\test\\test.lzr" + file;
-            RUN(in);*/
+            String file = "test.lzr";
+            String in = "C:\\Users\\crowb\\OneDrive\\Рабочий стол\\lzr\\Lazurite\\test\\" + file;
+            RUN(in);
     }
 
 

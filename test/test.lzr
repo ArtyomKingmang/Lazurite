@@ -1,1 +1,3 @@
-print(equals(10,4))
+using "base64"
+src = 56457657
+print(BASE64Encode(src))

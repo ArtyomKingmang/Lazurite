@@ -7,7 +7,9 @@ import com.kingmang.lazurite.libraries.Library;
 import com.kingmang.lazurite.runtime.LZR.LZRString;
 import com.kingmang.lazurite.runtime.Value;
 import com.kingmang.lazurite.runtime.Variables;
+
 import org.jsoup.Jsoup;
+
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
@@ -21,7 +23,6 @@ public class lsoup implements Library {
     public static Document docum;
     public static Elements element;
     public static Element elem;
-
 
     @Override
     public void init() {

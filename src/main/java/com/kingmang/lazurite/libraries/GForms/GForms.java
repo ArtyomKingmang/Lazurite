@@ -14,12 +14,9 @@ import javax.swing.*;
 
 import javax.swing.JFrame;
 
-
-
-
 public final class GForms implements Library {
 
-    public static void initConstants() {
+    public static void initConstant() {
         // JFrame constants
         Variables.define("DISPOSE_ON_CLOSE", LZRNumber.of(JFrame.DISPOSE_ON_CLOSE));
         Variables.define("DO_NOTHING_ON_CLOSE", LZRNumber.of(JFrame.DO_NOTHING_ON_CLOSE));
@@ -116,7 +113,7 @@ public final class GForms implements Library {
 
     @Override
     public void init() {
-        initConstants();
+        initConstant();
         // Components
         KEYWORD.put("Button", Components::newButton);
         KEYWORD.put("Label", Components::newLabel);

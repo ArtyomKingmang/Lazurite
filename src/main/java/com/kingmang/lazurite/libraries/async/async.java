@@ -13,12 +13,9 @@ import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
 public class async implements Library {
-    public static void initConstants() {
 
-    }
     @Override
     public void init(){
-        initConstants();
         KEYWORD.put("async", new sync());
     }
 

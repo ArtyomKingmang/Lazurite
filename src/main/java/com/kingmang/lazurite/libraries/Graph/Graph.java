@@ -107,9 +107,12 @@ public class Graph implements Library {
         Variables.set("Key_F11", new LZRNumber(KeyEvent.VK_F11));
         Variables.set("Key_F12", new LZRNumber(KeyEvent.VK_F12));
     }
-    public void init() {
+    public void initConstant(){
         initColors();
         initKeys();
+    }
+    public void init() {
+        initConstant();
         KEYWORD.put("background", new background());
         KEYWORD.put("dispose", new background());
         KEYWORD.put("LImage", new LImage());
