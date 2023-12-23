@@ -25,9 +25,9 @@ public class Main {
     public static void main(String[] args) throws IOException {
 
 
-            //Help();
-            //while(true)Start();
-            //Scanner scan = new Scanner(System.in);
+            /*Help();
+            while(true)Start();*/
+
             String file = "test.lzr";
             String in = "C:\\Users\\crowb\\OneDrive\\Рабочий стол\\lzr\\Lazurite\\test\\" + file;
             RUN(in);

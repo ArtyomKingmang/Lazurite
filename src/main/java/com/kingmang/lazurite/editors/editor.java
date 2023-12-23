@@ -56,7 +56,6 @@ public class editor {
 
                 System.out.println(line);
 
-                code.append(line).append("\n");
                 lineNumber++;
             }
         }
