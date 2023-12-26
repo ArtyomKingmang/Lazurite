@@ -1,14 +1,9 @@
 package com.kingmang.lazurite.libraries.IceCream.core;
 
-import com.kingmang.lazurite.libraries.IceCream.core.exceptions.IceCreamException;
-import com.kingmang.lazurite.libraries.IceCream.core.pojo.CallerDetails;
+import com.kingmang.lazurite.LZREx.LZRException;
 
 public class Ice {
 
-    /**
-     * NOTE
-     * 1. Logger support was intentionally dropped to de-clutter output
-     */
 
     private static String prefix = "\uD83C\uDF66 ";
     private static boolean includeContext = true;
@@ -31,21 +26,21 @@ public class Ice {
 
     public static void includeFilename(boolean flag) {
         if (!includeContext) {
-            throw new IceCreamException(ERROR_CONTEXT_DISABLED);
+            throw new LZRException("IceCreamException: ",ERROR_CONTEXT_DISABLED);
         }
         includeFilename = flag;
     }
 
     public static void includeClassName(boolean flag) {
         if (!includeContext) {
-            throw new IceCreamException(ERROR_CONTEXT_DISABLED);
+            throw new LZRException("IceCreamException: ",ERROR_CONTEXT_DISABLED);
         }
         includeClassName = flag;
     }
 
     public static void includeMethodNameAndLineNumber(boolean flag) {
         if (!includeContext) {
-            throw new IceCreamException(ERROR_CONTEXT_DISABLED);
+            throw new LZRException("IceCreamException: ",ERROR_CONTEXT_DISABLED);
         }
         includeMethodNameAndLineNumber = flag;
     }

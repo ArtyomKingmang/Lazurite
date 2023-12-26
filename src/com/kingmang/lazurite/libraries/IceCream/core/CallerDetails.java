@@ -1,4 +1,4 @@
-package com.kingmang.lazurite.libraries.IceCream.core.pojo;
+package com.kingmang.lazurite.libraries.IceCream.core;
 
 public class CallerDetails {
     public String className;
