@@ -2,9 +2,9 @@ using "reflection"
 m = ""
 while(true){
      input = readln(m)
-     Lexer = JClass("com.kingmang.lazurite.parser.pars.Lexer")
+     Lexer = JClass("com.kingmang.pars.parser.com.kingmang.lazurite.Lexer")
      tokens = Lexer.tokenize(input)
-     Parser = JClass("com.kingmang.lazurite.parser.pars.Parser")
+     Parser = JClass("com.kingmang.pars.parser.com.kingmang.lazurite.Parser")
      statement = Parser.parse(tokens)
      statement.execute()
      print("\n>>>")

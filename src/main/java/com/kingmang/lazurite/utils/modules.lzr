@@ -1,5 +1,0 @@
-using "Reflection"
-URL = JClass("java.net.URL")
-url1 = new URL("https://gitflic.ru/project/kingmang/lazurite-modules")
-print("Download Lazurite Modules: " + url1)
-
