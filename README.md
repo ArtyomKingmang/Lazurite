@@ -37,7 +37,7 @@ To get started, you can write Lazurite code in its IDE. Then, opening: "Lazurite
 
 
 
-<a href="https://github.com/ArtyomKingmang/Lazurite/wiki">DOCUMENTATION (soon) </a>
+<a href="https://github.com/ArtyomKingmang/Lazurite/blob/main/docs/RU.md">DOCUMENTATION </a>
 ## Plan for new documentation:
 - Output to the console. The first program
 - Data types
