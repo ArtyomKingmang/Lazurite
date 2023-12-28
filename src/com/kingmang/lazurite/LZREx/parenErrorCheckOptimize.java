@@ -3,7 +3,7 @@ package com.kingmang.lazurite.LZREx;
 import java.util.Arrays;
 
 public class parenErrorCheckOptimize {
-    String stringForCheck;
+    /*String stringForCheck;
     String[] openParens = {"(", "[", "{"};
     String[] closeParens = {")", "]", "}"};
 
@@ -36,5 +36,5 @@ public class parenErrorCheckOptimize {
         }
 
         return parensNumber == 0;
-    }
+    }*/
 }

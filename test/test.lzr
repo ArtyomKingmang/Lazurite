@@ -1,1 +1,5 @@
-
+using "async"
+func hell(){
+   print("Hello")
+}
+async.supply(hell())

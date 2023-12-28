@@ -24,7 +24,7 @@ public class Main {
             while(true)Start();*/
 
             String file = "test.lzr";
-            String in = "C:\\Users\\crowb\\OneDrive\\Рабочий стол\\lzrnext\\test\\" + file;
+            String in = "C:\\Users\\crowb\\Desktop\\Lazurite\\test\\" + file;
             Handler.RUN(in);
     }
 

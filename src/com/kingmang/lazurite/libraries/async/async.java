@@ -6,44 +6,33 @@ import com.kingmang.lazurite.core.KEYWORD;
 import com.kingmang.lazurite.core.ValueUtils;
 import com.kingmang.lazurite.libraries.Library;
 import com.kingmang.lazurite.runtime.LZR.LZRFunction;
+import com.kingmang.lazurite.runtime.LZR.LZRMap;
 import com.kingmang.lazurite.runtime.LZR.LZRNumber;
 import com.kingmang.lazurite.runtime.Value;
+import com.kingmang.lazurite.runtime.Variables;
 
 import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.LinkedBlockingQueue;
 
 public class async implements Library {
 
     @Override
     public void init(){
-        KEYWORD.put("async", new sync());
-    }
-
-    private final class sync implements Function {
-
-        @Override
-        public Value execute(Value... args) {
-            Arguments.check(1, args.length);
-
-            final BlockingQueue<Value> queue = new LinkedBlockingQueue<>(2);
-            final Function synchronizer = (sArgs) -> {
-                try {
-                    queue.put(sArgs[0]);
-                } catch (InterruptedException ex) {
-                    Thread.currentThread().interrupt();
-                }
-                return LZRNumber.ZERO;
-            };
-            final Function callback = ValueUtils.consumeFunction(args[0], 0);
-            callback.execute(new LZRFunction(synchronizer));
-
-            try {
-                return queue.take();
-            } catch (InterruptedException ex) {
-                Thread.currentThread().interrupt();
-                throw new RuntimeException(ex);
+        LZRMap async = new LZRMap(1);
+        async.set("supply", new Function() {
+            @Override
+            public Value execute(Value... args) {
+                Arguments.check(1, args.length);
+                CompletableFuture<LZRNumber> asyncc;
+                asyncc = CompletableFuture.supplyAsync(() -> {
+                    (((LZRFunction) args[0]).getValue()).execute();
+                    return LZRNumber.ONE;
+                });
+                return LZRNumber.MINUS_ONE;
             }
-        }
-
+        });
+        Variables.define("async", async);
     }
+
 }
