@@ -4,6 +4,7 @@ package com.kingmang.lazurite.libraries.lsoup;
 import com.kingmang.lazurite.core.Function;
 import com.kingmang.lazurite.core.KEYWORD;
 import com.kingmang.lazurite.libraries.Library;
+import com.kingmang.lazurite.runtime.LZR.LZRMap;
 import com.kingmang.lazurite.runtime.LZR.LZRString;
 import com.kingmang.lazurite.runtime.Value;
 import com.kingmang.lazurite.runtime.Variables;
@@ -26,9 +27,11 @@ public class lsoup implements Library {
 
     @Override
     public void init() {
-        KEYWORD.put("SoupParse", new pars());
-        KEYWORD.put("SoupSelect", new select());
-        KEYWORD.put("SoupBody", new body());
+        LZRMap lsoup = new LZRMap(3);
+        lsoup.set("parse", new pars());
+        lsoup.set("select", new select());
+        lsoup.set("body", new body());
+        Variables.define("lsoup", lsoup);
     }
 
     private static class body implements Function {

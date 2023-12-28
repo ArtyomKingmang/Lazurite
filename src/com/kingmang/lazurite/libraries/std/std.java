@@ -7,9 +7,11 @@ import com.kingmang.lazurite.core.Types;
 import com.kingmang.lazurite.libraries.Library;
 import com.kingmang.lazurite.parser.pars.Console;
 import com.kingmang.lazurite.runtime.LZR.LZRFunction;
+import com.kingmang.lazurite.runtime.LZR.LZRMap;
 import com.kingmang.lazurite.runtime.LZR.LZRNumber;
 import com.kingmang.lazurite.runtime.LZR.LZRString;
 import com.kingmang.lazurite.runtime.Value;
+import com.kingmang.lazurite.runtime.Variables;
 
 public class std implements Library {
     public static void initConstants() {
@@ -17,10 +19,12 @@ public class std implements Library {
     }
     @Override
     public void init(){
+        LZRMap std = new LZRMap(3);
         initConstants();
-        KEYWORD.put("toChar", new toChar());
-        KEYWORD.put("charAt", new charat());
-        KEYWORD.put("thread", new thread());
+        std.set("toChar", new toChar());
+        std.set("charAt", new charat());
+        std.set("thread", new thread());
+        Variables.define("std", std);
 
     }
     private final class charat implements Function {

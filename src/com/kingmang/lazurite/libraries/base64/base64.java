@@ -5,7 +5,9 @@ import com.kingmang.lazurite.core.KEYWORD;
 import com.kingmang.lazurite.core.ValueUtils;
 import com.kingmang.lazurite.libraries.Library;
 import com.kingmang.lazurite.runtime.LZR.LZRArray;
+import com.kingmang.lazurite.runtime.LZR.LZRMap;
 import com.kingmang.lazurite.runtime.Value;
+import com.kingmang.lazurite.runtime.Variables;
 
 import java.nio.charset.StandardCharsets;
 import java.sql.Types;
@@ -15,7 +17,9 @@ public class base64 implements Library {
     private static final int TYPE = 8;
     @Override
     public void init() {
-        KEYWORD.put("BASE64Encode", this::encode);
+        LZRMap base = new LZRMap(1);
+        base.set("encode",this::encode);
+        Variables.define("base64", base);
     }
     private Value encode(Value... args){
         Arguments.checkOrOr(1,2,args.length);

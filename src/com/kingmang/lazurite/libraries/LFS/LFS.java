@@ -7,6 +7,7 @@ import com.kingmang.lazurite.libraries.Library;
 import com.kingmang.lazurite.runtime.*;
 import com.kingmang.lazurite.parser.pars.Console;
 import com.kingmang.lazurite.runtime.LZR.LZRArray;
+import com.kingmang.lazurite.runtime.LZR.LZRMap;
 import com.kingmang.lazurite.runtime.LZR.LZRNumber;
 
 import java.io.DataInputStream;
@@ -32,30 +33,32 @@ public final class LFS implements Library {
     @Override
     public void init() {
         files = new HashMap<>();
-        KEYWORD.put("isDir", fileToBoolean(File::isDirectory));
-        KEYWORD.put("isFile", fileToBoolean(File::isFile));
-        KEYWORD.put("FileSize", new fileSize());
+        LZRMap lfs = new LZRMap(10);
+        lfs.set("isDir", fileToBoolean(File::isDirectory));
+        lfs.set("isFile", fileToBoolean(File::isFile));
+        lfs.set("FileSize", new fileSize());
 
-        KEYWORD.put("open", new open());
-        KEYWORD.put("close", new close());
+        lfs.set("open", new open());
+        lfs.set("close", new close());
 
-        KEYWORD.put("copy", new copy());
-        KEYWORD.put("delete", fileToBoolean(File::delete));
-        KEYWORD.put("scanDir", new listFiles());
-        KEYWORD.put("addFolder", fileToBoolean(File::mkdir));
-        KEYWORD.put("rename", new rename());
+        lfs.set("copy", new copy());
+        lfs.set("delete", fileToBoolean(File::delete));
+        lfs.set("scanDir", new listFiles());
+        lfs.set("addFolder", fileToBoolean(File::mkdir));
+        lfs.set("rename", new rename());
 
-        KEYWORD.put("WBool", new WBool());
-        KEYWORD.put("WByte", new WByte());
-        KEYWORD.put("WChar", new WChar());
-        KEYWORD.put("WShort", new WShort());
-        KEYWORD.put("WInt", new WInt());
-        KEYWORD.put("WLong", new WLong());
-        KEYWORD.put("WFloat", new WFloat());
-        KEYWORD.put("WDouble", new WDouble());
-        KEYWORD.put("WUTF", new WUTF());
-        KEYWORD.put("WLine", new WLine());
-        KEYWORD.put("WText", new WText());
+        lfs.set("WBool", new WBool());
+        lfs.set("WByte", new WByte());
+        lfs.set("WChar", new WChar());
+        lfs.set("WShort", new WShort());
+        lfs.set("WInt", new WInt());
+        lfs.set("WLong", new WLong());
+        lfs.set("WFloat", new WFloat());
+        lfs.set("WDouble", new WDouble());
+        lfs.set("WUTF", new WUTF());
+        lfs.set("WLine", new WLine());
+        lfs.set("WText", new WText());
+        Variables.define("LFS", lfs);
     }
 
 

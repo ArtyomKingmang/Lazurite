@@ -57,7 +57,7 @@ public final class Lexer {
             if (i < tokenTypes.length) {
                 KEYWORDS.put(keywords[i], tokenTypes[i]);
             } else {
-                System.out.println("Not enough token types for all tokens");
+                Console.println("Not enough token types for all tokens");
                 break;
             }
         }

@@ -21,7 +21,15 @@ public class system implements Library {
         values.set("name", new LZRString(java.lang.System.getProperty("os.name")));
         values.set("arch", new LZRString(java.lang.System.getProperty("os.arch")));
         values.set("version", new LZRString(java.lang.System.getProperty("os.version")));
-
+        values.set("exit", (Value... args) -> {
+            Arguments.check(1, args.length);
+            try {
+                java.lang.System.exit((int) args[0].asNumber());
+            } finally {
+                Thread.currentThread().interrupt();
+            }
+            return LZRNumber.MINUS_ONE;
+        });
         LZRMap sep = new LZRMap(5);
         sep.set("file", new LZRString(java.lang.System.getProperty("file.separator")));
         sep.set("path", new LZRString(java.lang.System.getProperty("path.separator")));
@@ -39,16 +47,6 @@ public class system implements Library {
 
     public void init (){
         initConstant();
-
-        KEYWORD.put("exit", (Value... args) -> {
-            Arguments.check(1, args.length);
-            try {
-                java.lang.System.exit((int) args[0].asNumber());
-            } finally {
-                Thread.currentThread().interrupt();
-            }
-            return LZRNumber.MINUS_ONE;
-        });
 
     }
 
