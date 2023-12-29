@@ -2,6 +2,6 @@ using "std"
 s = "1234";
 a = "";
 for (i = length(s) - 1, i >= 0, i--) {
-   a = a + charAt(s,i) + a
+   a = a + std.charAt(s,i) + a
 }
 println(a);

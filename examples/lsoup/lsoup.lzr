@@ -1,4 +1,7 @@
 using "lsoup"
-SoupParse("https://artyomkingmang.github.io/lazurite-pages/")
-result = SoupSelect("title")
+
+lsoup.parse("https://artyomkingmang.github.io/lazurite-pages/")
+result = lsoup.select("title")
+
 print(result)
+

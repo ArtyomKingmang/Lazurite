@@ -1,6 +1,6 @@
-using "Graph"
+using "graph"
 using "random"
-using "time"
+
 
 Frame(900,500)
 background(255,255,255)

@@ -1,11 +1,10 @@
 using "reflection"
-m = ""
 while(true){
-     input = readln(m)
-     Lexer = JClass("com.kingmang.pars.parser.com.kingmang.lazurite.Lexer")
+     print("\n>>> ")
+     input = readln("")
+     Lexer = JClass("com.kingmang.lazurite.parser.pars.Lexer")
      tokens = Lexer.tokenize(input)
-     Parser = JClass("com.kingmang.pars.parser.com.kingmang.lazurite.Parser")
+     Parser = JClass("com.kingmang.lazurite.parser.pars.Parser")
      statement = Parser.parse(tokens)
      statement.execute()
-     print("\n>>>")
 }

@@ -1,4 +1,4 @@
-package com.kingmang.lazurite.libraries.array;
+package com.kingmang.lazurite.libraries.arrays;
 import com.kingmang.lazurite.LZREx.LZRException;
 import com.kingmang.lazurite.core.*;
 
@@ -10,7 +10,7 @@ import com.kingmang.lazurite.runtime.Value;
 import com.kingmang.lazurite.runtime.Variables;
 
 
-public final class array implements Library {
+public final class arrays implements Library {
 
 
     @Override
@@ -98,7 +98,7 @@ public final class array implements Library {
                 return LZRNumber.fromBoolean(map.containsKey(args[0]));
             }
         });
-        Variables.define("array", array);
+        Variables.define("arrays", array);
 
     }
 

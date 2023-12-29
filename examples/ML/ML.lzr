@@ -4,7 +4,7 @@ y1 = 20
 x2 = 30
 y2 = 60
 
-r1 = x2 - x1 - cos(45)
-r2 = y2 - y1 - sin(45)
+r1 = x2 - x1 - ML.cos(45)
+r2 = y2 - y1 - ML.sin(45)
 
-print(pow(r1,2) + pow(r2,2) )
+print(ML.pow(r1,2) + ML.pow(r2,2) )

@@ -1,7 +1,0 @@
-using "async"
-using "time"
-
-t = async(func(arg){
-    print("AsyncFunc")
-})
-print(t)

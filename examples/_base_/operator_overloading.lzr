@@ -1,5 +1,5 @@
 using "ML"
 
-func `**`(v1,v2) = pow(v1, v2)
+func `**`(v1,v2) = ML.pow(v1, v2)
 
 print(10 ** 2)

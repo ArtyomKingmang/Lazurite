@@ -1,4 +1,4 @@
-using "Colors"
+using "colors"
 using "random"
 using "time"
 
@@ -30,7 +30,7 @@ func drawTree(){
 func HappyNewYear(){
     print(sprintf(patterns[random(0,length(patterns))]))
     println("Happy new year")
-    sleep(500)
+    time.sleep(500)
     color.clear()
 }
 

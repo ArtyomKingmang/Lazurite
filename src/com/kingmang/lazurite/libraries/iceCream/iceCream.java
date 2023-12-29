@@ -4,21 +4,27 @@ import com.kingmang.lazurite.core.Function;
 import com.kingmang.lazurite.core.KEYWORD;
 import com.kingmang.lazurite.libraries.iceCream.core.Ice;
 import com.kingmang.lazurite.libraries.Library;
+import com.kingmang.lazurite.runtime.LZR.LZRMap;
 import com.kingmang.lazurite.runtime.LZR.LZRNumber;
 import com.kingmang.lazurite.runtime.Value;
+import com.kingmang.lazurite.runtime.Variables;
 
 public class iceCream implements Library {
     static Ice ice = new Ice();
     @Override
     public void init(){
-        KEYWORD.put("ic", new ic());
-        KEYWORD.put("setPrefix", new setPrefix());
+        LZRMap ice = new LZRMap(2);
+        ice.set("ic", new ic());
+        ice.set("setPrefix", new setPrefix());
+        Variables.define("ice",ice);
     }
 
     private static class ic implements Function {
         @Override
         public Value execute(Value... args) {
-            ice.ic(args[0]);
+            for(int i=0; i<args.length; i++){
+                ice.ic(args[i]);
+            }
             return LZRNumber.ZERO;
         }
     }

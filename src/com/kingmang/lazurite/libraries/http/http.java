@@ -5,6 +5,7 @@ import com.kingmang.lazurite.core.*;
 import com.kingmang.lazurite.libraries.Library;
 import com.kingmang.lazurite.runtime.LZR.*;
 import com.kingmang.lazurite.runtime.Value;
+import com.kingmang.lazurite.runtime.Variables;
 import okhttp3.*;
 import okhttp3.internal.http.HttpMethod;
 import com.kingmang.lazurite.parser.pars.Console;
@@ -23,11 +24,15 @@ public final class http implements Library {
 
     @Override
     public void init() {
+        LZRMap http = new LZRMap(3);
+        LZRMap url = new LZRMap(1);
         initConstants();
-        KEYWORD.put("URLEncode", new URLEncode());
-        KEYWORD.put("HTTP", new Http());
-        KEYWORD.put("HTTPGetContentLength", this::HTTPGetContentLength);
-        KEYWORD.put("HTTPDownload", this::HTTPDownload);
+        url.set("encode", new URLEncode());
+        http.set("request", new Http());
+        http.set("getContentLength", this::HTTPGetContentLength);
+        http.set("download", this::HTTPDownload);
+        Variables.define("http", http);
+        Variables.define("url", url);
     }
 
     private Value HTTPGetContentLength(Value... args) {
