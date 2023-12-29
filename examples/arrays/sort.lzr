@@ -1,0 +1,4 @@
+using "arrays"
+x = [3,6,7,8,87,5,1,43]
+out = arrays.sort(x)
+print(out)
