@@ -1,6 +1,6 @@
 package com.kingmang.lazurite.libraries.http;
 
-import com.kingmang.lazurite.LZREx.LZRException;
+import com.kingmang.lazurite.exceptions.LZRException;
 import com.kingmang.lazurite.core.*;
 import com.kingmang.lazurite.libraries.Library;
 import com.kingmang.lazurite.runtime.LZR.*;
@@ -8,7 +8,7 @@ import com.kingmang.lazurite.runtime.Value;
 import com.kingmang.lazurite.runtime.Variables;
 import okhttp3.*;
 import okhttp3.internal.http.HttpMethod;
-import com.kingmang.lazurite.parser.pars.Console;
+import com.kingmang.lazurite.console.Console;
 
 import java.io.*;
 import java.net.HttpURLConnection;

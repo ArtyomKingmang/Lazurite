@@ -1,6 +1,6 @@
 package com.kingmang.lazurite.core;
 
-import com.kingmang.lazurite.parser.ast.ClassDeclarationStatement;
+import com.kingmang.lazurite.parser.AST.Statements.ClassDeclarationStatement;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 

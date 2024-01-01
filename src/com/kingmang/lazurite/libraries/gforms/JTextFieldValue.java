@@ -7,7 +7,7 @@ import com.kingmang.lazurite.runtime.LZR.LZRNumber;
 import com.kingmang.lazurite.runtime.Value;
 
 import javax.swing.JTextField;
-import static com.kingmang.lazurite.core.ValueUtils.consumeFunction;
+import static com.kingmang.lazurite.utils.ValueUtils.consumeFunction;
 
 public class JTextFieldValue extends JTextComponentValue {
 

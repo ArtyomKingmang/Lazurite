@@ -1,7 +1,6 @@
 package com.kingmang.lazurite.libraries.iceCream;
 
 import com.kingmang.lazurite.core.Function;
-import com.kingmang.lazurite.core.KEYWORD;
 import com.kingmang.lazurite.libraries.iceCream.core.Ice;
 import com.kingmang.lazurite.libraries.Library;
 import com.kingmang.lazurite.runtime.LZR.LZRMap;

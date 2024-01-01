@@ -1,6 +1,6 @@
 package com.kingmang.lazurite.runtime;
 
-import com.kingmang.lazurite.LZREx.LZRException;
+import com.kingmang.lazurite.exceptions.LZRException;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.Serializable;

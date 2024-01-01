@@ -1,6 +1,6 @@
 package com.kingmang.lazurite.core;
 
-import com.kingmang.lazurite.LZREx.LZRException;
+import com.kingmang.lazurite.exceptions.LZRException;
 
 public final class Arguments {
 

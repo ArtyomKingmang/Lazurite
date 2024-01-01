@@ -6,6 +6,7 @@ import com.kingmang.lazurite.runtime.LZR.LZRMap;
 import com.kingmang.lazurite.runtime.LZR.LZRNumber;
 import com.kingmang.lazurite.runtime.LZR.LZRString;
 import com.kingmang.lazurite.runtime.Value;
+import com.kingmang.lazurite.utils.ValueUtils;
 
 import javax.swing.event.CaretEvent;
 import javax.swing.event.DocumentEvent;
@@ -49,7 +50,7 @@ public class JTextComponentValue extends JComponentValue {
     
     private Value addCaretListener(Value[] args) {
         Arguments.check(1, args.length);
-        final Function action = ValueUtils.consumeFunction(args[0], 0);
+        final Function action = com.kingmang.lazurite.utils.ValueUtils.consumeFunction(args[0], 0);
         textComponent.addCaretListener((CaretEvent e) -> {
             final LZRMap map = new LZRMap(2);
             map.set("getDot", LZRNumber.of(e.getDot()));

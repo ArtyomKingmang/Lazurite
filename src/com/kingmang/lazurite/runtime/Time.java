@@ -1,6 +1,6 @@
 package com.kingmang.lazurite.runtime;
 
-import com.kingmang.lazurite.parser.pars.Console;
+import com.kingmang.lazurite.console.Console;
 
 import java.util.HashMap;
 import java.util.Map;

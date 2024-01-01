@@ -1,8 +1,8 @@
 package com.kingmang.lazurite.libraries.graph;
 
-import com.kingmang.lazurite.LZREx.LZRException;
+import com.kingmang.lazurite.exceptions.LZRException;
 import com.kingmang.lazurite.core.Function;
-import com.kingmang.lazurite.core.KEYWORD;
+import com.kingmang.lazurite.libraries.keyword;
 import com.kingmang.lazurite.libraries.Library;
 import com.kingmang.lazurite.runtime.LZR.LZRArray;
 import com.kingmang.lazurite.runtime.LZR.LZRNumber;
@@ -113,29 +113,29 @@ public class graph implements Library {
     }
     public void init() {
         initConstant();
-        KEYWORD.put("background", new background());
-        KEYWORD.put("dispose", new background());
-        KEYWORD.put("LImage", new LImage());
-        KEYWORD.put("image", new image());
-        KEYWORD.put("rotate", new rotate());
-        KEYWORD.put("scale", new scale());
-        KEYWORD.put("font", new font());
-        KEYWORD.put("stroke", new stroke());
-        KEYWORD.put("translate", new translate());
-        KEYWORD.put("Frame", new Frame());
-        KEYWORD.put("fill3d", intConsumer4Convert(graph::fill3d));
-        KEYWORD.put("cube", intConsumer4Convert(graph::Cude));
-        KEYWORD.put("keyPressed", new KeyPressed());
-        KEYWORD.put("mouseHover", new MouseHover());
-        KEYWORD.put("line", intConsumer4Convert(graph::line));
-        KEYWORD.put("lellipse", intConsumer4Convert(graph::lellipse));
-        KEYWORD.put("ellipse", intConsumer4Convert(graph::ellipse));
-        KEYWORD.put("lrect", intConsumer4Convert(graph::lrect));
-        KEYWORD.put("rect", intConsumer4Convert(graph::rect));
-        KEYWORD.put("clip", intConsumer4Convert(graph::clip));
-        KEYWORD.put("text", new DrawText());
-        KEYWORD.put("fill", new fill());
-        KEYWORD.put("Redraw", (Function) new Redraw());
+        keyword.put("background", new background());
+        keyword.put("dispose", new background());
+        keyword.put("LImage", new LImage());
+        keyword.put("image", new image());
+        keyword.put("rotate", new rotate());
+        keyword.put("scale", new scale());
+        keyword.put("font", new font());
+        keyword.put("stroke", new stroke());
+        keyword.put("translate", new translate());
+        keyword.put("Frame", new Frame());
+        keyword.put("fill3d", intConsumer4Convert(graph::fill3d));
+        keyword.put("cube", intConsumer4Convert(graph::Cude));
+        keyword.put("keyPressed", new KeyPressed());
+        keyword.put("mouseHover", new MouseHover());
+        keyword.put("line", intConsumer4Convert(graph::line));
+        keyword.put("lellipse", intConsumer4Convert(graph::lellipse));
+        keyword.put("ellipse", intConsumer4Convert(graph::ellipse));
+        keyword.put("lrect", intConsumer4Convert(graph::lrect));
+        keyword.put("rect", intConsumer4Convert(graph::rect));
+        keyword.put("clip", intConsumer4Convert(graph::clip));
+        keyword.put("text", new DrawText());
+        keyword.put("fill", new fill());
+        keyword.put("Redraw", (Function) new Redraw());
         lastKey = MINUS_ONE;
         mouseHover = new LZRArray(new Value[]{LZRNumber.ZERO, LZRNumber.ZERO});
     }

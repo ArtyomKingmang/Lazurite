@@ -1,11 +1,11 @@
 package com.kingmang.lazurite.runtime;
 
-import com.kingmang.lazurite.LZREx.LZRException;
+import com.kingmang.lazurite.exceptions.LZRException;
 import com.kingmang.lazurite.core.Function;
-import com.kingmang.lazurite.parser.ast.Argument;
-import com.kingmang.lazurite.parser.ast.Arguments;
-import com.kingmang.lazurite.parser.ast.ReturnStatement;
-import com.kingmang.lazurite.parser.ast.Statement;
+import com.kingmang.lazurite.parser.AST.Argument;
+import com.kingmang.lazurite.parser.AST.Arguments;
+import com.kingmang.lazurite.parser.AST.Statements.ReturnStatement;
+import com.kingmang.lazurite.parser.AST.Statements.Statement;
 import com.kingmang.lazurite.runtime.LZR.LZRNumber;
 
 

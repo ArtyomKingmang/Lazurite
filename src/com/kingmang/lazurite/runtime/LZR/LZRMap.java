@@ -1,6 +1,6 @@
 package com.kingmang.lazurite.runtime.LZR;
 
-import com.kingmang.lazurite.LZREx.LZRException;
+import com.kingmang.lazurite.exceptions.LZRException;
 import com.kingmang.lazurite.core.*;
 import com.kingmang.lazurite.runtime.Value;
 

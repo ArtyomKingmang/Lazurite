@@ -1,6 +1,7 @@
 package com.kingmang.lazurite.libraries.reflection;
 
 import com.kingmang.lazurite.core.*;
+import com.kingmang.lazurite.libraries.keyword;
 import com.kingmang.lazurite.libraries.Library;
 import com.kingmang.lazurite.runtime.*;
 import com.kingmang.lazurite.runtime.LZR.*;
@@ -56,10 +57,10 @@ public final class reflection implements Library {
         Variables.define("Object[].class", new ClassValue(Object[].class));
         Variables.define("Object[][].class", new ClassValue(Object[][].class));
 
-        KEYWORD.put("isNull", this::isNull);
-        KEYWORD.put("JClass", this::newClass);
-        KEYWORD.put("JObject", this::toObject);
-        KEYWORD.put("LZRValue", this::toValue);
+        keyword.put("isNull", this::isNull);
+        keyword.put("JClass", this::newClass);
+        keyword.put("JObject", this::toObject);
+        keyword.put("LZRValue", this::toValue);
     }
 
 

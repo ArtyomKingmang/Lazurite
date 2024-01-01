@@ -1,11 +1,11 @@
 package com.kingmang.lazurite.libraries.LFS;
 
 
-import com.kingmang.lazurite.LZREx.LZRException;
+import com.kingmang.lazurite.exceptions.LZRException;
 import com.kingmang.lazurite.core.*;
 import com.kingmang.lazurite.libraries.Library;
 import com.kingmang.lazurite.runtime.*;
-import com.kingmang.lazurite.parser.pars.Console;
+import com.kingmang.lazurite.console.Console;
 import com.kingmang.lazurite.runtime.LZR.LZRArray;
 import com.kingmang.lazurite.runtime.LZR.LZRMap;
 import com.kingmang.lazurite.runtime.LZR.LZRNumber;

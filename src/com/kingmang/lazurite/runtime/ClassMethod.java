@@ -1,7 +1,7 @@
 package com.kingmang.lazurite.runtime;
 
-import com.kingmang.lazurite.parser.ast.Arguments;
-import com.kingmang.lazurite.parser.ast.Statement;
+import com.kingmang.lazurite.parser.AST.Arguments;
+import com.kingmang.lazurite.parser.AST.Statements.Statement;
 
 public class ClassMethod extends UserDefinedFunction {
     

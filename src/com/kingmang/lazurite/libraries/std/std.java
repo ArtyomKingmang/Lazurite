@@ -2,10 +2,10 @@ package com.kingmang.lazurite.libraries.std;
 
 import com.kingmang.lazurite.core.Arguments;
 import com.kingmang.lazurite.core.Function;
-import com.kingmang.lazurite.core.KEYWORD;
+import com.kingmang.lazurite.libraries.keyword;
 import com.kingmang.lazurite.core.Types;
 import com.kingmang.lazurite.libraries.Library;
-import com.kingmang.lazurite.parser.pars.Console;
+import com.kingmang.lazurite.console.Console;
 import com.kingmang.lazurite.runtime.LZR.LZRFunction;
 import com.kingmang.lazurite.runtime.LZR.LZRMap;
 import com.kingmang.lazurite.runtime.LZR.LZRNumber;
@@ -49,7 +49,7 @@ public class std implements Library {
             if (args[0].type() == Types.FUNCTION) {
                 body = ((LZRFunction) args[0]).getValue();
             } else {
-                body = KEYWORD.get(args[0].asString());
+                body = keyword.get(args[0].asString());
             }
 
             // Сдвигаем аргументы

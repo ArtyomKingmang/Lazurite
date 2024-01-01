@@ -1,6 +1,6 @@
 package com.kingmang.lazurite.libraries.iceCream.core;
 
-import com.kingmang.lazurite.LZREx.LZRException;
+import com.kingmang.lazurite.exceptions.LZRException;
 
 public class Ice {
 

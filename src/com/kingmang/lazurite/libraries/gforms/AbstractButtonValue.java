@@ -5,6 +5,7 @@ import com.kingmang.lazurite.core.*;
 import com.kingmang.lazurite.runtime.LZR.LZRFunction;
 import com.kingmang.lazurite.runtime.LZR.LZRNumber;
 import com.kingmang.lazurite.runtime.Value;
+import com.kingmang.lazurite.utils.ValueUtils;
 
 import javax.swing.AbstractButton;
 
@@ -45,7 +46,7 @@ public class AbstractButtonValue extends JComponentValue {
 
     private Value addActionListener(Value[] args) {
         Arguments.check(1, args.length);
-        final Function action = ValueUtils.consumeFunction(args[0], 0);
+        final Function action = com.kingmang.lazurite.utils.ValueUtils.consumeFunction(args[0], 0);
         abstractButton.addActionListener(e -> action.execute());
         return LZRNumber.ZERO;
     }

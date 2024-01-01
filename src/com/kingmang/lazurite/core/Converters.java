@@ -3,6 +3,7 @@ package com.kingmang.lazurite.core;
 import com.kingmang.lazurite.runtime.LZR.LZRFunction;
 import com.kingmang.lazurite.runtime.LZR.LZRNumber;
 import com.kingmang.lazurite.runtime.LZR.LZRString;
+import com.kingmang.lazurite.utils.ValueUtils;
 
 import java.util.function.Predicate;
 
@@ -201,7 +202,7 @@ public final class Converters {
     public static LZRFunction floatToVoid(FloatToVoidFunction f) {
         return new LZRFunction(args -> {
             Arguments.check(1, args.length);
-            f.apply(ValueUtils.getFloatNumber(args[0]));
+            f.apply(com.kingmang.lazurite.utils.ValueUtils.getFloatNumber(args[0]));
             return LZRNumber.ZERO;
         });
     }
@@ -209,9 +210,9 @@ public final class Converters {
     public static LZRFunction float4ToVoid(Float4ToVoidFunction f) {
         return new LZRFunction(args -> {
             Arguments.check(4, args.length);
-            f.apply(ValueUtils.getFloatNumber(args[0]),
-                    ValueUtils.getFloatNumber(args[1]),
-                    ValueUtils.getFloatNumber(args[2]),
+            f.apply(com.kingmang.lazurite.utils.ValueUtils.getFloatNumber(args[0]),
+                    com.kingmang.lazurite.utils.ValueUtils.getFloatNumber(args[1]),
+                    com.kingmang.lazurite.utils.ValueUtils.getFloatNumber(args[2]),
                     ValueUtils.getFloatNumber(args[3]));
             return LZRNumber.ZERO;
         });

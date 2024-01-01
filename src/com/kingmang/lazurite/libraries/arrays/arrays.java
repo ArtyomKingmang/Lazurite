@@ -1,5 +1,5 @@
 package com.kingmang.lazurite.libraries.arrays;
-import com.kingmang.lazurite.LZREx.LZRException;
+import com.kingmang.lazurite.exceptions.LZRException;
 import com.kingmang.lazurite.core.*;
 
 import com.kingmang.lazurite.libraries.Library;
@@ -8,6 +8,7 @@ import com.kingmang.lazurite.runtime.LZR.LZRMap;
 import com.kingmang.lazurite.runtime.LZR.LZRNumber;
 import com.kingmang.lazurite.runtime.Value;
 import com.kingmang.lazurite.runtime.Variables;
+import com.kingmang.lazurite.utils.ValueUtils;
 
 
 public final class arrays implements Library {

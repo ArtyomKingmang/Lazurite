@@ -1,7 +1,6 @@
 package com.kingmang.lazurite.libraries.gforms;
 
-import com.kingmang.lazurite.core.*;
-
+import com.kingmang.lazurite.libraries.keyword;
 import com.kingmang.lazurite.libraries.Library;
 import com.kingmang.lazurite.runtime.LZR.LZRMap;
 import com.kingmang.lazurite.runtime.LZR.LZRNumber;
@@ -115,22 +114,22 @@ public final class gforms implements Library {
     public void init() {
         initConstant();
         // Components
-        KEYWORD.put("Button", com.kingmang.lazurite.libraries.gforms.Components::newButton);
-        KEYWORD.put("Label", com.kingmang.lazurite.libraries.gforms.Components::newLabel);
-        KEYWORD.put("Panel", com.kingmang.lazurite.libraries.gforms.Components::newPanel);
-        KEYWORD.put("ProgressBar", com.kingmang.lazurite.libraries.gforms.Components::newProgressBar);
-        KEYWORD.put("ScrollPane", com.kingmang.lazurite.libraries.gforms.Components::newScrollPane);
-        KEYWORD.put("TextArea", com.kingmang.lazurite.libraries.gforms.Components::newTextArea);
-        KEYWORD.put("TextField", com.kingmang.lazurite.libraries.gforms.Components::newTextField);
-        KEYWORD.put("Frame", Components::newWindow);
+        keyword.put("Button", com.kingmang.lazurite.libraries.gforms.Components::newButton);
+        keyword.put("Label", com.kingmang.lazurite.libraries.gforms.Components::newLabel);
+        keyword.put("Panel", com.kingmang.lazurite.libraries.gforms.Components::newPanel);
+        keyword.put("ProgressBar", com.kingmang.lazurite.libraries.gforms.Components::newProgressBar);
+        keyword.put("ScrollPane", com.kingmang.lazurite.libraries.gforms.Components::newScrollPane);
+        keyword.put("TextArea", com.kingmang.lazurite.libraries.gforms.Components::newTextArea);
+        keyword.put("TextField", com.kingmang.lazurite.libraries.gforms.Components::newTextField);
+        keyword.put("Frame", Components::newWindow);
 
 
         // LayoutManagers
-        KEYWORD.put("borderLayout", com.kingmang.lazurite.libraries.gforms.LayoutManagers::borderLayout);
-        KEYWORD.put("boxLayout", com.kingmang.lazurite.libraries.gforms.LayoutManagers::boxLayout);
-        KEYWORD.put("cardLayout", com.kingmang.lazurite.libraries.gforms.LayoutManagers::cardLayout);
-        KEYWORD.put("gridLayout", com.kingmang.lazurite.libraries.gforms.LayoutManagers::gridLayout);
-        KEYWORD.put("flowLayout", LayoutManagers::flowLayout);
+        keyword.put("borderLayout", com.kingmang.lazurite.libraries.gforms.LayoutManagers::borderLayout);
+        keyword.put("boxLayout", com.kingmang.lazurite.libraries.gforms.LayoutManagers::boxLayout);
+        keyword.put("cardLayout", com.kingmang.lazurite.libraries.gforms.LayoutManagers::cardLayout);
+        keyword.put("gridLayout", com.kingmang.lazurite.libraries.gforms.LayoutManagers::gridLayout);
+        keyword.put("flowLayout", LayoutManagers::flowLayout);
 
     }
 }
