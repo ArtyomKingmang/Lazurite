@@ -70,7 +70,7 @@ public final class Lexer {
     public static void types() {
         LZRMap type = new LZRMap(5);
         type.set("object", LZRNumber.of(Types.OBJECT));
-        type.set("num", LZRNumber.of(Types.NUMBER));
+        type.set("number", LZRNumber.of(Types.NUMBER));
         type.set("string", LZRNumber.of(Types.STRING));
         type.set("array", LZRNumber.of(Types.ARRAY));
         type.set("map", LZRNumber.of(Types.MAP));
