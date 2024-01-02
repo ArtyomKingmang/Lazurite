@@ -1,8 +1,9 @@
 package com.kingmang.lazurite.parser.AST.Expressions;
 
 import com.kingmang.lazurite.exceptions.LZRException;
-import com.kingmang.lazurite.parser.AST.InterruptableNode;
 import com.kingmang.lazurite.parser.AST.Statements.ReturnStatement;
+import com.kingmang.lazurite.parser.AST.InterruptableNode;
+import com.kingmang.lazurite.parser.AST.Statements.Statement;
 import com.kingmang.lazurite.patterns.visitor.ResultVisitor;
 import com.kingmang.lazurite.patterns.visitor.Visitor;
 import com.kingmang.lazurite.runtime.LZR.LZRArray;
@@ -16,12 +17,12 @@ import java.util.Iterator;
 import java.util.List;
 
 
-public final class MatchExpression extends InterruptableNode implements com.kingmang.lazurite.parser.AST.Expressions.Expression, com.kingmang.lazurite.parser.AST.Statements.Statement {
+public final class MatchExpression extends InterruptableNode implements Expression, Statement {
 
-    public final com.kingmang.lazurite.parser.AST.Expressions.Expression expression;
+    public final Expression expression;
     public final List<Pattern> patterns;
 
-    public MatchExpression(com.kingmang.lazurite.parser.AST.Expressions.Expression expression, List<Pattern> patterns) {
+    public MatchExpression(Expression expression, List<Pattern> patterns) {
         this.expression = expression;
         this.patterns = patterns;
     }
@@ -86,7 +87,7 @@ public final class MatchExpression extends InterruptableNode implements com.king
 
         final int size = array.size();
         for (int i = 0; i < size; i++) {
-            final com.kingmang.lazurite.parser.AST.Expressions.Expression expr = p.values.get(i);
+            final Expression expr = p.values.get(i);
             if ( (expr != TuplePattern.ANY) && (expr.eval().compareTo(array.get(i)) != 0) ) {
                 return false;
             }
@@ -177,7 +178,7 @@ public final class MatchExpression extends InterruptableNode implements com.king
         return pattern.optCondition.eval() != LZRNumber.ZERO;
     }
 
-    private Value evalResult(com.kingmang.lazurite.parser.AST.Statements.Statement s) {
+    private Value evalResult(Statement s) {
         try {
             s.execute();
         } catch (ReturnStatement ret) {
@@ -208,8 +209,8 @@ public final class MatchExpression extends InterruptableNode implements com.king
     }
 
     public abstract static class Pattern {
-        public com.kingmang.lazurite.parser.AST.Statements.Statement result;
-        public com.kingmang.lazurite.parser.AST.Expressions.Expression optCondition;
+        public Statement result;
+        public Expression optCondition;
 
         @Override
         public String toString() {
@@ -280,13 +281,13 @@ public final class MatchExpression extends InterruptableNode implements com.king
     }
 
     public static class TuplePattern extends Pattern {
-        public List<com.kingmang.lazurite.parser.AST.Expressions.Expression> values;
+        public List<Expression> values;
 
         public TuplePattern() {
-            this(new ArrayList<com.kingmang.lazurite.parser.AST.Expressions.Expression>());
+            this(new ArrayList<Expression>());
         }
 
-        public TuplePattern(List<com.kingmang.lazurite.parser.AST.Expressions.Expression> parts) {
+        public TuplePattern(List<Expression> parts) {
             this.values = parts;
         }
 
@@ -294,13 +295,13 @@ public final class MatchExpression extends InterruptableNode implements com.king
             values.add(ANY);
         }
 
-        public void add(com.kingmang.lazurite.parser.AST.Expressions.Expression value) {
+        public void add(Expression value) {
             values.add(value);
         }
 
         @Override
         public String toString() {
-            final Iterator<com.kingmang.lazurite.parser.AST.Expressions.Expression> it = values.iterator();
+            final Iterator<Expression> it = values.iterator();
             if (it.hasNext()) {
                 final StringBuilder sb = new StringBuilder();
                 sb.append('(').append(it.next());
@@ -313,7 +314,7 @@ public final class MatchExpression extends InterruptableNode implements com.king
             return "()".concat(super.toString());
         }
 
-        private static final com.kingmang.lazurite.parser.AST.Expressions.Expression ANY = new Expression() {
+        private static final Expression ANY = new Expression() {
             @Override
             public Value eval() {
                 return LZRNumber.ONE;

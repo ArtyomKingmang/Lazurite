@@ -15,7 +15,7 @@ import java.util.*;
 
 public class Standart {
 
-    public static final class ECHO implements Function {
+    public static final class echo implements Function {
 
         @Override
         public Value execute(Value... args) {
@@ -29,7 +29,7 @@ public class Standart {
         }
     }
 
-    public static final class INPUT implements Function {
+    public static final class input implements Function {
         @Override
         public Value execute(Value... args) {
             Scanner sc = new Scanner(System.in);
@@ -83,7 +83,7 @@ public class Standart {
 
     }
 
-    public static final class LEN implements Function {
+    public static final class length implements Function {
 
         @Override
         public Value execute(Value... args) {
@@ -117,7 +117,7 @@ public class Standart {
         }
     }
 
-    public static final class SPRINTF implements Function {
+    public static final class sprintf implements Function {
 
         @Override
         public Value execute(Value... args) {
@@ -134,7 +134,7 @@ public class Standart {
         }
     }
 
-    public static final class SUBSTR implements Function {
+    public static final class substr implements Function {
 
         @Override
         public Value execute(Value... args) {
@@ -155,8 +155,8 @@ public class Standart {
         }
     }
 
-    public static final class PARSE {
-        private PARSE() { }
+    public static final class parse {
+        private parse() { }
 
         public static Value parseInt(Value[] args) {
             Arguments.checkOrOr(1, 2, args.length);
@@ -170,7 +170,7 @@ public class Standart {
         }
     }
 
-    public static final class FOREACH implements Function {
+    public static final class foreach implements Function {
 
         private static final int UNKNOWN = -1;
 
@@ -227,7 +227,7 @@ public class Standart {
         }
     }
 
-    public final static class FLATMAP implements Function {
+    public final static class flatmap implements Function {
 
         @Override
         public Value execute(Value... args) {
@@ -254,11 +254,11 @@ public class Standart {
             return new LZRArray(values);
         }
     }
-    public static final class FILTER implements Function {
+    public static final class filter implements Function {
 
         private final boolean takeWhile;
 
-        public FILTER(boolean takeWhile) {
+        public filter(boolean takeWhile) {
             this.takeWhile = takeWhile;
         }
 

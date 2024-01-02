@@ -4,8 +4,8 @@ import com.kingmang.lazurite.exceptions.LZRException;
 import com.kingmang.lazurite.exceptions.VarExeption;
 import com.kingmang.lazurite.core.*;
 import com.kingmang.lazurite.libraries.keyword;
-import com.kingmang.lazurite.parser.AST.InterruptableNode;
 import com.kingmang.lazurite.parser.AST.Statements.Statement;
+import com.kingmang.lazurite.parser.AST.InterruptableNode;
 import com.kingmang.lazurite.patterns.visitor.ResultVisitor;
 import com.kingmang.lazurite.patterns.visitor.Visitor;
 import com.kingmang.lazurite.runtime.LZR.LZRFunction;
@@ -18,17 +18,17 @@ import java.util.Iterator;
 import java.util.List;
 
 
-public final class FunctionalExpression extends InterruptableNode implements com.kingmang.lazurite.parser.AST.Expressions.Expression, Statement {
+public final class FunctionalExpression extends InterruptableNode implements Expression, Statement {
     
-    public final com.kingmang.lazurite.parser.AST.Expressions.Expression functionExpr;
-    public final List<com.kingmang.lazurite.parser.AST.Expressions.Expression> arguments;
+    public final Expression functionExpr;
+    public final List<Expression> arguments;
     
-    public FunctionalExpression(com.kingmang.lazurite.parser.AST.Expressions.Expression functionExpr) {
+    public FunctionalExpression(Expression functionExpr) {
         this.functionExpr = functionExpr;
         arguments = new ArrayList<>();
     }
     
-    public void addArgument(com.kingmang.lazurite.parser.AST.Expressions.Expression arg) {
+    public void addArgument(Expression arg) {
         arguments.add(arg);
     }
     
@@ -56,7 +56,7 @@ public final class FunctionalExpression extends InterruptableNode implements com
         }
     }
     
-    private Function consumeFunction(com.kingmang.lazurite.parser.AST.Expressions.Expression expr) {
+    private Function consumeFunction(Expression expr) {
         try {
             final Value value = expr.eval();
             if (value.type() == Types.FUNCTION) {

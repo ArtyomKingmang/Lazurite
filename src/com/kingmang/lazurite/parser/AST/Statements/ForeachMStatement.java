@@ -19,7 +19,7 @@ import java.util.Map;
 public final class ForeachMStatement extends InterruptableNode implements Statement {
     
     public final String key, value;
-    public final com.kingmang.lazurite.parser.AST.Expressions.Expression container;
+    public final Expression container;
     public final Statement body;
 
     public ForeachMStatement(String key, String value, Expression container, Statement body) {

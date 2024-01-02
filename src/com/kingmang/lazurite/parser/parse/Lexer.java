@@ -24,7 +24,7 @@ public final class Lexer {
         return new Lexer(input).tokenize();
     }
     private static final String OPERATOR_CHARS = "+-*/%()[]{}=<>!&|.,^~?:";
-    private static final com.kingmang.lazurite.parser.parse.TokenType[] tokenTypes = com.kingmang.lazurite.parser.parse.TokenType.values();
+    private static final TokenType[] tokenTypes = com.kingmang.lazurite.parser.parse.TokenType.values();
 
     //ключевые слова
     private static final String[] keywords = {
@@ -50,7 +50,7 @@ public final class Lexer {
 
 
     //добавление ключевых слов из массива keywords в Map KEYWORDS
-    private static final Map<String, com.kingmang.lazurite.parser.parse.TokenType> KEYWORDS;
+    private static final Map<String, TokenType> KEYWORDS;
     static {
         KEYWORDS = new HashMap<>();
         for (int i = 0; i < keywords.length; i++) {
@@ -93,19 +93,19 @@ public final class Lexer {
     private static void standart(){
         keyword.put("equals", new Standart.equal());
         keyword.put("Array", new Standart.Array());
-        keyword.put("echo", new Standart.ECHO());
-        keyword.put("readln", new Standart.INPUT());
-        keyword.put("length", new Standart.LEN());
+        keyword.put("echo", new Standart.echo());
+        keyword.put("readln", new Standart.input());
+        keyword.put("length", new Standart.length());
         keyword.put("getBytes", Standart.string::getBytes);
-        keyword.put("sprintf", new Standart.SPRINTF());
+        keyword.put("sprintf", new Standart.sprintf());
         keyword.put("range", new Standart.range());
-        keyword.put("substring", new Standart.SUBSTR());
-        keyword.put("parseInt", Standart.PARSE::parseInt);
-        keyword.put("parseLong", Standart.PARSE::parseLong);
-        keyword.put("foreach", new Standart.FOREACH());
-        keyword.put("flatmap", new Standart.FLATMAP());
+        keyword.put("substring", new Standart.substr());
+        keyword.put("parseInt", Standart.parse::parseInt);
+        keyword.put("parseLong", Standart.parse::parseLong);
+        keyword.put("foreach", new Standart.foreach());
+        keyword.put("flatmap", new Standart.flatmap());
         keyword.put("split", new Standart.split());
-        keyword.put("filter", new Standart.FILTER(false));
+        keyword.put("filter", new Standart.filter(false));
     }
 
     public static Set<String> getKeywords() {
@@ -169,7 +169,7 @@ public final class Lexer {
             buffer.append(current);
             current = next();
         }
-        addToken(com.kingmang.lazurite.parser.parse.TokenType.NUMBER, buffer.toString());
+        addToken(TokenType.NUMBER, buffer.toString());
     }
     private void tokenizeHexNumber(int skipped) {
         clearBuffer();
@@ -183,7 +183,7 @@ public final class Lexer {
         }
         final int length = buffer.length();
         if (length > 0) {
-            addToken(com.kingmang.lazurite.parser.parse.TokenType.HEX_NUMBER, buffer.toString());
+            addToken(TokenType.HEX_NUMBER, buffer.toString());
         }
     }
 
@@ -236,7 +236,7 @@ public final class Lexer {
         if (KEYWORDS.containsKey(word)) {
             addToken(KEYWORDS.get(word));
         } else {
-            addToken(com.kingmang.lazurite.parser.parse.TokenType.WORD, word);
+            addToken(TokenType.WORD, word);
         }
     }
 
@@ -252,7 +252,7 @@ public final class Lexer {
             current = next();
         }
         next(); // skip closing `
-        addToken(com.kingmang.lazurite.parser.parse.TokenType.WORD, buffer.toString());
+        addToken(TokenType.WORD, buffer.toString());
     }
     
     private void tokenizeText() {
@@ -301,75 +301,75 @@ public final class Lexer {
         }
         next(); // skip closing "
         
-        addToken(com.kingmang.lazurite.parser.parse.TokenType.TEXT, buffer.toString());
+        addToken(TokenType.TEXT, buffer.toString());
     }
 
-    private static final Map<String, com.kingmang.lazurite.parser.parse.TokenType> OPERATORS;
+    private static final Map<String, TokenType> OPERATORS;
     static {
         OPERATORS = new HashMap<>();
 
-        OPERATORS.put("+", com.kingmang.lazurite.parser.parse.TokenType.PLUS);
-        OPERATORS.put("-", com.kingmang.lazurite.parser.parse.TokenType.MINUS);
-        OPERATORS.put("*", com.kingmang.lazurite.parser.parse.TokenType.STAR);
-        OPERATORS.put("/", com.kingmang.lazurite.parser.parse.TokenType.SLASH);
-        OPERATORS.put("%", com.kingmang.lazurite.parser.parse.TokenType.PERCENT);
-        OPERATORS.put("(", com.kingmang.lazurite.parser.parse.TokenType.LPAREN);
-        OPERATORS.put(")", com.kingmang.lazurite.parser.parse.TokenType.RPAREN);
-        OPERATORS.put("[", com.kingmang.lazurite.parser.parse.TokenType.LBRACKET);
-        OPERATORS.put("]", com.kingmang.lazurite.parser.parse.TokenType.RBRACKET);
-        OPERATORS.put("{", com.kingmang.lazurite.parser.parse.TokenType.LBRACE);
-        OPERATORS.put("}", com.kingmang.lazurite.parser.parse.TokenType.RBRACE);
-        OPERATORS.put("=", com.kingmang.lazurite.parser.parse.TokenType.EQ);
-        OPERATORS.put("<", com.kingmang.lazurite.parser.parse.TokenType.LT);
-        OPERATORS.put(">", com.kingmang.lazurite.parser.parse.TokenType.GT);
-        OPERATORS.put(".", com.kingmang.lazurite.parser.parse.TokenType.DOT);
-        OPERATORS.put(",", com.kingmang.lazurite.parser.parse.TokenType.COMMA);
-        OPERATORS.put("^", com.kingmang.lazurite.parser.parse.TokenType.CARET);
-        OPERATORS.put("~", com.kingmang.lazurite.parser.parse.TokenType.TILDE);
-        OPERATORS.put("?", com.kingmang.lazurite.parser.parse.TokenType.QUESTION);
-        OPERATORS.put(":", com.kingmang.lazurite.parser.parse.TokenType.COLON);
+        OPERATORS.put("+", TokenType.PLUS);
+        OPERATORS.put("-", TokenType.MINUS);
+        OPERATORS.put("*", TokenType.STAR);
+        OPERATORS.put("/", TokenType.SLASH);
+        OPERATORS.put("%", TokenType.PERCENT);
+        OPERATORS.put("(", TokenType.LPAREN);
+        OPERATORS.put(")", TokenType.RPAREN);
+        OPERATORS.put("[", TokenType.LBRACKET);
+        OPERATORS.put("]", TokenType.RBRACKET);
+        OPERATORS.put("{", TokenType.LBRACE);
+        OPERATORS.put("}", TokenType.RBRACE);
+        OPERATORS.put("=", TokenType.EQ);
+        OPERATORS.put("<", TokenType.LT);
+        OPERATORS.put(">", TokenType.GT);
+        OPERATORS.put(".", TokenType.DOT);
+        OPERATORS.put(",", TokenType.COMMA);
+        OPERATORS.put("^", TokenType.CARET);
+        OPERATORS.put("~", TokenType.TILDE);
+        OPERATORS.put("?", TokenType.QUESTION);
+        OPERATORS.put(":", TokenType.COLON);
 
-        OPERATORS.put("!", com.kingmang.lazurite.parser.parse.TokenType.EXCL);
-        OPERATORS.put("&", com.kingmang.lazurite.parser.parse.TokenType.AMP);
-        OPERATORS.put("|", com.kingmang.lazurite.parser.parse.TokenType.BAR);
+        OPERATORS.put("!", TokenType.EXCL);
+        OPERATORS.put("&", TokenType.AMP);
+        OPERATORS.put("|", TokenType.BAR);
 
-        OPERATORS.put("==", com.kingmang.lazurite.parser.parse.TokenType.EQEQ);
-        OPERATORS.put("!=", com.kingmang.lazurite.parser.parse.TokenType.EXCLEQ);
-        OPERATORS.put("<=", com.kingmang.lazurite.parser.parse.TokenType.LTEQ);
-        OPERATORS.put(">=", com.kingmang.lazurite.parser.parse.TokenType.GTEQ);
+        OPERATORS.put("==", TokenType.EQEQ);
+        OPERATORS.put("!=", TokenType.EXCLEQ);
+        OPERATORS.put("<=", TokenType.LTEQ);
+        OPERATORS.put(">=", TokenType.GTEQ);
 
-        OPERATORS.put("+=", com.kingmang.lazurite.parser.parse.TokenType.PLUSEQ);
-        OPERATORS.put("-=", com.kingmang.lazurite.parser.parse.TokenType.MINUSEQ);
-        OPERATORS.put("*=", com.kingmang.lazurite.parser.parse.TokenType.STAREQ);
-        OPERATORS.put("/=", com.kingmang.lazurite.parser.parse.TokenType.SLASHEQ);
-        OPERATORS.put("%=", com.kingmang.lazurite.parser.parse.TokenType.PERCENTEQ);
-        OPERATORS.put("&=", com.kingmang.lazurite.parser.parse.TokenType.AMPEQ);
-        OPERATORS.put("^=", com.kingmang.lazurite.parser.parse.TokenType.CARETEQ);
-        OPERATORS.put("|=", com.kingmang.lazurite.parser.parse.TokenType.BAREQ);
-        OPERATORS.put("::=", com.kingmang.lazurite.parser.parse.TokenType.COLONCOLONEQ);
-        OPERATORS.put("<<=", com.kingmang.lazurite.parser.parse.TokenType.LTLTEQ);
-        OPERATORS.put(">>=", com.kingmang.lazurite.parser.parse.TokenType.GTGTEQ);
-        OPERATORS.put(">>>=", com.kingmang.lazurite.parser.parse.TokenType.GTGTGTEQ);
+        OPERATORS.put("+=", TokenType.PLUSEQ);
+        OPERATORS.put("-=", TokenType.MINUSEQ);
+        OPERATORS.put("*=", TokenType.STAREQ);
+        OPERATORS.put("/=", TokenType.SLASHEQ);
+        OPERATORS.put("%=", TokenType.PERCENTEQ);
+        OPERATORS.put("&=", TokenType.AMPEQ);
+        OPERATORS.put("^=", TokenType.CARETEQ);
+        OPERATORS.put("|=", TokenType.BAREQ);
+        OPERATORS.put("::=", TokenType.COLONCOLONEQ);
+        OPERATORS.put("<<=", TokenType.LTLTEQ);
+        OPERATORS.put(">>=", TokenType.GTGTEQ);
+        OPERATORS.put(">>>=", TokenType.GTGTGTEQ);
 
-        OPERATORS.put("++", com.kingmang.lazurite.parser.parse.TokenType.PLUSPLUS);
-        OPERATORS.put("--", com.kingmang.lazurite.parser.parse.TokenType.MINUSMINUS);
+        OPERATORS.put("++", TokenType.PLUSPLUS);
+        OPERATORS.put("--", TokenType.MINUSMINUS);
 
-        OPERATORS.put("::", com.kingmang.lazurite.parser.parse.TokenType.COLONCOLON);
+        OPERATORS.put("::", TokenType.COLONCOLON);
 
-        OPERATORS.put("&&", com.kingmang.lazurite.parser.parse.TokenType.AMPAMP);
-        OPERATORS.put("||", com.kingmang.lazurite.parser.parse.TokenType.BARBAR);
+        OPERATORS.put("&&", TokenType.AMPAMP);
+        OPERATORS.put("||", TokenType.BARBAR);
 
-        OPERATORS.put("<<", com.kingmang.lazurite.parser.parse.TokenType.LTLT);
-        OPERATORS.put(">>", com.kingmang.lazurite.parser.parse.TokenType.GTGT);
-        OPERATORS.put(">>>", com.kingmang.lazurite.parser.parse.TokenType.GTGTGT);
+        OPERATORS.put("<<", TokenType.LTLT);
+        OPERATORS.put(">>", TokenType.GTGT);
+        OPERATORS.put(">>>", TokenType.GTGTGT);
 
-        OPERATORS.put("@", com.kingmang.lazurite.parser.parse.TokenType.AT);
-        OPERATORS.put("@=", com.kingmang.lazurite.parser.parse.TokenType.ATEQ);
-        OPERATORS.put("..", com.kingmang.lazurite.parser.parse.TokenType.DOTDOT);
-        OPERATORS.put("**", com.kingmang.lazurite.parser.parse.TokenType.STARSTAR);
-        OPERATORS.put("^^", com.kingmang.lazurite.parser.parse.TokenType.CARETCARET);
-        OPERATORS.put("?:", com.kingmang.lazurite.parser.parse.TokenType.QUESTIONCOLON);
-        OPERATORS.put("??", com.kingmang.lazurite.parser.parse.TokenType.QUESTIONQUESTION);
+        OPERATORS.put("@", TokenType.AT);
+        OPERATORS.put("@=", TokenType.ATEQ);
+        OPERATORS.put("..", TokenType.DOTDOT);
+        OPERATORS.put("**", TokenType.STARSTAR);
+        OPERATORS.put("^^", TokenType.CARETCARET);
+        OPERATORS.put("?:", TokenType.QUESTIONCOLON);
+        OPERATORS.put("??", TokenType.QUESTIONQUESTION);
     }
     
     private void tokenizeComment() {

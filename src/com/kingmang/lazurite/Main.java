@@ -2,7 +2,7 @@ package com.kingmang.lazurite;
 
 
 import com.kingmang.lazurite.editors.editor;
-import com.kingmang.lazurite.parser.pars.*;
+
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.IOException;

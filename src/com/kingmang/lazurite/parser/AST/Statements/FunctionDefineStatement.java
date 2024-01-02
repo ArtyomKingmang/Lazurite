@@ -36,7 +36,7 @@ public final class FunctionDefineStatement implements Statement {
 
     @Override
     public String toString() {
-        if (body instanceof com.kingmang.lazurite.parser.AST.Statements.ReturnStatement) {
+        if (body instanceof ReturnStatement) {
             return String.format("func %s%s = %s", name, arguments, ((ReturnStatement)body).expression);
         }
         return String.format("func %s%s %s", name, arguments, body);

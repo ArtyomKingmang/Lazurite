@@ -1,8 +1,8 @@
 package com.kingmang.lazurite.parser.AST.Expressions;
 
 import com.kingmang.lazurite.exceptions.LZRException;
-import com.kingmang.lazurite.parser.AST.Accessible;
 import com.kingmang.lazurite.parser.AST.Statements.Statement;
+import com.kingmang.lazurite.parser.AST.Accessible;
 import com.kingmang.lazurite.patterns.visitor.ResultVisitor;
 import com.kingmang.lazurite.patterns.visitor.Visitor;
 import com.kingmang.lazurite.runtime.LZR.LZRNumber;

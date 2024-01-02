@@ -14,17 +14,17 @@ import com.kingmang.lazurite.runtime.LZR.LZRString;
 import java.util.List;
 
 
-public final class ContainerAccessExpression implements com.kingmang.lazurite.parser.AST.Expressions.Expression, Accessible {
+public final class ContainerAccessExpression implements Expression, Accessible {
     
-    public final com.kingmang.lazurite.parser.AST.Expressions.Expression root;
-    public final List<com.kingmang.lazurite.parser.AST.Expressions.Expression> indices;
+    public final Expression root;
+    public final List<Expression> indices;
     private boolean rootIsVariable;
 
-    public ContainerAccessExpression(String variable, List<com.kingmang.lazurite.parser.AST.Expressions.Expression> indices) {
-        this(new com.kingmang.lazurite.parser.AST.Expressions.VariableExpression(variable), indices);
+    public ContainerAccessExpression(String variable, List<Expression> indices) {
+        this(new VariableExpression(variable), indices);
     }
 
-    public ContainerAccessExpression(com.kingmang.lazurite.parser.AST.Expressions.Expression root, List<com.kingmang.lazurite.parser.AST.Expressions.Expression> indices) {
+    public ContainerAccessExpression(Expression root, List<Expression> indices) {
         rootIsVariable = root instanceof VariableExpression;
         this.root = root;
         this.indices = indices;

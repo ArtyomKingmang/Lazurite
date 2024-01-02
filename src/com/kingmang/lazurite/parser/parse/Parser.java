@@ -3,6 +3,7 @@ package com.kingmang.lazurite.parser.parse;
 import com.kingmang.lazurite.exceptions.LZRException;
 import com.kingmang.lazurite.exceptions.parser.ParseErrors;
 import com.kingmang.lazurite.parser.AST.Accessible;
+import com.kingmang.lazurite.parser.AST.Arguments;
 import com.kingmang.lazurite.parser.AST.Expressions.ArrayExpression;
 import com.kingmang.lazurite.parser.AST.Expressions.AssignmentExpression;
 import com.kingmang.lazurite.parser.AST.Expressions.BinaryExpression;
@@ -313,14 +314,14 @@ public final class Parser {
 
     private FunctionDefineStatement functionDefine() {
         final String name = consume(TokenType.WORD).getText();
-        final com.kingmang.lazurite.parser.AST.Arguments arguments = arguments();
+        final Arguments arguments = arguments();
         final Statement body = statementBody();
         return new FunctionDefineStatement(name, arguments, body);
     }
 
-    private com.kingmang.lazurite.parser.AST.Arguments arguments() {
+    private Arguments arguments() {
 
-        final com.kingmang.lazurite.parser.AST.Arguments arguments = new com.kingmang.lazurite.parser.AST.Arguments();
+        final Arguments arguments = new Arguments();
         boolean startsOptionalArgs = false;
         consume(TokenType.LPAREN);
         while (!match(TokenType.RPAREN)) {
@@ -508,7 +509,7 @@ public final class Parser {
         // x[0].prop += ...
         final int position = pos;
         final Expression targetExpr = qualifiedName();
-        if ((targetExpr == null) || !(targetExpr instanceof com.kingmang.lazurite.parser.AST.Accessible)) {
+        if ((targetExpr == null) || !(targetExpr instanceof Accessible)) {
             pos = position;
             return null;
         }
@@ -800,7 +801,7 @@ public final class Parser {
         }
         if (match(TokenType.FUNC)) {
 
-            final com.kingmang.lazurite.parser.AST.Arguments arguments = arguments();
+            final Arguments arguments = arguments();
             final Statement statement = statementBody();
             return new ValueExpression(new UserDefinedFunction(arguments, statement));
         }
