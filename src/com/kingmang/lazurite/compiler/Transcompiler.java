@@ -4,10 +4,7 @@ package com.kingmang.lazurite.compiler;
 import jdk.internal.org.objectweb.asm.MethodVisitor;
 import jdk.internal.org.objectweb.asm.Opcodes;*/
 
-import java.util.ArrayList;
-import java.util.List;
-
-public class transcompiler {
+public class Transcompiler {
     /*public void CreateSuperClass() {
         ClassWriter cw = new ClassWriter(ClassWriter.COMPUTE_MAXS);
         cw.visit(Opcodes.V1_8, Opcodes.ACC_PUBLIC, "GeneratedClass", null, "java/lang/Object", null);

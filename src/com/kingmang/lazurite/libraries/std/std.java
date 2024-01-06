@@ -2,7 +2,7 @@ package com.kingmang.lazurite.libraries.std;
 
 import com.kingmang.lazurite.core.Arguments;
 import com.kingmang.lazurite.core.Function;
-import com.kingmang.lazurite.libraries.keyword;
+import com.kingmang.lazurite.libraries.Keyword;
 import com.kingmang.lazurite.core.Types;
 import com.kingmang.lazurite.libraries.Library;
 import com.kingmang.lazurite.console.Console;
@@ -49,7 +49,7 @@ public class std implements Library {
             if (args[0].type() == Types.FUNCTION) {
                 body = ((LZRFunction) args[0]).getValue();
             } else {
-                body = keyword.get(args[0].asString());
+                body = Keyword.get(args[0].asString());
             }
 
             // Сдвигаем аргументы

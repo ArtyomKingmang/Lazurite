@@ -7,14 +7,14 @@ import java.util.HashMap;
 import java.util.Map;
 
 
-public final class keyword {
+public final class Keyword {
 
     private static final Map<String, Function> functions;
     static {
         functions = new HashMap<>();
     }
 
-    private keyword() { }
+    private Keyword() { }
 
     public static void clear() {
         functions.clear();

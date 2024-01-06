@@ -2,7 +2,7 @@ package com.kingmang.lazurite.parser.parse;
 
 import com.kingmang.lazurite.exceptions.LZRException;
 import com.kingmang.lazurite.console.Console;
-import com.kingmang.lazurite.libraries.keyword;
+import com.kingmang.lazurite.libraries.Keyword;
 import com.kingmang.lazurite.core.Types;
 
 import java.util.ArrayList;
@@ -76,36 +76,36 @@ public final class Lexer {
         type.set("map", LZRNumber.of(Types.MAP));
         type.set("function", LZRNumber.of(Types.FUNCTION));
         Variables.define("type", type);
-        keyword.put("typeof", args -> LZRNumber.of(args[0].type()));
+        Keyword.put("typeof", args -> LZRNumber.of(args[0].type()));
     }
 
     public static void convertTypes(){
-        keyword.put("str", args -> new LZRString(args[0].asString()));
-        keyword.put("num", args -> LZRNumber.of(args[0].asNumber()));
-        keyword.put("byte", args -> LZRNumber.of((byte)args[0].asInt()));
-        keyword.put("short", args -> LZRNumber.of((short)args[0].asInt()));
-        keyword.put("int", args -> LZRNumber.of(args[0].asInt()));
-        keyword.put("long", args -> LZRNumber.of((long)args[0].asNumber()));
-        keyword.put("float", args -> LZRNumber.of((float)args[0].asNumber()));
-        keyword.put("double", args -> LZRNumber.of(args[0].asNumber()));
+        Keyword.put("str", args -> new LZRString(args[0].asString()));
+        Keyword.put("num", args -> LZRNumber.of(args[0].asNumber()));
+        Keyword.put("byte", args -> LZRNumber.of((byte)args[0].asInt()));
+        Keyword.put("short", args -> LZRNumber.of((short)args[0].asInt()));
+        Keyword.put("int", args -> LZRNumber.of(args[0].asInt()));
+        Keyword.put("long", args -> LZRNumber.of((long)args[0].asNumber()));
+        Keyword.put("float", args -> LZRNumber.of((float)args[0].asNumber()));
+        Keyword.put("double", args -> LZRNumber.of(args[0].asNumber()));
     }
 
     private static void standart(){
-        keyword.put("equals", new Standart.equal());
-        keyword.put("Array", new Standart.Array());
-        keyword.put("echo", new Standart.echo());
-        keyword.put("readln", new Standart.input());
-        keyword.put("length", new Standart.length());
-        keyword.put("getBytes", Standart.string::getBytes);
-        keyword.put("sprintf", new Standart.sprintf());
-        keyword.put("range", new Standart.range());
-        keyword.put("substring", new Standart.substr());
-        keyword.put("parseInt", Standart.parse::parseInt);
-        keyword.put("parseLong", Standart.parse::parseLong);
-        keyword.put("foreach", new Standart.foreach());
-        keyword.put("flatmap", new Standart.flatmap());
-        keyword.put("split", new Standart.split());
-        keyword.put("filter", new Standart.filter(false));
+        Keyword.put("equals", new Standart.equal());
+        Keyword.put("Array", new Standart.Array());
+        Keyword.put("echo", new Standart.echo());
+        Keyword.put("readln", new Standart.input());
+        Keyword.put("length", new Standart.length());
+        Keyword.put("getBytes", Standart.string::getBytes);
+        Keyword.put("sprintf", new Standart.sprintf());
+        Keyword.put("range", new Standart.range());
+        Keyword.put("substring", new Standart.substr());
+        Keyword.put("parseInt", Standart.parse::parseInt);
+        Keyword.put("parseLong", Standart.parse::parseLong);
+        Keyword.put("foreach", new Standart.foreach());
+        Keyword.put("flatmap", new Standart.flatmap());
+        Keyword.put("split", new Standart.split());
+        Keyword.put("filter", new Standart.filter(false));
     }
 
     public static Set<String> getKeywords() {

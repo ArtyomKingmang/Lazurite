@@ -1,6 +1,6 @@
 package com.kingmang.lazurite.parser.AST.Statements;
 
-import com.kingmang.lazurite.libraries.keyword;
+import com.kingmang.lazurite.libraries.Keyword;
 import com.kingmang.lazurite.parser.AST.Arguments;
 import com.kingmang.lazurite.patterns.visitor.ResultVisitor;
 import com.kingmang.lazurite.patterns.visitor.Visitor;
@@ -21,7 +21,7 @@ public final class FunctionDefineStatement implements Statement {
 
     @Override
     public void execute() {
-        keyword.put(name, new UserDefinedFunction(arguments, body));
+        Keyword.put(name, new UserDefinedFunction(arguments, body));
     }
     
     @Override

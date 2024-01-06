@@ -2,7 +2,7 @@ package com.kingmang.lazurite.runtime.LZR;
 
 import com.kingmang.lazurite.exceptions.LZRException;
 import com.kingmang.lazurite.core.*;
-import com.kingmang.lazurite.libraries.keyword;
+import com.kingmang.lazurite.libraries.Keyword;
 import com.kingmang.lazurite.runtime.Value;
 
 import java.util.Objects;
@@ -59,8 +59,8 @@ public final class LZRString implements Value {
                 return Converters.voidToBoolean(value::isEmpty);
 
             default:
-                if (keyword.isExists(prop)) {
-                    final Function f = keyword.get(prop);
+                if (Keyword.isExists(prop)) {
+                    final Function f = Keyword.get(prop);
                     return new LZRFunction(args -> {
                         final Value[] newArgs = new Value[args.length + 1];
                         newArgs[0] = this;

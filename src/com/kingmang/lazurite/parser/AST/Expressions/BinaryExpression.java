@@ -5,7 +5,7 @@ import com.kingmang.lazurite.exceptions.OperationException;
 import com.kingmang.lazurite.patterns.visitor.ResultVisitor;
 import com.kingmang.lazurite.patterns.visitor.Visitor;
 import com.kingmang.lazurite.runtime.LZR.LZRArray;
-import com.kingmang.lazurite.libraries.keyword;
+import com.kingmang.lazurite.libraries.Keyword;
 import com.kingmang.lazurite.runtime.LZR.LZRMap;
 import com.kingmang.lazurite.runtime.LZR.LZRNumber;
 import com.kingmang.lazurite.runtime.LZR.LZRString;
@@ -63,8 +63,8 @@ public final class BinaryExpression implements Expression {
         try {
             return eval(value1, value2);
         } catch (OperationException ex) {
-            if (keyword.isExists(operation.toString())) {
-                return keyword.get(operation.toString()).execute(value1, value2);
+            if (Keyword.isExists(operation.toString())) {
+                return Keyword.get(operation.toString()).execute(value1, value2);
             }
             throw ex;
         }

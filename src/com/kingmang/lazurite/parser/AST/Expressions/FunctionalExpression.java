@@ -3,7 +3,7 @@ package com.kingmang.lazurite.parser.AST.Expressions;
 import com.kingmang.lazurite.exceptions.LZRException;
 import com.kingmang.lazurite.exceptions.VarExeption;
 import com.kingmang.lazurite.core.*;
-import com.kingmang.lazurite.libraries.keyword;
+import com.kingmang.lazurite.libraries.Keyword;
 import com.kingmang.lazurite.parser.AST.Statements.Statement;
 import com.kingmang.lazurite.parser.AST.InterruptableNode;
 import com.kingmang.lazurite.patterns.visitor.ResultVisitor;
@@ -69,8 +69,8 @@ public final class FunctionalExpression extends InterruptableNode implements Exp
     }
     
     private Function getFunction(String key) {
-        if (keyword.isExists(key)) {
-            return keyword.get(key);
+        if (Keyword.isExists(key)) {
+            return Keyword.get(key);
         }
         if (Variables.isExists(key)) {
             final Value variable = Variables.get(key);

@@ -3,7 +3,7 @@ package com.kingmang.lazurite.libraries.random;
 
 import com.kingmang.lazurite.core.Arguments;
 import com.kingmang.lazurite.core.Function;
-import com.kingmang.lazurite.libraries.keyword;
+import com.kingmang.lazurite.libraries.Keyword;
 import com.kingmang.lazurite.libraries.Library;
 import com.kingmang.lazurite.runtime.LZR.LZRNumber;
 import com.kingmang.lazurite.runtime.Value;
@@ -15,7 +15,7 @@ public final class random implements Library {
 
     @Override
     public void init() {
-        keyword.put("random", new randomm());
+        Keyword.put("random", new randomm());
     }
 
     public final class randomm implements Function {
