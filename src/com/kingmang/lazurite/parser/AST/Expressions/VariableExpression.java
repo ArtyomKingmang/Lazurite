@@ -1,6 +1,6 @@
 package com.kingmang.lazurite.parser.AST.Expressions;
 
-import com.kingmang.lazurite.exceptions.VarExeption;
+import com.kingmang.lazurite.exceptions.VariableDoesNotExistsException;
 import com.kingmang.lazurite.parser.AST.Accessible;
 import com.kingmang.lazurite.parser.AST.InterruptableNode;
 import com.kingmang.lazurite.patterns.visitor.ResultVisitor;
@@ -25,7 +25,7 @@ public final class VariableExpression extends InterruptableNode implements Expre
     
     @Override
     public Value get() {
-        if (!Variables.isExists(name)) throw new VarExeption(name);
+        if (!Variables.isExists(name)) throw new VariableDoesNotExistsException(name);
         return Variables.get(name);
     }
 

@@ -1,7 +1,7 @@
 package com.kingmang.lazurite.parser.AST.Expressions;
 
 import com.kingmang.lazurite.exceptions.LZRException;
-import com.kingmang.lazurite.exceptions.VarExeption;
+import com.kingmang.lazurite.exceptions.VariableDoesNotExistsException;
 import com.kingmang.lazurite.core.*;
 import com.kingmang.lazurite.libraries.Keyword;
 import com.kingmang.lazurite.parser.AST.Statements.Statement;
@@ -63,7 +63,7 @@ public final class FunctionalExpression extends InterruptableNode implements Exp
                 return ((LZRFunction) value).getValue();
             }
             return getFunction(value.asString());
-        } catch (VarExeption ex) {
+        } catch (VariableDoesNotExistsException ex) {
             return getFunction(ex.getVariable());
         }
     }

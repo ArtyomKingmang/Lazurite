@@ -2,11 +2,11 @@ package com.kingmang.lazurite.patterns;
 
 import java.io.Serializable;
 
-public class ConsPattern extends Pattern implements Serializable {
+public class PairPattern extends Pattern implements Serializable {
 
     private String left, right;
 
-    public ConsPattern(String left, String right) {
+    public PairPattern(String left, String right) {
         this.left = left;
         this.right = right;
     }

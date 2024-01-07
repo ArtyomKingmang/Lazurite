@@ -1,6 +1,5 @@
 package com.kingmang.lazurite.libraries.graph;
 
-import com.kingmang.lazurite.exceptions.LZRException;
 import com.kingmang.lazurite.core.Function;
 import com.kingmang.lazurite.libraries.Keyword;
 import com.kingmang.lazurite.libraries.Library;
@@ -17,7 +16,6 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
 import java.awt.image.BufferedImage;
-import java.awt.image.ImageObserver;
 import java.io.File;
 import java.io.IOException;
 
@@ -29,6 +27,7 @@ public class graph implements Library {
     private static CanvasPanel panel;
     private static Graphics2D graphics;
     private static BufferedImage img;
+    static BufferedImage image;
 
     private static LZRNumber lastKey;
     private static LZRArray mouseHover;
@@ -115,6 +114,7 @@ public class graph implements Library {
         initConstant();
         Keyword.put("background", new background());
         Keyword.put("dispose", new background());
+        Keyword.put("dispose", new dispose());
         Keyword.put("LImage", new LImage());
         Keyword.put("image", new image());
         Keyword.put("rotate", new rotate());
@@ -236,7 +236,27 @@ public class graph implements Library {
         }
     }
 
+    private static class LImage implements Function{
+        @Override
+        public Value execute(Value... args) {
+            try {
+                File file = new File(args[0].asString());
+                image = ImageIO.read(file);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return LZRNumber.ZERO;
+        }
+    }
 
+    private static class image implements Function{
+
+        @Override
+        public Value execute(Value... args) {
+            graphics.drawImage(image,args[0].asInt(),args[1].asInt(),100,100,null);
+            return LZRNumber.ZERO;
+        }
+    }
     private static class MouseHover implements Function {
 
         @Override
@@ -305,35 +325,7 @@ public class graph implements Library {
             return LZRNumber.ZERO;
         }
     }
-    private static class LImage implements Function {
-        @Override
-        public Value execute(Value... args) {
-            try {
-                ImageIO.read(new File("C:\\Projects\\MavenSandbox\\src\\main\\resources\\img.jpg"));
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            return LZRNumber.ZERO;
-        }
-    }
 
-    private static class image implements Function {
-        @Override
-        public Value execute(Value... args) {
-
-
-            int x = (int) args[1].asNumber();
-            int y = (int) args[2].asNumber();
-            if (args.length == 3){
-                graphics.drawImage((Image) args[0], x, y, null);
-            }else if(args.length == 4) {
-                graphics.drawImage((Image) args[0], x, y, (ImageObserver) args[3]);
-            }else{
-                throw new LZRException("RuntimeExeption", "Three args expected");
-            }
-            return LZRNumber.ZERO;
-        }
-    }
 
 
 

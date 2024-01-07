@@ -1,6 +1,6 @@
 package com.kingmang.lazurite.parser.AST.Expressions;
 
-import com.kingmang.lazurite.exceptions.OperationException;
+import com.kingmang.lazurite.exceptions.OperationIsNotSupportedException;
 import com.kingmang.lazurite.patterns.visitor.ResultVisitor;
 import com.kingmang.lazurite.patterns.visitor.Visitor;
 import com.kingmang.lazurite.runtime.LZR.LZRNumber;
@@ -83,7 +83,7 @@ public final class ConditionalExpression implements Expression {
             case GTEQ: return number1 >= number2;
 
             default:
-                throw new OperationException(operation);
+                throw new OperationIsNotSupportedException(operation);
         }
     }
 
