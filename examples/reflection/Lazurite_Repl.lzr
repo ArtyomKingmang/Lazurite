@@ -1,10 +1,14 @@
 using "reflection"
+using "artify"
+
+println(artify.build("Lazurite Repl"))
+
 while(true){
      print("\n>>> ")
      input = readln("")
-     Lexer = JClass("com.kingmang.lazurite.parser.pars.Lexer")
+     Lexer = JClass("com.kingmang.lazurite.parser.parse.Lexer")
      tokens = Lexer.tokenize(input)
-     Parser = JClass("com.kingmang.lazurite.parser.pars.Parser")
+     Parser = JClass("com.kingmang.lazurite.parser.parse.Parser")
      statement = Parser.parse(tokens)
      statement.execute()
 }
