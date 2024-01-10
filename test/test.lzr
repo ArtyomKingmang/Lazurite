@@ -1,3 +1,0 @@
-using "string"
-text = "HELLO KINGMANG"
-print(toLowerCase(text))
