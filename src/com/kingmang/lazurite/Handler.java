@@ -4,14 +4,14 @@ import com.kingmang.lazurite.exceptions.LZRException;
 import com.kingmang.lazurite.console.Console;
 import com.kingmang.lazurite.core.CallStack;
 import com.kingmang.lazurite.parser.AST.Statements.Statement;
-import com.kingmang.lazurite.parser.AST.Statements.MStatement;
+import com.kingmang.lazurite.parser.AST.Statements.BlockStatement;
 import com.kingmang.lazurite.parser.AST.Expressions.Expression;
 import com.kingmang.lazurite.parser.parse.Token;
 import com.kingmang.lazurite.patterns.visitor.FunctionAdder;
 import com.kingmang.lazurite.runtime.LZR.LZRNumber;
 import com.kingmang.lazurite.runtime.Value;
 import com.kingmang.lazurite.runtime.Variables;
-import com.kingmang.lazurite.utils.loader;
+import com.kingmang.lazurite.utils.Loader;
 
 import java.io.IOException;
 import java.util.Date;
@@ -20,7 +20,7 @@ import java.util.List;
 public class Handler {
 
     public static void RUN (String path) throws IOException {
-        Handler.RunProgram(loader.readSource(path));
+        Handler.RunProgram(Loader.readSource(path));
     }
     public static void handle(String input, String pathToScript, boolean isExec) {
         try {
@@ -32,7 +32,7 @@ public class Handler {
             }
             catch (Exception ignored){}
             final List<com.kingmang.lazurite.parser.parse.Token> tokens = new com.kingmang.lazurite.parser.parse.Lexer(input).tokenize();
-            final MStatement program = (MStatement) new com.kingmang.lazurite.parser.parse.Parser(tokens).parse();
+            final BlockStatement program = (BlockStatement) new com.kingmang.lazurite.parser.parse.Parser(tokens).parse();
             program.execute();
             if(!isExec){
                 Variables.clear();

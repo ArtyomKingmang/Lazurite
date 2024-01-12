@@ -5,12 +5,12 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
-public final class loader {
+public final class Loader {
 
-    private loader() { }
+    private Loader() { }
 
     public static String readSource(String name) throws IOException {
-        InputStream is = loader.class.getResourceAsStream("/" + name);
+        InputStream is = Loader.class.getResourceAsStream("/" + name);
         if (is != null) return readAndCloseStream(is);
 
         is = new FileInputStream(name);

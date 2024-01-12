@@ -26,7 +26,7 @@ import com.kingmang.lazurite.parser.AST.Statements.ForeachMStatement;
 import com.kingmang.lazurite.parser.AST.Statements.FunctionDefineStatement;
 import com.kingmang.lazurite.parser.AST.Statements.IfStatement;
 import com.kingmang.lazurite.parser.AST.Statements.IncludeStatement;
-import com.kingmang.lazurite.parser.AST.Statements.MStatement;
+import com.kingmang.lazurite.parser.AST.Statements.BlockStatement;
 import com.kingmang.lazurite.parser.AST.Statements.PrintStatement;
 import com.kingmang.lazurite.parser.AST.Statements.PrintlnStatement;
 import com.kingmang.lazurite.parser.AST.Statements.ReturnStatement;
@@ -38,7 +38,7 @@ public interface ResultVisitor<R, T> {
     R visit(ArrayExpression s, T t);
     R visit(AssignmentExpression s, T t);
     R visit(BinaryExpression s, T t);
-    R visit(MStatement s, T t);
+    R visit(BlockStatement s, T t);
     R visit(BreakStatement s, T t);
     R visit(ClassDeclarationStatement s, T t);
     R visit(ConditionalExpression s, T t);

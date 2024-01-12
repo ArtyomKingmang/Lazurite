@@ -26,7 +26,7 @@ import com.kingmang.lazurite.parser.AST.Statements.ForeachMStatement;
 import com.kingmang.lazurite.parser.AST.Statements.FunctionDefineStatement;
 import com.kingmang.lazurite.parser.AST.Statements.IfStatement;
 import com.kingmang.lazurite.parser.AST.Statements.IncludeStatement;
-import com.kingmang.lazurite.parser.AST.Statements.MStatement;
+import com.kingmang.lazurite.parser.AST.Statements.BlockStatement;
 import com.kingmang.lazurite.parser.AST.Statements.PrintStatement;
 import com.kingmang.lazurite.parser.AST.Statements.PrintlnStatement;
 import com.kingmang.lazurite.parser.AST.Statements.ReturnStatement;
@@ -38,7 +38,7 @@ public interface Visitor {
     void visit(ArrayExpression s);
     void visit(AssignmentExpression s);
     void visit(BinaryExpression s);
-    void visit(MStatement s);
+    void visit(BlockStatement s);
     void visit(BreakStatement s);
     void visit(ClassDeclarationStatement s);
     void visit(ConditionalExpression s);

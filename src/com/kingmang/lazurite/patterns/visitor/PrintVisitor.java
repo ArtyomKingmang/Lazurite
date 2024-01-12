@@ -27,7 +27,7 @@ import com.kingmang.lazurite.parser.AST.Statements.ForeachMStatement;
 import com.kingmang.lazurite.parser.AST.Statements.FunctionDefineStatement;
 import com.kingmang.lazurite.parser.AST.Statements.IfStatement;
 import com.kingmang.lazurite.parser.AST.Statements.IncludeStatement;
-import com.kingmang.lazurite.parser.AST.Statements.MStatement;
+import com.kingmang.lazurite.parser.AST.Statements.BlockStatement;
 import com.kingmang.lazurite.parser.AST.Statements.PrintStatement;
 import com.kingmang.lazurite.parser.AST.Statements.PrintlnStatement;
 import com.kingmang.lazurite.parser.AST.Statements.ReturnStatement;
@@ -85,7 +85,7 @@ public class PrintVisitor implements ResultVisitor<StringBuilder, StringBuilder>
     }
 
     @Override
-    public StringBuilder visit(MStatement s, StringBuilder t) {
+    public StringBuilder visit(BlockStatement s, StringBuilder t) {
         decreaseIndent();
         if (indent >= 0) {
             t.append('{');

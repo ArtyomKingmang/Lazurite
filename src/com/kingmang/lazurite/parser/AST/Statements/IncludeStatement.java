@@ -5,7 +5,7 @@ import com.kingmang.lazurite.parser.AST.Expressions.Expression;
 import com.kingmang.lazurite.parser.AST.InterruptableNode;
 import com.kingmang.lazurite.parser.parse.Lexer;
 import com.kingmang.lazurite.parser.parse.Parser;
-import com.kingmang.lazurite.utils.loader;
+import com.kingmang.lazurite.utils.Loader;
 import com.kingmang.lazurite.parser.parse.Token;
 import com.kingmang.lazurite.patterns.visitor.FunctionAdder;
 import com.kingmang.lazurite.patterns.visitor.ResultVisitor;
@@ -38,7 +38,7 @@ public final class IncludeStatement extends InterruptableNode implements Stateme
     }
 
     public Statement loadProgram(String path) throws IOException {
-        final String input = loader.readSource(path);
+        final String input = Loader.readSource(path);
         final List<Token> tokens = Lexer.tokenize(input);
         final Parser parser = new Parser(tokens);
         final Statement program = parser.parse();

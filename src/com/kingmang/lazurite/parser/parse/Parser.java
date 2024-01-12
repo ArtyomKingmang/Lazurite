@@ -29,7 +29,7 @@ import com.kingmang.lazurite.parser.AST.Statements.ForeachAStatement;
 import com.kingmang.lazurite.parser.AST.Statements.ForeachMStatement;
 import com.kingmang.lazurite.parser.AST.Statements.IfStatement;
 import com.kingmang.lazurite.parser.AST.Statements.IncludeStatement;
-import com.kingmang.lazurite.parser.AST.Statements.MStatement;
+import com.kingmang.lazurite.parser.AST.Statements.BlockStatement;
 import com.kingmang.lazurite.parser.AST.Statements.PrintStatement;
 import com.kingmang.lazurite.parser.AST.Statements.PrintlnStatement;
 import com.kingmang.lazurite.parser.AST.Statements.ReturnStatement;
@@ -102,7 +102,7 @@ public final class Parser {
 
     public Statement parse() {
         parseErrors.clear();
-        final MStatement result = new MStatement();
+        final BlockStatement result = new BlockStatement();
         while (!match(TokenType.EOF)) {
             try {
                 result.add(statement());
@@ -137,7 +137,7 @@ public final class Parser {
     }
 
     private Statement block() {
-        final MStatement block = new MStatement();
+        final BlockStatement block = new BlockStatement();
         consume(TokenType.LBRACE);
         while (!match(TokenType.RBRACE)) {
             block.add(statement());

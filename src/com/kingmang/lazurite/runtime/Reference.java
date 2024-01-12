@@ -5,11 +5,11 @@ import org.jetbrains.annotations.NotNull;
 
 import java.io.Serializable;
 
-public class reference implements Value, Serializable {
+public class Reference implements Value, Serializable {
 
     private Object ref;
 
-    public reference(Object ref) {
+    public Reference(Object ref) {
         this.ref = ref;
     }
 

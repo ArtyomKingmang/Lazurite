@@ -9,11 +9,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public final class MStatement extends InterruptableNode implements Statement {
+public final class BlockStatement extends InterruptableNode implements Statement {
     
     public final List<Statement> statements;
 
-    public MStatement() {
+    public BlockStatement() {
         statements = new ArrayList<>();
     }
     
