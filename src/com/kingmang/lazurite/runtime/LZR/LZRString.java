@@ -22,12 +22,11 @@ public final class LZRString implements Value {
     public Value access(Value propertyValue) {
         final String prop = propertyValue.asString();
         switch (prop) {
-            // Properties
             case "length":
                 return LZRNumber.of(length());
-            case "lower":
+            case "toLowerCase":
                 return new LZRString(value.toLowerCase());
-            case "upper":
+            case "toUpperCase":
                 return new LZRString(value.toUpperCase());
             case "chars": {
                 final Value[] chars = new Value[length()];
@@ -38,7 +37,6 @@ public final class LZRString implements Value {
                 return new LZRArray(chars);
             }
 
-            // Functions
             case "trim":
                 return Converters.voidToString(value::trim);
             case "startsWith":
@@ -51,9 +49,7 @@ public final class LZRString implements Value {
                 return Converters.stringToBoolean(value::endsWith);
             case "matches":
                 return Converters.stringToBoolean(value::matches);
-            case "contains":
-                return Converters.stringToBoolean(value::contains);
-            case "equalsIgnoreCase":
+            case "equals":
                 return Converters.stringToBoolean(value::equalsIgnoreCase);
             case "isEmpty":
                 return Converters.voidToBoolean(value::isEmpty);

@@ -26,8 +26,8 @@ public class Handler {
         try {
             try{
                 if(!isExec) {
-                    log.clear();
-                    log.append(String.format("Run (%s)\n", new Date()));
+                    Log.clear();
+                    Log.append(String.format("Run (%s)\n", new Date()));
                 }
             }
             catch (Exception ignored){}
@@ -39,7 +39,7 @@ public class Handler {
             }
         } catch (LZRException ex) {
             try{
-                log.append(String.format("%s: %s in %s (%s)\n", ex.getType(), ex.getText(), pathToScript, new Date()));
+                Log.append(String.format("%s: %s in %s (%s)\n", ex.getType(), ex.getText(), pathToScript, new Date()));
             }
             catch (Exception ex2){}
             System.out.println(String.format("%s: %s in %s", ex.getType(), ex.getText(), pathToScript));

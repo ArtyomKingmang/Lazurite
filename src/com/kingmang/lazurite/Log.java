@@ -2,7 +2,7 @@ package com.kingmang.lazurite;
 
 import java.io.FileWriter;
 
-public class log {
+public class Log {
     public static void append(String str) throws Exception {
         FileWriter writer = new FileWriter("log.txt", true);
         writer.write(str+"\n");

@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.util.Scanner;
 
 
-public class editor {
+public class Editor {
 
 
     public static void openEditor() {

@@ -8,7 +8,7 @@ import com.kingmang.lazurite.runtime.LZR.LZRNumber;
 import com.kingmang.lazurite.runtime.LZR.LZRString;
 
 
-import static com.kingmang.lazurite.Main.VERSION;
+import static com.kingmang.lazurite.runner.Exe.VERSION;
 
 public class system implements Library {
 

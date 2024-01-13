@@ -1,2 +1,2 @@
-src = "hello".upper
-print(src)
+using "processingApi"
+processing.run()

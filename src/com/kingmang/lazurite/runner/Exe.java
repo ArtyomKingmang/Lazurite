@@ -1,7 +1,8 @@
-package com.kingmang.lazurite;
+package com.kingmang.lazurite.runner;
 
 
-import com.kingmang.lazurite.editors.editor;
+import com.kingmang.lazurite.Handler;
+import com.kingmang.lazurite.editors.Editor;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -9,7 +10,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 
-public class Main {
+public class Exe {
 
     public static String VERSION() {
         return "2.8";
@@ -61,7 +62,7 @@ public class Main {
                 }
 
             } else if (cmd.contains("--editor") || cmd.contains("-e")) {
-                editor.openEditor();
+                Editor.openEditor();
             } else if (cmd.contains("--version") || cmd.contains("-v")) {
                 System.out.println("---------------------------------");
                 System.out.println("Lazurite version: " + VERSION());
