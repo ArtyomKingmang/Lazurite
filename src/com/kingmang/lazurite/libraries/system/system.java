@@ -9,21 +9,16 @@ import com.kingmang.lazurite.runtime.LZR.LZRNumber;
 import com.kingmang.lazurite.runtime.LZR.LZRString;
 
 
+import java.util.Objects;
+
 import static com.kingmang.lazurite.runner.Exe.VERSION;
 
 public class system implements Library {
 
     public void init (){
 
-        LZRMap values = new LZRMap(5);
-        LZRMap system = new LZRMap(7);
 
-        //variables
-        values.set("LZRVersion", new LZRString(VERSION()));
-        values.set("JVMVersion", new LZRString(java.lang.System.getProperty("java.vm.version")));
-        values.set("name", new LZRString(java.lang.System.getProperty("os.name")));
-        values.set("arch", new LZRString(java.lang.System.getProperty("os.arch")));
-        values.set("version", new LZRString(java.lang.System.getProperty("os.version")));
+        LZRMap system = new LZRMap(7);
 
         //functions
         system.set("currentTimeMillis", (Value...args) ->{
@@ -44,8 +39,14 @@ public class system implements Library {
             return LZRNumber.MINUS_ONE;
         });
 
-        system.set("getProperty", (Value...args) -> new LZRString(System.getProperty(args[0].asString())));
-        system.set("os", values);
+        system.set("getProperty", (Value...args) -> {
+            if(Objects.equals(args[0].asString(), "lzr.version")){
+                return new LZRString(VERSION());
+            }
+            return new LZRString(System.getProperty(args[0].asString()));
+
+        });
+
         Variables.define("system",system);
 
     }

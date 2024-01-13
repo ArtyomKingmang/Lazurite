@@ -1,4 +1,4 @@
 using "system"
 
-println(system.getProperty("java.version"))
+println(system.getProperty("os.name"))
 
