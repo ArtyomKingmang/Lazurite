@@ -1,2 +1,6 @@
-using "processingApi"
-processing.run()
+using "system"
+
+println("Os name: " + system.os.name)
+print("time in milliseconds: " + system.currentTimeMillis())
+system.exit(0)
+
