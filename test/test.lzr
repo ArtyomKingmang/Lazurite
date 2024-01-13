@@ -1,6 +1,4 @@
 using "system"
 
-println("Os name: " + system.os.name)
-print("time in milliseconds: " + system.currentTimeMillis())
-system.exit(0)
+println(system.getProperty("java.version"))
 
