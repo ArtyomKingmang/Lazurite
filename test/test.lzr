@@ -1,4 +1,1 @@
-using "system"
-
-println(system.getProperty("os.name"))
 

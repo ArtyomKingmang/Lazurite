@@ -16,8 +16,6 @@ import static com.kingmang.lazurite.runner.Exe.VERSION;
 public class system implements Library {
 
     public void init (){
-
-
         LZRMap system = new LZRMap(7);
 
         //functions
@@ -38,7 +36,6 @@ public class system implements Library {
             }
             return LZRNumber.MINUS_ONE;
         });
-
         system.set("getProperty", (Value...args) -> {
             if(Objects.equals(args[0].asString(), "lzr.version")){
                 return new LZRString(VERSION());

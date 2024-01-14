@@ -19,14 +19,12 @@ public class Exe {
     public static int check = 0;
 
     public static void main(String[] args) throws IOException {
-
-
-            /*Help();
-            while(true)Start();*/
-
+            Help();
+            while(true)Start();
+/*
             String file = "test.lzr";
             String in = "C:\\Users\\crowb\\Desktop\\Lazurite\\test\\" + file;
-            Handler.RUN(in);
+            Handler.RUN(in);*/
     }
 
 
