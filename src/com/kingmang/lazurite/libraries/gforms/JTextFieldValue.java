@@ -23,7 +23,6 @@ public class JTextFieldValue extends JTextComponentValue {
 
     private void init() {
         set("onAction", new LZRFunction(this::addActionListener));
-        set("setFont", new LZRFunction(this::setTextSize));
         set("addActionListener", new LZRFunction(this::addActionListener));
         set("getColumns", Converters.voidToInt(textField::getColumns));
         set("getHorizontalAlignment", Converters.voidToInt(textField::getHorizontalAlignment));
@@ -41,9 +40,6 @@ public class JTextFieldValue extends JTextComponentValue {
         textField.addActionListener(e -> action.execute());
         return LZRNumber.ZERO;
     }
-    private Value setTextSize(Value... args) {
-        textField.setFont(new Font(args[0].asString(), args[1].asInt(), args[2].asInt()));
-        return LZRNumber.ZERO;
-    }
+
 
 }

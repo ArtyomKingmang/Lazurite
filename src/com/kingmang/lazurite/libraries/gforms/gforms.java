@@ -22,7 +22,7 @@ public final class gforms implements Library {
         Variables.define("EXIT_ON_CLOSE", LZRNumber.of(JFrame.EXIT_ON_CLOSE));
         Variables.define("HIDE_ON_CLOSE", LZRNumber.of(JFrame.HIDE_ON_CLOSE));
 
-        // SwinfConstants
+        // SwingConstants
         final LZRMap swing = new LZRMap(20);
         swing.set("BOTTOM", LZRNumber.of(SwingConstants.BOTTOM));
         swing.set("CENTER", LZRNumber.of(SwingConstants.CENTER));
@@ -107,28 +107,28 @@ public final class gforms implements Library {
         windowEvent.set("WINDOW_LOST_FOCUS", LZRNumber.of(WindowEvent.WINDOW_LOST_FOCUS));
         windowEvent.set("WINDOW_STATE_CHANGED", LZRNumber.of(WindowEvent.WINDOW_STATE_CHANGED));
         windowEvent.set("WINDOW_LAST", LZRNumber.of(WindowEvent.WINDOW_LAST));
-        Variables.define("WindowEvent", windowEvent);
+        Variables.define("FrameEvent", windowEvent);
     }
 
     @Override
     public void init() {
         initConstant();
         // Components
-        Keyword.put("Button", com.kingmang.lazurite.libraries.gforms.Components::newButton);
-        Keyword.put("Label", com.kingmang.lazurite.libraries.gforms.Components::newLabel);
-        Keyword.put("Panel", com.kingmang.lazurite.libraries.gforms.Components::newPanel);
-        Keyword.put("ProgressBar", com.kingmang.lazurite.libraries.gforms.Components::newProgressBar);
-        Keyword.put("ScrollPane", com.kingmang.lazurite.libraries.gforms.Components::newScrollPane);
-        Keyword.put("TextArea", com.kingmang.lazurite.libraries.gforms.Components::newTextArea);
-        Keyword.put("TextField", com.kingmang.lazurite.libraries.gforms.Components::newTextField);
+        Keyword.put("Button", Components::newButton);
+        Keyword.put("Label", Components::newLabel);
+        Keyword.put("Panel", Components::newPanel);
+        Keyword.put("ProgressBar", Components::newProgressBar);
+        Keyword.put("ScrollPane", Components::newScrollPane);
+        Keyword.put("TextArea", Components::newTextArea);
+        Keyword.put("TextField", Components::newTextField);
         Keyword.put("Frame", Components::newWindow);
 
 
         // LayoutManagers
-        Keyword.put("borderLayout", com.kingmang.lazurite.libraries.gforms.LayoutManagers::borderLayout);
-        Keyword.put("boxLayout", com.kingmang.lazurite.libraries.gforms.LayoutManagers::boxLayout);
-        Keyword.put("cardLayout", com.kingmang.lazurite.libraries.gforms.LayoutManagers::cardLayout);
-        Keyword.put("gridLayout", com.kingmang.lazurite.libraries.gforms.LayoutManagers::gridLayout);
+        Keyword.put("borderLayout", LayoutManagers::borderLayout);
+        Keyword.put("boxLayout", LayoutManagers::boxLayout);
+        Keyword.put("cardLayout", LayoutManagers::cardLayout);
+        Keyword.put("gridLayout", LayoutManagers::gridLayout);
         Keyword.put("flowLayout", LayoutManagers::flowLayout);
 
     }

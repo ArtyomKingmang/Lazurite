@@ -6,9 +6,7 @@ import com.kingmang.lazurite.runtime.*;
 import com.kingmang.lazurite.runtime.LZR.*;
 import com.kingmang.lazurite.utils.ValueUtils;
 
-import java.awt.Component;
-import java.awt.Dimension;
-import java.awt.Point;
+import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.function.Consumer;
@@ -26,6 +24,7 @@ public abstract class ComponentValue extends LZRMap {
     }
 
     private void init() {
+        set("setFont", new LZRFunction(this::setFont));
         set("onKeyAction", new LZRFunction(this::addKeyListener));
         set("addKeyListener", new LZRFunction(this::addKeyListener));
         set("getFocusTraversalKeysEnabled", Converters.voidToBoolean(component::getFocusTraversalKeysEnabled));
@@ -124,6 +123,11 @@ public abstract class ComponentValue extends LZRMap {
         result.set(0, LZRNumber.of(location.x));
         result.set(1, LZRNumber.of(location.y));
         return result;
+    }
+
+    private Value setFont(Value[] args) {
+        component.setFont(new Font(args[0].asString(), args[1].asInt(), args[2].asInt()));
+        return LZRNumber.ZERO;
     }
 
     private Value setLocation(Value[] args) {
