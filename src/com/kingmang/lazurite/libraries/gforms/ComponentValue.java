@@ -25,6 +25,7 @@ public abstract class ComponentValue extends LZRMap {
 
     private void init() {
         set("setFont", new LZRFunction(this::setFont));
+        set("getFont", new LZRFunction(this::getFont));
         set("onKeyAction", new LZRFunction(this::addKeyListener));
         set("addKeyListener", new LZRFunction(this::addKeyListener));
         set("getFocusTraversalKeysEnabled", Converters.voidToBoolean(component::getFocusTraversalKeysEnabled));
@@ -127,6 +128,11 @@ public abstract class ComponentValue extends LZRMap {
 
     private Value setFont(Value[] args) {
         component.setFont(new Font(args[0].asString(), args[1].asInt(), args[2].asInt()));
+        return LZRNumber.ZERO;
+    }
+
+    private Value getFont(Value[] args) {
+        component.getFont();
         return LZRNumber.ZERO;
     }
 

@@ -113,10 +113,7 @@ public class graph implements Library {
     public void init() {
         initConstant();
         Keyword.put("background", new background());
-        Keyword.put("dispose", new background());
         Keyword.put("dispose", new dispose());
-        Keyword.put("LImage", new LImage());
-        Keyword.put("image", new image());
         Keyword.put("rotate", new rotate());
         Keyword.put("scale", new scale());
         Keyword.put("font", new font());
