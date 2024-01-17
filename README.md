@@ -12,6 +12,24 @@ Hello World in Lazurite!:
 ```shell
 print("Hello World!")
 ```
+lsoup:
+```cpp
+using "lsoup"
+
+lsoup.parse("https://artyomkingmang.github.io/lazurite-pages/")
+result = lsoup.select("title")
+
+print(result)
+```
+
+Async example:
+```cpp
+using "async"
+func hel(arg){
+    print(arg)
+}
+async.supply(hel("Hello"))
+```
 
 ## Download
 
@@ -31,8 +49,5 @@ Why should you choose Lazurite?:
 Lazurite is relseased under <a href="https://github.com/ArtyomKingmang/Lazurite/wiki">MIT License 2.0</a>
 
 See more about it!
-
-## How to use Lazurite?
-To get started, you can write Lazurite code in its IDE. Then, opening: "Lazurite 2.4.exe" enter the path to your file and run the code. That's all
 
 
