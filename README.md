@@ -12,6 +12,34 @@ Hello World in Lazurite!:
 ```shell
 print("Hello World!")
 ```
+lsoup:
+```cpp
+using "lsoup"
+
+lsoup.parse("https://artyomkingmang.github.io/lazurite-pages/")
+result = lsoup.select("title")
+
+print(result)
+```
+
+async example:
+```cpp
+using "async"
+func hel(arg){
+    print(arg)
+}
+async.supply(hel("Hello"))
+```
+std example:
+```cpp
+using "std"
+func th(arg){
+   println("My " + str(arg) + " Thread")
+}
+for(i=0, i<10, i++){
+    std.thread(::th, i)
+}
+```
 
 ## Download
 
@@ -32,32 +60,4 @@ Lazurite is relseased under <a href="https://github.com/ArtyomKingmang/Lazurite/
 
 See more about it!
 
-## How to use Lazurite?
-To get started, you can write Lazurite code in its IDE. Then, opening: "Lazurite 2.4.exe" enter the path to your file and run the code. That's all
 
-
-
-<a href="https://github.com/ArtyomKingmang/Lazurite/blob/main/docs/RU.md">DOCUMENTATION </a>
-## Plan for new documentation:
-- Output to the console. The first program
-- Data types
-- Variables
-- Console input
-- Type Conversion
-- Conditional constructions
-- Unary operators
-- Arrays
-- For and while loops
-- Foreach loop
-- Functions 
-- Libraries
-- including .lzr files
-- Pattern matching
-- References to methods
-- OOP
-- STD functions
-- Extension of the "assignment" operator
-- Asynchronous programming
-- Operator overload
-
-<h1 align="middle" style="font-size: 20px;">❤ Thank you for choosing us ❤</h1>
