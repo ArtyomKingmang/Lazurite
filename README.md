@@ -22,13 +22,23 @@ result = lsoup.select("title")
 print(result)
 ```
 
-Async example:
+async example:
 ```cpp
 using "async"
 func hel(arg){
     print(arg)
 }
 async.supply(hel("Hello"))
+```
+std example:
+```cpp
+using "std"
+func th(arg){
+   println("My " + str(arg) + " Thread")
+}
+for(i=0, i<10, i++){
+    std.thread(::th, i)
+}
 ```
 
 ## Download
