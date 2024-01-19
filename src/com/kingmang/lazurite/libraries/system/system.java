@@ -50,7 +50,6 @@ public class system implements Library {
                 return map;
             }
         });
-
         system.set("getProperty", (Value...args) -> {
             if(Objects.equals(args[0].asString(), "lzr.version")){
                 return new LZRString(VERSION());
