@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="icon.png" width="300" alt="SPK">
+  <img src="icon.png" width="300">
 
 Lazurite package to build jar(s) with ur .lzr scripts.
 </div>
@@ -12,9 +12,38 @@ Hello World in Lazurite!:
 ```shell
 print("Hello World!")
 ```
+lsoup:
+```cpp
+using "lsoup"
+
+lsoup.parse("https://artyomkingmang.github.io/lazurite-pages/")
+result = lsoup.select("title")
+
+print(result)
+```
+
+async example:
+```cpp
+using "async"
+func hel(arg){
+    print(arg)
+}
+async.supply(hel("Hello"))
+```
+std example:
+```cpp
+using "std"
+func th(arg){
+   println("My " + str(arg) + " Thread")
+}
+for(i=0, i<10, i++){
+    std.thread(::th, i)
+}
+```
 
 ## Download
-You can download Lazurite in the official <a href = "https://t.me/kingmangapps">telegram channel</a>. There is an archive that includes: exe file Lazurite interpreter with included jdk; jar interpreter file; Lazurite IDE. Also in this repository in the folder: "LZR" everything is present
+
+Download jar and exe files of the language interpreter can be downloaded in the <a href = "https://github.com/ArtyomKingmang/Lazurite/releases">Releases</a> tab)
 
 ## Why Lazurite?
 Why should you choose Lazurite?:
@@ -27,15 +56,8 @@ Why should you choose Lazurite?:
 
 
 ## License
-Lazurite is relseased under <a href="https://ru.wikipedia.org/wiki/%D0%9B%D0%B8%D1%86%D0%B5%D0%BD%D0%B7%D0%B8%D1%8F_MIT">MIT License 2.0</a>
+Lazurite is relseased under <a href="https://github.com/ArtyomKingmang/Lazurite/wiki">MIT License 2.0</a>
 
 See more about it!
 
-## How to use Lazurite?
-To get started, you can write Lazurite code in its IDE. Then, opening: "Lazurite 2.4.exe" enter the path to your file and run the code. That's all
 
-
-
-<a href="https://sites.google.com/view/lazurite-lang/lazurite">DOCUMENTATION 2.0</a>
-
-<h1 align="middle" style="font-size: 20px;">❤ Thank you for choosing us ❤</h1>

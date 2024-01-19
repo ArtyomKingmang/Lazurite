@@ -1,0 +1,3 @@
+using "http"
+
+http.request("https://github.com/ArtyomKingmang/Lazurite/blob/main/docs/RU.md", ::echo)

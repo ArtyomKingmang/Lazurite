@@ -1,0 +1,9 @@
+using "system"
+
+//os & user names
+println(os.name)
+println(user.name)
+
+//Lazurite & JVM Versions
+println(os.LZRVersion)
+println(os.JVMVersion)

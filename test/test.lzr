@@ -1,0 +1,16 @@
+using "jloader"
+
+func main(){
+    jloader.invoke("C:/Users/crowb/Desktop/Lazurite/examples/jloader/printer.jar", "com.monsler.printer.Printer", "print", "Hello from java!", 1)
+
+    //Аргументы:
+    /*
+    1 - путь к jar;
+    2 - класс;
+    3 - метод;
+    4 - аргумент ( используйте Object[] как аргумент );
+    5 - статичность метода (0 - нет; 1 - да)
+    */
+}
+
+main()

@@ -1,0 +1,9 @@
+//foreach in map
+map2 = {
+"print": "keyword",
+"input": "keyword",
+"+": "operator"
+}
+foreach(map2, func(key, value) {
+ println(key + ": " + value)
+})

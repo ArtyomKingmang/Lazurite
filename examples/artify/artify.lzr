@@ -1,0 +1,2 @@
+using "artify"
+print(artify.build("HELLO WORLD"))

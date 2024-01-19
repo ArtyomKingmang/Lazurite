@@ -1,0 +1,9 @@
+print(typeof(10)) //Вывод: 1
+/*
+object = 0
+number = 1
+string = 2
+array = 3
+map = 4
+function = 5
+*/

@@ -1,0 +1,22 @@
+<filetype binary="false" description="Lazurite files" name="Lazurite">
+  <highlighting>
+    <options>
+      <option name="LINE_COMMENT" value="//" />
+      <option name="COMMENT_START" value="/*" />
+      <option name="COMMENT_END" value="*/" />
+      <option name="HEX_PREFIX" value="0x" />
+      <option name="NUM_POSTFIXES" value="" />
+      <option name="HAS_BRACES" value="true" />
+      <option name="HAS_BRACKETS" value="true" />
+      <option name="HAS_PARENS" value="true" />
+      <option name="HAS_STRING_ESCAPES" value="true" />
+    </options>
+    <keywords keywords="break;case;class;continue;echo;else;filter;for;foreach;func;getBytes;if;length;match;new;not;or;parsInt;parseLong;print;println;range;readln;return;sprintf;substring;throw;while" ignore_case="false" />
+    <keywords2 keywords="Array;try" />
+    <keywords3 keywords="false;this;true" />
+    <keywords4 keywords="include;using" />
+  </highlighting>
+  <extensionMap>
+    <mapping ext="lzr" />
+  </extensionMap>
+</filetype>

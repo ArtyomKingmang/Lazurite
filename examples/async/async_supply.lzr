@@ -1,0 +1,5 @@
+using "async"
+func hel(arg){
+    print(arg)
+}
+async.supply(hel("Hello"))

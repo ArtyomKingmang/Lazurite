@@ -1,0 +1,13 @@
+using "reflection"
+using "colors"
+time = JClass("java.time.LocalDateTime")
+
+
+while(true){
+    timee = time.now()
+    hour = timee.getHour()
+    minute = timee.getMinute()
+    second = timee.getSecond()
+    println(str(hour) + ":" + str(minute) + ":" + str(second))
+    color.clear()
+}
