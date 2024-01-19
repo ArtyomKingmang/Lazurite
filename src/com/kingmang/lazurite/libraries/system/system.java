@@ -38,7 +38,6 @@ public class system implements Library {
             }
             return LZRNumber.MINUS_ONE;
         });
-
         system.set("getScreenResolution", new Function() {
             @Override
             public Value execute(Value... args) {
@@ -50,7 +49,6 @@ public class system implements Library {
                 return map;
             }
         });
-
         system.set("getProperty", (Value...args) -> {
             if(Objects.equals(args[0].asString(), "lzr.version")){
                 return new LZRString(VERSION());
