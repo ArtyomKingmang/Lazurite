@@ -14,9 +14,6 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
-/**
- * Functions for working with components.
- */
 public final class Components {
 
     private Components() { }

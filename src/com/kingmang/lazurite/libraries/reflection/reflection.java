@@ -26,41 +26,41 @@ public final class reflection implements Library {
     public void init() {
         initConstants();
         Variables.define("null", NULL);
-        Variables.define("boolean.class", new ClassValue(boolean.class));
-        Variables.define("boolean[].class", new ClassValue(boolean[].class));
-        Variables.define("boolean[][].class", new ClassValue(boolean[][].class));
-        Variables.define("byte.class", new ClassValue(byte.class));
-        Variables.define("byte[].class", new ClassValue(byte[].class));
-        Variables.define("byte[][].class", new ClassValue(byte[][].class));
-        Variables.define("short.class", new ClassValue(short.class));
-        Variables.define("short[].class", new ClassValue(short[].class));
-        Variables.define("short[][].class", new ClassValue(short[][].class));
-        Variables.define("char.class", new ClassValue(char.class));
-        Variables.define("char[].class", new ClassValue(char[].class));
-        Variables.define("char[][].class", new ClassValue(char[][].class));
-        Variables.define("int.class", new ClassValue(int.class));
-        Variables.define("int[].class", new ClassValue(int[].class));
-        Variables.define("int[][].class", new ClassValue(int[][].class));
-        Variables.define("long.class", new ClassValue(long.class));
-        Variables.define("long[].class", new ClassValue(long[].class));
-        Variables.define("long[][].class", new ClassValue(long[][].class));
-        Variables.define("float.class", new ClassValue(float.class));
-        Variables.define("float[].class", new ClassValue(float[].class));
-        Variables.define("float[][].class", new ClassValue(float[][].class));
-        Variables.define("double.class", new ClassValue(double.class));
-        Variables.define("double[].class", new ClassValue(double[].class));
-        Variables.define("double[][].class", new ClassValue(double[][].class));
-        Variables.define("String.class", new ClassValue(String.class));
-        Variables.define("String[].class", new ClassValue(String[].class));
-        Variables.define("String[][].class", new ClassValue(String[][].class));
-        Variables.define("Object.class", new ClassValue(Object.class));
-        Variables.define("Object[].class", new ClassValue(Object[].class));
-        Variables.define("Object[][].class", new ClassValue(Object[][].class));
+        Variables.define("boolean.class", new JavaClassValue(boolean.class));
+        Variables.define("boolean[].class", new JavaClassValue(boolean[].class));
+        Variables.define("boolean[][].class", new JavaClassValue(boolean[][].class));
+        Variables.define("byte.class", new JavaClassValue(byte.class));
+        Variables.define("byte[].class", new JavaClassValue(byte[].class));
+        Variables.define("byte[][].class", new JavaClassValue(byte[][].class));
+        Variables.define("short.class", new JavaClassValue(short.class));
+        Variables.define("short[].class", new JavaClassValue(short[].class));
+        Variables.define("short[][].class", new JavaClassValue(short[][].class));
+        Variables.define("char.class", new JavaClassValue(char.class));
+        Variables.define("char[].class", new JavaClassValue(char[].class));
+        Variables.define("char[][].class", new JavaClassValue(char[][].class));
+        Variables.define("int.class", new JavaClassValue(int.class));
+        Variables.define("int[].class", new JavaClassValue(int[].class));
+        Variables.define("int[][].class", new JavaClassValue(int[][].class));
+        Variables.define("long.class", new JavaClassValue(long.class));
+        Variables.define("long[].class", new JavaClassValue(long[].class));
+        Variables.define("long[][].class", new JavaClassValue(long[][].class));
+        Variables.define("float.class", new JavaClassValue(float.class));
+        Variables.define("float[].class", new JavaClassValue(float[].class));
+        Variables.define("float[][].class", new JavaClassValue(float[][].class));
+        Variables.define("double.class", new JavaClassValue(double.class));
+        Variables.define("double[].class", new JavaClassValue(double[].class));
+        Variables.define("double[][].class", new JavaClassValue(double[][].class));
+        Variables.define("String.class", new JavaClassValue(String.class));
+        Variables.define("String[].class", new JavaClassValue(String[].class));
+        Variables.define("String[][].class", new JavaClassValue(String[][].class));
+        Variables.define("Object.class", new JavaClassValue(Object.class));
+        Variables.define("Object[].class", new JavaClassValue(Object[].class));
+        Variables.define("Object[][].class", new JavaClassValue(Object[][].class));
 
         Keyword.put("isNull", this::isNull);
-        Keyword.put("JClass", this::newClass);
-        Keyword.put("JObject", this::toObject);
-        Keyword.put("LZRValue", this::toValue);
+        Keyword.put("JClass", this::JClass);
+        Keyword.put("JObject", this::JObject);
+        Keyword.put("LZRValue", this::LZRValue);
     }
 
 
@@ -108,16 +108,16 @@ public final class reflection implements Library {
         }
     }
 
-    private static class ClassValue extends LZRMap implements Instantiable {
+    private static class JavaClassValue extends LZRMap implements Instantiable {
 
         public static Value classOrNull(Class<?> clazz) {
             if (clazz == null) return NULL;
-            return new ClassValue(clazz);
+            return new JavaClassValue(clazz);
         }
 
         private final Class<?> clazz;
 
-        public ClassValue(Class<?> clazz) {
+        public JavaClassValue(Class<?> clazz) {
             super(25);
             this.clazz = clazz;
             init(clazz);
@@ -145,7 +145,7 @@ public final class reflection implements Library {
             set("getComponentType", new LZRFunction(v -> classOrNull(clazz.getComponentType()) ));
             set("getDeclaringClass", new LZRFunction(v -> classOrNull(clazz.getDeclaringClass()) ));
             set("getEnclosingClass", new LZRFunction(v -> classOrNull(clazz.getEnclosingClass()) ));
-            set("getSuperclass", new LZRFunction(v -> new ClassValue(clazz.getSuperclass()) ));
+            set("getSuperclass", new LZRFunction(v -> new JavaClassValue(clazz.getSuperclass()) ));
 
             set("getClasses", new LZRFunction(v -> array(clazz.getClasses()) ));
             set("getDeclaredClasses", new LZRFunction(v -> array(clazz.getDeclaredClasses()) ));
@@ -159,12 +159,12 @@ public final class reflection implements Library {
 
         private Value asSubclass(Value[] args) {
             Arguments.check(1, args.length);
-            return new ClassValue(clazz.asSubclass( ((ClassValue)args[0]).clazz ));
+            return new JavaClassValue(clazz.asSubclass( ((JavaClassValue)args[0]).clazz ));
         }
 
         private Value isAssignableFrom(Value[] args) {
             Arguments.check(1, args.length);
-            return LZRNumber.fromBoolean(clazz.isAssignableFrom( ((ClassValue)args[0]).clazz ));
+            return LZRNumber.fromBoolean(clazz.isAssignableFrom( ((JavaClassValue)args[0]).clazz ));
         }
 
         @Override
@@ -240,24 +240,24 @@ public final class reflection implements Library {
         return LZRNumber.ZERO;
     }
 
-    private Value newClass(Value[] args) {
+    private Value JClass(Value[] args) {
         Arguments.check(1, args.length);
 
         final String className = args[0].asString();
         try {
-            return new ClassValue(Class.forName(className));
+            return new JavaClassValue(Class.forName(className));
         } catch (ClassNotFoundException ce) {
             throw new RuntimeException("Class " + className + " not found.", ce);
         }
     }
 
-    private Value toObject(Value[] args) {
+    private Value JObject(Value[] args) {
         Arguments.check(1, args.length);
         if (args[0] == NULL) return NULL;
         return new ObjectValue(valueToObject(args[0]));
     }
 
-    private Value toValue(Value[] args) {
+    private Value LZRValue(Value[] args) {
         Arguments.check(1, args.length);
         if (args[0] instanceof ObjectValue) {
             return objectToValue( ((ObjectValue) args[0]).object );
@@ -380,7 +380,7 @@ public final class reflection implements Library {
     private static LZRArray array(Class<?>[] classes) {
         final LZRArray result = new LZRArray(classes.length);
         for (int i = 0; i < classes.length; i++) {
-            result.set(i, ClassValue.classOrNull(classes[i]));
+            result.set(i, JavaClassValue.classOrNull(classes[i]));
         }
         return result;
     }
@@ -498,8 +498,8 @@ public final class reflection implements Library {
         if (value instanceof ObjectValue) {
             return ((ObjectValue) value).object;
         }
-        if (value instanceof ClassValue) {
-            return ((ClassValue) value).clazz;
+        if (value instanceof JavaClassValue) {
+            return ((JavaClassValue) value).clazz;
         }
         return value.raw();
     }

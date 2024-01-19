@@ -1,7 +1,7 @@
 package com.kingmang.lazurite.runner;
 
 
-import com.kingmang.lazurite.Handler;
+import com.kingmang.lazurite.utils.Handler;
 import com.kingmang.lazurite.editors.Editor;
 
 import java.io.BufferedReader;

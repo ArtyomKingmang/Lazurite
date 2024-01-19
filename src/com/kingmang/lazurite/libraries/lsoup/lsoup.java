@@ -14,6 +14,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+import javax.swing.*;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 
@@ -57,6 +58,8 @@ public class lsoup implements Library {
             Variables.set("document", new LZRString((docs).getBytes(StandardCharsets.UTF_8).toString()));
             docum = doc;
             return new LZRString(docum.toString());
+
+
         }
     }
 

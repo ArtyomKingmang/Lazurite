@@ -1,7 +1,7 @@
 using "jloader"
 
 func main(){
-    jloader.invoke("C:/Users/crowb/Desktop/Lazurite/examples/jloader/printer.jar", "com.monsler.printer.Printer", "print", "Hello from java!", 1)
+    jloader.invoke("examples/jloader/printer.java", "com.monsler.printer.Printer", "print", "Hello from java!", 1)
 
     //Аргументы:
     /*

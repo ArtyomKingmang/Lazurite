@@ -1,4 +1,4 @@
-package com.kingmang.lazurite;
+package com.kingmang.lazurite.utils;
 
 import java.io.FileWriter;
 

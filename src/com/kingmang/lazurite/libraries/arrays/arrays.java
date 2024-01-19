@@ -12,8 +12,6 @@ import com.kingmang.lazurite.utils.ValueUtils;
 
 
 public final class arrays implements Library {
-
-
     @Override
     public void init() {
         LZRMap array = new LZRMap(4);
@@ -102,8 +100,6 @@ public final class arrays implements Library {
         Variables.define("arrays", array);
 
     }
-
-
 
 
 }
