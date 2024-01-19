@@ -1,7 +1,5 @@
 <div align="center">
   <img src="icon.png" width="300">
-
-Lazurite package to build jar(s) with ur .lzr scripts.
 </div>
 
 ## More About Languge
