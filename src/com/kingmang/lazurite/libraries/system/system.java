@@ -50,7 +50,19 @@ public class system implements Library {
                 return map;
             }
         });
-
+        system.set("exec", new Function() {
+            @Override
+            public Value execute(Value... args) {
+                Arguments.check(1, args.length);
+                try{
+                    Runtime.getRuntime().exec(args[0].asString());
+                    return LZRNumber.ZERO;
+                }catch (Exception ex){
+                    ex.printStackTrace();
+                }
+                return null;
+            }
+        });
         system.set("getProperty", (Value...args) -> {
             if(Objects.equals(args[0].asString(), "lzr.version")){
                 return new LZRString(VERSION());
