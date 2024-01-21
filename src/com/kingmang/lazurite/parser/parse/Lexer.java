@@ -103,7 +103,6 @@ public final class Lexer {
         Keyword.put("parseInt", Standart.parse::parseInt);
         Keyword.put("parseLong", Standart.parse::parseLong);
         Keyword.put("foreach", new Standart.foreach());
-        Keyword.put("flatmap", new Standart.flatmap());
         Keyword.put("split", new Standart.split());
         Keyword.put("filter", new Standart.filter(false));
     }

@@ -11,5 +11,3 @@ output = std.flatmap(numbers, func(x) {
 })
 
 print(output)
-
-//-r C:/Users/crowb/Desktop/Lazurite/test/test.lzr
