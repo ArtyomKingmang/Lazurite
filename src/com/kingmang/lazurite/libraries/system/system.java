@@ -13,7 +13,7 @@ import com.kingmang.lazurite.runtime.LZR.LZRString;
 import java.awt.*;
 import java.util.Objects;
 
-import static com.kingmang.lazurite.runner.Exe.VERSION;
+import static com.kingmang.lazurite.runner.RunnerInfo.VERSION;
 
 public class system implements Library {
 

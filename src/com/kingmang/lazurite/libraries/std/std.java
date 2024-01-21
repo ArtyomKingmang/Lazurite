@@ -24,13 +24,6 @@ public class std implements Library {
         std.set("toChar", new toChar());
         std.set("charAt", new charat());
         std.set("thread", new thread());
-        std.set("parseInt", new Function() {
-            @Override
-            public Value execute(Value... args) {
-                Arguments.check(1, args.length);
-                return new LZRNumber(Integer.parseInt(args[0].asString()));
-            }
-        });
 
 
         Variables.define("std", std);
