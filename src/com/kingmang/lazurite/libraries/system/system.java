@@ -64,7 +64,6 @@ public class system implements Library {
                 return null;
             }
         });
-
         system.set("getProperty", (Value...args) -> {
             if(Objects.equals(args[0].asString(), "lzr.version")){
                 return new LZRString(VERSION());
