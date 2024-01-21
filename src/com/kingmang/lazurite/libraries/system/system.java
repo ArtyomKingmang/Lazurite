@@ -50,7 +50,6 @@ public class system implements Library {
                 return map;
             }
         });
-
         system.set("exec", new Function() {
             @Override
             public Value execute(Value... args) {
@@ -72,42 +71,8 @@ public class system implements Library {
 
         });
 
-        system.set("getUsedMemory", new Function() {
-            @Override
-            public Value execute(Value... args){
-                return new LZRNumber((Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory()));
-            }
-        });
-
-        system.set("getTotalMemory", new Function() {
-            @Override
-            public Value execute(Value... args){
-                return new LZRNumber((Runtime.getRuntime().totalMemory()));
-            }
-        });
-
-        system.set("getMaxMemory", new Function() {
-            @Override
-            public Value execute(Value... args){
-                return new LZRNumber((Runtime.getRuntime().maxMemory()));
-            }
-        });
-
-        system.set("getFreeMemory", new Function() {
-            @Override
-            public Value execute(Value... args){
-                return new LZRNumber((Runtime.getRuntime().freeMemory()));
-            }
-        });
-
-        system.set("availableProcessors", new Function() {
-            @Override
-            public Value execute(Value... args){
-                return new LZRNumber((Runtime.getRuntime().availableProcessors()));
-            }
-        });
-
         Variables.define("system",system);
+
     }
 
 }
