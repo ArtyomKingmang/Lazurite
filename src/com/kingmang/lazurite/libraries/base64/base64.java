@@ -12,10 +12,12 @@ import java.nio.charset.StandardCharsets;
 import java.sql.Types;
 import java.util.Base64;
 
+
 public class base64 implements Library {
     private static final int TYPE = 8;
     @Override
     public void init() {
+
         LZRMap base = new LZRMap(1);
         base.set("encode",this::encode);
         Variables.define("base64", base);

@@ -12,7 +12,6 @@
 * [base64](#base64)
 * [clipboard](#clipboard)
 * [colors](#colors)
-* [iceCream](#iceCream)
 * [json](#json)
 * [LFS - работа с файлами](#LFS)
 * [ML](#ML)
@@ -403,6 +402,49 @@ jloader.invoke("examples/jloader/printer.java", "com.monsler.printer.Printer", "
 5 - статичность метода (0 - нет; 1 - да)
 */
 ````
+# arrays
+`arrays.combine(keys, values)` — создает массив, используя один массив для ключей, а другой — для его значений
+
+Пример:
+````java
+using "arrays"
+
+colors = ["green", "red", "yellow"]
+fruits = ["avocado", "apple", "banana"]
+
+out = arrays.combine(colors, fruits)
+print(out)
+````
+
+`arrays.keyExists(key, map)` - Проверяет, существует ли в массиве заданный ключ или индекс. Если существует, возвращает 1, иначе 0.
+
+Пример:
+````java
+using "arrays"
+map = {
+    "apple" : "red"
+    "banana" : "yellow"
+}
+print(arrays.keyExists("apple",map))
+````
+
+`arrays.join(array, "delimiter", "prefix", "suffix")` — объединяет массив в строку с разделителем, префиксом и суффиксом.
+
+Пример:
+
+````java
+using "arrays"
+array = ["banana", "apple", "pie"]
+
+out_array = arrays.join(array, "--")
+print(out_array)
+
+//Вывод: banana--apple--pie
+````
+
+`arrays.sort(array)` — сортирует массив.
+
+
 
 # async
 `async.supply(function)` - асинхронный способ получения или предоставления информации, когда данные поступают или отправляются не сразу, а по мере их доступности. Это означает, что вы можете запросить какие-то данные и продолжать выполнять другие задачи, пока данные еще не готовы. Когда данные станут доступны, они будут переданы вам для использования. Это помогает сделать программы более отзывчивыми и эффективными, так как они не блокируются в ожидании данных.
@@ -452,3 +494,39 @@ output = std.flatmap(numbers, func(x) {
 
 print(output)
 ````
+# artify
+Библиотека для преобразования текста в ASCII арт.
+
+`artify.build(text = "")` - преобразует текст с арт
+Пример:
+````java
+using "artify"
+
+print(artify.build("Hello World!"))
+````
+Вывод:
+````
+  _  _   ___   _      _       ___        __      __   ___    ___   _      ___    _ 
+ | || | | __| | |    | |     / _ \       \ \    / /  / _ \  | _ \ | |    |   \  | |
+ | __ | | _|  | |__  | |__  | (_) |       \ \/\/ /  | (_) | |   / | |__  | |) | |_|
+ |_||_| |___| |____| |____|  \___/         \_/\_/    \___/  |_|_\ |____| |___/  (_)
+````
+
+# base64
+`base64.encode(data, type = 0)` - кодирует массив байт или строку в закодированный base64 массив байт.
+
+# clipboard
+Библиотека для работы с для буфером обмена
+
+`clipboard.get()` - получить текст из буфера обмена
+
+`clipboard.set("text")` - установить текст в буфер обмена
+
+`clipboard.has()` - проверяет, есть ли текст в буфере обмена
+
+`clipboard.add("text")` - добавляет текст в конец буфера обмена
+
+`clipboard.clear()` - отчищает буфер обмена
+
+# colors
+Содержит 
