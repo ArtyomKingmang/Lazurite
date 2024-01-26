@@ -9,17 +9,9 @@ import com.kingmang.lazurite.console.Console;
 import com.kingmang.lazurite.runtime.LZR.LZRArray;
 import com.kingmang.lazurite.runtime.LZR.LZRMap;
 import com.kingmang.lazurite.runtime.LZR.LZRNumber;
+import com.kingmang.lazurite.runtime.LZR.LZRString;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
+import java.io.*;
 
 import java.nio.channels.FileChannel;
 import java.util.HashMap;
@@ -34,9 +26,12 @@ public final class LFS implements Library {
     public void init() {
         files = new HashMap<>();
         LZRMap lfs = new LZRMap(10);
+        LZRMap write = new LZRMap(11);
+        LZRMap read = new LZRMap(11);
         lfs.set("isDir", fileToBoolean(File::isDirectory));
+
         lfs.set("isFile", fileToBoolean(File::isFile));
-        lfs.set("FileSize", new fileSize());
+        lfs.set("fileSize", new fileSize());
 
         lfs.set("open", new open());
         lfs.set("close", new close());
@@ -44,21 +39,38 @@ public final class LFS implements Library {
         lfs.set("copy", new copy());
         lfs.set("delete", fileToBoolean(File::delete));
         lfs.set("scanDir", new listFiles());
-        lfs.set("addFolder", fileToBoolean(File::mkdir));
+        lfs.set("mkdir", fileToBoolean(File::mkdir));
         lfs.set("rename", new rename());
 
-        lfs.set("WBool", new WBool());
-        lfs.set("WByte", new WByte());
-        lfs.set("WChar", new WChar());
-        lfs.set("WShort", new WShort());
-        lfs.set("WInt", new WInt());
-        lfs.set("WLong", new WLong());
-        lfs.set("WFloat", new WFloat());
-        lfs.set("WDouble", new WDouble());
-        lfs.set("WUTF", new WUTF());
-        lfs.set("WLine", new WLine());
-        lfs.set("WText", new WText());
-        Variables.define("LFS", lfs);
+        read.set("boolean", new readBoolean());
+        read.set("byte", new readByte());
+        read.set("char", new readChar());
+        read.set("short", new readShort());
+        read.set("int", new readInt());
+        read.set("line", new readLine());
+        read.set("utf", new readUTF());
+        read.set("long", new readLong());
+        read.set("bytes", new readBytes());
+        read.set("allBytes", new readAllBytes());
+        read.set("float", new readFloat());
+        read.set("double", new readDouble());
+        read.set("text", new readText());
+
+        write.set("boolean", new WBool());
+        write.set("byte", new WByte());
+        write.set("char", new WChar());
+        write.set("short", new WShort());
+        write.set("int", new WInt());
+        write.set("long", new WLong());
+        write.set("float", new WFloat());
+        write.set("double", new WDouble());
+        write.set("UTF", new WUTF());
+        write.set("line", new WLine());
+        write.set("text", new WText());
+
+        lfs.set("write", write);
+        lfs.set("read", read);
+        Variables.define("lfs", lfs);
     }
 
 
@@ -268,7 +280,126 @@ public final class LFS implements Library {
             return LZRNumber.ONE;
         }
     }
-    
+    private static class readBoolean extends FileFunction {
+        @Override
+        protected Value execute(FileInfo fileInfo, Value[] args) throws IOException {
+            return LZRNumber.fromBoolean(fileInfo.dis.readBoolean());
+        }
+    }
+
+    private static class readByte extends FileFunction {
+        @Override
+        protected Value execute(FileInfo fileInfo, Value[] args) throws IOException {
+            return LZRNumber.of(fileInfo.dis.readByte());
+        }
+    }
+
+    private static class readBytes extends FileFunction {
+        @Override
+        protected Value execute(FileInfo fileInfo, Value[] args) throws IOException {
+            final LZRArray array = (LZRArray) args[1];
+            int offset = 0, length = array.size();
+            if (args.length > 3) {
+                offset = args[2].asInt();
+                length = args[3].asInt();
+            }
+
+            final byte[] buffer = new byte[length];
+            final int read = fileInfo.dis.read(buffer, 0, length);
+            for (int i = 0; i < read; i++) {
+                array.set(offset + i, LZRNumber.of(buffer[i]));
+            }
+            return LZRNumber.of(read);
+        }
+    }
+
+    private static class readAllBytes extends FileFunction {
+        @Override
+        protected Value execute(FileInfo fileInfo, Value[] args) throws IOException {
+            final int bufferSize = 4096;
+            final byte[] buffer = new byte[bufferSize];
+            final ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            int read;
+            while ((read = fileInfo.dis.read(buffer, 0, bufferSize)) != -1) {
+                baos.write(buffer, 0, read);
+            }
+            baos.flush();
+            baos.close();
+            return LZRArray.of(baos.toByteArray());
+        }
+    }
+
+    private static class readChar extends FileFunction {
+        @Override
+        protected Value execute(FileInfo fileInfo, Value[] args) throws IOException {
+            return LZRNumber.of((short)fileInfo.dis.readChar());
+        }
+    }
+
+    private static class readShort extends FileFunction {
+        @Override
+        protected Value execute(FileInfo fileInfo, Value[] args) throws IOException {
+            return LZRNumber.of(fileInfo.dis.readShort());
+        }
+    }
+
+    private static class readInt extends FileFunction {
+        @Override
+        protected Value execute(FileInfo fileInfo, Value[] args) throws IOException {
+            return LZRNumber.of(fileInfo.dis.readInt());
+        }
+    }
+
+    private static class readLong extends FileFunction {
+        @Override
+        protected Value execute(FileInfo fileInfo, Value[] args) throws IOException {
+            return LZRNumber.of(fileInfo.dis.readLong());
+        }
+    }
+
+    private static class readFloat extends FileFunction {
+        @Override
+        protected Value execute(FileInfo fileInfo, Value[] args) throws IOException {
+            return LZRNumber.of(fileInfo.dis.readFloat());
+        }
+    }
+
+    private static class readDouble extends FileFunction {
+        @Override
+        protected Value execute(FileInfo fileInfo, Value[] args) throws IOException {
+            return LZRNumber.of(fileInfo.dis.readDouble());
+        }
+    }
+
+    private static class readUTF extends FileFunction {
+        @Override
+        protected Value execute(FileInfo fileInfo, Value[] args) throws IOException {
+            return new LZRString(fileInfo.dis.readUTF());
+        }
+    }
+
+    private static class readLine extends FileFunction {
+        @Override
+        protected Value execute(FileInfo fileInfo, Value[] args) throws IOException {
+            return new LZRString(fileInfo.reader.readLine());
+        }
+    }
+
+    private static class readText extends FileFunction {
+
+        private static final int BUFFER_SIZE = 4096;
+
+        @Override
+        protected Value execute(FileInfo fileInfo, Value[] args) throws IOException {
+            final StringBuilder result = new StringBuilder();
+            final char[] buffer = new char[BUFFER_SIZE];
+            int read;
+            while ((read = fileInfo.reader.read(buffer, 0, BUFFER_SIZE)) != -1) {
+                result.append(buffer, 0, read);
+            }
+            return new LZRString(result.toString());
+        }
+    }
 
     
     private static class close extends FileFunction {

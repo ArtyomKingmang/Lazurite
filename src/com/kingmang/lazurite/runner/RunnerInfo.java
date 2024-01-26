@@ -2,7 +2,7 @@ package com.kingmang.lazurite.runner;
 
 public class RunnerInfo {
     public static String VERSION() {
-        return "2.8";
+        return "2.7.2";
     }
     public static void Help () {
         System.out.println("\n\t-------"+VERSION()+"-------\n" +

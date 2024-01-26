@@ -100,36 +100,16 @@ public class LZRArray implements Value, Iterable<Value> {
     public Value get(Value index) {
         final String prop = index.asString();
         switch (prop) {
-            // Properties
             case "length":
                 return LZRNumber.of(size());
 
-            // Functions
             case "isEmpty":
                 return Converters.voidToBoolean(() -> size() == 0);
-            case "joinToString":
-                return new LZRFunction(this::joinToString);
-
             default:
                 return get(index.asInt());
         }
     }
-    
-    public Value joinToString(Value[] args) {
-        Arguments.checkRange(0, 3, args.length);
-        switch (args.length) {
-            case 0: 
-                return joinToString(this, "", "", "");
-            case 1:
-                return joinToString(this, args[0].asString(), "", "");
-            case 2:
-                return joinToString(this, args[0].asString(), args[1].asString(), args[1].asString());
-            case 3:
-                return joinToString(this, args[0].asString(), args[1].asString(), args[2].asString());
-            default:
-                throw new LZRException("ArgumentsMismatchException","Wrong number of arguments");
-        }
-    }
+
 
     public void set(int index, Value value) {
         elements[index] = value;

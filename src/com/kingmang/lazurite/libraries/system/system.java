@@ -29,10 +29,11 @@ public class system implements Library {
             Arguments.check(0, args.length);
             return LZRNumber.of(System.nanoTime());
         });
+
         system.set("exit", (Value... args) -> {
             Arguments.check(1, args.length);
             try {
-                java.lang.System.exit((int) args[0].asNumber());
+                System.exit((int) args[0].asNumber());
             } finally {
                 Thread.currentThread().interrupt();
             }

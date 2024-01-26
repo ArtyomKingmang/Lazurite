@@ -32,11 +32,8 @@ public final class ML implements Library {
         ml.set("atan2", biFunctionConvert(Math::atan2));
         ml.set("cbrt", functionConvert(Math::cbrt));
         ml.set("ceil", functionConvert(Math::ceil));
-        ml.set("copySign", ML::copySign);
         ml.set("cos", functionConvert(Math::cos));
         ml.set("cosh", functionConvert(Math::cosh));
-        ml.set("exp", functionConvert(Math::exp));
-        ml.set("expm1", functionConvert(Math::expm1));
         ml.set("floor", functionConvert(Math::floor));
         ml.set("getExponent", ML::getExponent);
         ml.set("hypot", biFunctionConvert(Math::hypot));
@@ -46,11 +43,7 @@ public final class ML implements Library {
         ml.set("log10", functionConvert(Math::log10));
         ml.set("max", ML::max);
         ml.set("min", ML::min);
-        ml.set("nextAfter", ML::nextAfter);
-        ml.set("nextUp", functionConvert(Math::nextUp, Math::nextUp));
-        ml.set("nextDown", functionConvert(Math::nextDown, Math::nextDown));
         ml.set("pow", biFunctionConvert(Math::pow));
-        ml.set("rint", functionConvert(Math::rint));
         ml.set("round", ML::round);
         ml.set("signum", functionConvert(Math::signum, Math::signum));
         ml.set("sin", functionConvert(Math::sin));
@@ -61,7 +54,7 @@ public final class ML implements Library {
         ml.set("toDegrees", functionConvert(Math::toDegrees));
         ml.set("toRadians", functionConvert(Math::toRadians));
         ml.set("ulp", functionConvert(Math::ulp, Math::ulp));
-        Variables.define("ML", ml);
+        Variables.define("ml", ml);
     }
 
     private static Value abs(Value... args) {
