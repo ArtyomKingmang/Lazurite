@@ -5,6 +5,7 @@ import com.kingmang.lazurite.editors.Editor;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.Scanner;
 
 
 public class Jar {
@@ -21,15 +22,14 @@ public class Jar {
         if (cmd.contains("--help") || cmd.contains("-h")) {
             RunnerInfo.Help();
         } else if (cmd.contains("--run") || cmd.contains("-r")) {
-            String[] obj = cmd.split(" ");
+            Scanner scanner = new Scanner(System.in);
+            System.out.print("Enter file name: ");
+            String program = scanner.nextLine();
             try {
-                Handler.RUN(obj[1]);
-            }catch(ArrayIndexOutOfBoundsException e){
-                System.out.println("Correct entry form: -r <file>");
-            }catch (FileNotFoundException ex){
-                System.out.println("File "+obj[1]+ " not found");
+                Handler.RUN(program);
+            }catch (FileNotFoundException e){
+                System.out.println("file not found");
             }
-
         } else if (cmd.contains("--editor") || cmd.contains("-e")) {
             Editor.openEditor();
         } else if (cmd.contains("--version") || cmd.contains("-v")) {

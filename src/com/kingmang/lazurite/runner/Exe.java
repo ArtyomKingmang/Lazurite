@@ -17,35 +17,39 @@ public class Exe {
     public static int check = 0;
 
     public static void main(String[] args) throws IOException {
+
         RunnerInfo.Help();
-        System.out.println("\n------------------------------------------------------------\n");
-        BufferedReader sc = new BufferedReader(new InputStreamReader(System.in));
-        String cmd = sc.readLine();
-        if (cmd.contains("--help") || cmd.contains("-h")) {
-            RunnerInfo.Help();
+        while (true) {
+            System.out.println("\n------------------------------------------------------------\n");
+            BufferedReader sc = new BufferedReader(new InputStreamReader(System.in));
 
-        } else if (cmd.contains("--run") || cmd.contains("-r")) {
-            String[] obj = cmd.split(" ");
-            try {
-                Handler.RUN(obj[1]);
-            }catch(ArrayIndexOutOfBoundsException e){
-                System.out.println("Correct entry form: -r <file>");
-            }catch (FileNotFoundException ex){
-                System.out.println("File "+obj[1]+ " not found");
+            String cmd = sc.readLine();
+            if (cmd.contains("--help") || cmd.contains("-h")) {
+                RunnerInfo.Help();
+
+            } else if (cmd.contains("--run") || cmd.contains("-r")) {
+                String[] obj = cmd.split(" ");
+                try {
+                    Handler.RUN(obj[1]);
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    System.out.println("Correct entry form: -r <file>");
+                } catch (FileNotFoundException ex) {
+                    System.out.println("File " + obj[1] + " not found");
+                }
+
+            } else if (cmd.contains("--editor") || cmd.contains("-e")) {
+                Editor.openEditor();
+            } else if (cmd.contains("--version") || cmd.contains("-v")) {
+                System.out.println("---------------------------------");
+                System.out.println("Lazurite version: " + RunnerInfo.VERSION());
+                System.out.println("---------------------------------");
+            } else if (cmd.contains("cls")) {
+                System.out.print("\033[H\033[2J");
+                System.out.flush();
+
+            } else {
+                System.out.println("Command not found!");
             }
-
-        } else if (cmd.contains("--editor") || cmd.contains("-e")) {
-            Editor.openEditor();
-        } else if (cmd.contains("--version") || cmd.contains("-v")) {
-            System.out.println("---------------------------------");
-            System.out.println("Lazurite version: " + RunnerInfo.VERSION());
-            System.out.println("---------------------------------");
-        } else if (cmd.contains("cls")) {
-            System.out.print("\033[H\033[2J");
-            System.out.flush();
-
-        } else {
-            System.out.println("Command not found!");
         }
     }
 }
