@@ -1,9 +1,5 @@
 using "system"
 
-//os & user names
-println(os.name)
-println(user.name)
-
-//Lazurite & JVM Versions
-println(os.LZRVersion)
-println(os.JVMVersion)
+// Выводит имя операционной системы и версию lazurite
+println(system.getProperty("os.name"))
+println(system.getProperty("lzr.version"))
