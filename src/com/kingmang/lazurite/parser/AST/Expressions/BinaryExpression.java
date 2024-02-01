@@ -4,11 +4,11 @@ import com.kingmang.lazurite.exceptions.LZRException;
 import com.kingmang.lazurite.exceptions.OperationIsNotSupportedException;
 import com.kingmang.lazurite.patterns.visitor.ResultVisitor;
 import com.kingmang.lazurite.patterns.visitor.Visitor;
-import com.kingmang.lazurite.runtime.LZR.LZRArray;
+import com.kingmang.lazurite.runtime.Lzr.LzrArray;
 import com.kingmang.lazurite.libraries.Keyword;
-import com.kingmang.lazurite.runtime.LZR.LZRMap;
-import com.kingmang.lazurite.runtime.LZR.LZRNumber;
-import com.kingmang.lazurite.runtime.LZR.LZRString;
+import com.kingmang.lazurite.runtime.Lzr.LzrMap;
+import com.kingmang.lazurite.runtime.Lzr.LzrNumber;
+import com.kingmang.lazurite.runtime.Lzr.LzrString;
 import com.kingmang.lazurite.core.Types;
 import com.kingmang.lazurite.runtime.Value;
 
@@ -91,215 +91,215 @@ public final class BinaryExpression implements Expression {
     
     private Value add(Value value1, Value value2) {
         switch (value1.type()) {
-            case Types.NUMBER: return add((LZRNumber) value1, value2);
-            case Types.ARRAY: return LZRArray.add((LZRArray) value1, value2);
+            case Types.NUMBER: return add((LzrNumber) value1, value2);
+            case Types.ARRAY: return LzrArray.add((LzrArray) value1, value2);
             case Types.MAP:
                 if (value2.type() != Types.MAP)
                     throw new LZRException("TypeExeption","Cannot merge non map value to map");
-                return LZRMap.merge((LZRMap) value1, (LZRMap) value2);
+                return LzrMap.merge((LzrMap) value1, (LzrMap) value2);
             case Types.FUNCTION: /* TODO: combining functions */
             case Types.STRING:
             default:
                 // Concatenation strings
-                return new LZRString(value1.asString() + value2.asString());
+                return new LzrString(value1.asString() + value2.asString());
         }
     }
     
-    private Value add(LZRNumber value1, Value value2) {
+    private Value add(LzrNumber value1, Value value2) {
         final Number number1 = value1.raw();
         if (value2.type() == Types.NUMBER) {
             // number1 + number2
             final Number number2 = (Number) value2.raw();
             if (number1 instanceof Double || number2 instanceof Double) {
-                return LZRNumber.of(number1.doubleValue() + number2.doubleValue());
+                return LzrNumber.of(number1.doubleValue() + number2.doubleValue());
             }
             if (number1 instanceof Float || number2 instanceof Float) {
-                return LZRNumber.of(number1.floatValue() + number2.floatValue());
+                return LzrNumber.of(number1.floatValue() + number2.floatValue());
             }
             if (number1 instanceof Long || number2 instanceof Long) {
-                return LZRNumber.of(number1.longValue() + number2.longValue());
+                return LzrNumber.of(number1.longValue() + number2.longValue());
             }
-            return LZRNumber.of(number1.intValue() + number2.intValue());
+            return LzrNumber.of(number1.intValue() + number2.intValue());
         }
         // number1 + other
         if (number1 instanceof Double) {
-            return LZRNumber.of(number1.doubleValue() + value2.asNumber());
+            return LzrNumber.of(number1.doubleValue() + value2.asNumber());
         }
         if (number1 instanceof Float) {
-            return LZRNumber.of(number1.floatValue() + value2.asNumber());
+            return LzrNumber.of(number1.floatValue() + value2.asNumber());
         }
         if (number1 instanceof Long) {
-            return LZRNumber.of(number1.longValue() + value2.asInt());
+            return LzrNumber.of(number1.longValue() + value2.asInt());
         }
-        return LZRNumber.of(number1.intValue() + value2.asInt());
+        return LzrNumber.of(number1.intValue() + value2.asInt());
     }
     
     private Value subtract(Value value1, Value value2) {
         switch (value1.type()) {
-            case Types.NUMBER: return subtract((LZRNumber) value1, value2);
+            case Types.NUMBER: return subtract((LzrNumber) value1, value2);
             default:
                 throw new OperationIsNotSupportedException(operation,
                         "for " + Types.typeToString(value1.type()));
         }
     }
     
-    private Value subtract(LZRNumber value1, Value value2) {
+    private Value subtract(LzrNumber value1, Value value2) {
         final Number number1 = value1.raw();
         if (value2.type() == Types.NUMBER) {
             // number1 - number2
             final Number number2 = (Number) value2.raw();
             if (number1 instanceof Double || number2 instanceof Double) {
-                return LZRNumber.of(number1.doubleValue() - number2.doubleValue());
+                return LzrNumber.of(number1.doubleValue() - number2.doubleValue());
             }
             if (number1 instanceof Float || number2 instanceof Float) {
-                return LZRNumber.of(number1.floatValue() - number2.floatValue());
+                return LzrNumber.of(number1.floatValue() - number2.floatValue());
             }
             if (number1 instanceof Long || number2 instanceof Long) {
-                return LZRNumber.of(number1.longValue() - number2.longValue());
+                return LzrNumber.of(number1.longValue() - number2.longValue());
             }
-            return LZRNumber.of(number1.intValue() - number2.intValue());
+            return LzrNumber.of(number1.intValue() - number2.intValue());
         }
         // number1 - other
         if (number1 instanceof Double) {
-            return LZRNumber.of(number1.doubleValue() - value2.asNumber());
+            return LzrNumber.of(number1.doubleValue() - value2.asNumber());
         }
         if (number1 instanceof Float) {
-            return LZRNumber.of(number1.floatValue() - value2.asNumber());
+            return LzrNumber.of(number1.floatValue() - value2.asNumber());
         }
         if (number1 instanceof Long) {
-            return LZRNumber.of(number1.longValue() - value2.asInt());
+            return LzrNumber.of(number1.longValue() - value2.asInt());
         }
-        return LZRNumber.of(number1.intValue() - value2.asInt());
+        return LzrNumber.of(number1.intValue() - value2.asInt());
     }
     
     private Value multiply(Value value1, Value value2) {
         switch (value1.type()) {
-            case Types.NUMBER: return multiply((LZRNumber) value1, value2);
-            case Types.STRING: return multiply((LZRString) value1, value2);
+            case Types.NUMBER: return multiply((LzrNumber) value1, value2);
+            case Types.STRING: return multiply((LzrString) value1, value2);
             default:
                 throw new OperationIsNotSupportedException(operation,
                         "for " + Types.typeToString(value1.type()));
         }
     }
     
-    private Value multiply(LZRNumber value1, Value value2) {
+    private Value multiply(LzrNumber value1, Value value2) {
         final Number number1 = value1.raw();
         if (value2.type() == Types.NUMBER) {
             // number1 * number2
             final Number number2 = (Number) value2.raw();
             if (number1 instanceof Double || number2 instanceof Double) {
-                return LZRNumber.of(number1.doubleValue() * number2.doubleValue());
+                return LzrNumber.of(number1.doubleValue() * number2.doubleValue());
             }
             if (number1 instanceof Float || number2 instanceof Float) {
-                return LZRNumber.of(number1.floatValue() * number2.floatValue());
+                return LzrNumber.of(number1.floatValue() * number2.floatValue());
             }
             if (number1 instanceof Long || number2 instanceof Long) {
-                return LZRNumber.of(number1.longValue() * number2.longValue());
+                return LzrNumber.of(number1.longValue() * number2.longValue());
             }
-            return LZRNumber.of(number1.intValue() * number2.intValue());
+            return LzrNumber.of(number1.intValue() * number2.intValue());
         }
         // number1 * other
         if (number1 instanceof Double) {
-            return LZRNumber.of(number1.doubleValue() * value2.asNumber());
+            return LzrNumber.of(number1.doubleValue() * value2.asNumber());
         }
         if (number1 instanceof Float) {
-            return LZRNumber.of(number1.floatValue() * value2.asNumber());
+            return LzrNumber.of(number1.floatValue() * value2.asNumber());
         }
         if (number1 instanceof Long) {
-            return LZRNumber.of(number1.longValue() * value2.asInt());
+            return LzrNumber.of(number1.longValue() * value2.asInt());
         }
-        return LZRNumber.of(number1.intValue() * value2.asInt());
+        return LzrNumber.of(number1.intValue() * value2.asInt());
     }
 
-    private Value multiply(LZRString value1, Value value2) {
+    private Value multiply(LzrString value1, Value value2) {
         final String string1 = value1.asString();
         final int iterations = value2.asInt();
         final StringBuilder buffer = new StringBuilder();
         for (int i = 0; i < iterations; i++) {
             buffer.append(string1);
         }
-        return new LZRString(buffer.toString());
+        return new LzrString(buffer.toString());
     }
     
     private Value divide(Value value1, Value value2) {
         switch (value1.type()) {
-            case Types.NUMBER: return divide((LZRNumber) value1, value2);
+            case Types.NUMBER: return divide((LzrNumber) value1, value2);
             default:
                 throw new OperationIsNotSupportedException(operation,
                         "for " + Types.typeToString(value1.type()));
         }
     }
     
-    private Value divide(LZRNumber value1, Value value2) {
+    private Value divide(LzrNumber value1, Value value2) {
         final Number number1 = value1.raw();
         if (value2.type() == Types.NUMBER) {
             // number1 / number2
             final Number number2 = (Number) value2.raw();
             if (number1 instanceof Double || number2 instanceof Double) {
-                return LZRNumber.of(number1.doubleValue() / number2.doubleValue());
+                return LzrNumber.of(number1.doubleValue() / number2.doubleValue());
             }
             if (number1 instanceof Float || number2 instanceof Float) {
-                return LZRNumber.of(number1.floatValue() / number2.floatValue());
+                return LzrNumber.of(number1.floatValue() / number2.floatValue());
             }
             if (number1 instanceof Long || number2 instanceof Long) {
-                return LZRNumber.of(number1.longValue() / number2.longValue());
+                return LzrNumber.of(number1.longValue() / number2.longValue());
             }
-            return LZRNumber.of(number1.intValue() / number2.intValue());
+            return LzrNumber.of(number1.intValue() / number2.intValue());
         }
         // number1 / other
         if (number1 instanceof Double) {
-            return LZRNumber.of(number1.doubleValue() / value2.asNumber());
+            return LzrNumber.of(number1.doubleValue() / value2.asNumber());
         }
         if (number1 instanceof Float) {
-            return LZRNumber.of(number1.floatValue() / value2.asNumber());
+            return LzrNumber.of(number1.floatValue() / value2.asNumber());
         }
         if (number1 instanceof Long) {
-            return LZRNumber.of(number1.longValue() / value2.asInt());
+            return LzrNumber.of(number1.longValue() / value2.asInt());
         }
-        return LZRNumber.of(number1.intValue() / value2.asInt());
+        return LzrNumber.of(number1.intValue() / value2.asInt());
     }
     
     private Value remainder(Value value1, Value value2) {
         switch (value1.type()) {
-            case Types.NUMBER: return remainder((LZRNumber) value1, value2);
+            case Types.NUMBER: return remainder((LzrNumber) value1, value2);
             default:
                 throw new OperationIsNotSupportedException(operation,
                         "for " + Types.typeToString(value1.type()));
         }
     }
     
-    private Value remainder(LZRNumber value1, Value value2) {
+    private Value remainder(LzrNumber value1, Value value2) {
         final Number number1 = value1.raw();
         if (value2.type() == Types.NUMBER) {
             // number1 % number2
             final Number number2 = (Number) value2.raw();
             if (number1 instanceof Double || number2 instanceof Double) {
-                return LZRNumber.of(number1.doubleValue() % number2.doubleValue());
+                return LzrNumber.of(number1.doubleValue() % number2.doubleValue());
             }
             if (number1 instanceof Float || number2 instanceof Float) {
-                return LZRNumber.of(number1.floatValue() % number2.floatValue());
+                return LzrNumber.of(number1.floatValue() % number2.floatValue());
             }
             if (number1 instanceof Long || number2 instanceof Long) {
-                return LZRNumber.of(number1.longValue() % number2.longValue());
+                return LzrNumber.of(number1.longValue() % number2.longValue());
             }
-            return LZRNumber.of(number1.intValue() % number2.intValue());
+            return LzrNumber.of(number1.intValue() % number2.intValue());
         }
         // number1 % other
         if (number1 instanceof Double) {
-            return LZRNumber.of(number1.doubleValue() % value2.asNumber());
+            return LzrNumber.of(number1.doubleValue() % value2.asNumber());
         }
         if (number1 instanceof Float) {
-            return LZRNumber.of(number1.floatValue() % value2.asNumber());
+            return LzrNumber.of(number1.floatValue() % value2.asNumber());
         }
         if (number1 instanceof Long) {
-            return LZRNumber.of(number1.longValue() % value2.asInt());
+            return LzrNumber.of(number1.longValue() % value2.asInt());
         }
-        return LZRNumber.of(number1.intValue() % value2.asInt());
+        return LzrNumber.of(number1.intValue() % value2.asInt());
     }
     
     private Value push(Value value1, Value value2) {
         switch (value1.type()) {
-            case Types.ARRAY: return LZRArray.add((LZRArray) value1, value2);
+            case Types.ARRAY: return LzrArray.add((LzrArray) value1, value2);
             default:
                 throw new OperationIsNotSupportedException(operation,
                         "for " + Types.typeToString(value1.type()));
@@ -308,165 +308,165 @@ public final class BinaryExpression implements Expression {
 
     private Value and(Value value1, Value value2) {
         switch (value1.type()) {
-            case Types.NUMBER: return and((LZRNumber) value1, value2);
+            case Types.NUMBER: return and((LzrNumber) value1, value2);
             default:
                 throw new OperationIsNotSupportedException(operation,
                         "for " + Types.typeToString(value1.type()));
         }
     }
     
-    private Value and(LZRNumber value1, Value value2) {
+    private Value and(LzrNumber value1, Value value2) {
         final Number number1 = value1.raw();
         if (value2.type() == Types.NUMBER) {
             // number1 & number2
             final Number number2 = (Number) value2.raw();
             if (number1 instanceof Long || number2 instanceof Long) {
-                return LZRNumber.of(number1.longValue() & number2.longValue());
+                return LzrNumber.of(number1.longValue() & number2.longValue());
             }
-            return LZRNumber.of(number1.intValue() & number2.intValue());
+            return LzrNumber.of(number1.intValue() & number2.intValue());
         }
         // number1 & other
         if (number1 instanceof Long) {
-            return LZRNumber.of(number1.longValue() & value2.asInt());
+            return LzrNumber.of(number1.longValue() & value2.asInt());
         }
-        return LZRNumber.of(number1.intValue() & value2.asInt());
+        return LzrNumber.of(number1.intValue() & value2.asInt());
     }
     
     private Value or(Value value1, Value value2) {
         switch (value1.type()) {
-            case Types.NUMBER: return or((LZRNumber) value1, value2);
+            case Types.NUMBER: return or((LzrNumber) value1, value2);
             default:
                 throw new OperationIsNotSupportedException(operation,
                         "for " + Types.typeToString(value1.type()));
         }
     }
     
-    private Value or(LZRNumber value1, Value value2) {
+    private Value or(LzrNumber value1, Value value2) {
         final Number number1 = value1.raw();
         if (value2.type() == Types.NUMBER) {
             // number1 | number2
             final Number number2 = (Number) value2.raw();
             if (number1 instanceof Long || number2 instanceof Long) {
-                return LZRNumber.of(number1.longValue() | number2.longValue());
+                return LzrNumber.of(number1.longValue() | number2.longValue());
             }
-            return LZRNumber.of(number1.intValue() | number2.intValue());
+            return LzrNumber.of(number1.intValue() | number2.intValue());
         }
         // number1 | other
         if (number1 instanceof Long) {
-            return LZRNumber.of(number1.longValue() | value2.asInt());
+            return LzrNumber.of(number1.longValue() | value2.asInt());
         }
-        return LZRNumber.of(number1.intValue() | value2.asInt());
+        return LzrNumber.of(number1.intValue() | value2.asInt());
     }
     
     private Value xor(Value value1, Value value2) {
         switch (value1.type()) {
-            case Types.NUMBER: return xor((LZRNumber) value1, value2);
+            case Types.NUMBER: return xor((LzrNumber) value1, value2);
             default:
                 throw new OperationIsNotSupportedException(operation,
                         "for " + Types.typeToString(value1.type()));
         }
     }
     
-    private Value xor(LZRNumber value1, Value value2) {
+    private Value xor(LzrNumber value1, Value value2) {
         final Number number1 = value1.raw();
         if (value2.type() == Types.NUMBER) {
             // number1 ^ number2
             final Number number2 = (Number) value2.raw();
             if (number1 instanceof Long || number2 instanceof Long) {
-                return LZRNumber.of(number1.longValue() ^ number2.longValue());
+                return LzrNumber.of(number1.longValue() ^ number2.longValue());
             }
-            return LZRNumber.of(number1.intValue() ^ number2.intValue());
+            return LzrNumber.of(number1.intValue() ^ number2.intValue());
         }
         // number1 ^ other
         if (number1 instanceof Long) {
-            return LZRNumber.of(number1.longValue() ^ value2.asInt());
+            return LzrNumber.of(number1.longValue() ^ value2.asInt());
         }
-        return LZRNumber.of(number1.intValue() ^ value2.asInt());
+        return LzrNumber.of(number1.intValue() ^ value2.asInt());
     }
     
     private Value lshift(Value value1, Value value2) {
         switch (value1.type()) {
-            case Types.NUMBER: return lshift((LZRNumber) value1, value2);
-            case Types.ARRAY: return lshift((LZRArray) value1, value2);
+            case Types.NUMBER: return lshift((LzrNumber) value1, value2);
+            case Types.ARRAY: return lshift((LzrArray) value1, value2);
             default:
                 throw new OperationIsNotSupportedException(operation,
                         "for " + Types.typeToString(value1.type()));
         }
     }
 
-    private Value lshift(LZRNumber value1, Value value2) {
+    private Value lshift(LzrNumber value1, Value value2) {
         final Number number1 = value1.raw();
         if (value2.type() == Types.NUMBER) {
             // number1 << number2
             final Number number2 = (Number) value2.raw();
             if (number1 instanceof Long || number2 instanceof Long) {
-                return LZRNumber.of(number1.longValue() << number2.longValue());
+                return LzrNumber.of(number1.longValue() << number2.longValue());
             }
-            return LZRNumber.of(number1.intValue() << number2.intValue());
+            return LzrNumber.of(number1.intValue() << number2.intValue());
         }
         // number1 << other
         if (number1 instanceof Long) {
-            return LZRNumber.of(number1.longValue() << value2.asInt());
+            return LzrNumber.of(number1.longValue() << value2.asInt());
         }
-        return LZRNumber.of(number1.intValue() << value2.asInt());
+        return LzrNumber.of(number1.intValue() << value2.asInt());
     }
 
-    private Value lshift(LZRArray value1, Value value2) {
+    private Value lshift(LzrArray value1, Value value2) {
         if (value2.type() != Types.ARRAY)
             throw new LZRException("TypeExeption", "Cannot merge non array value to array");
-        return LZRArray.merge(value1, (LZRArray) value2);
+        return LzrArray.merge(value1, (LzrArray) value2);
     }
     
     private Value rshift(Value value1, Value value2) {
         switch (value1.type()) {
-            case Types.NUMBER: return rshift((LZRNumber) value1, value2);
+            case Types.NUMBER: return rshift((LzrNumber) value1, value2);
             default:
                 throw new OperationIsNotSupportedException(operation,
                         "for " + Types.typeToString(value1.type()));
         }
     }
     
-    private Value rshift(LZRNumber value1, Value value2) {
+    private Value rshift(LzrNumber value1, Value value2) {
         final Number number1 = value1.raw();
         if (value2.type() == Types.NUMBER) {
             // number1 >> number2
             final Number number2 = (Number) value2.raw();
             if (number1 instanceof Long || number2 instanceof Long) {
-                return LZRNumber.of(number1.longValue() >> number2.longValue());
+                return LzrNumber.of(number1.longValue() >> number2.longValue());
             }
-            return LZRNumber.of(number1.intValue() >> number2.intValue());
+            return LzrNumber.of(number1.intValue() >> number2.intValue());
         }
         // number1 >> other
         if (number1 instanceof Long) {
-            return LZRNumber.of(number1.longValue() >> value2.asInt());
+            return LzrNumber.of(number1.longValue() >> value2.asInt());
         }
-        return LZRNumber.of(number1.intValue() >> value2.asInt());
+        return LzrNumber.of(number1.intValue() >> value2.asInt());
     }
     
     private Value urshift(Value value1, Value value2) {
         switch (value1.type()) {
-            case Types.NUMBER: return urshift((LZRNumber) value1, value2);
+            case Types.NUMBER: return urshift((LzrNumber) value1, value2);
             default:
                 throw new OperationIsNotSupportedException(operation,
                         "for " + Types.typeToString(value1.type()));
         }
     }
     
-    private Value urshift(LZRNumber value1, Value value2) {
+    private Value urshift(LzrNumber value1, Value value2) {
         final Number number1 = value1.raw();
         if (value2.type() == Types.NUMBER) {
             // number1 >>> number2
             final Number number2 = (Number) value2.raw();
             if (number1 instanceof Long || number2 instanceof Long) {
-                return LZRNumber.of(number1.longValue() >>> number2.longValue());
+                return LzrNumber.of(number1.longValue() >>> number2.longValue());
             }
-            return LZRNumber.of(number1.intValue() >>> number2.intValue());
+            return LzrNumber.of(number1.intValue() >>> number2.intValue());
         }
         // number1 >>> other
         if (number1 instanceof Long) {
-            return LZRNumber.of(number1.longValue() >>> value2.asInt());
+            return LzrNumber.of(number1.longValue() >>> value2.asInt());
         }
-        return LZRNumber.of(number1.intValue() >>> value2.asInt());
+        return LzrNumber.of(number1.intValue() >>> value2.asInt());
     }
     
     @Override

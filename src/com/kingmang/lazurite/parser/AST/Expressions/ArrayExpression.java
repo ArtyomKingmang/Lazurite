@@ -2,7 +2,7 @@ package com.kingmang.lazurite.parser.AST.Expressions;
 
 import com.kingmang.lazurite.patterns.visitor.ResultVisitor;
 import com.kingmang.lazurite.patterns.visitor.Visitor;
-import com.kingmang.lazurite.runtime.LZR.LZRArray;
+import com.kingmang.lazurite.runtime.Lzr.LzrArray;
 import com.kingmang.lazurite.runtime.Value;
 
 import java.util.List;
@@ -19,7 +19,7 @@ public final class ArrayExpression implements Expression {
     @Override
     public Value eval() {
         final int size = elements.size();
-        final LZRArray array = new LZRArray(size);
+        final LzrArray array = new LzrArray(size);
         for (int i = 0; i < size; i++) {
             array.set(i, elements.get(i).eval());
         }

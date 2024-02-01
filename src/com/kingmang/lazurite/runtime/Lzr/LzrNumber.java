@@ -1,26 +1,26 @@
-package com.kingmang.lazurite.runtime.LZR;
+package com.kingmang.lazurite.runtime.Lzr;
 
 
 import com.kingmang.lazurite.core.Types;
 import com.kingmang.lazurite.runtime.Value;
 
-public final class LZRNumber implements Value {
+public final class LzrNumber implements Value {
 
     private static final int CACHE_MIN = -128;
     private static final int CACHE_MAX = 127;
 
-    public static final LZRNumber MINUS_ONE;
-    public static final LZRNumber ZERO;
-    public static final LZRNumber ONE;
+    public static final LzrNumber MINUS_ONE;
+    public static final LzrNumber ZERO;
+    public static final LzrNumber ONE;
 
-    private static final LZRNumber[] NUMBER_CACHE;
+    private static final LzrNumber[] NUMBER_CACHE;
 
     static {
         final int length = CACHE_MAX - CACHE_MIN + 1;
-        NUMBER_CACHE = new LZRNumber[length];
+        NUMBER_CACHE = new LzrNumber[length];
         int value = CACHE_MIN;
         for (int i = 0; i < length; i++) {
-            NUMBER_CACHE[i] = new LZRNumber(value++);
+            NUMBER_CACHE[i] = new LzrNumber(value++);
         }
 
         final int zeroIndex = -CACHE_MIN;
@@ -30,24 +30,24 @@ public final class LZRNumber implements Value {
     }
 
 
-    public static LZRNumber fromBoolean(boolean b) {
+    public static LzrNumber fromBoolean(boolean b) {
         return b ? ONE : ZERO;
     }
 
-    public static LZRNumber of(int value) {
+    public static LzrNumber of(int value) {
         if (CACHE_MIN <= value && value <= CACHE_MAX) {
             return NUMBER_CACHE[-CACHE_MIN + value];
         }
-        return new LZRNumber(value);
+        return new LzrNumber(value);
     }
 
-    public static LZRNumber of(Number value) {
-        return new LZRNumber(value);
+    public static LzrNumber of(Number value) {
+        return new LzrNumber(value);
     }
 
     private final Number value;
     
-    public LZRNumber(Number value) {
+    public LzrNumber(Number value) {
         this.value = value;
     }
     
@@ -119,7 +119,7 @@ public final class LZRNumber implements Value {
         if (obj == null) return false;
         if (getClass() != obj.getClass())
             return false;
-        final Number other = ((LZRNumber) obj).value;
+        final Number other = ((LzrNumber) obj).value;
         if (value instanceof Double || other instanceof Double) {
             return Double.compare(value.doubleValue(), other.doubleValue()) == 0;
         }
@@ -135,7 +135,7 @@ public final class LZRNumber implements Value {
     @Override
     public int compareTo(Value o) {
         if (o.type() == Types.NUMBER) {
-            final Number other = ((LZRNumber) o).value;
+            final Number other = ((LzrNumber) o).value;
             if (value instanceof Double || other instanceof Double) {
                 return Double.compare(value.doubleValue(), other.doubleValue());
             }

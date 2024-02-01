@@ -3,8 +3,8 @@ package com.kingmang.lazurite.libraries.base64;
 import com.kingmang.lazurite.core.Arguments;
 import com.kingmang.lazurite.utils.ValueUtils;
 import com.kingmang.lazurite.libraries.Library;
-import com.kingmang.lazurite.runtime.LZR.LZRArray;
-import com.kingmang.lazurite.runtime.LZR.LZRMap;
+import com.kingmang.lazurite.runtime.Lzr.LzrArray;
+import com.kingmang.lazurite.runtime.Lzr.LzrMap;
 import com.kingmang.lazurite.runtime.Value;
 import com.kingmang.lazurite.runtime.Variables;
 
@@ -18,13 +18,13 @@ public class base64 implements Library {
     @Override
     public void init() {
 
-        LZRMap base = new LZRMap(1);
+        LzrMap base = new LzrMap(1);
         base.set("encode",this::encode);
         Variables.define("base64", base);
     }
     private Value encode(Value... args){
         Arguments.checkOrOr(1,2,args.length);
-        return LZRArray.of(enc(args).encode(input(args)));
+        return LzrArray.of(enc(args).encode(input(args)));
 
     }
 
@@ -37,7 +37,7 @@ public class base64 implements Library {
     private byte[] input(Value[] args){
         byte[] input;
         if(args[0].type() == Types.ARRAY){
-            input = ValueUtils.toByteArray((LZRArray) args[0]);
+            input = ValueUtils.toByteArray((LzrArray) args[0]);
         }else{
             try{
                 input = args[0].asString().getBytes(StandardCharsets.UTF_8);

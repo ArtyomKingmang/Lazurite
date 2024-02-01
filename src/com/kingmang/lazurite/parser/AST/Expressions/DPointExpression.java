@@ -3,7 +3,7 @@ package com.kingmang.lazurite.parser.AST.Expressions;
 import com.kingmang.lazurite.parser.AST.InterruptableNode;
 import com.kingmang.lazurite.patterns.visitor.ResultVisitor;
 import com.kingmang.lazurite.patterns.visitor.Visitor;
-import com.kingmang.lazurite.runtime.LZR.LZRFunction;
+import com.kingmang.lazurite.runtime.Lzr.LzrFunction;
 import com.kingmang.lazurite.libraries.Keyword;
 
 
@@ -16,9 +16,9 @@ public final class DPointExpression extends InterruptableNode implements Express
     }
 
     @Override
-    public LZRFunction eval() {
+    public LzrFunction eval() {
         super.interruptionCheck();
-        return new LZRFunction(Keyword.get(name));
+        return new LzrFunction(Keyword.get(name));
     }
     
     @Override

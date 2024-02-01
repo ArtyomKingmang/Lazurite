@@ -1,8 +1,8 @@
 package com.kingmang.lazurite.libraries.ML;
 import com.kingmang.lazurite.core.*;
 import com.kingmang.lazurite.libraries.Library;
-import com.kingmang.lazurite.runtime.LZR.LZRMap;
-import com.kingmang.lazurite.runtime.LZR.LZRNumber;
+import com.kingmang.lazurite.runtime.Lzr.LzrMap;
+import com.kingmang.lazurite.runtime.Lzr.LzrNumber;
 import com.kingmang.lazurite.runtime.Value;
 import com.kingmang.lazurite.runtime.Variables;
 
@@ -14,17 +14,17 @@ import java.util.function.UnaryOperator;
 
 public final class ML implements Library {
 
-    private static final DoubleFunction<LZRNumber> doubleToNumber = LZRNumber::of;
+    private static final DoubleFunction<LzrNumber> doubleToNumber = LzrNumber::of;
 
     public static void initConstants() {
-        Variables.define("PI", LZRNumber.of(Math.PI));
-        Variables.define("E", LZRNumber.of(Math.E));
+        Variables.define("PI", LzrNumber.of(Math.PI));
+        Variables.define("E", LzrNumber.of(Math.E));
     }
 
     @Override
     public void init() {
         initConstants();
-        LZRMap ml = new LZRMap(9);
+        LzrMap ml = new LzrMap(9);
         ml.set("abs", ML::abs);
         ml.set("acos", functionConvert(Math::acos));
         ml.set("asin", functionConvert(Math::asin));
@@ -61,81 +61,73 @@ public final class ML implements Library {
         Arguments.check(1, args.length);
         final Object raw = args[0].raw();
         if (raw instanceof Double) {
-            return LZRNumber.of(Math.abs((double) raw));
+            return LzrNumber.of(Math.abs((double) raw));
         }
         if (raw instanceof Float) {
-            return LZRNumber.of(Math.abs((float) raw));
+            return LzrNumber.of(Math.abs((float) raw));
         }
         if (raw instanceof Long) {
-            return LZRNumber.of(Math.abs((long) raw));
+            return LzrNumber.of(Math.abs((long) raw));
         }
-        return LZRNumber.of(Math.abs(args[0].asInt()));
+        return LzrNumber.of(Math.abs(args[0].asInt()));
     }
 
     private static Value copySign(Value... args) {
         Arguments.check(2, args.length);
         final Object raw = args[0].raw();
         if (raw instanceof Float) {
-            return LZRNumber.of(Math.copySign((float) raw, ((LZRNumber) args[1]).asFloat()));
+            return LzrNumber.of(Math.copySign((float) raw, ((LzrNumber) args[1]).asFloat()));
         }
-        return LZRNumber.of(Math.copySign(args[0].asNumber(), args[1].asNumber()));
+        return LzrNumber.of(Math.copySign(args[0].asNumber(), args[1].asNumber()));
     }
 
     private static Value getExponent(Value... args) {
         Arguments.check(1, args.length);
         final Object raw = args[0].raw();
         if (raw instanceof Float) {
-            return LZRNumber.of(Math.getExponent((float) raw));
+            return LzrNumber.of(Math.getExponent((float) raw));
         }
-        return LZRNumber.of(Math.getExponent(args[0].asNumber()));
+        return LzrNumber.of(Math.getExponent(args[0].asNumber()));
     }
 
     private static Value max(Value... args) {
         Arguments.check(2, args.length);
         final Object raw = args[0].raw();
         if (raw instanceof Double) {
-            return LZRNumber.of(Math.max((double) raw, args[1].asNumber()));
+            return LzrNumber.of(Math.max((double) raw, args[1].asNumber()));
         }
         if (raw instanceof Float) {
-            return LZRNumber.of(Math.max((float) raw, ((LZRNumber) args[1]).asFloat()));
+            return LzrNumber.of(Math.max((float) raw, ((LzrNumber) args[1]).asFloat()));
         }
         if (raw instanceof Long) {
-            return LZRNumber.of(Math.max((long) raw, ((LZRNumber) args[1]).asLong()));
+            return LzrNumber.of(Math.max((long) raw, ((LzrNumber) args[1]).asLong()));
         }
-        return LZRNumber.of(Math.max(args[0].asInt(), args[1].asInt()));
+        return LzrNumber.of(Math.max(args[0].asInt(), args[1].asInt()));
     }
 
     private static Value min(Value... args) {
         Arguments.check(2, args.length);
         final Object raw = args[0].raw();
         if (raw instanceof Double) {
-            return LZRNumber.of(Math.min((double) raw, args[1].asNumber()));
+            return LzrNumber.of(Math.min((double) raw, args[1].asNumber()));
         }
         if (raw instanceof Float) {
-            return LZRNumber.of(Math.min((float) raw, ((LZRNumber) args[1]).asFloat()));
+            return LzrNumber.of(Math.min((float) raw, ((LzrNumber) args[1]).asFloat()));
         }
         if (raw instanceof Long) {
-            return LZRNumber.of(Math.min((long) raw, ((LZRNumber) args[1]).asLong()));
+            return LzrNumber.of(Math.min((long) raw, ((LzrNumber) args[1]).asLong()));
         }
-        return LZRNumber.of(Math.min(args[0].asInt(), args[1].asInt()));
+        return LzrNumber.of(Math.min(args[0].asInt(), args[1].asInt()));
     }
 
-    private static Value nextAfter(Value... args) {
-        Arguments.check(2, args.length);
-        final Object raw = args[0].raw();
-        if (raw instanceof Float) {
-            return LZRNumber.of(Math.nextAfter((float) raw, args[1].asNumber()));
-        }
-        return LZRNumber.of(Math.nextAfter(args[0].asNumber(), args[1].asNumber()));
-    }
 
     private static Value round(Value... args) {
         Arguments.check(1, args.length);
         final Object raw = args[0].raw();
         if (raw instanceof Float) {
-            return LZRNumber.of(Math.round((float) raw));
+            return LzrNumber.of(Math.round((float) raw));
         }
-        return LZRNumber.of(Math.round(args[0].asNumber()));
+        return LzrNumber.of(Math.round(args[0].asNumber()));
     }
 
 
@@ -151,9 +143,9 @@ public final class ML implements Library {
             Arguments.check(1, args.length);
             final Object raw = args[0].raw();
             if (raw instanceof Float) {
-                return LZRNumber.of(opFloat.apply((float) raw));
+                return LzrNumber.of(opFloat.apply((float) raw));
             }
-            return LZRNumber.of(opDouble.applyAsDouble(args[0].asNumber()));
+            return LzrNumber.of(opDouble.applyAsDouble(args[0].asNumber()));
         };
     }
 

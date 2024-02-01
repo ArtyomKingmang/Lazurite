@@ -7,9 +7,9 @@ import com.kingmang.lazurite.parser.AST.InterruptableNode;
 import com.kingmang.lazurite.patterns.visitor.ResultVisitor;
 import com.kingmang.lazurite.patterns.visitor.Visitor;
 import com.kingmang.lazurite.runtime.*;
-import com.kingmang.lazurite.runtime.LZR.LZRArray;
-import com.kingmang.lazurite.runtime.LZR.LZRMap;
-import com.kingmang.lazurite.runtime.LZR.LZRString;
+import com.kingmang.lazurite.runtime.Lzr.LzrArray;
+import com.kingmang.lazurite.runtime.Lzr.LzrMap;
+import com.kingmang.lazurite.runtime.Lzr.LzrString;
 
 
 import java.util.Map;
@@ -38,10 +38,10 @@ public final class ForeachAStatement extends InterruptableNode implements Statem
                 iterateString(containerValue.asString());
                 break;
             case Types.ARRAY:
-                iterateArray((LZRArray) containerValue);
+                iterateArray((LzrArray) containerValue);
                 break;
             case Types.MAP:
-                iterateMap((LZRMap) containerValue);
+                iterateMap((LzrMap) containerValue);
                 break;
             default:
                 throw new LZRException("TypeExeption","Cannot iterate " + Types.typeToString(containerValue.type()));
@@ -57,7 +57,7 @@ public final class ForeachAStatement extends InterruptableNode implements Statem
 
     private void iterateString(String str) {
         for (char ch : str.toCharArray()) {
-            Variables.set(variable, new LZRString(String.valueOf(ch)));
+            Variables.set(variable, new LzrString(String.valueOf(ch)));
             try {
                 body.execute();
             } catch (BreakStatement bs) {
@@ -68,7 +68,7 @@ public final class ForeachAStatement extends InterruptableNode implements Statem
         }
     }
 
-    private void iterateArray(LZRArray containerValue) {
+    private void iterateArray(LzrArray containerValue) {
         for (Value value : containerValue) {
             Variables.set(variable, value);
             try {
@@ -81,9 +81,9 @@ public final class ForeachAStatement extends InterruptableNode implements Statem
         }
     }
 
-    private void iterateMap(LZRMap containerValue) {
+    private void iterateMap(LzrMap containerValue) {
         for (Map.Entry<Value, Value> entry : containerValue) {
-            Variables.set(variable, new LZRArray(new Value[] {
+            Variables.set(variable, new LzrArray(new Value[] {
                     entry.getKey(),
                     entry.getValue()
             }));

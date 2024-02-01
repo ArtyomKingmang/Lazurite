@@ -3,8 +3,8 @@ package com.kingmang.lazurite.libraries.artify;
 import com.kingmang.lazurite.core.Arguments;
 import com.kingmang.lazurite.core.Function;
 import com.kingmang.lazurite.libraries.Library;
-import com.kingmang.lazurite.runtime.LZR.LZRMap;
-import com.kingmang.lazurite.runtime.LZR.LZRString;
+import com.kingmang.lazurite.runtime.Lzr.LzrMap;
+import com.kingmang.lazurite.runtime.Lzr.LzrString;
 import com.kingmang.lazurite.runtime.Value;
 import com.kingmang.lazurite.runtime.Variables;
 
@@ -203,7 +203,7 @@ public class artify implements Library {
 
     @Override
     public void init() {
-        LZRMap map = new LZRMap(1);
+        LzrMap map = new LzrMap(1);
         map.set("build", new Function() {
             @Override
             public Value execute(Value... args) {
@@ -306,7 +306,7 @@ public class artify implements Library {
                 for (int i = 0; i < 4; i++) {
                     result.append(lines[i]).append("\n");
                 }
-                return new LZRString(result.toString());
+                return new LzrString(result.toString());
             }
         });
 

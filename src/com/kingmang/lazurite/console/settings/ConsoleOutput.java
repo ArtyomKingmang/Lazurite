@@ -1,9 +1,6 @@
 package com.kingmang.lazurite.console.settings;
 
-import com.kingmang.lazurite.runtime.LZR.LZRString;
-
 import java.io.File;
-import java.util.Scanner;
 
 public class ConsoleOutput implements Output {
 

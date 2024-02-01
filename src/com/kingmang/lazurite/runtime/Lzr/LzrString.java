@@ -1,4 +1,4 @@
-package com.kingmang.lazurite.runtime.LZR;
+package com.kingmang.lazurite.runtime.Lzr;
 
 import com.kingmang.lazurite.exceptions.LZRException;
 import com.kingmang.lazurite.core.*;
@@ -8,13 +8,13 @@ import com.kingmang.lazurite.runtime.Value;
 import java.util.Objects;
 
 
-public final class LZRString implements Value {
+public final class LzrString implements Value {
     
-    public static final LZRString EMPTY = new LZRString("");
+    public static final LzrString EMPTY = new LzrString("");
     
     private final String value;
 
-    public LZRString(String value) {
+    public LzrString(String value) {
         this.value = value;
     }
 
@@ -23,27 +23,27 @@ public final class LZRString implements Value {
         final String prop = propertyValue.asString();
         switch (prop) {
             case "length":
-                return LZRNumber.of(length());
+                return LzrNumber.of(length());
             case "toLowerCase":
-                return new LZRString(value.toLowerCase());
+                return new LzrString(value.toLowerCase());
             case "toUpperCase":
-                return new LZRString(value.toUpperCase());
+                return new LzrString(value.toUpperCase());
             case "chars": {
                 final Value[] chars = new Value[length()];
                 int i = 0;
                 for (char ch : value.toCharArray()) {
-                    chars[i++] = LZRNumber.of((int) ch);
+                    chars[i++] = LzrNumber.of((int) ch);
                 }
-                return new LZRArray(chars);
+                return new LzrArray(chars);
             }
 
             case "trim":
                 return Converters.voidToString(value::trim);
             case "startsWith":
-                return new LZRFunction(args -> {
+                return new LzrFunction(args -> {
                     Arguments.checkOrOr(1, 2, args.length);
                     int offset = (args.length == 2) ? args[1].asInt() : 0;
-                    return LZRNumber.fromBoolean(value.startsWith(args[0].asString(), offset));
+                    return LzrNumber.fromBoolean(value.startsWith(args[0].asString(), offset));
                 });
             case "endsWith":
                 return Converters.stringToBoolean(value::endsWith);
@@ -57,7 +57,7 @@ public final class LZRString implements Value {
             default:
                 if (Keyword.isExists(prop)) {
                     final Function f = Keyword.get(prop);
-                    return new LZRFunction(args -> {
+                    return new LzrFunction(args -> {
                         final Value[] newArgs = new Value[args.length + 1];
                         newArgs[0] = this;
                         System.arraycopy(args, 0, newArgs, 1, args.length);
@@ -117,14 +117,14 @@ public final class LZRString implements Value {
         if (obj == null) return false;
         if (getClass() != obj.getClass())
             return false;
-        final LZRString other = (LZRString) obj;
+        final LzrString other = (LzrString) obj;
         return Objects.equals(this.value, other.value);
     }
     
     @Override
     public int compareTo(Value o) {
         if (o.type() == Types.STRING) {
-            return value.compareTo(((LZRString) o).value);
+            return value.compareTo(((LzrString) o).value);
         }
         return asString().compareTo(o.asString());
     }

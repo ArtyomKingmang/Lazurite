@@ -3,7 +3,7 @@ package com.kingmang.lazurite.parser.AST.Expressions;
 import com.kingmang.lazurite.exceptions.OperationIsNotSupportedException;
 import com.kingmang.lazurite.patterns.visitor.ResultVisitor;
 import com.kingmang.lazurite.patterns.visitor.Visitor;
-import com.kingmang.lazurite.runtime.LZR.LZRNumber;
+import com.kingmang.lazurite.runtime.Lzr.LzrNumber;
 import com.kingmang.lazurite.core.Types;
 import com.kingmang.lazurite.runtime.Value;
 
@@ -48,15 +48,15 @@ public final class ConditionalExpression implements Expression {
     public Value eval() {
         switch (operation) {
             case AND:
-                return LZRNumber.fromBoolean((expr1AsInt() != 0) && (expr2AsInt() != 0));
+                return LzrNumber.fromBoolean((expr1AsInt() != 0) && (expr2AsInt() != 0));
             case OR:
-                return LZRNumber.fromBoolean((expr1AsInt() != 0) || (expr2AsInt() != 0));
+                return LzrNumber.fromBoolean((expr1AsInt() != 0) || (expr2AsInt() != 0));
 
             case NULL_COALESCE:
                 return nullCoalesce();
 
             default:
-                return LZRNumber.fromBoolean(evalAndCompare());
+                return LzrNumber.fromBoolean(evalAndCompare());
         }
     }
 

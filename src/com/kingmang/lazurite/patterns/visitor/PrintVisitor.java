@@ -35,7 +35,7 @@ import com.kingmang.lazurite.parser.AST.Statements.Statement;
 import com.kingmang.lazurite.parser.AST.Statements.UsingStatement;
 import com.kingmang.lazurite.parser.AST.Statements.WhileStatement;
 import com.kingmang.lazurite.console.Console;
-import com.kingmang.lazurite.runtime.LZR.LZRFunction;
+import com.kingmang.lazurite.runtime.Lzr.LzrFunction;
 import com.kingmang.lazurite.core.Types;
 import com.kingmang.lazurite.runtime.UserDefinedFunction;
 
@@ -394,7 +394,7 @@ public class PrintVisitor implements ResultVisitor<StringBuilder, StringBuilder>
                 t.append('"').append(str).append('"');
                 break;
             case Types.FUNCTION:  {
-                final Function function = ((LZRFunction) s.value).getValue();
+                final Function function = ((LzrFunction) s.value).getValue();
                 if (function instanceof UserDefinedFunction) {
                     UserDefinedFunction f = (UserDefinedFunction) function;
                     t.append("def");

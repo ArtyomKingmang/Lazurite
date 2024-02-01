@@ -2,9 +2,9 @@ package com.kingmang.lazurite.libraries.gforms;
 
 
 import com.kingmang.lazurite.core.*;
-import com.kingmang.lazurite.runtime.LZR.LZRMap;
-import com.kingmang.lazurite.runtime.LZR.LZRNumber;
-import com.kingmang.lazurite.runtime.LZR.LZRString;
+import com.kingmang.lazurite.runtime.Lzr.LzrMap;
+import com.kingmang.lazurite.runtime.Lzr.LzrNumber;
+import com.kingmang.lazurite.runtime.Lzr.LzrString;
 import com.kingmang.lazurite.runtime.Value;
 import com.kingmang.lazurite.utils.ValueUtils;
 
@@ -52,12 +52,12 @@ public class JTextComponentValue extends JComponentValue {
         Arguments.check(1, args.length);
         final Function action = com.kingmang.lazurite.utils.ValueUtils.consumeFunction(args[0], 0);
         textComponent.addCaretListener((CaretEvent e) -> {
-            final LZRMap map = new LZRMap(2);
-            map.set("getDot", LZRNumber.of(e.getDot()));
-            map.set("getMark", LZRNumber.of(e.getMark()));
+            final LzrMap map = new LzrMap(2);
+            map.set("getDot", LzrNumber.of(e.getDot()));
+            map.set("getMark", LzrNumber.of(e.getMark()));
             action.execute(map);
         });
-        return LZRNumber.ZERO;
+        return LzrNumber.ZERO;
     }
     
     private Value addDocumentListener(Value[] args) {
@@ -80,13 +80,13 @@ public class JTextComponentValue extends JComponentValue {
             }
             
             private void handleDocumentEvent(DocumentEvent.EventType type, final DocumentEvent e) {
-                final LZRMap map = new LZRMap(3);
-                map.set("getLength", LZRNumber.of(e.getLength()));
-                map.set("getOffset", LZRNumber.of(e.getOffset()));
-                map.set("getType", new LZRString(e.getType().toString()));
-                action.execute(new LZRString(type.toString()), map);
+                final LzrMap map = new LzrMap(3);
+                map.set("getLength", LzrNumber.of(e.getLength()));
+                map.set("getOffset", LzrNumber.of(e.getOffset()));
+                map.set("getType", new LzrString(e.getType().toString()));
+                action.execute(new LzrString(type.toString()), map);
             }
         });
-        return LZRNumber.ZERO;
+        return LzrNumber.ZERO;
     }
 }

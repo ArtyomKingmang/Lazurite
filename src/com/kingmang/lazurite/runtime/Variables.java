@@ -1,6 +1,6 @@
 package com.kingmang.lazurite.runtime;
 
-import com.kingmang.lazurite.runtime.LZR.LZRNumber;
+import com.kingmang.lazurite.runtime.Lzr.LzrNumber;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -43,8 +43,8 @@ public final class Variables {
     public static void clear() {
         scope = new Scope();
         scope.variables.clear();
-        scope.variables.put("true", LZRNumber.ONE);
-        scope.variables.put("false", LZRNumber.ZERO);
+        scope.variables.put("true", LzrNumber.ONE);
+        scope.variables.put("false", LzrNumber.ZERO);
     }
     
     public static void push() {
@@ -74,7 +74,7 @@ public final class Variables {
                 return scopeData.scope.variables.get(key);
             }
         }
-        return LZRNumber.ZERO;
+        return LzrNumber.ZERO;
     }
     
     public static void set(String key, Value value) {

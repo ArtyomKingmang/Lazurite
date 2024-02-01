@@ -6,7 +6,7 @@ import java.awt.datatransfer.*;
 
 import com.kingmang.lazurite.libraries.Library;
 import com.kingmang.lazurite.exceptions.LZRException;
-import com.kingmang.lazurite.runtime.LZR.*;
+import com.kingmang.lazurite.runtime.Lzr.*;
 import com.kingmang.lazurite.runtime.Value;
 import com.kingmang.lazurite.runtime.Variables;
 import com.kingmang.lazurite.core.Function;
@@ -16,7 +16,7 @@ public class clipboard implements Library {
 
 	@Override
 	public void init() {
-		LZRMap clipboard = new LZRMap(5);
+		LzrMap clipboard = new LzrMap(5);
 		clipboard.set("get", new getText());
 		clipboard.set("has", new hasText());
 		clipboard.set("set", new setText());
@@ -37,9 +37,9 @@ public class clipboard implements Library {
 			} catch (IOException e) {
 				throw new LZRException("RuntimeException: ", "IOException");
 			}
-			return new LZRString(text);
+			return new LzrString(text);
 		}
-		return LZRNumber.ZERO;
+		return LzrNumber.ZERO;
 	}
 
 	public static void set(String text) {
@@ -63,10 +63,10 @@ public class clipboard implements Library {
 		public Value execute(Value... args) {
 			Arguments.check(0, args.length);
 			Value text = clipboard.get();
-			if (text != LZRNumber.ZERO && text != LZRString.EMPTY) {
-				return LZRNumber.ONE;
+			if (text != LzrNumber.ZERO && text != LzrString.EMPTY) {
+				return LzrNumber.ONE;
 			}
-			return LZRNumber.ZERO;
+			return LzrNumber.ZERO;
 		}
 	}
 
@@ -75,7 +75,7 @@ public class clipboard implements Library {
 		public Value execute(Value... args) {
 			Arguments.check(1, args.length);
 			clipboard.set(args[0].asString());
-			return LZRNumber.ZERO;
+			return LzrNumber.ZERO;
 		}
 	}
 	
@@ -84,11 +84,11 @@ public class clipboard implements Library {
 		public Value execute(Value... args) {
 			Arguments.check(1, args.length);
 			Value text = clipboard.get();
-			if (text == LZRNumber.ZERO) {
+			if (text == LzrNumber.ZERO) {
 				throw new LZRException("ClipboardException: ", "Failed to read clipboard");
 			}
 			clipboard.set(text.asString() + args[0].asString());
-			return LZRNumber.ZERO;
+			return LzrNumber.ZERO;
 		}
 	}
 
@@ -97,7 +97,7 @@ public class clipboard implements Library {
 		public Value execute(Value... args) {
 			Arguments.check(0, args.length);
 			clipboard.set("");
-			return LZRNumber.ZERO;
+			return LzrNumber.ZERO;
 		}
 	}
 }

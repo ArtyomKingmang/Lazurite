@@ -6,9 +6,11 @@ import com.kingmang.lazurite.core.CallStack;
 import com.kingmang.lazurite.parser.AST.Statements.Statement;
 import com.kingmang.lazurite.parser.AST.Statements.BlockStatement;
 import com.kingmang.lazurite.parser.AST.Expressions.Expression;
+import com.kingmang.lazurite.parser.parse.Lexer;
+import com.kingmang.lazurite.parser.parse.Parser;
 import com.kingmang.lazurite.parser.parse.Token;
 import com.kingmang.lazurite.patterns.visitor.FunctionAdder;
-import com.kingmang.lazurite.runtime.LZR.LZRNumber;
+import com.kingmang.lazurite.runtime.Lzr.LzrNumber;
 import com.kingmang.lazurite.runtime.Value;
 import com.kingmang.lazurite.runtime.Variables;
 
@@ -30,8 +32,8 @@ public class Handler {
                 }
             }
             catch (Exception ignored){}
-            final List<com.kingmang.lazurite.parser.parse.Token> tokens = new com.kingmang.lazurite.parser.parse.Lexer(input).tokenize();
-            final BlockStatement program = (BlockStatement) new com.kingmang.lazurite.parser.parse.Parser(tokens).parse();
+            final List<Token> tokens = new Lexer(input).tokenize();
+            final BlockStatement program = (BlockStatement) new Parser(tokens).parse();
             program.execute();
             if(!isExec){
                 Variables.clear();
@@ -56,19 +58,19 @@ public class Handler {
     }
     public static Value returnHandle(String input, String pathToScript) {
         try {
-            final List<com.kingmang.lazurite.parser.parse.Token> tokens = new com.kingmang.lazurite.parser.parse.Lexer(input).tokenize();
-            final Expression program = new com.kingmang.lazurite.parser.parse.Parser(tokens).expression();
+            final List<Token> tokens = new Lexer(input).tokenize();
+            final Expression program = new Parser(tokens).expression();
             return program.eval();
         } catch (LZRException ex) {
             System.out.println(String.format("%s: %s in %s", ex.getType(), ex.getText(), pathToScript));
-            return LZRNumber.ZERO;
+            return LzrNumber.ZERO;
         }
     }
 
     public static void RunProgram (String input) throws IOException {
 
-        final List<Token> tokens = com.kingmang.lazurite.parser.parse.Lexer.tokenize(input);
-        final com.kingmang.lazurite.parser.parse.Parser parser = new com.kingmang.lazurite.parser.parse.Parser(tokens);
+        final List<Token> tokens = Lexer.tokenize(input);
+        final Parser parser = new Parser(tokens);
         final Statement parsedProgram = parser.parse();
         if (parser.getParseErrors().hasErrors()) {
             System.out.println(parser.getParseErrors());

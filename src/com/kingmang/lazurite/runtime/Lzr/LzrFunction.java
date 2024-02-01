@@ -1,4 +1,4 @@
-package com.kingmang.lazurite.runtime.LZR;
+package com.kingmang.lazurite.runtime.Lzr;
 
 import com.kingmang.lazurite.exceptions.LZRException;
 import com.kingmang.lazurite.core.Function;
@@ -8,14 +8,14 @@ import com.kingmang.lazurite.runtime.Value;
 import java.util.Objects;
 
 
-public class LZRFunction implements Value {
+public class LzrFunction implements Value {
 
-    public static final LZRFunction EMPTY = new LZRFunction(args -> LZRNumber.ZERO);
+    public static final LzrFunction EMPTY = new LzrFunction(args -> LzrNumber.ZERO);
 
 
     private final Function value;
 
-    public LZRFunction(Function value) {
+    public LzrFunction(Function value) {
         this.value = value;
     }
     
@@ -69,7 +69,7 @@ public class LZRFunction implements Value {
         if (obj == null) return false;
         if (getClass() != obj.getClass())
             return false;
-        final LZRFunction other = (LZRFunction) obj;
+        final LzrFunction other = (LzrFunction) obj;
         return Objects.equals(this.value, other.value);
     }
     

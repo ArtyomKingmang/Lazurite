@@ -7,7 +7,7 @@ import com.kingmang.lazurite.parser.AST.Expressions.Expression;
 import com.kingmang.lazurite.parser.AST.InterruptableNode;
 import com.kingmang.lazurite.patterns.visitor.ResultVisitor;
 import com.kingmang.lazurite.patterns.visitor.Visitor;
-import com.kingmang.lazurite.runtime.LZR.LZRArray;
+import com.kingmang.lazurite.runtime.Lzr.LzrArray;
 import com.kingmang.lazurite.core.Types;
 import com.kingmang.lazurite.runtime.Value;
 import com.kingmang.lazurite.libraries.Library;
@@ -32,7 +32,7 @@ public final class UsingStatement extends InterruptableNode implements Statement
         final Value value = expression.eval();
         switch (value.type()) {
             case Types.ARRAY:
-                for (Value module : ((LZRArray) value)) {
+                for (Value module : ((LzrArray) value)) {
                     loadModule(module.asString());
                 }
                 break;

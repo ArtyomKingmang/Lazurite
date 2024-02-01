@@ -2,8 +2,8 @@ package com.kingmang.lazurite.libraries.gforms;
 
 
 import com.kingmang.lazurite.core.*;
-import com.kingmang.lazurite.runtime.LZR.LZRFunction;
-import com.kingmang.lazurite.runtime.LZR.LZRNumber;
+import com.kingmang.lazurite.runtime.Lzr.LzrFunction;
+import com.kingmang.lazurite.runtime.Lzr.LzrNumber;
 import com.kingmang.lazurite.runtime.Value;
 import com.kingmang.lazurite.utils.ValueUtils;
 
@@ -20,10 +20,10 @@ public class AbstractButtonValue extends JComponentValue {
     }
 
     private void init() {
-        set("onClick", new LZRFunction(this::addActionListener));
-        set("addActionListener", new LZRFunction(this::addActionListener));
-        set("onChange", new LZRFunction(this::addChangeListener));
-        set("addChangeListener", new LZRFunction(this::addChangeListener));
+        set("onClick", new LzrFunction(this::addActionListener));
+        set("addActionListener", new LzrFunction(this::addActionListener));
+        set("onChange", new LzrFunction(this::addChangeListener));
+        set("addChangeListener", new LzrFunction(this::addChangeListener));
         set("doClick", Converters.intOptToVoid(abstractButton::doClick, abstractButton::doClick));
         set("getActionCommand", Converters.voidToString(abstractButton::getActionCommand));
         set("getDisplayedMnemonicIndex", Converters.voidToInt(abstractButton::getDisplayedMnemonicIndex));
@@ -48,13 +48,13 @@ public class AbstractButtonValue extends JComponentValue {
         Arguments.check(1, args.length);
         final Function action = com.kingmang.lazurite.utils.ValueUtils.consumeFunction(args[0], 0);
         abstractButton.addActionListener(e -> action.execute());
-        return LZRNumber.ZERO;
+        return LzrNumber.ZERO;
     }
     
     private Value addChangeListener(Value[] args) {
         Arguments.check(1, args.length);
         final Function action = ValueUtils.consumeFunction(args[0], 0);
         abstractButton.addChangeListener(e -> action.execute());
-        return LZRNumber.ZERO;
+        return LzrNumber.ZERO;
     }
 }

@@ -1,1 +1,8 @@
+using "robot"
+i = 0
+while(i < 10){
+    robot.keyPress(KEY.W)
+    i++
+}
+
 

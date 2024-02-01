@@ -12,9 +12,9 @@ import java.util.Map;
 import java.util.Set;
 
 import com.kingmang.lazurite.parser.standart.Standart;
-import com.kingmang.lazurite.runtime.LZR.LZRMap;
-import com.kingmang.lazurite.runtime.LZR.LZRNumber;
-import com.kingmang.lazurite.runtime.LZR.LZRString;
+import com.kingmang.lazurite.runtime.Lzr.LzrMap;
+import com.kingmang.lazurite.runtime.Lzr.LzrNumber;
+import com.kingmang.lazurite.runtime.Lzr.LzrString;
 import com.kingmang.lazurite.runtime.Variables;
 
 
@@ -68,26 +68,26 @@ public final class Lexer {
     }
 
     public static void types() {
-        LZRMap type = new LZRMap(5);
-        type.set("object", LZRNumber.of(Types.OBJECT));
-        type.set("number", LZRNumber.of(Types.NUMBER));
-        type.set("string", LZRNumber.of(Types.STRING));
-        type.set("array", LZRNumber.of(Types.ARRAY));
-        type.set("map", LZRNumber.of(Types.MAP));
-        type.set("function", LZRNumber.of(Types.FUNCTION));
+        LzrMap type = new LzrMap(5);
+        type.set("object", LzrNumber.of(Types.OBJECT));
+        type.set("number", LzrNumber.of(Types.NUMBER));
+        type.set("string", LzrNumber.of(Types.STRING));
+        type.set("array", LzrNumber.of(Types.ARRAY));
+        type.set("map", LzrNumber.of(Types.MAP));
+        type.set("function", LzrNumber.of(Types.FUNCTION));
         Variables.define("type", type);
-        Keyword.put("typeof", args -> LZRNumber.of(args[0].type()));
+        Keyword.put("typeof", args -> LzrNumber.of(args[0].type()));
     }
 
     public static void convertTypes(){
-        Keyword.put("str", args -> new LZRString(args[0].asString()));
-        Keyword.put("num", args -> LZRNumber.of(args[0].asNumber()));
-        Keyword.put("byte", args -> LZRNumber.of((byte)args[0].asInt()));
-        Keyword.put("short", args -> LZRNumber.of((short)args[0].asInt()));
-        Keyword.put("int", args -> LZRNumber.of(args[0].asInt()));
-        Keyword.put("long", args -> LZRNumber.of((long)args[0].asNumber()));
-        Keyword.put("float", args -> LZRNumber.of((float)args[0].asNumber()));
-        Keyword.put("double", args -> LZRNumber.of(args[0].asNumber()));
+        Keyword.put("str", args -> new LzrString(args[0].asString()));
+        Keyword.put("num", args -> LzrNumber.of(args[0].asNumber()));
+        Keyword.put("byte", args -> LzrNumber.of((byte)args[0].asInt()));
+        Keyword.put("short", args -> LzrNumber.of((short)args[0].asInt()));
+        Keyword.put("int", args -> LzrNumber.of(args[0].asInt()));
+        Keyword.put("long", args -> LzrNumber.of((long)args[0].asNumber()));
+        Keyword.put("float", args -> LzrNumber.of((float)args[0].asNumber()));
+        Keyword.put("double", args -> LzrNumber.of(args[0].asNumber()));
     }
 
     private static void standart(){

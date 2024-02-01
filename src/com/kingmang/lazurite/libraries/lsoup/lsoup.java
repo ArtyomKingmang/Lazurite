@@ -3,8 +3,8 @@ package com.kingmang.lazurite.libraries.lsoup;
 
 import com.kingmang.lazurite.core.Function;
 import com.kingmang.lazurite.libraries.Library;
-import com.kingmang.lazurite.runtime.LZR.LZRMap;
-import com.kingmang.lazurite.runtime.LZR.LZRString;
+import com.kingmang.lazurite.runtime.Lzr.LzrMap;
+import com.kingmang.lazurite.runtime.Lzr.LzrString;
 import com.kingmang.lazurite.runtime.Value;
 import com.kingmang.lazurite.runtime.Variables;
 
@@ -14,7 +14,6 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-import javax.swing.*;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 
@@ -27,7 +26,7 @@ public class lsoup implements Library {
 
     @Override
     public void init() {
-        LZRMap lsoup = new LZRMap(3);
+        LzrMap lsoup = new LzrMap(3);
         lsoup.set("parse", new pars());
         lsoup.set("select", new select());
         lsoup.set("body", new body());
@@ -38,9 +37,9 @@ public class lsoup implements Library {
         @Override
         public Value execute(Value... args) {
             if (docum != null) {
-                return new LZRString(docum.body().toString());
+                return new LzrString(docum.body().toString());
             } else {
-                return new LZRString("Document not parsed yet");
+                return new LzrString("Document not parsed yet");
             }
         }
     }
@@ -55,9 +54,9 @@ public class lsoup implements Library {
                 e.printStackTrace();
             }
             docs = doc.toString();
-            Variables.set("document", new LZRString((docs).getBytes(StandardCharsets.UTF_8).toString()));
+            Variables.set("document", new LzrString((docs).getBytes(StandardCharsets.UTF_8).toString()));
             docum = doc;
-            return new LZRString(docum.toString());
+            return new LzrString(docum.toString());
 
 
         }
@@ -68,9 +67,9 @@ public class lsoup implements Library {
         @Override
         public Value execute(Value... args) {
             Elements divs = docum.select(args[0].toString());
-            Variables.set("elements", new LZRString((divs.toString()).getBytes(StandardCharsets.UTF_8).toString()));
+            Variables.set("elements", new LzrString((divs.toString()).getBytes(StandardCharsets.UTF_8).toString()));
             element = divs;
-            return new LZRString(element.toString());
+            return new LzrString(element.toString());
         }
     }
 

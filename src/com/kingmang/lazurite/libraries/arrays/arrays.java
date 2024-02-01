@@ -3,9 +3,9 @@ import com.kingmang.lazurite.exceptions.LZRException;
 import com.kingmang.lazurite.core.*;
 
 import com.kingmang.lazurite.libraries.Library;
-import com.kingmang.lazurite.runtime.LZR.LZRArray;
-import com.kingmang.lazurite.runtime.LZR.LZRMap;
-import com.kingmang.lazurite.runtime.LZR.LZRNumber;
+import com.kingmang.lazurite.runtime.Lzr.LzrArray;
+import com.kingmang.lazurite.runtime.Lzr.LzrMap;
+import com.kingmang.lazurite.runtime.Lzr.LzrNumber;
 import com.kingmang.lazurite.runtime.Value;
 import com.kingmang.lazurite.runtime.Variables;
 import com.kingmang.lazurite.utils.ValueUtils;
@@ -14,7 +14,7 @@ import com.kingmang.lazurite.utils.ValueUtils;
 public final class arrays implements Library {
     @Override
     public void init() {
-        LZRMap array = new LZRMap(4);
+        LzrMap array = new LzrMap(4);
         array.set("join", new Function() {
             @Override
             public Value execute(Value... args) {
@@ -23,16 +23,16 @@ public final class arrays implements Library {
                     throw new LZRException("TypeExeption ","Array expected in first argument");
                 }
 
-                final LZRArray array = (LZRArray) args[0];
+                final LzrArray array = (LzrArray) args[0];
                 switch (args.length) {
                     case 1:
-                        return LZRArray.joinToString(array, "", "", "");
+                        return LzrArray.joinToString(array, "", "", "");
                     case 2:
-                        return LZRArray.joinToString(array, args[1].asString(), "", "");
+                        return LzrArray.joinToString(array, args[1].asString(), "", "");
                     case 3:
-                        return LZRArray.joinToString(array, args[1].asString(), args[2].asString(), args[2].asString());
+                        return LzrArray.joinToString(array, args[1].asString(), args[2].asString(), args[2].asString());
                     case 4:
-                        return LZRArray.joinToString(array, args[1].asString(), args[2].asString(), args[3].asString());
+                        return LzrArray.joinToString(array, args[1].asString(), args[2].asString(), args[3].asString());
                     default:
                         throw new LZRException("ArgumentsMismatchException ","Wrong number of arguments");
                 }
@@ -45,7 +45,7 @@ public final class arrays implements Library {
                 if (args[0].type() != Types.ARRAY) {
                     throw new LZRException("TypeExeption ","Array expected in first argument");
                 }
-                final Value[] elements = ((LZRArray) args[0]).getCopyElements();
+                final Value[] elements = ((LzrArray) args[0]).getCopyElements();
 
                 switch (args.length) {
                     case 1:
@@ -59,7 +59,7 @@ public final class arrays implements Library {
                         throw new LZRException("ArgumentsMismatchException ","Wrong number of arguments");
                 }
 
-                return new LZRArray(elements);
+                return new LzrArray(elements);
             }
 
         });
@@ -74,11 +74,11 @@ public final class arrays implements Library {
                     throw new LZRException("TypeException", "Array expected in second argument");
                 }
 
-                final LZRArray keys = ((LZRArray) args[0]);
-                final LZRArray values = ((LZRArray) args[1]);
+                final LzrArray keys = ((LzrArray) args[0]);
+                final LzrArray values = ((LzrArray) args[1]);
                 final int length = Math.min(keys.size(), values.size());
 
-                final LZRMap result = new LZRMap(length);
+                final LzrMap result = new LzrMap(length);
                 for (int i = 0; i < length; i++) {
                     result.set(keys.get(i), values.get(i));
                 }
@@ -93,8 +93,8 @@ public final class arrays implements Library {
                 if (args[1].type() != Types.MAP) {
                     throw new LZRException("TypeException","Map expected in second argument");
                 }
-                final LZRMap map = ((LZRMap) args[1]);
-                return LZRNumber.fromBoolean(map.containsKey(args[0]));
+                final LzrMap map = ((LzrMap) args[1]);
+                return LzrNumber.fromBoolean(map.containsKey(args[0]));
             }
         });
         Variables.define("arrays", array);

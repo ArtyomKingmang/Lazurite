@@ -7,7 +7,7 @@ import com.kingmang.lazurite.libraries.Keyword;
 import com.kingmang.lazurite.core.Types;
 import com.kingmang.lazurite.libraries.Library;
 import com.kingmang.lazurite.console.Console;
-import com.kingmang.lazurite.runtime.LZR.*;
+import com.kingmang.lazurite.runtime.Lzr.*;
 import com.kingmang.lazurite.runtime.Value;
 import com.kingmang.lazurite.runtime.Variables;
 import com.kingmang.lazurite.utils.ValueUtils;
@@ -21,7 +21,7 @@ public class std implements Library {
     }
     @Override
     public void init(){
-        LZRMap std = new LZRMap(3);
+        LzrMap std = new LzrMap(3);
         initConstants();
         std.set("flatmap", new flatmap());
         std.set("thread", new thread());
@@ -37,10 +37,10 @@ public class std implements Library {
                 throw new LZRException("TypeExeption ", "Array expected in first argument");
             }
             final Function mapper = ValueUtils.consumeFunction(args[1], 1);
-            return flatMapArray((LZRArray) args[0], mapper);
+            return flatMapArray((LzrArray) args[0], mapper);
         }
 
-        private Value flatMapArray(LZRArray array, Function mapper) {
+        private Value flatMapArray(LzrArray array, Function mapper) {
             final List<Value> values = new ArrayList<>();
             final int size = array.size();
             for (int i = 0; i < size; i++) {
@@ -48,11 +48,11 @@ public class std implements Library {
                 if (inner.type() != Types.ARRAY) {
                     throw new LZRException("TypeExeption ", "Array expected " + inner);
                 }
-                for (Value value : (LZRArray) inner) {
+                for (Value value : (LzrArray) inner) {
                     values.add(value);
                 }
             }
-            return new LZRArray(values);
+            return new LzrArray(values);
         }
     }
     public final class thread implements Function {
@@ -63,7 +63,7 @@ public class std implements Library {
 
             Function body;
             if (args[0].type() == Types.FUNCTION) {
-                body = ((LZRFunction) args[0]).getValue();
+                body = ((LzrFunction) args[0]).getValue();
             } else {
                 body = Keyword.get(args[0].asString());
             }
@@ -76,7 +76,7 @@ public class std implements Library {
             final Thread thread = new Thread(() -> body.execute(params));
             thread.setUncaughtExceptionHandler(Console::handleException);
             thread.start();
-            return LZRNumber.ZERO;
+            return LzrNumber.ZERO;
         }
     }
 

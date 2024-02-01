@@ -3,8 +3,8 @@ package com.kingmang.lazurite.libraries.jloader;
 import com.kingmang.lazurite.core.Arguments;
 import com.kingmang.lazurite.core.Function;
 import com.kingmang.lazurite.libraries.Library;
-import com.kingmang.lazurite.runtime.LZR.LZRMap;
-import com.kingmang.lazurite.runtime.LZR.LZRNumber;
+import com.kingmang.lazurite.runtime.Lzr.LzrMap;
+import com.kingmang.lazurite.runtime.Lzr.LzrNumber;
 import com.kingmang.lazurite.runtime.Value;
 import com.kingmang.lazurite.runtime.Variables;
 
@@ -12,14 +12,13 @@ import java.io.File;
 import java.lang.reflect.Method;
 import java.net.URL;
 import java.net.URLClassLoader;
-import java.util.Arrays;
 
 public class jloader implements Library {
 
 
     @Override
     public void init() {
-        LZRMap base = new LZRMap(1);
+        LzrMap base = new LzrMap(1);
         base.set("invoke", new Function() {
             @Override
             public Value execute(Value... args) {
@@ -52,7 +51,7 @@ public class jloader implements Library {
                 } catch (Exception e) {
                     throw new RuntimeException(e);
                 }
-                return LZRNumber.ZERO;
+                return LzrNumber.ZERO;
             }
         });
 

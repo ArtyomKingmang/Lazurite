@@ -6,10 +6,10 @@ import com.kingmang.lazurite.core.*;
 import com.kingmang.lazurite.libraries.Library;
 import com.kingmang.lazurite.runtime.*;
 import com.kingmang.lazurite.console.Console;
-import com.kingmang.lazurite.runtime.LZR.LZRArray;
-import com.kingmang.lazurite.runtime.LZR.LZRMap;
-import com.kingmang.lazurite.runtime.LZR.LZRNumber;
-import com.kingmang.lazurite.runtime.LZR.LZRString;
+import com.kingmang.lazurite.runtime.Lzr.LzrArray;
+import com.kingmang.lazurite.runtime.Lzr.LzrMap;
+import com.kingmang.lazurite.runtime.Lzr.LzrNumber;
+import com.kingmang.lazurite.runtime.Lzr.LzrString;
 
 import java.io.*;
 
@@ -25,9 +25,9 @@ public final class LFS implements Library {
     @Override
     public void init() {
         files = new HashMap<>();
-        LZRMap lfs = new LZRMap(10);
-        LZRMap write = new LZRMap(11);
-        LZRMap read = new LZRMap(11);
+        LzrMap lfs = new LzrMap(10);
+        LzrMap write = new LzrMap(11);
+        LzrMap read = new LzrMap(11);
         lfs.set("isDir", fileToBoolean(File::isDirectory));
 
         lfs.set("isFile", fileToBoolean(File::isFile));
@@ -88,7 +88,7 @@ public final class LFS implements Library {
                 }
                 return process(file, "r");
             } catch (IOException ioe) {
-                return LZRNumber.MINUS_ONE;
+                return LzrNumber.MINUS_ONE;
             }
         }
         
@@ -112,7 +112,7 @@ public final class LFS implements Library {
             
             final int key = files.size();
             files.put(key, new FileInfo(file, dis, dos, reader, writer));
-            return LZRNumber.of(key);
+            return LzrNumber.of(key);
         }
     }
     
@@ -125,7 +125,7 @@ public final class LFS implements Library {
             try {
                 return execute(files.get(key), args);
             } catch (IOException ioe) {
-                return LZRNumber.MINUS_ONE;
+                return LzrNumber.MINUS_ONE;
             }
         }
         
@@ -135,7 +135,7 @@ public final class LFS implements Library {
     private static class listFiles extends FileFunction {
         @Override
         protected Value execute(FileInfo fileInfo, Value[] args) throws IOException {
-            return LZRArray.of(fileInfo.file.list());
+            return LzrArray.of(fileInfo.file.list());
         }
     }
 
@@ -151,9 +151,9 @@ public final class LFS implements Library {
                 ic.transferTo(0, ic.size(), os.getChannel());
                 is.close();
                 os.close();
-                return LZRNumber.ONE;
+                return LzrNumber.ONE;
             } catch (IOException ioe) {
-                return LZRNumber.MINUS_ONE;
+                return LzrNumber.MINUS_ONE;
             }
         }
     }
@@ -163,14 +163,14 @@ public final class LFS implements Library {
         @Override
         public Value execute(Value... args) {
             Arguments.check(2, args.length);
-            return LZRNumber.fromBoolean( fileFrom(args[0]).renameTo(fileFrom(args[1])) );
+            return LzrNumber.fromBoolean( fileFrom(args[0]).renameTo(fileFrom(args[1])) );
         }
     }
     
     private static class fileSize extends FileFunction {
         @Override
         protected Value execute(FileInfo fileInfo, Value[] args) throws IOException {
-            return LZRNumber.of(fileInfo.file.length());
+            return LzrNumber.of(fileInfo.file.length());
         }
     }
 
@@ -179,7 +179,7 @@ public final class LFS implements Library {
         @Override
         protected Value execute(FileInfo fileInfo, Value[] args) throws IOException {
             fileInfo.dos.writeBoolean(args[1].asInt() != 0);
-            return LZRNumber.ONE;
+            return LzrNumber.ONE;
         }
     }
     
@@ -187,7 +187,7 @@ public final class LFS implements Library {
         @Override
         protected Value execute(FileInfo fileInfo, Value[] args) throws IOException {
             fileInfo.dos.writeByte((byte) args[1].asInt());
-            return LZRNumber.ONE;
+            return LzrNumber.ONE;
         }
     }
 
@@ -200,7 +200,7 @@ public final class LFS implements Library {
                     ? ((char) args[1].asInt())
                     : args[1].asString().charAt(0);
             fileInfo.dos.writeChar(ch);
-            return LZRNumber.ONE;
+            return LzrNumber.ONE;
         }
     }
     
@@ -208,7 +208,7 @@ public final class LFS implements Library {
         @Override
         protected Value execute(FileInfo fileInfo, Value[] args) throws IOException {
             fileInfo.dos.writeShort((short) args[1].asInt());
-            return LZRNumber.ONE;
+            return LzrNumber.ONE;
         }
     }
     
@@ -216,7 +216,7 @@ public final class LFS implements Library {
         @Override
         protected Value execute(FileInfo fileInfo, Value[] args) throws IOException {
             fileInfo.dos.writeInt(args[1].asInt());
-            return LZRNumber.ONE;
+            return LzrNumber.ONE;
         }
     }
     
@@ -225,12 +225,12 @@ public final class LFS implements Library {
         protected Value execute(FileInfo fileInfo, Value[] args) throws IOException {
             final long value;
             if (args[1].type() == Types.NUMBER) {
-                value = ((LZRNumber)args[1]).asLong();
+                value = ((LzrNumber)args[1]).asLong();
             } else {
                 value = (long) args[1].asNumber();
             }
             fileInfo.dos.writeLong(value);
-            return LZRNumber.ONE;
+            return LzrNumber.ONE;
         }
     }
     
@@ -239,12 +239,12 @@ public final class LFS implements Library {
         protected Value execute(FileInfo fileInfo, Value[] args) throws IOException {
             final float value;
             if (args[1].type() == Types.NUMBER) {
-                value = ((LZRNumber)args[1]).asFloat();
+                value = ((LzrNumber)args[1]).asFloat();
             } else {
                 value = (float) args[1].asNumber();
             }
             fileInfo.dos.writeFloat(value);
-            return LZRNumber.ONE;
+            return LzrNumber.ONE;
         }
     }
     
@@ -252,7 +252,7 @@ public final class LFS implements Library {
         @Override
         protected Value execute(FileInfo fileInfo, Value[] args) throws IOException {
             fileInfo.dos.writeDouble(args[1].asNumber());
-            return LZRNumber.ONE;
+            return LzrNumber.ONE;
         }
     }
     
@@ -260,7 +260,7 @@ public final class LFS implements Library {
         @Override
         protected Value execute(FileInfo fileInfo, Value[] args) throws IOException {
             fileInfo.dos.writeUTF(args[1].asString());
-            return LZRNumber.ONE;
+            return LzrNumber.ONE;
         }
     }
     
@@ -269,7 +269,7 @@ public final class LFS implements Library {
         protected Value execute(FileInfo fileInfo, Value[] args) throws IOException {
             fileInfo.writer.write(args[1].asString());
             fileInfo.writer.newLine();
-            return LZRNumber.ONE;
+            return LzrNumber.ONE;
         }
     }
 
@@ -277,27 +277,27 @@ public final class LFS implements Library {
         @Override
         protected Value execute(FileInfo fileInfo, Value[] args) throws IOException {
             fileInfo.writer.write(args[1].asString());
-            return LZRNumber.ONE;
+            return LzrNumber.ONE;
         }
     }
     private static class readBoolean extends FileFunction {
         @Override
         protected Value execute(FileInfo fileInfo, Value[] args) throws IOException {
-            return LZRNumber.fromBoolean(fileInfo.dis.readBoolean());
+            return LzrNumber.fromBoolean(fileInfo.dis.readBoolean());
         }
     }
 
     private static class readByte extends FileFunction {
         @Override
         protected Value execute(FileInfo fileInfo, Value[] args) throws IOException {
-            return LZRNumber.of(fileInfo.dis.readByte());
+            return LzrNumber.of(fileInfo.dis.readByte());
         }
     }
 
     private static class readBytes extends FileFunction {
         @Override
         protected Value execute(FileInfo fileInfo, Value[] args) throws IOException {
-            final LZRArray array = (LZRArray) args[1];
+            final LzrArray array = (LzrArray) args[1];
             int offset = 0, length = array.size();
             if (args.length > 3) {
                 offset = args[2].asInt();
@@ -307,9 +307,9 @@ public final class LFS implements Library {
             final byte[] buffer = new byte[length];
             final int read = fileInfo.dis.read(buffer, 0, length);
             for (int i = 0; i < read; i++) {
-                array.set(offset + i, LZRNumber.of(buffer[i]));
+                array.set(offset + i, LzrNumber.of(buffer[i]));
             }
-            return LZRNumber.of(read);
+            return LzrNumber.of(read);
         }
     }
 
@@ -325,63 +325,63 @@ public final class LFS implements Library {
             }
             baos.flush();
             baos.close();
-            return LZRArray.of(baos.toByteArray());
+            return LzrArray.of(baos.toByteArray());
         }
     }
 
     private static class readChar extends FileFunction {
         @Override
         protected Value execute(FileInfo fileInfo, Value[] args) throws IOException {
-            return LZRNumber.of((short)fileInfo.dis.readChar());
+            return LzrNumber.of((short)fileInfo.dis.readChar());
         }
     }
 
     private static class readShort extends FileFunction {
         @Override
         protected Value execute(FileInfo fileInfo, Value[] args) throws IOException {
-            return LZRNumber.of(fileInfo.dis.readShort());
+            return LzrNumber.of(fileInfo.dis.readShort());
         }
     }
 
     private static class readInt extends FileFunction {
         @Override
         protected Value execute(FileInfo fileInfo, Value[] args) throws IOException {
-            return LZRNumber.of(fileInfo.dis.readInt());
+            return LzrNumber.of(fileInfo.dis.readInt());
         }
     }
 
     private static class readLong extends FileFunction {
         @Override
         protected Value execute(FileInfo fileInfo, Value[] args) throws IOException {
-            return LZRNumber.of(fileInfo.dis.readLong());
+            return LzrNumber.of(fileInfo.dis.readLong());
         }
     }
 
     private static class readFloat extends FileFunction {
         @Override
         protected Value execute(FileInfo fileInfo, Value[] args) throws IOException {
-            return LZRNumber.of(fileInfo.dis.readFloat());
+            return LzrNumber.of(fileInfo.dis.readFloat());
         }
     }
 
     private static class readDouble extends FileFunction {
         @Override
         protected Value execute(FileInfo fileInfo, Value[] args) throws IOException {
-            return LZRNumber.of(fileInfo.dis.readDouble());
+            return LzrNumber.of(fileInfo.dis.readDouble());
         }
     }
 
     private static class readUTF extends FileFunction {
         @Override
         protected Value execute(FileInfo fileInfo, Value[] args) throws IOException {
-            return new LZRString(fileInfo.dis.readUTF());
+            return new LzrString(fileInfo.dis.readUTF());
         }
     }
 
     private static class readLine extends FileFunction {
         @Override
         protected Value execute(FileInfo fileInfo, Value[] args) throws IOException {
-            return new LZRString(fileInfo.reader.readLine());
+            return new LzrString(fileInfo.reader.readLine());
         }
     }
 
@@ -397,7 +397,7 @@ public final class LFS implements Library {
             while ((read = fileInfo.reader.read(buffer, 0, BUFFER_SIZE)) != -1) {
                 result.append(buffer, 0, read);
             }
-            return new LZRString(result.toString());
+            return new LzrString(result.toString());
         }
     }
 
@@ -417,7 +417,7 @@ public final class LFS implements Library {
             if (fileInfo.writer != null) {
                 fileInfo.writer.close();
             }
-            return LZRNumber.ONE;
+            return LzrNumber.ONE;
         }
     }
 
@@ -436,7 +436,7 @@ public final class LFS implements Library {
     private static Function fileToBoolean(FileToBooleanFunction f) {
         return args -> {
             Arguments.check(1, args.length);
-            return LZRNumber.fromBoolean(f.apply(fileFrom(args[0])));
+            return LzrNumber.fromBoolean(f.apply(fileFrom(args[0])));
         };
     }
     

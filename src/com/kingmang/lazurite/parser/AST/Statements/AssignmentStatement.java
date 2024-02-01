@@ -4,8 +4,8 @@ import com.kingmang.lazurite.exceptions.LZRException;
 import com.kingmang.lazurite.parser.AST.Expressions.Expression;
 import com.kingmang.lazurite.patterns.visitor.ResultVisitor;
 import com.kingmang.lazurite.patterns.visitor.Visitor;
-import com.kingmang.lazurite.runtime.LZR.LZRNumber;
-import com.kingmang.lazurite.runtime.LZR.LZRString;
+import com.kingmang.lazurite.runtime.Lzr.LzrNumber;
+import com.kingmang.lazurite.runtime.Lzr.LzrString;
 import com.kingmang.lazurite.runtime.Value;
 import com.kingmang.lazurite.runtime.Variables;
 
@@ -39,25 +39,25 @@ public final class AssignmentStatement implements Statement {
                 // =========
                 if (mode == 1){
                     final Value result = expression.eval();
-                    Variables.set(variable, LZRNumber.of(Variables.get(variable).asInt() + result.asInt()));
+                    Variables.set(variable, LzrNumber.of(Variables.get(variable).asInt() + result.asInt()));
                 }
                 else if(mode == 2){
                     final Value result = expression.eval();
-                    Variables.set(variable, LZRNumber.of(Variables.get(variable).asInt() - result.asInt()));
+                    Variables.set(variable, LzrNumber.of(Variables.get(variable).asInt() - result.asInt()));
                 }
                 else if(mode == 3){
                     final Value result = expression.eval();
-                    Variables.set(variable, LZRNumber.of(Variables.get(variable).asInt() * result.asInt()));
+                    Variables.set(variable, LzrNumber.of(Variables.get(variable).asInt() * result.asInt()));
                 }
                 else if(mode == 4){
                     final Value result = expression.eval();
-                    Variables.set(variable, LZRNumber.of(Variables.get(variable).asInt() / result.asInt()));
+                    Variables.set(variable, LzrNumber.of(Variables.get(variable).asInt() / result.asInt()));
                 }
             }
             catch (Exception ex){
                 if (mode == 1){
                     final Value result = expression.eval();
-                    Variables.set(variable, new LZRString(Variables.get(variable).toString() + result.toString()));
+                    Variables.set(variable, new LzrString(Variables.get(variable).toString() + result.toString()));
                 }
                 else{
                     throw new LZRException("TypeError", "non-applicable operation to string");

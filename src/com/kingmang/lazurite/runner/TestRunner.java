@@ -6,7 +6,7 @@ import java.io.IOException;
 public class TestRunner {
     public static void main(String[] args) throws IOException {
         StringBuilder builder = new StringBuilder();
-        String path = "C:\\Users\\crowb\\Desktop\\Lazurite\\test\\";
+        String path = "test/";
         builder.append(path);
 
         String filename = "test.lzr";

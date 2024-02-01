@@ -4,8 +4,8 @@ import com.kingmang.lazurite.parser.AST.Expressions.Expression;
 import com.kingmang.lazurite.parser.AST.InterruptableNode;
 import com.kingmang.lazurite.patterns.visitor.ResultVisitor;
 import com.kingmang.lazurite.patterns.visitor.Visitor;
-import com.kingmang.lazurite.runtime.LZR.LZRArray;
-import com.kingmang.lazurite.runtime.LZR.LZRMap;
+import com.kingmang.lazurite.runtime.Lzr.LzrArray;
+import com.kingmang.lazurite.runtime.Lzr.LzrMap;
 import com.kingmang.lazurite.core.Types;
 import com.kingmang.lazurite.runtime.Value;
 import com.kingmang.lazurite.runtime.Variables;
@@ -31,15 +31,15 @@ public final class DestructuringAssignmentStatement extends InterruptableNode im
         final Value container = containerExpression.eval();
         switch (container.type()) {
             case Types.ARRAY:
-                execute((LZRArray) container);
+                execute((LzrArray) container);
                 break;
             case Types.MAP:
-                execute((LZRMap) container);
+                execute((LzrMap) container);
                 break;
         }
     }
     
-    private void execute(LZRArray array) {
+    private void execute(LzrArray array) {
         final int size = variables.size();
         for (int i = 0; i < size; i++) {
             final String variable = variables.get(i);
@@ -48,12 +48,12 @@ public final class DestructuringAssignmentStatement extends InterruptableNode im
             }
         }
     }
-    private void execute(LZRMap map) {
+    private void execute(LzrMap map) {
         int i = 0;
         for (Map.Entry<Value, Value> entry : map) {
             final String variable = variables.get(i);
             if (variable != null) {
-                Variables.define(variable, new LZRArray(
+                Variables.define(variable, new LzrArray(
                         new Value[] { entry.getKey(), entry.getValue() }
                 ));
             }

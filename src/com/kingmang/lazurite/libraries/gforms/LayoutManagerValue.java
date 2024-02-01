@@ -1,10 +1,10 @@
 package com.kingmang.lazurite.libraries.gforms;
 
-import com.kingmang.lazurite.runtime.LZR.LZRMap;
+import com.kingmang.lazurite.runtime.Lzr.LzrMap;
 
 import java.awt.LayoutManager;
 
-public class LayoutManagerValue extends LZRMap {
+public class LayoutManagerValue extends LzrMap {
 
     final LayoutManager layout;
 

@@ -3,9 +3,9 @@ package com.kingmang.lazurite.libraries.graph;
 import com.kingmang.lazurite.core.Function;
 import com.kingmang.lazurite.libraries.Keyword;
 import com.kingmang.lazurite.libraries.Library;
-import com.kingmang.lazurite.runtime.LZR.LZRArray;
-import com.kingmang.lazurite.runtime.LZR.LZRMap;
-import com.kingmang.lazurite.runtime.LZR.LZRNumber;
+import com.kingmang.lazurite.runtime.Lzr.LzrArray;
+import com.kingmang.lazurite.runtime.Lzr.LzrMap;
+import com.kingmang.lazurite.runtime.Lzr.LzrNumber;
 import com.kingmang.lazurite.runtime.Value;
 import com.kingmang.lazurite.runtime.Variables;
 
@@ -16,13 +16,14 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
+
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
 public class graph implements Library {
 
-    private static final LZRNumber MINUS_ONE = new LZRNumber(-1);
+    private static final LzrNumber MINUS_ONE = new LzrNumber(-1);
 
     private static JFrame frame;
     private static CanvasPanel panel;
@@ -30,83 +31,83 @@ public class graph implements Library {
     private static BufferedImage img;
     static BufferedImage image;
 
-    private static LZRNumber lastKey;
-    private static LZRArray mouseHover;
+    private static LzrNumber lastKey;
+    private static LzrArray mouseHover;
 
     public static void initColors() {
-        Variables.set("RED", new LZRNumber(16711688));
-        Variables.set("GREEN", new LZRNumber(65309));
-        Variables.set("BLUE", new LZRNumber(5887));
-        Variables.set("WHITE", new LZRNumber(16777215));
-        Variables.set("BLACK", new LZRNumber(0));
-        Variables.set("PURPLE", new LZRNumber(9109759));
-        Variables.set("PINK", new LZRNumber(16761037));
-        Variables.set("YELLOW", new LZRNumber(16776960));
+        Variables.set("RED", new LzrNumber(16711688));
+        Variables.set("GREEN", new LzrNumber(65309));
+        Variables.set("BLUE", new LzrNumber(5887));
+        Variables.set("WHITE", new LzrNumber(16777215));
+        Variables.set("BLACK", new LzrNumber(0));
+        Variables.set("PURPLE", new LzrNumber(9109759));
+        Variables.set("PINK", new LzrNumber(16761037));
+        Variables.set("YELLOW", new LzrNumber(16776960));
     }
 
     public static void initKeys() {
-        LZRMap keys = new LZRMap(70);
-        keys.set("UP", new LZRNumber(KeyEvent.VK_UP));
-        keys.set("DOWN", new LZRNumber(KeyEvent.VK_DOWN));
-        keys.set("LEFT", new LZRNumber(KeyEvent.VK_LEFT));
-        keys.set("RIGHT", new LZRNumber(KeyEvent.VK_RIGHT));
+        LzrMap keys = new LzrMap(70);
+        keys.set("UP", new LzrNumber(KeyEvent.VK_UP));
+        keys.set("DOWN", new LzrNumber(KeyEvent.VK_DOWN));
+        keys.set("LEFT", new LzrNumber(KeyEvent.VK_LEFT));
+        keys.set("RIGHT", new LzrNumber(KeyEvent.VK_RIGHT));
 
-        keys.set("0", new LZRNumber(KeyEvent.VK_0));
-        keys.set("1", new LZRNumber(KeyEvent.VK_1));
-        keys.set("2", new LZRNumber(KeyEvent.VK_2));
-        keys.set("3", new LZRNumber(KeyEvent.VK_3));
-        keys.set("4", new LZRNumber(KeyEvent.VK_4));
-        keys.set("5", new LZRNumber(KeyEvent.VK_5));
-        keys.set("6", new LZRNumber(KeyEvent.VK_6));
-        keys.set("7", new LZRNumber(KeyEvent.VK_7));
-        keys.set("8", new LZRNumber(KeyEvent.VK_8));
-        keys.set("9", new LZRNumber(KeyEvent.VK_9));
+        keys.set("0", new LzrNumber(KeyEvent.VK_0));
+        keys.set("1", new LzrNumber(KeyEvent.VK_1));
+        keys.set("2", new LzrNumber(KeyEvent.VK_2));
+        keys.set("3", new LzrNumber(KeyEvent.VK_3));
+        keys.set("4", new LzrNumber(KeyEvent.VK_4));
+        keys.set("5", new LzrNumber(KeyEvent.VK_5));
+        keys.set("6", new LzrNumber(KeyEvent.VK_6));
+        keys.set("7", new LzrNumber(KeyEvent.VK_7));
+        keys.set("8", new LzrNumber(KeyEvent.VK_8));
+        keys.set("9", new LzrNumber(KeyEvent.VK_9));
 
-        keys.set("A", new LZRNumber(KeyEvent.VK_A));
-        keys.set("B", new LZRNumber(KeyEvent.VK_B));
-        keys.set("C", new LZRNumber(KeyEvent.VK_C));
-        keys.set("D", new LZRNumber(KeyEvent.VK_D));
-        keys.set("E", new LZRNumber(KeyEvent.VK_E));
-        keys.set("F", new LZRNumber(KeyEvent.VK_F));
-        keys.set("G", new LZRNumber(KeyEvent.VK_G));
-        keys.set("H", new LZRNumber(KeyEvent.VK_H));
-        keys.set("I", new LZRNumber(KeyEvent.VK_I));
-        keys.set("J", new LZRNumber(KeyEvent.VK_J));
-        keys.set("K", new LZRNumber(KeyEvent.VK_K));
-        keys.set("L", new LZRNumber(KeyEvent.VK_L));
-        keys.set("M", new LZRNumber(KeyEvent.VK_M));
-        keys.set("N", new LZRNumber(KeyEvent.VK_N));
-        keys.set("O", new LZRNumber(KeyEvent.VK_O));
-        keys.set("P", new LZRNumber(KeyEvent.VK_P));
-        keys.set("Q", new LZRNumber(KeyEvent.VK_Q));
-        keys.set("R", new LZRNumber(KeyEvent.VK_R));
-        keys.set("S", new LZRNumber(KeyEvent.VK_S));
-        keys.set("T", new LZRNumber(KeyEvent.VK_T));
-        keys.set("U", new LZRNumber(KeyEvent.VK_U));
-        keys.set("V", new LZRNumber(KeyEvent.VK_V));
-        keys.set("W", new LZRNumber(KeyEvent.VK_W));
-        keys.set("X", new LZRNumber(KeyEvent.VK_X));
-        keys.set("Y", new LZRNumber(KeyEvent.VK_Y));
-        keys.set("Z", new LZRNumber(KeyEvent.VK_Z));
+        keys.set("A", new LzrNumber(KeyEvent.VK_A));
+        keys.set("B", new LzrNumber(KeyEvent.VK_B));
+        keys.set("C", new LzrNumber(KeyEvent.VK_C));
+        keys.set("D", new LzrNumber(KeyEvent.VK_D));
+        keys.set("E", new LzrNumber(KeyEvent.VK_E));
+        keys.set("F", new LzrNumber(KeyEvent.VK_F));
+        keys.set("G", new LzrNumber(KeyEvent.VK_G));
+        keys.set("H", new LzrNumber(KeyEvent.VK_H));
+        keys.set("I", new LzrNumber(KeyEvent.VK_I));
+        keys.set("J", new LzrNumber(KeyEvent.VK_J));
+        keys.set("K", new LzrNumber(KeyEvent.VK_K));
+        keys.set("L", new LzrNumber(KeyEvent.VK_L));
+        keys.set("M", new LzrNumber(KeyEvent.VK_M));
+        keys.set("N", new LzrNumber(KeyEvent.VK_N));
+        keys.set("O", new LzrNumber(KeyEvent.VK_O));
+        keys.set("P", new LzrNumber(KeyEvent.VK_P));
+        keys.set("Q", new LzrNumber(KeyEvent.VK_Q));
+        keys.set("R", new LzrNumber(KeyEvent.VK_R));
+        keys.set("S", new LzrNumber(KeyEvent.VK_S));
+        keys.set("T", new LzrNumber(KeyEvent.VK_T));
+        keys.set("U", new LzrNumber(KeyEvent.VK_U));
+        keys.set("V", new LzrNumber(KeyEvent.VK_V));
+        keys.set("W", new LzrNumber(KeyEvent.VK_W));
+        keys.set("X", new LzrNumber(KeyEvent.VK_X));
+        keys.set("Y", new LzrNumber(KeyEvent.VK_Y));
+        keys.set("Z", new LzrNumber(KeyEvent.VK_Z));
 
-        keys.set("TAB", new LZRNumber(KeyEvent.VK_TAB));
-        keys.set("CAPS_LOCK", new LZRNumber(KeyEvent.VK_CAPS_LOCK));
-        keys.set("CONTROL", new LZRNumber(KeyEvent.VK_CONTROL));
-        keys.set("ENTER", new LZRNumber(KeyEvent.VK_ENTER));
-        keys.set("ESCAPE", new LZRNumber(KeyEvent.VK_ESCAPE));
+        keys.set("TAB", new LzrNumber(KeyEvent.VK_TAB));
+        keys.set("CAPS_LOCK", new LzrNumber(KeyEvent.VK_CAPS_LOCK));
+        keys.set("CONTROL", new LzrNumber(KeyEvent.VK_CONTROL));
+        keys.set("ENTER", new LzrNumber(KeyEvent.VK_ENTER));
+        keys.set("ESCAPE", new LzrNumber(KeyEvent.VK_ESCAPE));
 
-        keys.set("F1", new LZRNumber(KeyEvent.VK_F1));
-        keys.set("F2", new LZRNumber(KeyEvent.VK_F2));
-        keys.set("F3", new LZRNumber(KeyEvent.VK_F3));
-        keys.set("F4", new LZRNumber(KeyEvent.VK_F4));
-        keys.set("F5", new LZRNumber(KeyEvent.VK_F5));
-        keys.set("F6", new LZRNumber(KeyEvent.VK_F6));
-        keys.set("F7", new LZRNumber(KeyEvent.VK_F7));
-        keys.set("F8", new LZRNumber(KeyEvent.VK_F8));
-        keys.set("F9", new LZRNumber(KeyEvent.VK_F9));
-        keys.set("F10", new LZRNumber(KeyEvent.VK_F10));
-        keys.set("F11", new LZRNumber(KeyEvent.VK_F11));
-        keys.set("F12", new LZRNumber(KeyEvent.VK_F12));
+        keys.set("F1", new LzrNumber(KeyEvent.VK_F1));
+        keys.set("F2", new LzrNumber(KeyEvent.VK_F2));
+        keys.set("F3", new LzrNumber(KeyEvent.VK_F3));
+        keys.set("F4", new LzrNumber(KeyEvent.VK_F4));
+        keys.set("F5", new LzrNumber(KeyEvent.VK_F5));
+        keys.set("F6", new LzrNumber(KeyEvent.VK_F6));
+        keys.set("F7", new LzrNumber(KeyEvent.VK_F7));
+        keys.set("F8", new LzrNumber(KeyEvent.VK_F8));
+        keys.set("F9", new LzrNumber(KeyEvent.VK_F9));
+        keys.set("F10", new LzrNumber(KeyEvent.VK_F10));
+        keys.set("F11", new LzrNumber(KeyEvent.VK_F11));
+        keys.set("F12", new LzrNumber(KeyEvent.VK_F12));
         Variables.define("KEY", keys);
     }
     public void initConstant(){
@@ -136,7 +137,7 @@ public class graph implements Library {
         Keyword.put("fill", new fill());
         Keyword.put("Redraw", (Function) new Redraw());
         lastKey = MINUS_ONE;
-        mouseHover = new LZRArray(new Value[]{LZRNumber.ZERO, LZRNumber.ZERO});
+        mouseHover = new LzrArray(new Value[]{LzrNumber.ZERO, LzrNumber.ZERO});
     }
 
 
@@ -148,7 +149,7 @@ public class graph implements Library {
             int w = (int) args[2].asNumber();
             int h = (int) args[3].asNumber();
             consumer.accept(x, y, w, h);
-            return LZRNumber.ZERO;
+            return LzrNumber.ZERO;
         };
     }
 
@@ -169,7 +170,7 @@ public class graph implements Library {
             addKeyListener(new KeyAdapter() {
                 @Override
                 public void keyPressed(KeyEvent e) {
-                    lastKey = new LZRNumber(e.getKeyCode());
+                    lastKey = new LzrNumber(e.getKeyCode());
                 }
 
                 @Override
@@ -180,8 +181,9 @@ public class graph implements Library {
             addMouseMotionListener(new MouseMotionAdapter() {
                 @Override
                 public void mouseMoved(MouseEvent e) {
-                    mouseHover.set(0, new LZRNumber(e.getX()));
-                    mouseHover.set(1, new LZRNumber(e.getY()));
+                    mouseHover.set(0, new LzrNumber(e.getX()));
+                    mouseHover.set(1, new LzrNumber(e.getY()));
+
                 }
             });
         }
@@ -223,7 +225,7 @@ public class graph implements Library {
             frame.add(panel);
             frame.pack();
             frame.setVisible(true);
-            return LZRNumber.ZERO;
+            return LzrNumber.ZERO;
         }
     }
 
@@ -243,7 +245,7 @@ public class graph implements Library {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            return LZRNumber.ZERO;
+            return LzrNumber.ZERO;
         }
     }
 
@@ -252,7 +254,7 @@ public class graph implements Library {
         @Override
         public Value execute(Value... args) {
             graphics.drawImage(image,args[0].asInt(),args[1].asInt(),100,100,null);
-            return LZRNumber.ZERO;
+            return LzrNumber.ZERO;
         }
     }
     private static class MouseHover implements Function {
@@ -271,7 +273,7 @@ public class graph implements Library {
             int x = (int) args[1].asNumber();
             int y = (int) args[2].asNumber();
             graphics.drawString(args[0].raw().toString(), x, y);
-            return LZRNumber.ZERO;
+            return LzrNumber.ZERO;
         }
     }
 
@@ -281,7 +283,7 @@ public class graph implements Library {
         public Value execute(Value... args) {
             panel.invalidate();
             panel.repaint();
-            return LZRNumber.ZERO;
+            return LzrNumber.ZERO;
         }
     }
 
@@ -289,7 +291,7 @@ public class graph implements Library {
         @Override
         public Value execute(Value... args) {
             graphics.translate(args[0].asNumber(),args[1].asNumber());
-            return LZRNumber.ZERO;
+            return LzrNumber.ZERO;
         }
     }
 
@@ -297,7 +299,7 @@ public class graph implements Library {
         @Override
         public Value execute(Value... args) {
             graphics.scale(args[0].asNumber(),args[1].asNumber());
-            return LZRNumber.ZERO;
+            return LzrNumber.ZERO;
         }
     }
 
@@ -305,7 +307,7 @@ public class graph implements Library {
         @Override
         public Value execute(Value... args) {
            graphics.setFont(new Font(args[0].asString(), 0, args[1].asInt()));
-            return LZRNumber.ZERO;
+            return LzrNumber.ZERO;
         }
     }
 
@@ -314,7 +316,7 @@ public class graph implements Library {
         @Override
         public Value execute(Value... args) {
             graphics.dispose();
-            return LZRNumber.ZERO;
+            return LzrNumber.ZERO;
         }
     }
 
@@ -326,13 +328,13 @@ public class graph implements Library {
         public Value execute(Value... args) {
             if (args.length == 1) {
                 graphics.rotate(args[0].asNumber());
-                return LZRNumber.ZERO;
+                return LzrNumber.ZERO;
             } else if (args.length == 3) {
                 graphics.rotate(args[0].asNumber(), args[1].asNumber(), args[2].asNumber());
             }else{
                 if (args.length >= 3) throw new RuntimeException("Three args expected");
             }
-            return LZRNumber.ZERO;
+            return LzrNumber.ZERO;
         }
     }
 
@@ -344,13 +346,13 @@ public class graph implements Library {
             if (args.length == 1) {
                 int rgb = (int) args[0].asNumber();
                 panel.setBackground(new Color(rgb));
-                return LZRNumber.ZERO;
+                return LzrNumber.ZERO;
             }
             int r = (int) args[0].asNumber();
             int g = (int) args[1].asNumber();
             int b = (int) args[2].asNumber();
             panel.setBackground(new Color(r, g, b));
-            return LZRNumber.ZERO;
+            return LzrNumber.ZERO;
         }
     }
 
@@ -360,13 +362,13 @@ public class graph implements Library {
         public Value execute(Value... args) {
             if (args.length == 1) {
                 graphics.setColor(new Color((int) args[0].asNumber()));
-                return LZRNumber.ZERO;
+                return LzrNumber.ZERO;
             }
             int r = (int) args[0].asNumber();
             int g = (int) args[1].asNumber();
             int b = (int) args[2].asNumber();
             graphics.setColor(new Color(r, g, b));
-            return LZRNumber.ZERO;
+            return LzrNumber.ZERO;
         }
     }
 

@@ -2,10 +2,9 @@ package com.kingmang.lazurite.libraries.time;
 
 
 import com.kingmang.lazurite.core.Arguments;
-import com.kingmang.lazurite.core.Function;
 import com.kingmang.lazurite.libraries.Library;
-import com.kingmang.lazurite.runtime.LZR.LZRMap;
-import com.kingmang.lazurite.runtime.LZR.LZRNumber;
+import com.kingmang.lazurite.runtime.Lzr.LzrMap;
+import com.kingmang.lazurite.runtime.Lzr.LzrNumber;
 import com.kingmang.lazurite.runtime.Value;
 import com.kingmang.lazurite.runtime.Variables;
 
@@ -18,7 +17,7 @@ public final class time implements Library {
     @Override
     public void init() {
         initConstant();
-        LZRMap time = new LZRMap(1);
+        LzrMap time = new LzrMap(1);
         time.set("sleep", (Value... args) -> {
             Arguments.check(1, args.length);
             try {
@@ -26,7 +25,7 @@ public final class time implements Library {
             } catch (InterruptedException ex) {
                 Thread.currentThread().interrupt();
             }
-            return LZRNumber.MINUS_ONE;
+            return LzrNumber.MINUS_ONE;
         });
         Variables.define("time", time);
 

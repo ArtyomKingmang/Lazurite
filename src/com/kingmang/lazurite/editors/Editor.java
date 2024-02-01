@@ -6,6 +6,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
+import static org.fusesource.jansi.Ansi.ansi;
+
 
 public class Editor {
 
@@ -15,17 +17,17 @@ public class Editor {
         int lineNumber = 1;
         System.out.print("\033[H\033[2J");
         System.out.flush();
-        System.out.println(Ansi.ansi().fg(Ansi.Color.BLUE).a("============================================================").reset());
-        System.out.println(Ansi.ansi().fg(Ansi.Color.BLUE).a("                 Lazurite code editor 0.1").reset());
-        System.out.println(Ansi.ansi().fg(Ansi.Color.BLUE).a("============================================================").reset());
-        System.out.println(Ansi.ansi().fg(Ansi.Color.BLUE).a("           -close   - close editor").reset());
-        System.out.println(Ansi.ansi().fg(Ansi.Color.BLUE).a("           -save    - save the code to the file INDEX.lzr ").reset());
-        System.out.println(Ansi.ansi().fg(Ansi.Color.BLUE).a("============================================================").reset());
+        System.out.println(ansi().fg(Ansi.Color.BLUE).a("============================================================").reset());
+        System.out.println(ansi().fg(Ansi.Color.BLUE).a("                 Lazurite code editor 0.1").reset());
+        System.out.println(ansi().fg(Ansi.Color.BLUE).a("============================================================").reset());
+        System.out.println(ansi().fg(Ansi.Color.BLUE).a("           -close   - close editor").reset());
+        System.out.println(ansi().fg(Ansi.Color.BLUE).a("           -save    - save the code to the file INDEX.lzr ").reset());
+        System.out.println(ansi().fg(Ansi.Color.BLUE).a("============================================================").reset());
         StringBuilder code = new StringBuilder();
 
         while (true) {
             System.out.print(lineNumber + " ~ ");
-            //System.out.print(Ansi.ansi().fg(Ansi.Color.BLUE).a(lineNumber + " ~ ").reset());
+            System.out.print(Ansi.ansi().fg(Ansi.Color.BLUE).a(lineNumber + " ~ ").reset());
             String line = scanner.nextLine();
 
             if ("-close".equals(line)) {
@@ -50,9 +52,9 @@ public class Editor {
                     System.out.println("IOException");
                 }
             } else {
-                line = line.replaceAll("\\b(if|else|print|println|while|class|new|for)\\b", Ansi.ansi().fg(Ansi.Color.RED).a("$1").reset().toString());
-                line = line.replaceAll("\\b(return|func)\\b", Ansi.ansi().fg(Ansi.Color.BLUE).a("$1").reset().toString());
-                line = line.replaceAll("//.*", Ansi.ansi().fg(Ansi.Color.GREEN).a("$0").reset().toString());
+                line = line.replaceAll("\\b(if|else|print|println|while|class|new|for)\\b", ansi().fg(Ansi.Color.RED).a("$1").reset().toString());
+                line = line.replaceAll("\\b(return|func)\\b", ansi().fg(Ansi.Color.BLUE).a("$1").reset().toString());
+                line = line.replaceAll("//.*", ansi().fg(Ansi.Color.GREEN).a("$0").reset().toString());
 
                 System.out.println(line);
 

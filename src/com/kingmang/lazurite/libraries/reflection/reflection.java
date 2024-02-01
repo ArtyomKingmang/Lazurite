@@ -4,7 +4,7 @@ import com.kingmang.lazurite.core.*;
 import com.kingmang.lazurite.libraries.Keyword;
 import com.kingmang.lazurite.libraries.Library;
 import com.kingmang.lazurite.runtime.*;
-import com.kingmang.lazurite.runtime.LZR.*;
+import com.kingmang.lazurite.runtime.Lzr.*;
 
 import java.lang.reflect.Array;
 import java.lang.reflect.Constructor;
@@ -108,7 +108,7 @@ public final class reflection implements Library {
         }
     }
 
-    private static class JavaClassValue extends LZRMap implements Instantiable {
+    private static class JavaClassValue extends LzrMap implements Instantiable {
 
         public static Value classOrNull(Class<?> clazz) {
             if (clazz == null) return NULL;
@@ -124,37 +124,37 @@ public final class reflection implements Library {
         }
 
         private void init(Class<?> clazz) {
-            set("isAnnotation", LZRNumber.fromBoolean(clazz.isAnnotation()));
-            set("isAnonymousClass", LZRNumber.fromBoolean(clazz.isAnonymousClass()));
-            set("isArray", LZRNumber.fromBoolean(clazz.isArray()));
-            set("isEnum", LZRNumber.fromBoolean(clazz.isEnum()));
-            set("isInterface", LZRNumber.fromBoolean(clazz.isInterface()));
-            set("isLocalClass", LZRNumber.fromBoolean(clazz.isLocalClass()));
-            set("isMemberClass", LZRNumber.fromBoolean(clazz.isMemberClass()));
-            set("isPrimitive", LZRNumber.fromBoolean(clazz.isPrimitive()));
-            set("isSynthetic", LZRNumber.fromBoolean(clazz.isSynthetic()));
+            set("isAnnotation", LzrNumber.fromBoolean(clazz.isAnnotation()));
+            set("isAnonymousClass", LzrNumber.fromBoolean(clazz.isAnonymousClass()));
+            set("isArray", LzrNumber.fromBoolean(clazz.isArray()));
+            set("isEnum", LzrNumber.fromBoolean(clazz.isEnum()));
+            set("isInterface", LzrNumber.fromBoolean(clazz.isInterface()));
+            set("isLocalClass", LzrNumber.fromBoolean(clazz.isLocalClass()));
+            set("isMemberClass", LzrNumber.fromBoolean(clazz.isMemberClass()));
+            set("isPrimitive", LzrNumber.fromBoolean(clazz.isPrimitive()));
+            set("isSynthetic", LzrNumber.fromBoolean(clazz.isSynthetic()));
 
-            set("modifiers", LZRNumber.of(clazz.getModifiers()));
+            set("modifiers", LzrNumber.of(clazz.getModifiers()));
 
-            set("canonicalName", new LZRString(clazz.getCanonicalName()));
-            set("name", new LZRString(clazz.getName()));
-            set("simpleName", new LZRString(clazz.getSimpleName()));
-            set("typeName", new LZRString(clazz.getTypeName()));
-            set("genericString", new LZRString(clazz.toGenericString()));
+            set("canonicalName", new LzrString(clazz.getCanonicalName()));
+            set("name", new LzrString(clazz.getName()));
+            set("simpleName", new LzrString(clazz.getSimpleName()));
+            set("typeName", new LzrString(clazz.getTypeName()));
+            set("genericString", new LzrString(clazz.toGenericString()));
 
-            set("getComponentType", new LZRFunction(v -> classOrNull(clazz.getComponentType()) ));
-            set("getDeclaringClass", new LZRFunction(v -> classOrNull(clazz.getDeclaringClass()) ));
-            set("getEnclosingClass", new LZRFunction(v -> classOrNull(clazz.getEnclosingClass()) ));
-            set("getSuperclass", new LZRFunction(v -> new JavaClassValue(clazz.getSuperclass()) ));
+            set("getComponentType", new LzrFunction(v -> classOrNull(clazz.getComponentType()) ));
+            set("getDeclaringClass", new LzrFunction(v -> classOrNull(clazz.getDeclaringClass()) ));
+            set("getEnclosingClass", new LzrFunction(v -> classOrNull(clazz.getEnclosingClass()) ));
+            set("getSuperclass", new LzrFunction(v -> new JavaClassValue(clazz.getSuperclass()) ));
 
-            set("getClasses", new LZRFunction(v -> array(clazz.getClasses()) ));
-            set("getDeclaredClasses", new LZRFunction(v -> array(clazz.getDeclaredClasses()) ));
-            set("getInterfaces", new LZRFunction(v -> array(clazz.getInterfaces()) ));
+            set("getClasses", new LzrFunction(v -> array(clazz.getClasses()) ));
+            set("getDeclaredClasses", new LzrFunction(v -> array(clazz.getDeclaredClasses()) ));
+            set("getInterfaces", new LzrFunction(v -> array(clazz.getInterfaces()) ));
 
-            set("asSubclass", new LZRFunction(this::asSubclass));
-            set("isAssignableFrom", new LZRFunction(this::isAssignableFrom));
-            set("new", new LZRFunction(this::newInstance));
-            set("cast", new LZRFunction(this::cast));
+            set("asSubclass", new LzrFunction(this::asSubclass));
+            set("isAssignableFrom", new LzrFunction(this::isAssignableFrom));
+            set("new", new LzrFunction(this::newInstance));
+            set("cast", new LzrFunction(this::cast));
         }
 
         private Value asSubclass(Value[] args) {
@@ -164,7 +164,7 @@ public final class reflection implements Library {
 
         private Value isAssignableFrom(Value[] args) {
             Arguments.check(1, args.length);
-            return LZRNumber.fromBoolean(clazz.isAssignableFrom( ((JavaClassValue)args[0]).clazz ));
+            return LzrNumber.fromBoolean(clazz.isAssignableFrom( ((JavaClassValue)args[0]).clazz ));
         }
 
         @Override
@@ -196,7 +196,7 @@ public final class reflection implements Library {
         }
     }
 
-    private static class ObjectValue extends LZRMap {
+    private static class ObjectValue extends LzrMap {
 
         public static Value objectOrNull(Object object) {
             if (object == null) return NULL;
@@ -235,9 +235,9 @@ public final class reflection implements Library {
     private Value isNull(Value[] args) {
         Arguments.checkAtLeast(1, args.length);
         for (Value arg : args) {
-            if (arg.raw() == null) return LZRNumber.ONE;
+            if (arg.raw() == null) return LzrNumber.ONE;
         }
-        return LZRNumber.ZERO;
+        return LzrNumber.ZERO;
     }
 
     private Value JClass(Value[] args) {
@@ -287,9 +287,9 @@ public final class reflection implements Library {
                 }
             }
             if (methods.isEmpty()) {
-                return LZRFunction.EMPTY;
+                return LzrFunction.EMPTY;
             }
-            return new LZRFunction(methodsToFunction(object, methods));
+            return new LzrFunction(methodsToFunction(object, methods));
         } catch (SecurityException ex) {
             // ignore and go to the next step
         }
@@ -323,7 +323,7 @@ public final class reflection implements Library {
                     if (method.getReturnType() != void.class) {
                         return objectToValue(result);
                     }
-                    return LZRNumber.ONE;
+                    return LzrNumber.ONE;
                 } catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException ex) {
                     // skip
                 }
@@ -377,8 +377,8 @@ public final class reflection implements Library {
         return clazz;
     }
 
-    private static LZRArray array(Class<?>[] classes) {
-        final LZRArray result = new LZRArray(classes.length);
+    private static LzrArray array(Class<?>[] classes) {
+        final LzrArray result = new LzrArray(classes.length);
         for (int i = 0; i < classes.length; i++) {
             result.set(i, JavaClassValue.classOrNull(classes[i]));
         }
@@ -394,30 +394,30 @@ public final class reflection implements Library {
         if (o == null || o == NULL) return NULL;
         if (clazz.isPrimitive()) {
             if (int.class.isAssignableFrom(clazz))
-                return LZRNumber.of((int) o);
+                return LzrNumber.of((int) o);
             if (boolean.class.isAssignableFrom(clazz))
-                return LZRNumber.fromBoolean((boolean) o);
+                return LzrNumber.fromBoolean((boolean) o);
             if (double.class.isAssignableFrom(clazz))
-                return LZRNumber.of((double) o);
+                return LzrNumber.of((double) o);
             if (float.class.isAssignableFrom(clazz))
-                return LZRNumber.of((float) o);
+                return LzrNumber.of((float) o);
             if (long.class.isAssignableFrom(clazz))
-                return LZRNumber.of((long) o);
+                return LzrNumber.of((long) o);
             if (byte.class.isAssignableFrom(clazz))
-                return LZRNumber.of((byte) o);
+                return LzrNumber.of((byte) o);
             if (char.class.isAssignableFrom(clazz))
-                return LZRNumber.of((char) o);
+                return LzrNumber.of((char) o);
             if (short.class.isAssignableFrom(clazz))
-                return LZRNumber.of((short) o);
+                return LzrNumber.of((short) o);
         }
         if (Number.class.isAssignableFrom(clazz)) {
-            return LZRNumber.of((Number) o);
+            return LzrNumber.of((Number) o);
         }
         if (String.class.isAssignableFrom(clazz)) {
-            return new LZRString((String) o);
+            return new LzrString((String) o);
         }
         if (CharSequence.class.isAssignableFrom(clazz)) {
-            return new LZRString( ((CharSequence) o).toString() );
+            return new LzrString( ((CharSequence) o).toString() );
         }
         if (o instanceof Value) {
             return (Value) o;
@@ -434,40 +434,40 @@ public final class reflection implements Library {
 
     private static Value arrayToValue(Class<?> clazz, Object o) {
         final int length = Array.getLength(o);
-        final LZRArray result = new LZRArray(length);
+        final LzrArray result = new LzrArray(length);
         final Class<?> componentType = clazz.getComponentType();
         int i = 0;
         if (boolean.class.isAssignableFrom(componentType)) {
             for (boolean element : (boolean[]) o) {
-                result.set(i++, LZRNumber.fromBoolean(element));
+                result.set(i++, LzrNumber.fromBoolean(element));
             }
         } else if (byte.class.isAssignableFrom(componentType)) {
             for (byte element : (byte[]) o) {
-                result.set(i++, LZRNumber.of(element));
+                result.set(i++, LzrNumber.of(element));
             }
         } else if (char.class.isAssignableFrom(componentType)) {
             for (char element : (char[]) o) {
-                result.set(i++, LZRNumber.of(element));
+                result.set(i++, LzrNumber.of(element));
             }
         } else if (double.class.isAssignableFrom(componentType)) {
             for (double element : (double[]) o) {
-                result.set(i++, LZRNumber.of(element));
+                result.set(i++, LzrNumber.of(element));
             }
         } else if (float.class.isAssignableFrom(componentType)) {
             for (float element : (float[]) o) {
-                result.set(i++, LZRNumber.of(element));
+                result.set(i++, LzrNumber.of(element));
             }
         } else if (int.class.isAssignableFrom(componentType)) {
             for (int element : (int[]) o) {
-                result.set(i++, LZRNumber.of(element));
+                result.set(i++, LzrNumber.of(element));
             }
         } else if (long.class.isAssignableFrom(componentType)) {
             for (long element : (long[]) o) {
-                result.set(i++, LZRNumber.of(element));
+                result.set(i++, LzrNumber.of(element));
             }
         } else if (short.class.isAssignableFrom(componentType)) {
             for (short element : (short[]) o) {
-                result.set(i++, LZRNumber.of(element));
+                result.set(i++, LzrNumber.of(element));
             }
         } else {
             for (Object element : (Object[]) o) {
@@ -493,7 +493,7 @@ public final class reflection implements Library {
             case Types.STRING:
                 return value.asString();
             case Types.ARRAY:
-                return arrayToObject((LZRArray) value);
+                return arrayToObject((LzrArray) value);
         }
         if (value instanceof ObjectValue) {
             return ((ObjectValue) value).object;
@@ -504,7 +504,7 @@ public final class reflection implements Library {
         return value.raw();
     }
 
-    private static Object arrayToObject(LZRArray value) {
+    private static Object arrayToObject(LzrArray value) {
         final int size = value.size();
         final Object[] array = new Object[size];
         if (size == 0) {

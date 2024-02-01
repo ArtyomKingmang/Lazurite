@@ -3,7 +3,7 @@ package com.kingmang.lazurite.libraries.gforms;
 
 import com.kingmang.lazurite.core.*;
 import com.kingmang.lazurite.runtime.*;
-import com.kingmang.lazurite.runtime.LZR.*;
+import com.kingmang.lazurite.runtime.Lzr.*;
 import com.kingmang.lazurite.utils.ValueUtils;
 
 import java.awt.*;
@@ -13,7 +13,7 @@ import java.util.function.Consumer;
 import java.util.function.Supplier;
 import static com.kingmang.lazurite.core.Converters.booleanOptToVoid;
 
-public abstract class ComponentValue extends LZRMap {
+public abstract class ComponentValue extends LzrMap {
 
     final Component component;
 
@@ -24,15 +24,15 @@ public abstract class ComponentValue extends LZRMap {
     }
 
     private void init() {
-        set("setFont", new LZRFunction(this::setFont));
-        set("getFont", new LZRFunction(this::getFont));
-        set("onKeyAction", new LZRFunction(this::addKeyListener));
-        set("addKeyListener", new LZRFunction(this::addKeyListener));
+        set("setFont", new LzrFunction(this::setFont));
+        set("getFont", new LzrFunction(this::getFont));
+        set("onKeyAction", new LzrFunction(this::addKeyListener));
+        set("addKeyListener", new LzrFunction(this::addKeyListener));
         set("getFocusTraversalKeysEnabled", Converters.voidToBoolean(component::getFocusTraversalKeysEnabled));
         set("getHeight", Converters.voidToInt(component::getHeight));
         set("getIgnoreRepaint", Converters.voidToBoolean(component::getIgnoreRepaint));
-        set("getLocation", new LZRFunction(this::getLocation));
-        set("getLocationOnScreen", new LZRFunction(this::getLocationOnScreen));
+        set("getLocation", new LzrFunction(this::getLocation));
+        set("getLocationOnScreen", new LzrFunction(this::getLocationOnScreen));
         set("getMinimumSize", dimensionFunction(component::getMinimumSize));
         set("getMaximumSize", dimensionFunction(component::getMaximumSize));
         set("getName", Converters.voidToString(component::getName));
@@ -65,7 +65,7 @@ public abstract class ComponentValue extends LZRMap {
         set("setPreferredSize", voidDimensionFunction(component::setPreferredSize));
         set("setSize", voidDimensionFunction(component::setSize));
         set("setVisible", booleanOptToVoid(component::setVisible));
-        set("setLocation", new LZRFunction(this::setLocation));
+        set("setLocation", new LzrFunction(this::setLocation));
         set("validate", Converters.voidToVoid(component::validate));
     }
 
@@ -90,75 +90,75 @@ public abstract class ComponentValue extends LZRMap {
             }
 
             private void handleKeyEvent(String type, final KeyEvent e) {
-                final LZRMap map = new LZRMap(15);
-                map.set("extendedKeyCode", LZRNumber.of(e.getExtendedKeyCode()));
-                map.set("keyChar", LZRNumber.of(e.getKeyChar()));
-                map.set("keyCode", LZRNumber.of(e.getKeyCode()));
-                map.set("keyLocation", LZRNumber.of(e.getKeyLocation()));
-                map.set("id", LZRNumber.of(e.getID()));
-                map.set("isActionKey", LZRNumber.fromBoolean(e.isActionKey()));
-                map.set("isAltDown", LZRNumber.fromBoolean(e.isAltDown()));
-                map.set("isAltGraphDown", LZRNumber.fromBoolean(e.isAltGraphDown()));
-                map.set("isConsumed", LZRNumber.fromBoolean(e.isConsumed()));
-                map.set("isControlDown", LZRNumber.fromBoolean(e.isControlDown()));
-                map.set("isMetaDown", LZRNumber.fromBoolean(e.isMetaDown()));
-                map.set("isShiftDown", LZRNumber.fromBoolean(e.isShiftDown()));
-                map.set("modifiers", LZRNumber.of(e.getModifiers()));
-                action.execute(new LZRString(type), map);
+                final LzrMap map = new LzrMap(15);
+                map.set("extendedKeyCode", LzrNumber.of(e.getExtendedKeyCode()));
+                map.set("keyChar", LzrNumber.of(e.getKeyChar()));
+                map.set("keyCode", LzrNumber.of(e.getKeyCode()));
+                map.set("keyLocation", LzrNumber.of(e.getKeyLocation()));
+                map.set("id", LzrNumber.of(e.getID()));
+                map.set("isActionKey", LzrNumber.fromBoolean(e.isActionKey()));
+                map.set("isAltDown", LzrNumber.fromBoolean(e.isAltDown()));
+                map.set("isAltGraphDown", LzrNumber.fromBoolean(e.isAltGraphDown()));
+                map.set("isConsumed", LzrNumber.fromBoolean(e.isConsumed()));
+                map.set("isControlDown", LzrNumber.fromBoolean(e.isControlDown()));
+                map.set("isMetaDown", LzrNumber.fromBoolean(e.isMetaDown()));
+                map.set("isShiftDown", LzrNumber.fromBoolean(e.isShiftDown()));
+                map.set("modifiers", LzrNumber.of(e.getModifiers()));
+                action.execute(new LzrString(type), map);
             }
         });
-        return LZRNumber.ZERO;
+        return LzrNumber.ZERO;
     }
 
     private Value getLocation(Value[] args) {
         final Point location = component.getLocation();
-        final LZRArray result = new LZRArray(2);
-        result.set(0, LZRNumber.of(location.x));
-        result.set(1, LZRNumber.of(location.y));
+        final LzrArray result = new LzrArray(2);
+        result.set(0, LzrNumber.of(location.x));
+        result.set(1, LzrNumber.of(location.y));
         return result;
     }
 
     private Value getLocationOnScreen(Value[] args) {
         final Point location = component.getLocationOnScreen();
-        final LZRArray result = new LZRArray(2);
-        result.set(0, LZRNumber.of(location.x));
-        result.set(1, LZRNumber.of(location.y));
+        final LzrArray result = new LzrArray(2);
+        result.set(0, LzrNumber.of(location.x));
+        result.set(1, LzrNumber.of(location.y));
         return result;
     }
 
     private Value setFont(Value[] args) {
         component.setFont(new Font(args[0].asString(), args[1].asInt(), args[2].asInt()));
-        return LZRNumber.ZERO;
+        return LzrNumber.ZERO;
     }
 
     private Value getFont(Value[] args) {
         component.getFont();
-        return LZRNumber.ZERO;
+        return LzrNumber.ZERO;
     }
 
     private Value setLocation(Value[] args) {
         Arguments.check(2, args.length);
         component.setLocation(args[0].asInt(), args[1].asInt());
-        return LZRNumber.ZERO;
+        return LzrNumber.ZERO;
     }
 
 
 
-    protected static LZRFunction dimensionFunction(Supplier<Dimension> s) {
-        return new LZRFunction(args -> {
+    protected static LzrFunction dimensionFunction(Supplier<Dimension> s) {
+        return new LzrFunction(args -> {
             final Dimension dimension = s.get();
-            final LZRArray result = new LZRArray(2);
-            result.set(0, LZRNumber.of(dimension.getWidth()));
-            result.set(1, LZRNumber.of(dimension.getHeight()));
+            final LzrArray result = new LzrArray(2);
+            result.set(0, LzrNumber.of(dimension.getWidth()));
+            result.set(1, LzrNumber.of(dimension.getHeight()));
             return result;
         });
     }
 
-    protected static LZRFunction voidDimensionFunction(Consumer<Dimension> s) {
-        return new LZRFunction(args -> {
+    protected static LzrFunction voidDimensionFunction(Consumer<Dimension> s) {
+        return new LzrFunction(args -> {
             Arguments.check(2, args.length);
             s.accept(new Dimension(args[0].asInt(), args[1].asInt()));
-            return LZRNumber.ZERO;
+            return LzrNumber.ZERO;
         });
     }
 }
