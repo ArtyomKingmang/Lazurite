@@ -92,6 +92,7 @@ public final class Lexer {
 
     private static void standart(){
         Keyword.put("equals", new Standart.equal());
+        Keyword.put("combine", new Standart.combine());
         Keyword.put("Array", new Standart.Array());
         Keyword.put("echo", new Standart.echo());
         Keyword.put("readln", new Standart.input());
@@ -100,8 +101,6 @@ public final class Lexer {
         Keyword.put("sprintf", new Standart.sprintf());
         Keyword.put("range", new Standart.range());
         Keyword.put("substring", new Standart.substr());
-        Keyword.put("parseInt", Standart.parse::parseInt);
-        Keyword.put("parseLong", Standart.parse::parseLong);
         Keyword.put("foreach", new Standart.foreach());
         Keyword.put("split", new Standart.split());
         Keyword.put("filter", new Standart.filter(false));

@@ -29,6 +29,29 @@ public class Standart {
         }
     }
 
+    public static class combine implements Function {
+
+        @Override
+        public Value execute(Value[] args) {
+            Arguments.checkAtLeast(1, args.length);
+            Function result = null;
+            for (Value arg : args) {
+                if (arg.type() != Types.FUNCTION) {
+                    throw new LZRException("TypeException ", arg + " is not a function");
+                }
+                final Function current = result;
+                final Function next = ((LzrFunction) arg).getValue();
+                result = fArgs -> {
+                    if (current == null) return next.execute(fArgs);
+                    return next.execute(current.execute(fArgs));
+                };
+            }
+
+            return new LzrFunction(result);
+        }
+
+    }
+
     public static final class input implements Function {
         @Override
         public Value execute(Value... args) {
@@ -155,20 +178,6 @@ public class Standart {
         }
     }
 
-    public static final class parse {
-        private parse() { }
-
-        public static Value parseInt(Value[] args) {
-            Arguments.checkOrOr(1, 2, args.length);
-            final int radix = (args.length == 2) ? args[1].asInt() : 10;
-            return LzrNumber.of(Integer.parseInt(args[0].asString(), radix));
-        }
-        public static Value parseLong(Value[] args) {
-            Arguments.checkOrOr(1, 2, args.length);
-            final int radix = (args.length == 2) ? args[1].asInt() : 10;
-            return LzrNumber.of(Long.parseLong(args[0].asString(), radix));
-        }
-    }
 
     public static final class foreach implements Function {
 

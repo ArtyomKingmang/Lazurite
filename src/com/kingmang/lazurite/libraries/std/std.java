@@ -22,9 +22,22 @@ public class std implements Library {
     @Override
     public void init(){
         LzrMap std = new LzrMap(3);
+        LzrMap integer = new LzrMap(3);
         initConstants();
         std.set("flatmap", new flatmap());
         std.set("thread", new thread());
+
+
+        integer.set("bitCount", IntegerClass::bitCount);
+        integer.set("max", IntegerClass::max);
+        integer.set("min", IntegerClass::min);
+        integer.set("compare", IntegerClass::compare);
+        integer.set("parseInt", IntegerClass::parseInt);
+        integer.set("decode", IntegerClass::decode);
+        integer.set("signum", IntegerClass::signum);
+        integer.set("compareUnsigned", IntegerClass::compareUnsigned);
+
+        Variables.define("Integer", integer);
         Variables.define("std", std);
 
     }
@@ -79,5 +92,87 @@ public class std implements Library {
             return LzrNumber.ZERO;
         }
     }
+
+    public static final class IntegerClass {
+
+        public static Value parseInt(Value[] args) {
+            Arguments.checkOrOr(1, 2, args.length);
+            final int radix = (args.length == 2) ? args[1].asInt() : 10;
+            return LzrNumber.of(Integer.parseInt(args[0].asString(), radix));
+
+        }
+
+        public static Value compare(Value[] args) {
+            Arguments.check(2, args.length);
+            return LzrNumber.of(Integer.compare(args[0].asInt(),args[1].asInt()));
+
+        }
+
+        public static Value bitCount(Value[] args) {
+            Arguments.check(1, args.length);
+
+            return LzrNumber.of(Integer.bitCount(args[0].asInt()));
+
+        }
+
+        public static Value signum(Value[] args) {
+            Arguments.check(1, args.length);
+            return LzrNumber.of(Integer.signum(args[0].asInt()));
+
+        }
+
+        public static Value decode(Value[] args) {
+            Arguments.check(1, args.length);
+            return LzrNumber.of(Integer.decode(args[0].asString()));
+
+        }
+
+        public static Value compareUnsigned(Value[] args) {
+            Arguments.check(2, args.length);
+            return LzrNumber.of(Integer.compareUnsigned(args[0].asInt(), args[1].asInt()));
+
+        }
+
+        public static Value max(Value[] args) {
+            Arguments.check(2, args.length);
+            return LzrNumber.of(Integer.max(args[0].asInt(), args[1].asInt()));
+
+        }
+
+        public static Value min(Value[] args) {
+            Arguments.check(2, args.length);
+            return LzrNumber.of(Integer.min(args[0].asInt(), args[1].asInt()));
+
+        }
+    }
+
+    /*
+
+    public static Value parseFloat(Value[] args) {
+            Arguments.check(1, args.length);
+            return LzrNumber.of(Float.parseFloat(args[0].asString()));
+        }
+
+        public static Value parseByte(Value[] args) {
+            Arguments.check(1, args.length);
+            return LzrNumber.of(Byte.parseByte(args[0].asString()));
+        }
+
+        public static Value parseShort(Value[] args) {
+            Arguments.check(1, args.length);
+            return LzrNumber.of(Short.parseShort(args[0].asString()));
+        }
+
+        static Value parseDouble(Value[] args) {
+            Arguments.check(1, args.length);
+            return LzrNumber.of(Double.parseDouble(args[0].asString()));
+        }
+        public static Value parseLong(Value[] args) {
+            Arguments.checkOrOr(1, 2, args.length);
+            final int radix = (args.length == 2) ? args[1].asInt() : 10;
+            return LzrNumber.of(Long.parseLong(args[0].asString(), radix));
+        }
+    }
+     */
 
 }
