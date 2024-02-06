@@ -1,4 +1,14 @@
 using "std"
 
-num = Integer.parseInt("12")
-print(num + 3)
+//Integer example
+i = Integer.MAX_VALUE
+println(i)
+
+//Double example
+println(Double.parseDouble("12") + 12)
+println(Double.compare(12 , 6))
+
+//String example
+println(String.valueOf(i) + "23")
+
+

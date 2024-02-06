@@ -22,22 +22,42 @@ public class std implements Library {
     @Override
     public void init(){
         LzrMap std = new LzrMap(3);
-        LzrMap integer = new LzrMap(3);
+        LzrMap integerFunctions = new LzrMap(8);
+        LzrMap doubleFunctions = new LzrMap(5);
+        LzrMap stringFunctions = new LzrMap(3);
         initConstants();
         std.set("flatmap", new flatmap());
         std.set("thread", new thread());
 
 
-        integer.set("bitCount", IntegerClass::bitCount);
-        integer.set("max", IntegerClass::max);
-        integer.set("min", IntegerClass::min);
-        integer.set("compare", IntegerClass::compare);
-        integer.set("parseInt", IntegerClass::parseInt);
-        integer.set("decode", IntegerClass::decode);
-        integer.set("signum", IntegerClass::signum);
-        integer.set("compareUnsigned", IntegerClass::compareUnsigned);
+        integerFunctions.set("bitCount", IntegerClass::bitCount);
+        integerFunctions.set("max", IntegerClass::max);
+        integerFunctions.set("min", IntegerClass::min);
+        integerFunctions.set("compare", IntegerClass::compare);
+        integerFunctions.set("parseInt", IntegerClass::parseInt);
+        integerFunctions.set("decode", IntegerClass::decode);
+        integerFunctions.set("signum", IntegerClass::signum);
+        integerFunctions.set("compareUnsigned", IntegerClass::compareUnsigned);
+        integerFunctions.set("MAX_VALUE", new LzrNumber(Integer.MAX_VALUE));
+        integerFunctions.set("MIN_VALUE", new LzrNumber(Integer.MIN_VALUE));
 
-        Variables.define("Integer", integer);
+
+        doubleFunctions.set("max", DoubleClass::max);
+        doubleFunctions.set("min", DoubleClass::min);
+        doubleFunctions.set("doubleToLongBits", DoubleClass::doubleToLongBits);
+        doubleFunctions.set("parseDouble", DoubleClass::parseDouble);
+        doubleFunctions.set("compare", DoubleClass::compare);
+        doubleFunctions.set("MAX_VALUE", new LzrNumber(Double.MAX_VALUE));
+        doubleFunctions.set("MIN_VALUE", new LzrNumber(Double.MIN_VALUE));
+
+        stringFunctions.set("valueOf", StringClass::valueOf);
+        stringFunctions.set("format", StringClass::format);
+        stringFunctions.set("join", StringClass::join);
+        stringFunctions.set("CASE_INSENSITIVE_ORDER", new LzrString(String.CASE_INSENSITIVE_ORDER.toString()));
+
+        Variables.define("Double", doubleFunctions);
+        Variables.define("String", stringFunctions);
+        Variables.define("Integer", integerFunctions);
         Variables.define("std", std);
 
     }
@@ -144,6 +164,58 @@ public class std implements Library {
             return LzrNumber.of(Integer.min(args[0].asInt(), args[1].asInt()));
 
         }
+    }
+
+    public static final class DoubleClass {
+        public static Value parseDouble(Value[] args) {
+            Arguments.check(1, args.length);
+            return LzrNumber.of(Double.parseDouble(args[0].asString()));
+
+        }
+        public static Value compare(Value[] args) {
+            Arguments.check(2, args.length);
+            return LzrNumber.of(Double.compare(args[0].asInt(),args[1].asInt()));
+
+        }
+        public static Value doubleToLongBits(Value[] args) {
+            Arguments.check(1, args.length);
+            return LzrNumber.of(Double.doubleToLongBits(args[0].asNumber()));
+
+        }
+        public static Value max(Value[] args) {
+            Arguments.check(2, args.length);
+            return LzrNumber.of(Double.max(args[0].asInt(), args[1].asInt()));
+
+        }
+
+        public static Value min(Value[] args) {
+            Arguments.check(2, args.length);
+            return LzrNumber.of(Double.min(args[0].asInt(), args[1].asInt()));
+
+        }
+    }
+
+    public static final class StringClass {
+
+        public static Value valueOf(Value[] args) {
+            Arguments.check(1, args.length);
+            return new LzrString(String.valueOf(args[0]));
+
+        }
+
+        public static Value format(Value[] args) {
+            Arguments.check(2, args.length);
+            return new LzrString(String.format(args[0].asString(), args[1]));
+
+        }
+
+        public static Value join(Value[] args) {
+            Arguments.check(2, args.length);
+            return new LzrString(String.join((CharSequence) args[0], (CharSequence) args[1], (CharSequence) args[2]));
+
+        }
+
+
     }
 
     /*
