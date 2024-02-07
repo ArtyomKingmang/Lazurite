@@ -1,14 +1,1 @@
-using "std"
-
-//Integer example
-i = Integer.MAX_VALUE
-println(i)
-
-//Double example
-println(Double.parseDouble("12") + 12)
-println(Double.compare(12 , 6))
-
-//String example
-println(String.valueOf(i) + "23")
-
 

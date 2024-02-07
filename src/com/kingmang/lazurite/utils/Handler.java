@@ -8,6 +8,8 @@ import com.kingmang.lazurite.parser.AST.Statements.BlockStatement;
 import com.kingmang.lazurite.parser.AST.Expressions.Expression;
 import com.kingmang.lazurite.parser.parse.Lexer;
 import com.kingmang.lazurite.parser.parse.Parser;
+import com.kingmang.lazurite.parser.parse.classes.LexerImplementation;
+import com.kingmang.lazurite.parser.parse.classes.ParserImplementation;
 import com.kingmang.lazurite.parser.parse.Token;
 import com.kingmang.lazurite.patterns.visitor.FunctionAdder;
 import com.kingmang.lazurite.runtime.Lzr.LzrNumber;
@@ -20,6 +22,7 @@ import java.util.List;
 
 public class Handler {
 
+    Lexer lexer;
     public static void RUN (String path) throws IOException {
         Handler.RunProgram(Loader.readSource(path));
     }
@@ -32,8 +35,8 @@ public class Handler {
                 }
             }
             catch (Exception ignored){}
-            final List<Token> tokens = new Lexer(input).tokenize();
-            final BlockStatement program = (BlockStatement) new Parser(tokens).parse();
+            final List<Token> tokens = new LexerImplementation(input).tokenize();
+            final BlockStatement program = (BlockStatement) new ParserImplementation(tokens).parse();
             program.execute();
             if(!isExec){
                 Variables.clear();
@@ -58,8 +61,8 @@ public class Handler {
     }
     public static Value returnHandle(String input, String pathToScript) {
         try {
-            final List<Token> tokens = new Lexer(input).tokenize();
-            final Expression program = new Parser(tokens).expression();
+            final List<Token> tokens = new LexerImplementation(input).tokenize();
+            final Expression program = new ParserImplementation(tokens).expression();
             return program.eval();
         } catch (LZRException ex) {
             System.out.println(String.format("%s: %s in %s", ex.getType(), ex.getText(), pathToScript));
@@ -68,10 +71,10 @@ public class Handler {
     }
 
     public static void RunProgram (String input) throws IOException {
-
-        final List<Token> tokens = Lexer.tokenize(input);
-        final Parser parser = new Parser(tokens);
-        final Statement parsedProgram = parser.parse();
+        Lexer lexer = new LexerImplementation(input);
+        final List<Token> tokens = LexerImplementation.tokenize(input);
+        final Parser parser = new ParserImplementation(tokens);
+        final Statement parsedProgram = parser.parse(tokens);
         if (parser.getParseErrors().hasErrors()) {
             System.out.println(parser.getParseErrors());
             return;

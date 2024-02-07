@@ -1,4 +1,4 @@
-package com.kingmang.lazurite.parser.parse;
+package com.kingmang.lazurite.parser.AST.Statements;
 
 import com.kingmang.lazurite.exceptions.LZRException;
 import com.kingmang.lazurite.core.Arguments;
@@ -8,9 +8,8 @@ import com.kingmang.lazurite.runtime.Lzr.LzrMap;
 import com.kingmang.lazurite.core.Types;
 import com.kingmang.lazurite.runtime.Value;
 import com.kingmang.lazurite.utils.ValueUtils;
-import java.util.Map;
 
-public final class MAP implements Function {
+public final class Map implements Function {
 
     @Override
     public Value execute(Value... args) {
@@ -42,7 +41,7 @@ public final class MAP implements Function {
     
     private Value mapMap(LzrMap map, Function keyMapper, Function valueMapper) {
         final LzrMap result = new LzrMap(map.size());
-        for (Map.Entry<Value, Value> element : map) {
+        for (java.util.Map.Entry<Value, Value> element : map) {
             final Value newKey = keyMapper.execute(element.getKey());
             final Value newValue = valueMapper.execute(element.getValue());
             result.set(newKey, newValue);

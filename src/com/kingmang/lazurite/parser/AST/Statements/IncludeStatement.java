@@ -3,8 +3,9 @@ package com.kingmang.lazurite.parser.AST.Statements;
 import com.kingmang.lazurite.exceptions.LZRException;
 import com.kingmang.lazurite.parser.AST.Expressions.Expression;
 import com.kingmang.lazurite.parser.AST.InterruptableNode;
-import com.kingmang.lazurite.parser.parse.Lexer;
 import com.kingmang.lazurite.parser.parse.Parser;
+import com.kingmang.lazurite.parser.parse.classes.LexerImplementation;
+import com.kingmang.lazurite.parser.parse.classes.ParserImplementation;
 import com.kingmang.lazurite.utils.Loader;
 import com.kingmang.lazurite.parser.parse.Token;
 import com.kingmang.lazurite.patterns.visitor.FunctionAdder;
@@ -39,9 +40,9 @@ public final class IncludeStatement extends InterruptableNode implements Stateme
 
     public Statement loadProgram(String path) throws IOException {
         final String input = Loader.readSource(path);
-        final List<Token> tokens = Lexer.tokenize(input);
-        final Parser parser = new Parser(tokens);
-        final Statement program = parser.parse();
+        final List<Token> tokens = LexerImplementation.tokenize(input);
+        final Parser parser = new ParserImplementation(tokens);
+        final Statement program = parser.parse(tokens);
         if (parser.getParseErrors().hasErrors()) {
             throw new LZRException("ParseException ",parser.getParseErrors().toString());
         }
