@@ -1,2 +1,3 @@
-
+using "std"
+print(Integer.MAX_VALUE)
 

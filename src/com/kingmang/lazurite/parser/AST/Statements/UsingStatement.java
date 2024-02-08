@@ -1,18 +1,15 @@
 package com.kingmang.lazurite.parser.AST.Statements;
 
 import com.kingmang.lazurite.exceptions.LZRException;
-import com.kingmang.lazurite.parser.AST.Expressions.ArrayExpression;
-import com.kingmang.lazurite.parser.AST.Expressions.ValueExpression;
+
 import com.kingmang.lazurite.parser.AST.Expressions.Expression;
 import com.kingmang.lazurite.parser.AST.InterruptableNode;
 import com.kingmang.lazurite.patterns.visitor.ResultVisitor;
 import com.kingmang.lazurite.patterns.visitor.Visitor;
-import com.kingmang.lazurite.runtime.Lzr.LzrArray;
 import com.kingmang.lazurite.core.Types;
 import com.kingmang.lazurite.runtime.Value;
 import com.kingmang.lazurite.libraries.Library;
 
-import java.lang.reflect.Method;
 
 
 public final class UsingStatement extends InterruptableNode implements Statement {
@@ -43,7 +40,7 @@ public final class UsingStatement extends InterruptableNode implements Statement
             final Library module = (Library) Class.forName(String.format(PACKAGE, name, name)).newInstance();
             module.init();
         } catch (Exception ex) {
-            throw new RuntimeException("Unable to load module " + name, ex);
+            throw new LZRException("RuntimeException", "Unable to load module " + name + "\n" + ex);
         }
     }
     @Override
