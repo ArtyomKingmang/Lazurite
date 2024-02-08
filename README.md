@@ -28,7 +28,18 @@ func hel(arg){
 }
 async.supply(hel("Hello"))
 ```
-std example:
+graph example:
+```cpp
+using "graph"
+Frame()
+
+fill(100,100,200)
+rect(10,10,200,100)
+
+fill(100,200,100)
+lrect(100,100,100,100)
+```
+thread example:
 ```cpp
 using "std"
 func th(arg){
