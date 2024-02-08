@@ -1,3 +1,20 @@
-using "std"
-print(Integer.MAX_VALUE)
+using "gforms"
+using "system"
 
+wnd = Frame("text editor")
+wnd.setMinimumSize(500,500)
+
+panel = Panel(layoutManager = borderLayout())
+
+menu = MenuBar()
+menu.add("file", "open", "exit")
+
+menu.setAction(2, func(){
+    system.exit(0)
+})
+
+panel.add(menu,BorderLayout.NORTH)
+
+wnd.add(panel,BorderLayout.NORTH)
+wnd.pack()
+wnd.setVisible()

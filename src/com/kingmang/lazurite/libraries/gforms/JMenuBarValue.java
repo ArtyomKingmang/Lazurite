@@ -2,19 +2,20 @@ package com.kingmang.lazurite.libraries.gforms;
 
 import com.kingmang.lazurite.core.Arguments;
 import com.kingmang.lazurite.core.Function;
+import com.kingmang.lazurite.core.Types;
 import com.kingmang.lazurite.runtime.Lzr.LzrFunction;
+import com.kingmang.lazurite.runtime.Lzr.LzrMap;
 import com.kingmang.lazurite.runtime.Lzr.LzrNumber;
+import com.kingmang.lazurite.runtime.Lzr.LzrString;
 import com.kingmang.lazurite.runtime.Value;
 
 import javax.swing.*;
-
-
-import static com.kingmang.lazurite.utils.ValueUtils.consumeFunction;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class JMenuBarValue extends JComponentValue {
-
+    JMenuItem[] items;
     final JMenuBar bar;
-
     public JMenuBarValue(JMenuBar bar) {
         super(1, bar);
         this.bar = bar;
@@ -23,15 +24,34 @@ public class JMenuBarValue extends JComponentValue {
 
     private void init() {
         set("add", new LzrFunction(this::add));
+        set("setAction", new LzrFunction(this::setAction));
     }
 
     private Value add(Value... args) {
         JMenu menu = new JMenu(args[0].asString());
         bar.add(menu);
+        items = new JMenuItem[10];
+
         for(int i = 1; i < args.length; i++){
-            menu.add(new JMenuItem(args[i].asString()));
+            items[i] = new JMenuItem(args[i].asString());
+            menu.add(items[i]);
         }
 
         return LzrNumber.ZERO;
     }
+
+    private Value setAction(Value... args){
+        Function body;
+        body = ((LzrFunction) args[1]).getValue();
+        ActionListener enableActionListener = new ActionListener() {
+            public void actionPerformed(ActionEvent actionEvent) {
+                body.execute();
+            }
+        };
+        items[args[0].asInt()].addActionListener(enableActionListener);
+
+
+        return LzrNumber.ZERO;
+    }
 }
+
