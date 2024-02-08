@@ -96,6 +96,8 @@ public final class LexerImplementation implements Lexer {
     private static void standart(){
         Keyword.put("equals", new Standart.equal());
         Keyword.put("combine", new Standart.combine());
+        Keyword.put("reduce", new Standart.reduce());
+        Keyword.put("map", new Standart.map());
         Keyword.put("Array", new Standart.Array());
         Keyword.put("echo", new Standart.echo());
         Keyword.put("readln", new Standart.input());
