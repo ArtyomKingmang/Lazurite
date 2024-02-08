@@ -1,5 +1,6 @@
 package com.kingmang.lazurite.libraries.gforms;
 
+import com.kingmang.lazurite.core.Function;
 import com.kingmang.lazurite.libraries.Keyword;
 import com.kingmang.lazurite.libraries.Library;
 import com.kingmang.lazurite.runtime.Lzr.LzrMap;
@@ -9,6 +10,7 @@ import com.kingmang.lazurite.runtime.Variables;
 
 import java.awt.BorderLayout;
 import java.awt.event.WindowEvent;
+import java.security.Key;
 import javax.swing.*;
 
 import javax.swing.JFrame;
@@ -115,6 +117,7 @@ public final class gforms implements Library {
         initConstant();
         // Components
         Keyword.put("Button", Components::newButton);
+        Keyword.put("MenuBar", Components::newMenuBar);
         Keyword.put("Label", Components::newLabel);
         Keyword.put("Panel", Components::newPanel);
         Keyword.put("ProgressBar", Components::newProgressBar);

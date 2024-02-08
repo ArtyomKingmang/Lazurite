@@ -4,15 +4,7 @@ import com.kingmang.lazurite.core.Arguments;
 import com.kingmang.lazurite.runtime.Value;
 
 import java.awt.Component;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JProgressBar;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
-import javax.swing.SwingConstants;
+import javax.swing.*;
 
 public final class Components {
 
@@ -25,6 +17,7 @@ public final class Components {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         return new JFrameValue(frame);
     }
+
 
 
     static Value newPanel(Value[] args) {
@@ -40,6 +33,10 @@ public final class Components {
         Arguments.checkOrOr(0, 1, args.length);
         String text = (args.length == 1) ? args[0].asString() : "";
         return new JButtonValue(new JButton(text));
+    }
+
+    static Value newMenuBar(Value[] args){
+        return new JMenuBarValue(new JMenuBar());
     }
 
     static Value newLabel(Value[] args) {
