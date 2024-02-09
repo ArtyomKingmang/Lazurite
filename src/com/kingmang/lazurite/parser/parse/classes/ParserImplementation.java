@@ -37,12 +37,12 @@ import com.kingmang.lazurite.parser.AST.Statements.Statement;
 import com.kingmang.lazurite.parser.AST.Statements.ThrowStatement;
 import com.kingmang.lazurite.parser.AST.Statements.UsingStatement;
 import com.kingmang.lazurite.parser.AST.Statements.WhileStatement;
-import com.kingmang.lazurite.parser.parse.Parser;
 import com.kingmang.lazurite.parser.parse.Token;
 import com.kingmang.lazurite.parser.parse.TokenType;
 import com.kingmang.lazurite.runtime.*;
 import com.kingmang.lazurite.runtime.Lzr.LzrNumber;
 import com.kingmang.lazurite.runtime.Lzr.LzrString;
+import lombok.Getter;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -52,9 +52,9 @@ import java.util.List;
 import java.util.Map;
 
 
-public final class ParserImplementation implements Parser {
+public final class ParserImplementation {
 
-    @Override
+
     public Statement parse(List<Token> tokens) {
         final ParserImplementation parser = new ParserImplementation(tokens);
         final Statement program = parser.parse();
@@ -87,6 +87,8 @@ public final class ParserImplementation implements Parser {
 
     private final List<Token> tokens;
     private final int size;
+
+    @Getter
     private final ParseErrors parseErrors;
     private Statement parsedStatement;
 
@@ -99,11 +101,12 @@ public final class ParserImplementation implements Parser {
         parseErrors = new ParseErrors();
     }
 
-
-
+    /*
     public ParseErrors getParseErrors() {
         return parseErrors;
     }
+    */
+
 
     public Statement parse() {
         parseErrors.clear();

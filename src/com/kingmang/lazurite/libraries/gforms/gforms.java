@@ -125,6 +125,7 @@ public final class gforms implements Library {
         Keyword.put("TextArea", Components::newTextArea);
         Keyword.put("TextField", Components::newTextField);
         Keyword.put("Frame", Components::newWindow);
+        Keyword.put("FileChooser", Components::newFileChooser);
 
 
         // LayoutManagers

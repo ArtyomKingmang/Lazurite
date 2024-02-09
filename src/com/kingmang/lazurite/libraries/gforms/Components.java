@@ -46,6 +46,10 @@ public final class Components {
         return new JLabelValue(new JLabel(text, align));
     }
 
+    static Value newFileChooser(Value[] args) {
+       return new JFileChooserValue(new JFileChooser());
+    }
+
     static Value newTextField(Value[] args) {
         Arguments.checkRange(0, 2, args.length);
         String text = "";

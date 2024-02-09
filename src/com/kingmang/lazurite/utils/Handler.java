@@ -7,7 +7,6 @@ import com.kingmang.lazurite.parser.AST.Statements.Statement;
 import com.kingmang.lazurite.parser.AST.Statements.BlockStatement;
 import com.kingmang.lazurite.parser.AST.Expressions.Expression;
 import com.kingmang.lazurite.parser.parse.Lexer;
-import com.kingmang.lazurite.parser.parse.Parser;
 import com.kingmang.lazurite.parser.parse.classes.LexerImplementation;
 import com.kingmang.lazurite.parser.parse.classes.ParserImplementation;
 import com.kingmang.lazurite.parser.parse.Token;
@@ -73,7 +72,7 @@ public class Handler {
     public static void RunProgram (String input) throws IOException {
         Lexer lexer = new LexerImplementation(input);
         final List<Token> tokens = LexerImplementation.tokenize(input);
-        final Parser parser = new ParserImplementation(tokens);
+        final ParserImplementation parser = new ParserImplementation(tokens);
         final Statement parsedProgram = parser.parse(tokens);
         if (parser.getParseErrors().hasErrors()) {
             System.out.println(parser.getParseErrors());

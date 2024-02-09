@@ -19,6 +19,7 @@ import com.kingmang.lazurite.runtime.Lzr.LzrMap;
 import com.kingmang.lazurite.runtime.Lzr.LzrNumber;
 import com.kingmang.lazurite.runtime.Lzr.LzrString;
 import com.kingmang.lazurite.runtime.Variables;
+import lombok.Getter;
 
 
 public final class LexerImplementation implements Lexer {
@@ -111,9 +112,13 @@ public final class LexerImplementation implements Lexer {
         Keyword.put("filter", new Standart.filter(false));
     }
 
+    /*
     public static Set<String> getKeywords() {
+
         return KEYWORDS.keySet();
     }
+    */
+
 
     private final String input;
     private final int length;
