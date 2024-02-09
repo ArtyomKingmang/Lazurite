@@ -10,7 +10,7 @@ import com.kingmang.lazurite.runtime.UserDefinedFunction;
 public final class FunctionDefineStatement implements Statement {
     
     public final String name;
-    public final com.kingmang.lazurite.parser.AST.Arguments arguments;
+    public final Arguments arguments;
     public final Statement body;
     
     public FunctionDefineStatement(String name, Arguments arguments, Statement body) {

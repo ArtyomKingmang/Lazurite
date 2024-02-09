@@ -4,17 +4,22 @@ import com.kingmang.lazurite.exceptions.OperationIsNotSupportedException;
 import com.kingmang.lazurite.parser.AST.Expressions.Expression;
 import com.kingmang.lazurite.patterns.visitor.ResultVisitor;
 import com.kingmang.lazurite.patterns.visitor.Visitor;
+import lombok.Getter;
+import lombok.Setter;
 
 public class ThrowStatement implements Statement {
 
+    @Getter
+    @Setter
     private String type;
+    @Getter
+    @Setter
     private Expression expr;
 
     public ThrowStatement(String type, Expression expr) {
         this.type = type;
         this.expr = expr;
     }
-
 
     @Override
     public void execute() {
@@ -26,26 +31,9 @@ public class ThrowStatement implements Statement {
         return "throw " + type + " " + expr;
     }
 
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public Expression getExpr() {
-        return expr;
-    }
-
-    public void setExpr(Expression expr) {
-        this.expr = expr;
-    }
 
     @Override
-    public void accept(Visitor visitor) {
-
-    }
+    public void accept(Visitor visitor) {}
 
     @Override
     public <R, T> R accept(ResultVisitor<R, T> visitor, T input) {

@@ -1,7 +1,10 @@
 package com.kingmang.lazurite.exceptions;
 
+import lombok.Getter;
+
 public final class VariableDoesNotExistsException extends RuntimeException {
 
+    @Getter
     private final String variable;
 
     public VariableDoesNotExistsException(String variable) {
@@ -9,7 +12,4 @@ public final class VariableDoesNotExistsException extends RuntimeException {
         this.variable = variable;
     }
 
-    public String getVariable() {
-        return variable;
-    }
 }

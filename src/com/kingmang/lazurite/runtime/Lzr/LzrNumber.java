@@ -3,6 +3,7 @@ package com.kingmang.lazurite.runtime.Lzr;
 
 import com.kingmang.lazurite.core.Types;
 import com.kingmang.lazurite.runtime.Value;
+import lombok.Getter;
 
 public final class LzrNumber implements Value {
 

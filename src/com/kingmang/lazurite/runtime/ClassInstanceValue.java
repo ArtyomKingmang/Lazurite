@@ -3,11 +3,12 @@ package com.kingmang.lazurite.runtime;
 import com.kingmang.lazurite.exceptions.LZRException;
 import com.kingmang.lazurite.core.Types;
 import com.kingmang.lazurite.runtime.Lzr.LzrMap;
+import lombok.Getter;
 
 import java.util.Objects;
 
 public class ClassInstanceValue implements Value {
-    
+    @Getter
     private final String className;
     private final LzrMap thisMap;
     private ClassMethod constructor;
@@ -22,9 +23,6 @@ public class ClassInstanceValue implements Value {
         return thisMap;
     }
 
-    public String getClassName() {
-        return className;
-    }
 
     public void addField(String name, Value value) {
         thisMap.set(name, value);
@@ -54,7 +52,7 @@ public class ClassInstanceValue implements Value {
     public void set(Value key, Value value) {
         final Value v = thisMap.get(key);
         if (v == null) {
-            throw new RuntimeException("Unable to add new field "
+            throw new LZRException("RuntimeException ", "Unable to add new field "
                     + key.asString() + " to class " + className);
         }
         thisMap.set(key, value);

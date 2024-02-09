@@ -10,7 +10,7 @@ import com.kingmang.lazurite.runtime.Value;
 
 public final class AssignmentExpression extends InterruptableNode implements Expression, Statement {
 
-    public final com.kingmang.lazurite.parser.AST.Accessible target;
+    public final Accessible target;
     public final BinaryExpression.Operator operation;
     public final Expression expression;
     

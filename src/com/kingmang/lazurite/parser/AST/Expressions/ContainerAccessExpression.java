@@ -9,15 +9,19 @@ import com.kingmang.lazurite.runtime.*;
 import com.kingmang.lazurite.runtime.Lzr.LzrArray;
 import com.kingmang.lazurite.runtime.Lzr.LzrMap;
 import com.kingmang.lazurite.runtime.Lzr.LzrString;
+import lombok.Getter;
 
 
 import java.util.List;
 
 
 public final class ContainerAccessExpression implements Expression, Accessible {
-    
+
+    @Getter
     public final Expression root;
+    @Getter
     public final List<Expression> indices;
+    @Getter
     private boolean rootIsVariable;
 
     public ContainerAccessExpression(String variable, List<Expression> indices) {
@@ -30,13 +34,6 @@ public final class ContainerAccessExpression implements Expression, Accessible {
         this.indices = indices;
     }
 
-    public boolean rootIsVariable() {
-        return rootIsVariable;
-    }
-
-    public Expression getRoot() {
-        return root;
-    }
 
     @Override
     public Value eval() {

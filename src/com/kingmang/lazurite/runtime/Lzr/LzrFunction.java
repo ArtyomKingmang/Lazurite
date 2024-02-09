@@ -4,6 +4,7 @@ import com.kingmang.lazurite.exceptions.LZRException;
 import com.kingmang.lazurite.core.Function;
 import com.kingmang.lazurite.core.Types;
 import com.kingmang.lazurite.runtime.Value;
+import lombok.Getter;
 
 import java.util.Objects;
 
@@ -12,7 +13,7 @@ public class LzrFunction implements Value {
 
     public static final LzrFunction EMPTY = new LzrFunction(args -> LzrNumber.ZERO);
 
-
+    @Getter
     private final Function value;
 
     public LzrFunction(Function value) {
@@ -49,11 +50,6 @@ public class LzrFunction implements Value {
         return new int[0];
     }
 
-
-
-    public Function getValue() {
-        return value;
-    }
 
     @Override
     public int hashCode() {

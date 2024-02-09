@@ -28,7 +28,7 @@ public final class ParseErrors implements Iterable<com.kingmang.lazurite.excepti
     }
 
     @Override
-    public Iterator<com.kingmang.lazurite.exceptions.parser.ParseError> iterator() {
+    public Iterator<ParseError> iterator() {
         return errors.iterator();
     }
 

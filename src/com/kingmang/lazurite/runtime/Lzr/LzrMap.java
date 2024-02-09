@@ -3,6 +3,7 @@ package com.kingmang.lazurite.runtime.Lzr;
 import com.kingmang.lazurite.exceptions.LZRException;
 import com.kingmang.lazurite.core.*;
 import com.kingmang.lazurite.runtime.Value;
+import lombok.Getter;
 
 import java.util.Iterator;
 import java.util.LinkedHashMap;
@@ -21,7 +22,7 @@ public class LzrMap implements Value, Iterable<Map.Entry<Value, Value>> {
         result.map.putAll(map2.map);
         return result;
     }
-
+    @Getter
     private final Map<Value, Value> map;
 
     public LzrMap(int size) {
@@ -85,9 +86,7 @@ public class LzrMap implements Value, Iterable<Map.Entry<Value, Value>> {
         map.put(key, value);
     }
 
-    public Map<Value, Value> getMap() {
-        return map;
-    }
+
     
     @Override
     public Object raw() {

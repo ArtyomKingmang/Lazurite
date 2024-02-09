@@ -19,8 +19,6 @@ import com.kingmang.lazurite.runtime.Lzr.LzrMap;
 import com.kingmang.lazurite.runtime.Lzr.LzrNumber;
 import com.kingmang.lazurite.runtime.Lzr.LzrString;
 import com.kingmang.lazurite.runtime.Variables;
-import lombok.Getter;
-
 
 public final class LexerImplementation implements Lexer {
 
@@ -28,7 +26,7 @@ public final class LexerImplementation implements Lexer {
         return new LexerImplementation(input).tokenize();
     }
     private static final String OPERATOR_CHARS = "+-*/%()[]{}=<>!&|.,^~?:";
-    private static final TokenType[] tokenTypes = com.kingmang.lazurite.parser.parse.TokenType.values();
+    private static final TokenType[] tokenTypes = TokenType.values();
 
     //ключевые слова
     private static final String[] keywords = {
@@ -112,12 +110,11 @@ public final class LexerImplementation implements Lexer {
         Keyword.put("filter", new Standart.filter(false));
     }
 
-    /*
-    public static Set<String> getKeywords() {
 
+    public static Set<String> getKeywords() {
         return KEYWORDS.keySet();
     }
-    */
+
 
 
     private final String input;

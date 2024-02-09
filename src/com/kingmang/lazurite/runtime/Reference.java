@@ -1,12 +1,14 @@
 package com.kingmang.lazurite.runtime;
 
 import com.kingmang.lazurite.exceptions.LZRException;
+import lombok.Getter;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.Serializable;
 
 public class Reference implements Value, Serializable {
 
+    @Getter
     private Object ref;
 
     public Reference(Object ref) {
@@ -43,9 +45,6 @@ public class Reference implements Value, Serializable {
         return 0;
     }
 
-    public Object getRef() {
-        return ref;
-    }
 
     @Override
     public String toString() {

@@ -1,9 +1,12 @@
 package com.kingmang.lazurite.patterns;
 
+import lombok.Getter;
+
 import java.io.Serializable;
 
 public class PairPattern extends Pattern implements Serializable {
 
+    @Getter
     private String left, right;
 
     public PairPattern(String left, String right) {
@@ -11,13 +14,6 @@ public class PairPattern extends Pattern implements Serializable {
         this.right = right;
     }
 
-    public String getLeft() {
-        return left;
-    }
-
-    public String getRight() {
-        return right;
-    }
 
     @Override
     public String toString() {

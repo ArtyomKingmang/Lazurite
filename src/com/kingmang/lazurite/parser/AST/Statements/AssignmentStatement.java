@@ -8,11 +8,15 @@ import com.kingmang.lazurite.runtime.Lzr.LzrNumber;
 import com.kingmang.lazurite.runtime.Lzr.LzrString;
 import com.kingmang.lazurite.runtime.Value;
 import com.kingmang.lazurite.runtime.Variables;
+import lombok.Getter;
 
 public final class AssignmentStatement implements Statement {
 
+    @Getter
     private final String variable;
+    @Getter
     private final Expression expression;
+    @Getter
     private final int mode;
 
     public AssignmentStatement(String variable, Expression expression) {
@@ -66,17 +70,6 @@ public final class AssignmentStatement implements Statement {
         }
     }
 
-    public String getVariable() {
-        return variable;
-    }
-
-    public Expression getExpression() {
-        return expression;
-    }
-
-    public int getMode() {
-        return mode;
-    }
 
     @Override
     public String toString() {

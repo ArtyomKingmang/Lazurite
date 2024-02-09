@@ -4,20 +4,19 @@ import com.kingmang.lazurite.parser.AST.Expressions.Expression;
 import com.kingmang.lazurite.patterns.visitor.ResultVisitor;
 import com.kingmang.lazurite.patterns.visitor.Visitor;
 import com.kingmang.lazurite.runtime.Value;
+import lombok.Getter;
 
 
 public final class ReturnStatement extends RuntimeException implements Statement {
 
     public final Expression expression;
+    @Getter
     private Value result;
     
     public ReturnStatement(Expression expression) {
         this.expression = expression;
     }
-    
-    public Value getResult() {
-        return result;
-    }
+
     
     @Override
     public void execute() {

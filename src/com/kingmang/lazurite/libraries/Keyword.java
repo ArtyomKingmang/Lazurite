@@ -2,6 +2,7 @@ package com.kingmang.lazurite.libraries;
 
 import com.kingmang.lazurite.core.Function;
 import com.kingmang.lazurite.exceptions.LZRException;
+import lombok.Getter;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -9,6 +10,7 @@ import java.util.Map;
 
 public final class Keyword {
 
+    @Getter
     private static final Map<String, Function> functions;
     static {
         functions = new HashMap<>();
@@ -20,9 +22,6 @@ public final class Keyword {
         functions.clear();
     }
 
-    public static Map<String, Function> getFunctions() {
-        return functions;
-    }
     
     public static boolean isExists(String key) {
         return functions.containsKey(key);
