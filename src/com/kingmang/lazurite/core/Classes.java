@@ -3,10 +3,12 @@ package com.kingmang.lazurite.core;
 import com.kingmang.lazurite.exceptions.LZRException;
 import com.kingmang.lazurite.runtime.ClassInstanceValue;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.util.HashMap;
 import java.util.Map;
 
+@NoArgsConstructor
 public final class Classes {
 
     @Getter
@@ -14,8 +16,6 @@ public final class Classes {
     static {
         classes = new HashMap<>();
     }
-
-    private Classes() { }
 
     public static void clear() {
         classes.clear();

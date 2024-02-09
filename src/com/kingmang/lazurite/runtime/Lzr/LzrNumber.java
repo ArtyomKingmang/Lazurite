@@ -4,7 +4,9 @@ package com.kingmang.lazurite.runtime.Lzr;
 import com.kingmang.lazurite.core.Types;
 import com.kingmang.lazurite.runtime.Value;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 
+@RequiredArgsConstructor
 public final class LzrNumber implements Value {
 
     private static final int CACHE_MIN = -128;
@@ -47,10 +49,6 @@ public final class LzrNumber implements Value {
     }
 
     private final Number value;
-    
-    public LzrNumber(Number value) {
-        this.value = value;
-    }
     
     @Override
     public int type() {

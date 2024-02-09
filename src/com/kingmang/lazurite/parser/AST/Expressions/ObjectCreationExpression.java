@@ -10,20 +10,18 @@ import com.kingmang.lazurite.runtime.ClassInstanceValue;
 import com.kingmang.lazurite.runtime.ClassMethod;
 import com.kingmang.lazurite.runtime.Value;
 import com.kingmang.lazurite.runtime.Variables;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 
 
 import java.util.Iterator;
 import java.util.List;
 
+@AllArgsConstructor
 public final class ObjectCreationExpression implements Expression {
     
     public final String className;
     public final List<Expression> constructorArguments;
-
-    public ObjectCreationExpression(String className, List<Expression> constructorArguments) {
-        this.className = className;
-        this.constructorArguments = constructorArguments;
-    }
     
     @Override
     public Value eval() {

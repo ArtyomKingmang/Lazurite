@@ -5,10 +5,11 @@ import com.kingmang.lazurite.core.Function;
 import com.kingmang.lazurite.core.Types;
 import com.kingmang.lazurite.runtime.Value;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 
 import java.util.Objects;
 
-
+@RequiredArgsConstructor
 public class LzrFunction implements Value {
 
     public static final LzrFunction EMPTY = new LzrFunction(args -> LzrNumber.ZERO);
@@ -16,9 +17,6 @@ public class LzrFunction implements Value {
     @Getter
     private final Function value;
 
-    public LzrFunction(Function value) {
-        this.value = value;
-    }
     
     @Override
     public int type() {

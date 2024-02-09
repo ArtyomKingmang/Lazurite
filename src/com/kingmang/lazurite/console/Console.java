@@ -3,15 +3,16 @@ package com.kingmang.lazurite.console;
 import com.kingmang.lazurite.console.settings.ConsoleOutput;
 import com.kingmang.lazurite.console.settings.Output;
 import com.kingmang.lazurite.core.CallStack;
+import lombok.NoArgsConstructor;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.PrintStream;
 import java.io.UnsupportedEncodingException;
 
+@NoArgsConstructor
 public class Console {
 
-    private Console() { }
     
     private static Output outputSettings = new ConsoleOutput();
 

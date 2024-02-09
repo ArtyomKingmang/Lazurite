@@ -43,6 +43,7 @@ import com.kingmang.lazurite.runtime.*;
 import com.kingmang.lazurite.runtime.Lzr.LzrNumber;
 import com.kingmang.lazurite.runtime.Lzr.LzrString;
 import lombok.Getter;
+import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -90,6 +91,9 @@ public final class ParserImplementation {
 
     @Getter
     private final ParseErrors parseErrors;
+
+    @Setter
+    @Getter
     private Statement parsedStatement;
 
     private int pos;
@@ -100,13 +104,6 @@ public final class ParserImplementation {
         this.macros = new HashMap<>();
         parseErrors = new ParseErrors();
     }
-
-    /*
-    public ParseErrors getParseErrors() {
-        return parseErrors;
-    }
-    */
-
 
     public Statement parse() {
         parseErrors.clear();

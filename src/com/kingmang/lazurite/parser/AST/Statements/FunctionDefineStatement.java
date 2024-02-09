@@ -5,19 +5,14 @@ import com.kingmang.lazurite.parser.AST.Arguments;
 import com.kingmang.lazurite.patterns.visitor.ResultVisitor;
 import com.kingmang.lazurite.patterns.visitor.Visitor;
 import com.kingmang.lazurite.runtime.UserDefinedFunction;
+import lombok.AllArgsConstructor;
 
-
+@AllArgsConstructor
 public final class FunctionDefineStatement implements Statement {
     
     public final String name;
     public final Arguments arguments;
     public final Statement body;
-    
-    public FunctionDefineStatement(String name, Arguments arguments, Statement body) {
-        this.name = name;
-        this.arguments = arguments;
-        this.body = body;
-    }
 
     @Override
     public void execute() {

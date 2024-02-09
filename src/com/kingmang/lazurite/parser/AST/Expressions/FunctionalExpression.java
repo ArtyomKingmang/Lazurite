@@ -19,7 +19,6 @@ import java.util.List;
 
 
 public final class FunctionalExpression extends InterruptableNode implements Expression, Statement {
-    
     public final Expression functionExpr;
     public final List<Expression> arguments;
     

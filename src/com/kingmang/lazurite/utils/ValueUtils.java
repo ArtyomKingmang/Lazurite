@@ -11,13 +11,13 @@ import com.kingmang.lazurite.core.Types;
 import com.kingmang.lazurite.exceptions.LZRException;
 import com.kingmang.lazurite.runtime.*;
 import com.kingmang.lazurite.runtime.Lzr.*;
+import lombok.NoArgsConstructor;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+@NoArgsConstructor
 public final class ValueUtils {
-
-    private ValueUtils() { }
 
     public static Object toObject(Value val) throws JSONException {
         switch (val.type()) {

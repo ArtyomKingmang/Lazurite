@@ -4,18 +4,16 @@ import com.kingmang.lazurite.patterns.visitor.ResultVisitor;
 import com.kingmang.lazurite.patterns.visitor.Visitor;
 import com.kingmang.lazurite.runtime.Lzr.LzrMap;
 import com.kingmang.lazurite.runtime.Value;
+import lombok.AllArgsConstructor;
 
 import java.util.Iterator;
 import java.util.Map;
 
-
+@AllArgsConstructor
 public final class MapExpression implements Expression {
     
     public final Map<Expression, Expression> elements;
 
-    public MapExpression(Map<Expression, Expression> arguments) {
-        this.elements = arguments;
-    }
     
     @Override
     public Value eval() {

@@ -1,11 +1,12 @@
 package com.kingmang.lazurite.runtime;
 
 import com.kingmang.lazurite.runtime.Lzr.LzrNumber;
+import lombok.NoArgsConstructor;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-
+@NoArgsConstructor
 public final class Variables {
 
     private static final Object lock = new Object();
@@ -33,8 +34,6 @@ public final class Variables {
     static {
         Variables.clear();
     }
-
-    private Variables() { }
 
     public static Map<String, Value> variables() {
         return scope.variables;

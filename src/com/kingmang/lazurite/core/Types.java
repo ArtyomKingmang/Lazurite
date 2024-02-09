@@ -1,5 +1,9 @@
 package com.kingmang.lazurite.core;
 
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
+
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class Types {
 
     public static final int
@@ -24,5 +28,4 @@ public final class Types {
         return "unknown (" + type + ")";
     }
 
-    private Types() { }
 }

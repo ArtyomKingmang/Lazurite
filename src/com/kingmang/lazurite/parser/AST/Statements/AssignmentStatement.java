@@ -8,8 +8,9 @@ import com.kingmang.lazurite.runtime.Lzr.LzrNumber;
 import com.kingmang.lazurite.runtime.Lzr.LzrString;
 import com.kingmang.lazurite.runtime.Value;
 import com.kingmang.lazurite.runtime.Variables;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
-
+@AllArgsConstructor
 public final class AssignmentStatement implements Statement {
 
     @Getter
@@ -23,11 +24,6 @@ public final class AssignmentStatement implements Statement {
         this.variable = variable;
         this.expression = expression;
         this.mode = 0;
-    }
-    public AssignmentStatement(String variable, Expression expression, int mode) {
-        this.variable = variable;
-        this.expression = expression;
-        this.mode = mode;
     }
 
     @Override

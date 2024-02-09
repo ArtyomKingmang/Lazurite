@@ -1,33 +1,9 @@
-using "gforms"
-using "system"
+using "std"
+println(Integer.MAX_VALUE)
+x = 10
+func getX(){
+    return x
+}
 
-wnd = Frame("text editor")
-wnd.setMinimumSize(500,500)
-
-panel = Panel(layoutManager = borderLayout())
-
-menu = MenuBar()
-menu.add("file", "open", "exit")
-
-
-textArea = TextArea(20,15)
-textArea.setFont("Arial",0,20)
-
-menu.setAction(1, func(){
-    chooser = FileChooser()
-    chooser.showOpenDialog()
-    textArea.setText(chooser.getTextFromFile())
-})
-
-menu.setAction(2, func(){
-    system.exit(0)
-})
-
-
-panel.add(menu,BorderLayout.NORTH)
-panel.add(textArea)
-
-wnd.add(panel,BorderLayout.NORTH)
-wnd.add(ScrollPane(textArea), BorderLayout.CENTER)
-wnd.pack()
-wnd.setVisible()
+if(1)
+    print(getX())

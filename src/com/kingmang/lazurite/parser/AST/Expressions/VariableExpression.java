@@ -7,15 +7,12 @@ import com.kingmang.lazurite.patterns.visitor.ResultVisitor;
 import com.kingmang.lazurite.patterns.visitor.Visitor;
 import com.kingmang.lazurite.runtime.Value;
 import com.kingmang.lazurite.runtime.Variables;
+import lombok.AllArgsConstructor;
 
-
+@AllArgsConstructor
 public final class VariableExpression extends InterruptableNode implements Expression, Accessible {
     
     public final String name;
-    
-    public VariableExpression(String name) {
-        this.name = name;
-    }
 
     @Override
     public Value eval() {

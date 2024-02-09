@@ -3,18 +3,12 @@ package com.kingmang.lazurite.parser.AST.Expressions;
 import com.kingmang.lazurite.patterns.visitor.ResultVisitor;
 import com.kingmang.lazurite.patterns.visitor.Visitor;
 import com.kingmang.lazurite.runtime.Value;
+import lombok.AllArgsConstructor;
 
-
+@AllArgsConstructor
 public final class TernaryExpression implements Expression {
-
     public final Expression condition;
     public final Expression trueExpr, falseExpr;
-
-    public TernaryExpression(Expression condition, Expression trueExpr, Expression falseExpr) {
-        this.condition = condition;
-        this.trueExpr = trueExpr;
-        this.falseExpr = falseExpr;
-    }
 
     @Override
     public Value eval() {

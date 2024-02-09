@@ -2,13 +2,13 @@ package com.kingmang.lazurite.libraries.gforms;
 
 import com.kingmang.lazurite.core.Arguments;
 import com.kingmang.lazurite.runtime.Value;
+import lombok.NoArgsConstructor;
 
 import java.awt.Component;
 import javax.swing.*;
 
+@NoArgsConstructor
 public final class Components {
-
-    private Components() { }
 
     static Value newWindow(Value[] args) {
         Arguments.checkOrOr(0, 1, args.length);

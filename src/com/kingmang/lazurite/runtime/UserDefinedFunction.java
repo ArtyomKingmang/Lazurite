@@ -7,17 +7,13 @@ import com.kingmang.lazurite.parser.AST.Arguments;
 import com.kingmang.lazurite.parser.AST.Statements.ReturnStatement;
 import com.kingmang.lazurite.parser.AST.Statements.Statement;
 import com.kingmang.lazurite.runtime.Lzr.LzrNumber;
+import lombok.AllArgsConstructor;
 
-
+@AllArgsConstructor
 public class UserDefinedFunction implements Function {
     
     public final Arguments arguments;
     public final Statement body;
-    
-    public UserDefinedFunction(Arguments arguments, Statement body) {
-        this.arguments = arguments;
-        this.body = body;
-    }
     
     public int getArgsCount() {
         return arguments.size();

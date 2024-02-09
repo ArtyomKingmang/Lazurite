@@ -1,10 +1,10 @@
 package com.kingmang.lazurite.core;
 
 import com.kingmang.lazurite.exceptions.LZRException;
+import lombok.NoArgsConstructor;
 
+@NoArgsConstructor
 public final class Arguments {
-
-    private Arguments() { }
 
     public static void check(int expected, int got) {
         if (got != expected) throw new LZRException("ArgumentsMismatchException ", String.format(

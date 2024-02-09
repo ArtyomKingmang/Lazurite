@@ -4,18 +4,15 @@ import com.kingmang.lazurite.patterns.visitor.ResultVisitor;
 import com.kingmang.lazurite.patterns.visitor.Visitor;
 import com.kingmang.lazurite.runtime.Lzr.LzrArray;
 import com.kingmang.lazurite.runtime.Value;
+import lombok.AllArgsConstructor;
 
 import java.util.List;
 
-
+@AllArgsConstructor
 public final class ArrayExpression implements Expression {
     
     public final List<Expression> elements;
 
-    public ArrayExpression(List<Expression> arguments) {
-        this.elements = arguments;
-    }
-    
     @Override
     public Value eval() {
         final int size = elements.size();

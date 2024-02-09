@@ -11,7 +11,6 @@ import static org.fusesource.jansi.Ansi.ansi;
 
 public class Editor {
 
-
     public static void openEditor() {
         Scanner scanner = new Scanner(System.in);
         int lineNumber = 1;

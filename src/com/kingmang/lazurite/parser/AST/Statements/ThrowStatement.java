@@ -4,11 +4,12 @@ import com.kingmang.lazurite.exceptions.OperationIsNotSupportedException;
 import com.kingmang.lazurite.parser.AST.Expressions.Expression;
 import com.kingmang.lazurite.patterns.visitor.ResultVisitor;
 import com.kingmang.lazurite.patterns.visitor.Visitor;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
+@AllArgsConstructor
 public class ThrowStatement implements Statement {
-
     @Getter
     @Setter
     private String type;
@@ -16,10 +17,6 @@ public class ThrowStatement implements Statement {
     @Setter
     private Expression expr;
 
-    public ThrowStatement(String type, Expression expr) {
-        this.type = type;
-        this.expr = expr;
-    }
 
     @Override
     public void execute() {

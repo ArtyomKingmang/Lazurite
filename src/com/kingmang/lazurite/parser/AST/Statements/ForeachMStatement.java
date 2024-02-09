@@ -11,23 +11,17 @@ import com.kingmang.lazurite.runtime.Lzr.LzrArray;
 import com.kingmang.lazurite.runtime.Lzr.LzrMap;
 import com.kingmang.lazurite.runtime.Lzr.LzrNumber;
 import com.kingmang.lazurite.runtime.Lzr.LzrString;
+import lombok.AllArgsConstructor;
 
 
 import java.util.Map;
 
-
+@AllArgsConstructor
 public final class ForeachMStatement extends InterruptableNode implements Statement {
     
     public final String key, value;
     public final Expression container;
     public final Statement body;
-
-    public ForeachMStatement(String key, String value, Expression container, Statement body) {
-        this.key = key;
-        this.value = value;
-        this.container = container;
-        this.body = body;
-    }
 
     @Override
     public void execute() {

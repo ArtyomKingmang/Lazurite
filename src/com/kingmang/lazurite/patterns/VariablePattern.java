@@ -1,17 +1,15 @@
 package com.kingmang.lazurite.patterns;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 import java.io.Serializable;
 
+@AllArgsConstructor
 public class VariablePattern extends Pattern implements Serializable {
 
     @Getter
     private String variable;
-
-    public VariablePattern(String variable) {
-        this.variable = variable;
-    }
 
     @Override
     public String toString() {

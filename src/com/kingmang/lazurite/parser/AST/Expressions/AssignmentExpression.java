@@ -6,6 +6,7 @@ import com.kingmang.lazurite.parser.AST.InterruptableNode;
 import com.kingmang.lazurite.patterns.visitor.ResultVisitor;
 import com.kingmang.lazurite.patterns.visitor.Visitor;
 import com.kingmang.lazurite.runtime.Value;
+import lombok.AllArgsConstructor;
 
 
 public final class AssignmentExpression extends InterruptableNode implements Expression, Statement {
@@ -13,13 +14,12 @@ public final class AssignmentExpression extends InterruptableNode implements Exp
     public final Accessible target;
     public final BinaryExpression.Operator operation;
     public final Expression expression;
-    
+
     public AssignmentExpression(BinaryExpression.Operator operation, Accessible target, Expression expr) {
         this.operation = operation;
         this.target = target;
         this.expression = expr;
     }
-    
     @Override
     public void execute() {
         eval();

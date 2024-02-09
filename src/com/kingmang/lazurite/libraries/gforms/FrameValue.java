@@ -12,11 +12,11 @@ import java.awt.Window;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 
-public class WindowValue extends ContainerValue {
+public class FrameValue extends ContainerValue {
 
     private final Window window;
 
-    public WindowValue(int functionsCount, Window window) {
+    public FrameValue(int functionsCount, Window window) {
         super(functionsCount + 18, window);
         this.window = window;
         init();

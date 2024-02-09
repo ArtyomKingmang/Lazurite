@@ -1,20 +1,17 @@
 package com.kingmang.lazurite.runtime;
 
 import com.kingmang.lazurite.exceptions.LZRException;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.Serializable;
 
+@AllArgsConstructor
 public class Reference implements Value, Serializable {
 
     @Getter
     private Object ref;
-
-    public Reference(Object ref) {
-        this.ref = ref;
-    }
-
     @Override
     public int asInt() {
         throw new LZRException("BadArithmetic", "Cannot cast REFERENCE to a NUMBER");

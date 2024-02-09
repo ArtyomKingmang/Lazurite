@@ -4,6 +4,7 @@ import com.kingmang.lazurite.exceptions.LZRException;
 import com.kingmang.lazurite.core.*;
 import com.kingmang.lazurite.runtime.Value;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 
 import java.util.Iterator;
 import java.util.LinkedHashMap;
@@ -11,7 +12,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.function.Consumer;
 
-
+@RequiredArgsConstructor
 public class LzrMap implements Value, Iterable<Map.Entry<Value, Value>> {
     
     public static final LzrMap EMPTY = new LzrMap(1);
@@ -27,10 +28,6 @@ public class LzrMap implements Value, Iterable<Map.Entry<Value, Value>> {
 
     public LzrMap(int size) {
         this.map = new LinkedHashMap<>(size);
-    }
-
-    public LzrMap(Map<Value, Value> map) {
-        this.map = map;
     }
 
     public boolean ifPresent(String key, Consumer<Value> consumer) {

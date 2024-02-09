@@ -9,8 +9,9 @@ import com.kingmang.lazurite.runtime.Lzr.LzrNumber;
 import com.kingmang.lazurite.runtime.Lzr.LzrString;
 import com.kingmang.lazurite.core.Types;
 import com.kingmang.lazurite.runtime.Value;
+import lombok.RequiredArgsConstructor;
 
-
+@RequiredArgsConstructor
 public final class ValueExpression extends InterruptableNode implements Expression {
     
     public final Value value;
@@ -25,10 +26,6 @@ public final class ValueExpression extends InterruptableNode implements Expressi
     
     public ValueExpression(Function value) {
         this.value = new LzrFunction(value);
-    }
-    
-    public ValueExpression(Value value) {
-        this.value = value;
     }
 
     @Override

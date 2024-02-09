@@ -1,19 +1,16 @@
 package com.kingmang.lazurite.patterns;
 
 import com.kingmang.lazurite.runtime.Value;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 import java.io.Serializable;
 
+@AllArgsConstructor
 public class ConstantPattern extends Pattern implements Serializable {
 
     @Getter
     private Value constant;
-
-    public ConstantPattern(Value constant) {
-        this.constant = constant;
-    }
-
 
     @Override
     public String toString() {

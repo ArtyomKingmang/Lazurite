@@ -21,7 +21,6 @@ import java.util.List;
 
 public class Handler {
 
-    Lexer lexer;
     public static void RUN (String path) throws IOException {
         Handler.RunProgram(Loader.readSource(path));
     }

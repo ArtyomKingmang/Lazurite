@@ -9,7 +9,7 @@ import java.util.List;
 
 public final class ParseErrors implements Iterable<com.kingmang.lazurite.exceptions.parser.ParseError> {
 
-    private final List<com.kingmang.lazurite.exceptions.parser.ParseError> errors;
+    private final List<ParseError> errors;
 
     public ParseErrors() {
         errors = new ArrayList<>();
@@ -20,7 +20,7 @@ public final class ParseErrors implements Iterable<com.kingmang.lazurite.excepti
     }
     
     public void add(Exception ex, int line) {
-        errors.add(new com.kingmang.lazurite.exceptions.parser.ParseError(line, ex));
+        errors.add(new ParseError(line, ex));
     }
     
     public boolean hasErrors() {

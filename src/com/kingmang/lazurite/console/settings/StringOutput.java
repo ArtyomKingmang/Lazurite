@@ -1,7 +1,10 @@
 package com.kingmang.lazurite.console.settings;
 
+import lombok.AllArgsConstructor;
+
 import java.io.File;
 
+@AllArgsConstructor
 public class StringOutput implements Output {
 
     private final StringBuffer out, err;
@@ -14,10 +17,6 @@ public class StringOutput implements Output {
         this(out, out);
     }
 
-    public StringOutput(StringBuffer out, StringBuffer err) {
-        this.out = out;
-        this.err = err;
-    }
 
     @Override
     public String newline() {

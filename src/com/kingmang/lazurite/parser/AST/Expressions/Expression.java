@@ -5,6 +5,5 @@ import com.kingmang.lazurite.runtime.Value;
 
 
 public interface Expression extends Node {
-    
     Value eval();
 }

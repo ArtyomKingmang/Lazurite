@@ -4,19 +4,16 @@ import com.kingmang.lazurite.exceptions.LZRException;
 import com.kingmang.lazurite.core.*;
 import com.kingmang.lazurite.libraries.Keyword;
 import com.kingmang.lazurite.runtime.Value;
+import lombok.AllArgsConstructor;
 
 import java.util.Objects;
 
-
+@AllArgsConstructor
 public final class LzrString implements Value {
     
     public static final LzrString EMPTY = new LzrString("");
     
     private final String value;
-
-    public LzrString(String value) {
-        this.value = value;
-    }
 
 
     public Value access(Value propertyValue) {

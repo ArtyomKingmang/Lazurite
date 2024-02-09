@@ -10,18 +10,15 @@ import com.kingmang.lazurite.parser.parse.Token;
 import com.kingmang.lazurite.patterns.visitor.FunctionAdder;
 import com.kingmang.lazurite.patterns.visitor.ResultVisitor;
 import com.kingmang.lazurite.patterns.visitor.Visitor;
+import lombok.AllArgsConstructor;
 
 import java.io.IOException;
 import java.util.List;
 
-
+@AllArgsConstructor
 public final class IncludeStatement extends InterruptableNode implements Statement {
 
     public final Expression expression;
-    
-    public IncludeStatement(Expression expression) {
-        this.expression = expression;
-    }
 
     @Override
     public void execute() {

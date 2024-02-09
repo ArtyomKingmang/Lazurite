@@ -1,8 +1,10 @@
 package com.kingmang.lazurite.parser.AST;
 
 import com.kingmang.lazurite.parser.AST.Expressions.Expression;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 
+@AllArgsConstructor
 public final class Argument {
 
     @Getter
@@ -12,11 +14,6 @@ public final class Argument {
 
     public Argument(String name) {
         this(name, null);
-    }
-
-    public Argument(String name, Expression valueExpr) {
-        this.name = name;
-        this.valueExpr = valueExpr;
     }
     @Override
     public String toString() {

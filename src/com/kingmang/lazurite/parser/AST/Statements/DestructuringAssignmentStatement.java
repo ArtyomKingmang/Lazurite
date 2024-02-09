@@ -9,21 +9,17 @@ import com.kingmang.lazurite.runtime.Lzr.LzrMap;
 import com.kingmang.lazurite.core.Types;
 import com.kingmang.lazurite.runtime.Value;
 import com.kingmang.lazurite.runtime.Variables;
+import lombok.AllArgsConstructor;
 
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-
+@AllArgsConstructor
 public final class DestructuringAssignmentStatement extends InterruptableNode implements Statement {
     
     public final List<String> variables;
     public final Expression containerExpression;
-
-    public DestructuringAssignmentStatement(List<String> arguments, Expression container) {
-        this.variables = arguments;
-        this.containerExpression = container;
-    }
     
     @Override
     public void execute() {

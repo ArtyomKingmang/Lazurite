@@ -5,15 +5,12 @@ import com.kingmang.lazurite.patterns.visitor.ResultVisitor;
 import com.kingmang.lazurite.patterns.visitor.Visitor;
 import com.kingmang.lazurite.runtime.Lzr.LzrFunction;
 import com.kingmang.lazurite.libraries.Keyword;
+import lombok.AllArgsConstructor;
 
-
+@AllArgsConstructor
 public final class DPointExpression extends InterruptableNode implements Expression {
 
     public final String name;
-
-    public DPointExpression(String name) {
-        this.name = name;
-    }
 
     @Override
     public LzrFunction eval() {

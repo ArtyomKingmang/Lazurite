@@ -3,11 +3,12 @@ package com.kingmang.lazurite.libraries;
 import com.kingmang.lazurite.core.Function;
 import com.kingmang.lazurite.exceptions.LZRException;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.util.HashMap;
 import java.util.Map;
 
-
+@NoArgsConstructor
 public final class Keyword {
 
     @Getter
@@ -16,13 +17,10 @@ public final class Keyword {
         functions = new HashMap<>();
     }
 
-    private Keyword() { }
-
     public static void clear() {
         functions.clear();
     }
 
-    
     public static boolean isExists(String key) {
         return functions.containsKey(key);
     }

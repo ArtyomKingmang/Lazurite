@@ -5,20 +5,15 @@ import com.kingmang.lazurite.parser.AST.Expressions.Expression;
 import com.kingmang.lazurite.parser.AST.InterruptableNode;
 import com.kingmang.lazurite.patterns.visitor.ResultVisitor;
 import com.kingmang.lazurite.patterns.visitor.Visitor;
+import lombok.AllArgsConstructor;
 
+@AllArgsConstructor
 public final class ForStatement extends InterruptableNode implements Statement {
     
     public final Statement initialization;
     public final Expression termination;
     public final Statement increment;
     public final Statement statement;
-
-    public ForStatement(Statement initialization, Expression termination, Statement increment, Statement block) {
-        this.initialization = initialization;
-        this.termination = termination;
-        this.increment = increment;
-        this.statement = block;
-    }
 
     @Override
     public void execute() {

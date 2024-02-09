@@ -5,17 +5,14 @@ import com.kingmang.lazurite.parser.AST.Expressions.Expression;
 import com.kingmang.lazurite.parser.AST.InterruptableNode;
 import com.kingmang.lazurite.patterns.visitor.ResultVisitor;
 import com.kingmang.lazurite.patterns.visitor.Visitor;
+import lombok.AllArgsConstructor;
 
+@AllArgsConstructor
 public final class WhileStatement extends InterruptableNode implements Statement {
-    
+
     public final Expression condition;
     public final Statement statement;
 
-    public WhileStatement(Expression condition, Statement statement) {
-        this.condition = condition;
-        this.statement = statement;
-    }
-    
     @Override
     public void execute() {
         super.interruptionCheck();

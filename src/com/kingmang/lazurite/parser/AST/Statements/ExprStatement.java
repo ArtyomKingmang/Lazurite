@@ -5,15 +5,12 @@ import com.kingmang.lazurite.parser.AST.InterruptableNode;
 import com.kingmang.lazurite.patterns.visitor.ResultVisitor;
 import com.kingmang.lazurite.patterns.visitor.Visitor;
 import com.kingmang.lazurite.runtime.Value;
+import lombok.AllArgsConstructor;
 
-
+@AllArgsConstructor
 public final class ExprStatement extends InterruptableNode implements Expression, Statement {
     
     public final Expression expr;
-    
-    public ExprStatement(Expression function) {
-        this.expr = function;
-    }
 
     @Override
     public void execute() {

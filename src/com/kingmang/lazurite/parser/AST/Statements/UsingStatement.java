@@ -9,20 +9,17 @@ import com.kingmang.lazurite.patterns.visitor.Visitor;
 import com.kingmang.lazurite.core.Types;
 import com.kingmang.lazurite.runtime.Value;
 import com.kingmang.lazurite.libraries.Library;
+import lombok.RequiredArgsConstructor;
 
 
-
+@RequiredArgsConstructor
 public final class UsingStatement extends InterruptableNode implements Statement {
 
     private static final String PACKAGE = "com.kingmang.lazurite.libraries.%s.%s";
 
     
     public final Expression expression;
-    
-    public UsingStatement(Expression expression) {
-        this.expression = expression;
-    }
-    
+
     @Override
     public void execute() {
         super.interruptionCheck();

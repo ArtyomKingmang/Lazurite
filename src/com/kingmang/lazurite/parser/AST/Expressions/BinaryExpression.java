@@ -11,8 +11,9 @@ import com.kingmang.lazurite.runtime.Lzr.LzrNumber;
 import com.kingmang.lazurite.runtime.Lzr.LzrString;
 import com.kingmang.lazurite.core.Types;
 import com.kingmang.lazurite.runtime.Value;
+import lombok.AllArgsConstructor;
 
-
+@AllArgsConstructor
 public final class BinaryExpression implements Expression {
     
     public enum Operator {
@@ -50,11 +51,6 @@ public final class BinaryExpression implements Expression {
     public final Operator operation;
     public final Expression expr1, expr2;
 
-    public BinaryExpression(Operator operation, Expression expr1, Expression expr2) {
-        this.operation = operation;
-        this.expr1 = expr1;
-        this.expr2 = expr2;
-    }
 
     @Override
     public Value eval() {

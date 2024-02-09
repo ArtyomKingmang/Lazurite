@@ -11,14 +11,14 @@ import com.kingmang.lazurite.parser.AST.Statements.Statement;
 import com.kingmang.lazurite.parser.AST.Expressions.UnaryExpression;
 import com.kingmang.lazurite.parser.AST.Expressions.ValueExpression;
 import com.kingmang.lazurite.parser.AST.Expressions.VariableExpression;
+import lombok.NoArgsConstructor;
 
 import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
 
+@NoArgsConstructor
 public final class VisitorUtils {
-
-    private VisitorUtils() { }
 
     public static boolean isValue(Node node) {
         return (node instanceof ValueExpression);

@@ -11,21 +11,17 @@ import com.kingmang.lazurite.runtime.Lzr.LzrNumber;
 import com.kingmang.lazurite.core.Types;
 import com.kingmang.lazurite.runtime.Value;
 import com.kingmang.lazurite.runtime.Variables;
+import lombok.AllArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-
+@AllArgsConstructor
 public final class MatchExpression extends InterruptableNode implements Expression, Statement {
 
     public final Expression expression;
     public final List<Pattern> patterns;
-
-    public MatchExpression(Expression expression, List<Pattern> patterns) {
-        this.expression = expression;
-        this.patterns = patterns;
-    }
 
     @Override
     public void execute() {

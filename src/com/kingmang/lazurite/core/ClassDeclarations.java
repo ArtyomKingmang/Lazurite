@@ -2,10 +2,12 @@ package com.kingmang.lazurite.core;
 
 import com.kingmang.lazurite.parser.AST.Statements.ClassDeclarationStatement;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+@NoArgsConstructor
 public final class ClassDeclarations {
 
     @Getter
@@ -14,13 +16,9 @@ public final class ClassDeclarations {
         declarations = new ConcurrentHashMap<>();
     }
 
-    private ClassDeclarations() { }
-
     public static void clear() {
         declarations.clear();
     }
-
-
     
     public static ClassDeclarationStatement get(String key) {
         return declarations.get(key);

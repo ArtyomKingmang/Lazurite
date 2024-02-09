@@ -4,7 +4,7 @@ import com.kingmang.lazurite.core.Converters;
 
 import javax.swing.JFrame;
 
-public class JFrameValue extends WindowValue {
+public class JFrameValue extends FrameValue {
 
     final JFrame frame;
 

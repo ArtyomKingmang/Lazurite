@@ -1,8 +1,10 @@
 package com.kingmang.lazurite.parser.parse;
 
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 
+@AllArgsConstructor
 public final class Token {
 
     @Getter
@@ -11,14 +13,6 @@ public final class Token {
     private final String text;
     @Getter
     private final int row, col;
-    
-    public Token(com.kingmang.lazurite.parser.parse.TokenType type, String text, int row, int col) {
-        this.type = type;
-        this.text = text;
-        this.row = row;
-        this.col = col;
-    }
-
     
     public String position() {
         return "[" + row + " " + col + "]";

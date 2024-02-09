@@ -5,15 +5,12 @@ import com.kingmang.lazurite.parser.AST.InterruptableNode;
 import com.kingmang.lazurite.patterns.visitor.ResultVisitor;
 import com.kingmang.lazurite.patterns.visitor.Visitor;
 import com.kingmang.lazurite.console.Console;
+import lombok.AllArgsConstructor;
 
-
+@AllArgsConstructor
 public final class PrintlnStatement extends InterruptableNode implements Statement {
     
     public final Expression expression;
-
-    public PrintlnStatement(Expression expression) {
-        this.expression = expression;
-    }
 
     @Override
     public void execute() {

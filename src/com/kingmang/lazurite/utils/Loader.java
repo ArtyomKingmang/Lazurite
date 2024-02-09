@@ -1,13 +1,14 @@
 package com.kingmang.lazurite.utils;
 
+import lombok.NoArgsConstructor;
+
 import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
+@NoArgsConstructor
 public final class Loader {
-
-    private Loader() { }
 
     public static String readSource(String name) throws IOException {
         InputStream is = Loader.class.getResourceAsStream("/" + name);
