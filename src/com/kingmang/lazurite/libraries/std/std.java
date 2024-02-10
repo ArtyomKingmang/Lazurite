@@ -14,6 +14,7 @@ import com.kingmang.lazurite.utils.ValueUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class std implements Library {
     public static void initConstants() {
@@ -40,7 +41,6 @@ public class std implements Library {
         integerFunctions.set("compareUnsigned", IntegerClass::compareUnsigned);
         integerFunctions.set("MAX_VALUE", new LzrNumber(Integer.MAX_VALUE));
         integerFunctions.set("MIN_VALUE", new LzrNumber(Integer.MIN_VALUE));
-
 
         doubleFunctions.set("max", DoubleClass::max);
         doubleFunctions.set("min", DoubleClass::min);

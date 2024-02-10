@@ -1,9 +1,3 @@
 using "std"
-println(Integer.MAX_VALUE)
-x = 10
-func getX(){
-    return x
-}
 
-if(1)
-    print(getX())
+print(Integer.MAX_VALUE)

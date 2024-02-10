@@ -110,12 +110,9 @@ public final class LexerImplementation implements Lexer {
         Keyword.put("filter", new Standart.filter(false));
     }
 
-
     public static Set<String> getKeywords() {
         return KEYWORDS.keySet();
     }
-
-
 
     private final String input;
     private final int length;
