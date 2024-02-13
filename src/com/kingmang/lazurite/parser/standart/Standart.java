@@ -9,6 +9,7 @@ import com.kingmang.lazurite.console.Console;
 import com.kingmang.lazurite.runtime.Lzr.*;
 import com.kingmang.lazurite.runtime.UserDefinedFunction;
 import com.kingmang.lazurite.runtime.Value;
+import kotlin.jvm.internal.FunInterfaceConstructorReference;
 
 import java.io.UnsupportedEncodingException;
 import java.util.*;
@@ -543,6 +544,32 @@ public class Standart {
             throw new LZRException("TypeExeption", "Invalid first argument. Array or map expected");
         }
     }
+
+    public final static class tryCatch implements Function{
+
+        @Override
+        public Value execute(Value... args) {
+            Arguments.checkOrOr(1,2,args.length);
+            try{
+                return ValueUtils.consumeFunction(args[0],0).execute();
+            }catch(Exception exception){
+                if(args.length == 2){
+                    switch(args[1].type()){
+                        case Types.FUNCTION -> {
+                            final String message = exception.getMessage();
+                            final Function catchfn = ((LzrFunction)args[1]).getValue();
+                            return catchfn.execute(new LzrString(exception.getClass().getName()), new LzrString(message == null ? "" : message));
+                        }default -> {
+                            return args[1];
+                        }
+                    }
+
+                }
+            }
+            return LzrNumber.ZERO;
+        }
+    }
+
 
 
     public static final class map implements Function {

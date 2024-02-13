@@ -19,24 +19,7 @@ import com.kingmang.lazurite.parser.AST.Expressions.TernaryExpression;
 import com.kingmang.lazurite.parser.AST.Expressions.UnaryExpression;
 import com.kingmang.lazurite.parser.AST.Expressions.ValueExpression;
 import com.kingmang.lazurite.parser.AST.Expressions.VariableExpression;
-import com.kingmang.lazurite.parser.AST.Statements.ExprStatement;
-import com.kingmang.lazurite.parser.AST.Statements.FunctionDefineStatement;
-import com.kingmang.lazurite.parser.AST.Statements.BreakStatement;
-import com.kingmang.lazurite.parser.AST.Statements.ClassDeclarationStatement;
-import com.kingmang.lazurite.parser.AST.Statements.ContinueStatement;
-import com.kingmang.lazurite.parser.AST.Statements.ForStatement;
-import com.kingmang.lazurite.parser.AST.Statements.ForeachAStatement;
-import com.kingmang.lazurite.parser.AST.Statements.ForeachMStatement;
-import com.kingmang.lazurite.parser.AST.Statements.IfStatement;
-import com.kingmang.lazurite.parser.AST.Statements.IncludeStatement;
-import com.kingmang.lazurite.parser.AST.Statements.BlockStatement;
-import com.kingmang.lazurite.parser.AST.Statements.PrintStatement;
-import com.kingmang.lazurite.parser.AST.Statements.PrintlnStatement;
-import com.kingmang.lazurite.parser.AST.Statements.ReturnStatement;
-import com.kingmang.lazurite.parser.AST.Statements.Statement;
-import com.kingmang.lazurite.parser.AST.Statements.ThrowStatement;
-import com.kingmang.lazurite.parser.AST.Statements.UsingStatement;
-import com.kingmang.lazurite.parser.AST.Statements.WhileStatement;
+import com.kingmang.lazurite.parser.AST.Statements.*;
 import com.kingmang.lazurite.parser.parse.Token;
 import com.kingmang.lazurite.parser.parse.TokenType;
 import com.kingmang.lazurite.runtime.*;
@@ -165,7 +148,6 @@ public final class ParserImplementation {
         if (match(TokenType.IF)) {
             return ifElse();
         }
-
         if (match(TokenType.WHILE)) {
             return whileStatement();
         }
@@ -205,26 +187,6 @@ public final class ParserImplementation {
         return assignmentStatement();
     }
 
-
-
-    /*private Statement macroUsage() {
-        String name = consume(TokenType.WORD).getText();
-        ArrayList<Expression> exprs = new ArrayList<>();
-        for (int i = 0; i < macros.get(name); i++) {
-            exprs.add(expression());
-        }
-        FunctionalExpression func = new FunctionalExpression(new VariableExpression(name));
-        return func;
-    }
-
-    private Statement defmacro() {
-        String name = consume(TokenType.WORD).getText();
-        Arguments args = arguments();
-        Statement block = statementOrBlock();
-        macros.put(name, args.size());
-        return new FunctionDefineStatement(name, args, block);
-    }*/
-
     private Statement throwSt() {
         String type = consume(TokenType.WORD).getText();
         Expression expr = expression();
@@ -238,8 +200,6 @@ public final class ParserImplementation {
         }
         throw new LZRException("ParseException ","Unknown statement: " + get(0));
     }
-
-
 
     private Statement ifElse() {
         final Expression condition = expression();
