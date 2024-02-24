@@ -1,0 +1,25 @@
+using "reflection"
+
+ServerSocket = JClass("java.net.ServerSocket")
+System = JClass("java.lang.System")
+OutputStream = JClass("java.io.OutputStream")
+Socket = JClass("java.net.Socket")
+PrintWriter = JClass("java.io.PrintWriter")
+BufferedReader = JClass("java.io.BufferedReader")
+InputStreamReader = JClass("java.io.InputStreamReader")
+
+serverSocket = new ServerSocket(8080);
+
+println("Server start in port 8080...");
+
+clientSocket = serverSocket.accept();
+reader = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+
+clientMessage = "";
+while ((clientMessage = reader.readLine()) != null) {
+      println("client message: " + clientMessage);
+}
+
+reader.close();
+clientSocket.close();
+serverSocket.close();
