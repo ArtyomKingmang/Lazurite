@@ -9,7 +9,6 @@ BufferedReader = JClass("java.io.BufferedReader")
 InputStreamReader = JClass("java.io.InputStreamReader")
 
 serverSocket = new ServerSocket(8080);
-
 println("Server start in port 8080...");
 
 clientSocket = serverSocket.accept();

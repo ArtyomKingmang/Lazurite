@@ -1,5 +1,14 @@
 using "gforms"
 
+operations = [
+    "+",
+    "-",
+    "*",
+    "/",
+    "sin",
+    "cos"
+]
+
 wnd = Frame("Calculator")
 wnd.setMinimumSize(300,400)
 
@@ -15,12 +24,10 @@ for(i=0,i<10,i++){
     b_panel.add(Button(i))
 }
 
-b_panel.add(Button("+"))
-b_panel.add(Button("-"))
-b_panel.add(Button("*"))
-b_panel.add(Button("/"))
-b_panel.add(Button("sin"))
-b_panel.add(Button("cos"))
+for(i = 0, i < length(operations), i++){
+    b_panel.add(Button(operations[i]))
+}
+
 
 wnd.add(panel,BorderLayout.NORTH)
 wnd.add(b_panel,BorderLayout.CENTER)

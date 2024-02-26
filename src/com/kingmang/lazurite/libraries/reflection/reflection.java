@@ -14,18 +14,13 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 
 public final class reflection implements Library {
-    private static final Value NULL = new NullValue();
-
-    public static void initConstants() {
-    }
-
     @Override
     public void init() {
-        initConstants();
-        Variables.define("null", NULL);
+        Variables.define("null", new LzrNull());
         Variables.define("boolean.class", new JavaClassValue(boolean.class));
         Variables.define("boolean[].class", new JavaClassValue(boolean[].class));
         Variables.define("boolean[][].class", new JavaClassValue(boolean[][].class));
@@ -64,54 +59,12 @@ public final class reflection implements Library {
     }
 
 
-    private static class NullValue implements Value {
 
-        @Override
-        public Object raw() {
-            return null;
-        }
-
-        @Override
-        public int asInt() {
-            return 0;
-        }
-
-        @Override
-        public double asNumber() {
-            return 0;
-        }
-
-        @Override
-        public String asString() {
-            return "null";
-        }
-
-        @Override
-        public int[] asArray() {
-            return new int[0];
-        }
-
-        @Override
-        public int type() {
-            return 482862660;
-        }
-
-        @Override
-        public int compareTo(Value o) {
-            if (o.raw() == null) return 0;
-            return -1;
-        }
-
-        @Override
-        public String toString() {
-            return asString();
-        }
-    }
 
     private static class JavaClassValue extends LzrMap implements Instantiable {
 
         public static Value classOrNull(Class<?> clazz) {
-            if (clazz == null) return NULL;
+            if (clazz == null) return new LzrNull();
             return new JavaClassValue(clazz);
         }
 
@@ -199,7 +152,7 @@ public final class reflection implements Library {
     private static class ObjectValue extends LzrMap {
 
         public static Value objectOrNull(Object object) {
-            if (object == null) return NULL;
+            if (object == null) return new LzrNull();
             return new ObjectValue(object);
         }
 
@@ -253,7 +206,7 @@ public final class reflection implements Library {
 
     private Value JObject(Value[] args) {
         Arguments.check(1, args.length);
-        if (args[0] == NULL) return NULL;
+        if (Objects.equals(args[0], new LzrNull())) return new LzrNull();
         return new ObjectValue(valueToObject(args[0]));
     }
 
@@ -262,7 +215,7 @@ public final class reflection implements Library {
         if (args[0] instanceof ObjectValue) {
             return objectToValue( ((ObjectValue) args[0]).object );
         }
-        return NULL;
+        return new LzrNull();
     }
 
 
@@ -294,7 +247,7 @@ public final class reflection implements Library {
             // ignore and go to the next step
         }
 
-        return NULL;
+        return new LzrNull();
     }
 
     private static Value findConstructorAndInstantiate(Value[] args, Constructor<?>[] ctors) {
@@ -339,7 +292,7 @@ public final class reflection implements Library {
             final Value arg = args[i];
             final Class<?> clazz = types[i];
 
-            if (arg == NULL) continue;
+            if (Objects.equals(arg, new LzrNull())) continue;
 
             final Class<?> unboxed = unboxed(clazz);
             boolean assignable = unboxed != null;
@@ -386,12 +339,12 @@ public final class reflection implements Library {
     }
 
     private static Value objectToValue(Object o) {
-        if (o == null) return NULL;
+        if (o == null) return new LzrNull();
         return objectToValue(o.getClass(), o);
     }
 
     private static Value objectToValue(Class<?> clazz, Object o) {
-        if (o == null || o == NULL) return NULL;
+        if (o == null || o.equals(new LzrNull())) return new LzrNull();
         if (clazz.isPrimitive()) {
             if (int.class.isAssignableFrom(clazz))
                 return LzrNumber.of((int) o);
@@ -486,7 +439,7 @@ public final class reflection implements Library {
     }
 
     private static Object valueToObject(Value value) {
-        if (value == NULL) return null;
+        if (Objects.equals(value, new LzrNull())) return null;
         switch (value.type()) {
             case Types.NUMBER:
                 return value.raw();
