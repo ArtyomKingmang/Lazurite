@@ -31,7 +31,7 @@ public class Handler {
             try{
                 if(!isExec) {
                     Log.clear();
-                    Log.append(String.format("Start compiling (%s)\n", new Date()));
+                    Log.append(String.format("Run (%s)\n", new Date()));
                 }
             }
             catch (Exception ignored){}

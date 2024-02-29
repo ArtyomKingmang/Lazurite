@@ -14,7 +14,7 @@
     <keywords keywords="break;case;class;continue;echo;else;filter;for;foreach;func;getBytes;if;length;match;new;not;or;parsInt;parseLong;print;println;range;readln;return;sprintf;substring;throw;while" ignore_case="false" />
     <keywords2 keywords="Array;try" />
     <keywords3 keywords="false;this;true" />
-    <keywords4 keywords="include;using" />
+    <keywords4 keywords="include;using;#define;#ifdef;#ifndef;#undef" />
   </highlighting>
   <extensionMap>
     <mapping ext="lzr" />
