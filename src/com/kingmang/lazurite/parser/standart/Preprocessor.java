@@ -1,6 +1,7 @@
-package com.kingmang.lazurite.utils;
+package com.kingmang.lazurite.parser.standart;
 
 import com.kingmang.lazurite.runner.RunnerInfo;
+import com.kingmang.lazurite.utils.Handler;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -29,12 +30,12 @@ public class Preprocessor {
             if (parts.get(0).equals("#ifdef")) {
                 String id = parts.get(1);
                 String replacement = String.join(" ", parts.subList(2, parts.size()));
-                if (macros.containsKey(id)) Handler.handle(replacement, "<preprocessor>", true);
+                if (macros.containsKey(id)) Handler.handle(replacement, "<preprocessor>", true, false);
             }
             if (parts.get(0).equals("#ifndef")) {
                 String id = parts.get(1);
                 String replacement = String.join(" ", parts.subList(2, parts.size()));
-                if (!macros.containsKey(id)) Handler.handle(replacement, "<preprocessor>", true);
+                if (!macros.containsKey(id)) Handler.handle(replacement, "<preprocessor>", true, false);
             }
         }
 

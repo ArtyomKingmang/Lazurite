@@ -56,7 +56,7 @@ public class system implements Library {
             @Override
             public Value execute(Value... args) {
                 Arguments.check(1, args.length);
-                Handler.handle(args[0].toString(), "exec()", true);
+                Handler.handle(args[0].toString(), "exec()", true, false);
                 return LzrNumber.MINUS_ONE;
             }
         });

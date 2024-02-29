@@ -12,7 +12,7 @@ public class TestRunner {
         String filename = "test.lzr";
         builder.append(filename);
 
-        Handler.RUN(builder.toString());
+        Handler.RUN(builder.toString(), true);
 
     }
 }

@@ -1,9 +1,1 @@
-#define : {
-#define end }
-
-func test():
-    print("Hello")
-end
-
-test()
-
+print("Hello")
