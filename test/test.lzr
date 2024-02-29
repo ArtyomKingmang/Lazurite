@@ -1,0 +1,9 @@
+#define : {
+#define end }
+
+func test():
+    print("Hello")
+end
+
+test()
+

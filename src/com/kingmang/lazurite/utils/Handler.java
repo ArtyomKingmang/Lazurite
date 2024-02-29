@@ -22,18 +22,25 @@ import java.util.List;
 public class Handler {
 
     public static void RUN (String path) throws IOException {
-        Handler.RunProgram(Loader.readSource(path));
+        Handler.handle(Loader.readSource(path), Loader.readSource(path), true);
     }
+
     public static void handle(String input, String pathToScript, boolean isExec) {
         try {
             try{
                 if(!isExec) {
                     Log.clear();
-                    Log.append(String.format("Run (%s)\n", new Date()));
+                    Log.append(String.format("Start compiling (%s)\n", new Date()));
                 }
             }
             catch (Exception ignored){}
+            input = Preprocessor.preprocess(input);
             final List<Token> tokens = new LexerImplementation(input).tokenize();
+
+            /*for(Token t : tokens){
+            *    System.out.println(t.getType() + "\t" + t.getText());
+            }*/
+
             final BlockStatement program = (BlockStatement) new ParserImplementation(tokens).parse();
             program.execute();
             if(!isExec){
@@ -57,10 +64,11 @@ public class Handler {
             }
         }
     }
+
     public static Value returnHandle(String input, String pathToScript) {
         try {
             final List<Token> tokens = new LexerImplementation(input).tokenize();
-            final Expression program = new ParserImplementation(tokens).expression();
+            final Expression program = new ParserImplementation(tokens).parseExpr();
             return program.eval();
         } catch (LZRException ex) {
             System.out.println(String.format("%s: %s in %s", ex.getType(), ex.getText(), pathToScript));

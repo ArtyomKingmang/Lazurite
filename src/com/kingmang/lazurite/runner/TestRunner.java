@@ -13,5 +13,6 @@ public class TestRunner {
         builder.append(filename);
 
         Handler.RUN(builder.toString());
+
     }
 }

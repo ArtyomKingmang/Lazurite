@@ -16,7 +16,6 @@ public final class Keyword {
     static {
         functions = new HashMap<>();
     }
-
     public static void clear() {
         functions.clear();
     }

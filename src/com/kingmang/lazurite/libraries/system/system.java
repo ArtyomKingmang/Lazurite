@@ -7,6 +7,7 @@ import com.kingmang.lazurite.runtime.*;
 import com.kingmang.lazurite.runtime.Lzr.LzrMap;
 import com.kingmang.lazurite.runtime.Lzr.LzrNumber;
 import com.kingmang.lazurite.runtime.Lzr.LzrString;
+import com.kingmang.lazurite.utils.Handler;
 
 
 import java.awt.*;
@@ -55,13 +56,8 @@ public class system implements Library {
             @Override
             public Value execute(Value... args) {
                 Arguments.check(1, args.length);
-                try{
-                    Runtime.getRuntime().exec(args[0].asString());
-                    return LzrNumber.ZERO;
-                }catch (Exception ex){
-                    ex.printStackTrace();
-                }
-                return null;
+                Handler.handle(args[0].toString(), "exec()", true);
+                return LzrNumber.MINUS_ONE;
             }
         });
         system.set("getProperty", (Value...args) -> {

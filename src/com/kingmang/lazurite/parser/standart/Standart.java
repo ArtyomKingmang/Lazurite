@@ -4,6 +4,7 @@ import com.kingmang.lazurite.exceptions.LZRException;
 import com.kingmang.lazurite.core.Arguments;
 import com.kingmang.lazurite.core.Function;
 import com.kingmang.lazurite.core.Types;
+import com.kingmang.lazurite.utils.Handler;
 import com.kingmang.lazurite.utils.ValueUtils;
 import com.kingmang.lazurite.console.Console;
 import com.kingmang.lazurite.runtime.Lzr.*;
@@ -29,6 +30,8 @@ public class Standart {
             return LzrNumber.ZERO;
         }
     }
+
+
 
     public static class combine implements Function {
 

@@ -103,6 +103,10 @@ public final class ParserImplementation {
         return result;
     }
 
+    public Expression parseExpr(){
+        return expression();
+    }
+
     private int getErrorLine() {
         if (size == 0) return 0;
         if (pos >= size) return tokens.get(size - 1).getRow();
