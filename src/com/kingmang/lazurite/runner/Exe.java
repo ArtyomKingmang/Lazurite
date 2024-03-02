@@ -30,7 +30,7 @@ public class Exe {
             } else if (cmd.contains("--run") || cmd.contains("-r")) {
                 String[] obj = cmd.split(" ");
                 try {
-                    Handler.RUN(obj[1], false);
+                    Handler.Run(obj[1], false);
                 } catch (ArrayIndexOutOfBoundsException e) {
                     System.out.println("Correct entry form: -r <file>");
                 } catch (FileNotFoundException ex) {

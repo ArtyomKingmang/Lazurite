@@ -26,7 +26,7 @@ public class Jar {
             System.out.print("Enter file name: ");
             String program = scanner.nextLine();
             try {
-                Handler.RUN(program,false);
+                Handler.Run(program,false);
             }catch (FileNotFoundException e){
                 System.out.println("file not found");
             }

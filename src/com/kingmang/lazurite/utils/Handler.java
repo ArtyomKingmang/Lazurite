@@ -1,17 +1,13 @@
 package com.kingmang.lazurite.utils;
 
 import com.kingmang.lazurite.exceptions.LZRException;
-import com.kingmang.lazurite.console.Console;
 import com.kingmang.lazurite.core.CallStack;
-import com.kingmang.lazurite.parser.AST.Statements.Statement;
 import com.kingmang.lazurite.parser.AST.Statements.BlockStatement;
 import com.kingmang.lazurite.parser.AST.Expressions.Expression;
-import com.kingmang.lazurite.parser.parse.Lexer;
 import com.kingmang.lazurite.parser.parse.classes.LexerImplementation;
 import com.kingmang.lazurite.parser.parse.classes.ParserImplementation;
 import com.kingmang.lazurite.parser.parse.Token;
-import com.kingmang.lazurite.parser.standart.Preprocessor;
-import com.kingmang.lazurite.patterns.visitor.FunctionAdder;
+import com.kingmang.lazurite.parser.preprocessor.Preprocessor;
 import com.kingmang.lazurite.runtime.Lzr.LzrNumber;
 import com.kingmang.lazurite.runtime.Value;
 import com.kingmang.lazurite.runtime.Variables;
@@ -22,7 +18,7 @@ import java.util.List;
 
 public class Handler {
 
-    public static void RUN (String path, boolean showTokens) throws IOException {
+    public static void Run(String path, boolean showTokens) throws IOException {
         Handler.handle(Loader.readSource(path), Loader.readSource(path), true, showTokens);
     }
 

@@ -1,4 +1,4 @@
-package com.kingmang.lazurite.parser.standart;
+package com.kingmang.lazurite.parser.preprocessor;
 
 import com.kingmang.lazurite.runner.RunnerInfo;
 import com.kingmang.lazurite.utils.Handler;
