@@ -25,6 +25,8 @@ public class system implements Library {
             Arguments.check(0, args.length);
             return LzrNumber.of(System.currentTimeMillis());
         });
+
+
         system.set("nanoTime", (Value...args) ->{
             Arguments.check(0, args.length);
             return LzrNumber.of(System.nanoTime());

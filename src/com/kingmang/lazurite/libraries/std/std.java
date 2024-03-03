@@ -12,24 +12,23 @@ import com.kingmang.lazurite.runtime.Value;
 import com.kingmang.lazurite.runtime.Variables;
 import com.kingmang.lazurite.utils.ValueUtils;
 
+import java.io.PrintStream;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public class std implements Library {
-    public static void initConstants() {
 
-    }
+    static PrintStream printStreamm;
     @Override
     public void init(){
         LzrMap std = new LzrMap(3);
         LzrMap integerFunctions = new LzrMap(8);
         LzrMap doubleFunctions = new LzrMap(5);
         LzrMap stringFunctions = new LzrMap(3);
-        initConstants();
+
         std.set("flatmap", new flatmap());
         std.set("thread", new thread());
-
 
         integerFunctions.set("bitCount", IntegerClass::bitCount);
         integerFunctions.set("max", IntegerClass::max);
@@ -61,6 +60,8 @@ public class std implements Library {
         Variables.define("std", std);
 
     }
+
+
     public final static class flatmap implements Function {
 
         @Override

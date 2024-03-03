@@ -1,0 +1,12 @@
+#define pgr func
+
+pgr test(){
+    print("hi")
+}
+
+test()
+
+
+
+
+
