@@ -1,0 +1,4 @@
+using "gforms"
+
+wnd = Frame(500,500)
+

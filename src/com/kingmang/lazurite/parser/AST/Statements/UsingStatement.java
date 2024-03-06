@@ -27,7 +27,7 @@ public final class UsingStatement extends InterruptableNode implements Statement
         try {
             loadModule(value.asString());
         }catch (Exception e){
-            throw new LZRException("Type","Array or string required in 'use' statement, " +
+            throw new LZRException("Type","Array or string required in 'using' statement, " +
                     "got " + Types.typeToString(value.type()) + " " + value);
         }
     }

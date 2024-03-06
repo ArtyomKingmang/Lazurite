@@ -10,8 +10,9 @@ public class LZRException extends RuntimeException {
 
     public LZRException(String type, String text) {
         super();
+        PrettyException.message(type, text);
         this.type = type;
-        this.text = "\u001b[31m" + text;
+        this.text = text;
 
     }
 }
