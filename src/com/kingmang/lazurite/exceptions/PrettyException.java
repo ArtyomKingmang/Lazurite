@@ -6,10 +6,24 @@ import org.fusesource.jansi.Ansi;
 import static org.fusesource.jansi.Ansi.ansi;
 
 public class PrettyException {
-    protected static void message(String name, String message){
-        Console.println("\n--------"+name+"----------");
-        Console.println(ansi().fg(Ansi.Color.RED).a(message).reset());
-        Console.println("------------------------------------------------\n");
-        Console.println("----------------Java Exception------------------");
+    static String tabsCount = "\t";
+    protected static void message(boolean check,String name, String message){
+        if(check) {
+            char[] chars = new char[name.length()];
+            if(chars.length <= 12){
+                tabsCount = "\t\t\t\t";
+            }else if(chars.length > 12 && chars.length <= 22){
+                tabsCount = "\t\t\t";
+            }else {
+                tabsCount = "\t";
+            }
+            Console.print("-------------------------------------------");
+            Console.println("\n" + tabsCount + name);
+            Console.print("-------------------------------------------\n");
+            Console.println(ansi().fg(Ansi.Color.RED).a(message).reset());
+            Console.println("--------------------------------------------\n");
+            //Console.println("----------------Java Exception------------------");
+            check = false;
+        }
     }
 }

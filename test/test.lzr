@@ -1,4 +1,2 @@
-using "gforms"
-
-wnd = Frame(500,500)
-
+print(10 + """")
+print(var)
