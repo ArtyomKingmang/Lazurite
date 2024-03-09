@@ -151,7 +151,7 @@ public final class LexerImplementation implements Lexer {
                 next();
             }
         }
-        return tokens; // возвращает список из токенов
+        return tokens;
     }
     
     private void tokenizeNumber() {

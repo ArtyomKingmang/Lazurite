@@ -13,7 +13,7 @@ public class Preprocessor {
         List<String> lines = Arrays.asList(code.split("\n"));
         Map<String, String> macros = new HashMap<>();
 
-        macros.put("Lazurite", "\"" + RunnerInfo.VERSION() + "\"");
+        macros.put("Lazurite", "\"" + RunnerInfo.getVersion() + "\"");
 
         for (String line : lines) {
             List<String> parts = Arrays.asList(line.split(" "));

@@ -13,7 +13,7 @@ import com.kingmang.lazurite.utils.Handler;
 import java.awt.*;
 import java.util.Objects;
 
-import static com.kingmang.lazurite.runner.RunnerInfo.VERSION;
+import static com.kingmang.lazurite.runner.RunnerInfo.getVersion;
 
 public class system implements Library {
 
@@ -64,7 +64,7 @@ public class system implements Library {
         });
         system.set("getProperty", (Value...args) -> {
             if(Objects.equals(args[0].asString(), "lzr.version")){
-                return new LzrString(VERSION());
+                return new LzrString(getVersion());
             }
             return new LzrString(System.getProperty(args[0].asString()));
 

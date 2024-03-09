@@ -9,7 +9,7 @@ public final class VariableDoesNotExistsException extends RuntimeException {
 
     public VariableDoesNotExistsException(String variable) {
         super("Variable" + variable + "does not exists");
-        PrettyException.message(true,"VariableDoesNotExistsException","Variable " + variable + " does not exists" );
+        //PrettyException.message(true,"VariableDoesNotExistsException","Variable " + variable + " does not exists" );
         this.variable = variable;
 
     }

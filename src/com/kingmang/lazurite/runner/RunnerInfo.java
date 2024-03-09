@@ -1,11 +1,12 @@
 package com.kingmang.lazurite.runner;
 
 public class RunnerInfo {
-    public static String VERSION() {
-        return "2.7.2";
+    private static final String VERSION = "2.7.3";
+    public static String getVersion() {
+        return VERSION;
     }
     public static void Help () {
-        System.out.println("\n\t-------"+VERSION()+"-------\n" +
+        System.out.println("\n\t-------"+ getVersion()+"-------\n" +
                 "\tLazurite Console" + "\n" +
                 "\t-----------------");
         System.out.println("------------------------------------------------------------");

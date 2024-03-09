@@ -34,7 +34,7 @@ public class Jar {
             Editor.openEditor();
         } else if (cmd.contains("--version") || cmd.contains("-v")) {
             System.out.println("---------------------------------");
-            System.out.println("Lazurite version: " + RunnerInfo.VERSION());
+            System.out.println("Lazurite version: " + RunnerInfo.getVersion());
             System.out.println("---------------------------------");
         } else if (cmd.contains("cls")) {
             System.out.print("\033[H\033[2J");

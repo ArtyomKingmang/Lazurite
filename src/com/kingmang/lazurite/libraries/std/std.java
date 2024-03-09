@@ -8,16 +8,12 @@ import com.kingmang.lazurite.core.Types;
 import com.kingmang.lazurite.libraries.Library;
 import com.kingmang.lazurite.console.Console;
 import com.kingmang.lazurite.runtime.Lzr.*;
-import com.kingmang.lazurite.runtime.Reference;
 import com.kingmang.lazurite.runtime.Value;
 import com.kingmang.lazurite.runtime.Variables;
 import com.kingmang.lazurite.utils.ValueUtils;
 
-import java.io.PrintStream;
-import java.io.UnsupportedEncodingException;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.ConcurrentSkipListMap;
 import java.util.function.Supplier;
 
@@ -28,7 +24,7 @@ public class std implements Library {
         LzrMap integerFunctions = new LzrMap(8);
         LzrMap doubleFunctions = new LzrMap(5);
         LzrMap stringFunctions = new LzrMap(3);
-        LzrMap priorityQueue = new LzrMap(3);
+        LzrMap arrayDeque = new LzrMap(4);
         std.set("flatmap", new flatmap());
         std.set("thread", new thread());
 
@@ -56,12 +52,12 @@ public class std implements Library {
         stringFunctions.set("join", StringClass::join);
         stringFunctions.set("CASE_INSENSITIVE_ORDER", new LzrString(String.CASE_INSENSITIVE_ORDER.toString()));
 
-        priorityQueue.set("add", LzrArrayDeque::addToQueue);
-        priorityQueue.set("remove", LzrArrayDeque::remove);
-        priorityQueue.set("size", LzrArrayDeque::sizeQueue);
-        priorityQueue.set("toArray", LzrArrayDeque::toArray);
+        arrayDeque.set("add", LzrArrayDeque::addToQueue);
+        arrayDeque.set("remove", LzrArrayDeque::remove);
+        arrayDeque.set("size", LzrArrayDeque::sizeQueue);
+        arrayDeque.set("toArray", LzrArrayDeque::toArray);
 
-        Variables.define("arrayDeque", priorityQueue);
+        Variables.define("arrayDeque", arrayDeque);
         Variables.define("Double", doubleFunctions);
         Variables.define("String", stringFunctions);
         Variables.define("Integer", integerFunctions);

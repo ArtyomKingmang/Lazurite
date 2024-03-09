@@ -11,7 +11,7 @@
       <option name="HAS_PARENS" value="true" />
       <option name="HAS_STRING_ESCAPES" value="true" />
     </options>
-    <keywords keywords="break;case;class;continue;echo;else;filter;for;foreach;func;getBytes;if;length;match;new;not;or;parsInt;parseLong;print;println;range;readln;return;sprintf;substring;throw;while" ignore_case="false" />
+    <keywords keywords="break;case;class;continue;echo;else;filter;for;foreach;func;getBytes;if;length;match;new;print;println;range;readln;return;sprintf;substring;throw;while" ignore_case="false" />
     <keywords2 keywords="Array;try" />
     <keywords3 keywords="false;this;true" />
     <keywords4 keywords="include;using;#define;#ifdef;#ifndef;#undef" />

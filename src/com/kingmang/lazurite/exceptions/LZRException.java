@@ -10,7 +10,7 @@ public class LZRException extends RuntimeException {
 
     public LZRException(String type, String text) {
         super();
-        PrettyException.message(true,type, text);
+        //PrettyException.message(true,type, text);
         this.type = type;
         this.text = text;
 
