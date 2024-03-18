@@ -17,9 +17,9 @@ public class base64 implements Library {
     private static final int TYPE = 8;
     @Override
     public void init() {
-
-        LzrMap base = new LzrMap(1);
+        LzrMap base = new LzrMap(2);
         base.set("encode",this::encode);
+        base.set("decode", this::decode);
         Variables.define("base64", base);
     }
     private Value encode(Value... args){
@@ -46,5 +46,26 @@ public class base64 implements Library {
             }
         }
         return input;
+    }
+
+    private Value decode(Value[] args) {
+        Arguments.checkOrOr(1, 2, args.length);
+        final Base64.Decoder decoder = getDecoder(args);
+        final byte[] result;
+        if (args[0].type() == Types.ARRAY) {
+            result = decoder.decode(ValueUtils.toByteArray((LzrArray) args[0]));
+        } else {
+            result = decoder.decode(args[0].asString());
+        }
+        return LzrArray.of(result);
+    }
+
+
+
+    private Base64.Decoder getDecoder(Value[] args) {
+        if (args.length == 2 && args[1].asInt() == 8) {
+            return Base64.getUrlDecoder();
+        }
+        return Base64.getDecoder();
     }
 }

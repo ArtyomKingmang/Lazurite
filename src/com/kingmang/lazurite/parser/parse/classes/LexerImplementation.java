@@ -59,7 +59,7 @@ public final class LexerImplementation implements Lexer {
             if (i < tokenTypes.length) {
                 KEYWORDS.put(keywords[i], tokenTypes[i]);
             } else {
-                Console.println("Not enough token types for all tokens");
+                System.err.print("Not enough token types for all tokens");
                 break;
             }
         }

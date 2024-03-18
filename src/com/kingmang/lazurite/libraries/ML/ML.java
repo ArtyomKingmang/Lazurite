@@ -23,7 +23,7 @@ public final class ML implements Library {
 
     @Override
     public void init() {
-        initConstants();
+       initConstants();
         LzrMap ml = new LzrMap(9);
         ml.set("abs", ML::abs);
         ml.set("acos", functionConvert(Math::acos));
@@ -70,15 +70,6 @@ public final class ML implements Library {
             return LzrNumber.of(Math.abs((long) raw));
         }
         return LzrNumber.of(Math.abs(args[0].asInt()));
-    }
-
-    private static Value copySign(Value... args) {
-        Arguments.check(2, args.length);
-        final Object raw = args[0].raw();
-        if (raw instanceof Float) {
-            return LzrNumber.of(Math.copySign((float) raw, ((LzrNumber) args[1]).asFloat()));
-        }
-        return LzrNumber.of(Math.copySign(args[0].asNumber(), args[1].asNumber()));
     }
 
     private static Value getExponent(Value... args) {
