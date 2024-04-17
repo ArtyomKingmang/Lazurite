@@ -1,3 +1,0 @@
-using "base64"
-
-print(base64.decode([83, 71, 86, 115, 98, 71, 56, 61]))

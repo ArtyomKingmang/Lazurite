@@ -1,6 +1,7 @@
 package com.kingmang.lazurite.libraries.reflection;
 
 import com.kingmang.lazurite.core.*;
+import com.kingmang.lazurite.exceptions.LZRException;
 import com.kingmang.lazurite.libraries.Keyword;
 import com.kingmang.lazurite.libraries.Library;
 import com.kingmang.lazurite.runtime.*;
@@ -11,6 +12,9 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLClassLoader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -53,6 +57,7 @@ public final class reflection implements Library {
         Variables.define("Object[][].class", new JavaClassValue(Object[][].class));
 
         Keyword.put("isNull", this::isNull);
+        Keyword.put("JUpload", this::JUpload);
         Keyword.put("JClass", this::JClass);
         Keyword.put("JObject", this::JObject);
         Keyword.put("LZRValue", this::LZRValue);
@@ -204,6 +209,21 @@ public final class reflection implements Library {
         }
     }
 
+    private Value JUpload(Value[] args) {
+        String path = args[0].asString();
+        String addressLib = args[1].asString();
+        try {
+            URLClassLoader child = new URLClassLoader(
+                    new URL[] { new URL("file:" + path) },
+                    this.getClass().getClassLoader()
+            );
+            Library module = (Library) Class.forName(addressLib + ".invoker", true, child).newInstance();
+            module.init();
+        } catch (MalformedURLException | ClassNotFoundException | InstantiationException | IllegalAccessException e) {
+            throw new LZRException(e.getLocalizedMessage(), e.getMessage());
+        }
+        return LzrNumber.MINUS_ONE;
+    }
     private Value JObject(Value[] args) {
         Arguments.check(1, args.length);
         if (Objects.equals(args[0], new LzrNull())) return new LzrNull();
