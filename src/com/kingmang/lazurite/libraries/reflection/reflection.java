@@ -222,6 +222,7 @@ public final class reflection implements Library {
         } catch (MalformedURLException | ClassNotFoundException | InstantiationException | IllegalAccessException e) {
             throw new LZRException(e.getLocalizedMessage(), e.getMessage());
         }
+
         return LzrNumber.MINUS_ONE;
     }
     private Value JObject(Value[] args) {
