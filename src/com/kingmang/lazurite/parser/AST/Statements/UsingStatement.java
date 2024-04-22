@@ -7,7 +7,7 @@ import com.kingmang.lazurite.parser.AST.InterruptableNode;
 import com.kingmang.lazurite.patterns.visitor.ResultVisitor;
 import com.kingmang.lazurite.patterns.visitor.Visitor;
 import com.kingmang.lazurite.core.Types;
-import com.kingmang.lazurite.runtime.Value;
+import com.kingmang.lazurite.runtime.LzrValue;
 import com.kingmang.lazurite.libraries.Library;
 import lombok.RequiredArgsConstructor;
 
@@ -23,7 +23,7 @@ public final class UsingStatement extends InterruptableNode implements Statement
     @Override
     public void execute() {
         super.interruptionCheck();
-        final Value value = expression.eval();
+        final LzrValue value = expression.eval();
         try {
             loadModule(value.asString());
         }catch (Exception e){

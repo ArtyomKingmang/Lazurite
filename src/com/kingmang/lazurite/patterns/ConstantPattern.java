@@ -1,6 +1,6 @@
 package com.kingmang.lazurite.patterns;
 
-import com.kingmang.lazurite.runtime.Value;
+import com.kingmang.lazurite.runtime.LzrValue;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -10,7 +10,7 @@ import java.io.Serializable;
 public class ConstantPattern extends Pattern implements Serializable {
 
     @Getter
-    private Value constant;
+    private LzrValue constant;
 
     @Override
     public String toString() {

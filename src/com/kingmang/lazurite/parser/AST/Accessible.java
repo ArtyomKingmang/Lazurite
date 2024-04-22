@@ -1,10 +1,10 @@
 package com.kingmang.lazurite.parser.AST;
 
-import com.kingmang.lazurite.runtime.Value;
+import com.kingmang.lazurite.runtime.LzrValue;
 
 public interface Accessible extends Node {
 
-    Value get();
+    LzrValue get();
     
-    Value set(Value value);
+    LzrValue set(LzrValue value);
 }

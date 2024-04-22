@@ -2,20 +2,20 @@ package com.kingmang.lazurite.parser.AST.Statements;
 
 import com.kingmang.lazurite.exceptions.LZRException;
 import com.kingmang.lazurite.core.Arguments;
-import com.kingmang.lazurite.runtime.Lzr.LzrArray;
+import com.kingmang.lazurite.runtime.Types.LzrArray;
 import com.kingmang.lazurite.core.Function;
-import com.kingmang.lazurite.runtime.Lzr.LzrMap;
+import com.kingmang.lazurite.runtime.Types.LzrMap;
 import com.kingmang.lazurite.core.Types;
-import com.kingmang.lazurite.runtime.Value;
+import com.kingmang.lazurite.runtime.LzrValue;
 import com.kingmang.lazurite.utils.ValueUtils;
 
 public final class Map implements Function {
 
     @Override
-    public Value execute(Value... args) {
+    public LzrValue execute(LzrValue... args) {
         Arguments.checkOrOr(2, 3, args.length);
         
-        final Value container = args[0];
+        final LzrValue container = args[0];
         if (container.type() == Types.ARRAY) {
             final Function mapper = ValueUtils.consumeFunction(args[1], 1);
             return mapArray((LzrArray) container, mapper);
@@ -30,7 +30,7 @@ public final class Map implements Function {
         throw new LZRException("ArgumentsMismatchException ","Invalid first argument. Array or map expected");
     }
     
-    private Value mapArray(LzrArray array, Function mapper) {
+    private LzrValue mapArray(LzrArray array, Function mapper) {
         final int size = array.size();
         final LzrArray result = new LzrArray(size);
         for (int i = 0; i < size; i++) {
@@ -39,11 +39,11 @@ public final class Map implements Function {
         return result;
     }
     
-    private Value mapMap(LzrMap map, Function keyMapper, Function valueMapper) {
+    private LzrValue mapMap(LzrMap map, Function keyMapper, Function valueMapper) {
         final LzrMap result = new LzrMap(map.size());
-        for (java.util.Map.Entry<Value, Value> element : map) {
-            final Value newKey = keyMapper.execute(element.getKey());
-            final Value newValue = valueMapper.execute(element.getValue());
+        for (java.util.Map.Entry<LzrValue, LzrValue> element : map) {
+            final LzrValue newKey = keyMapper.execute(element.getKey());
+            final LzrValue newValue = valueMapper.execute(element.getValue());
             result.set(newKey, newValue);
         }
         return result;

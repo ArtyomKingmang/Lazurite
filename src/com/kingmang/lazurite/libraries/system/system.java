@@ -4,9 +4,9 @@ import com.kingmang.lazurite.core.Arguments;
 import com.kingmang.lazurite.core.Function;
 import com.kingmang.lazurite.libraries.Library;
 import com.kingmang.lazurite.runtime.*;
-import com.kingmang.lazurite.runtime.Lzr.LzrMap;
-import com.kingmang.lazurite.runtime.Lzr.LzrNumber;
-import com.kingmang.lazurite.runtime.Lzr.LzrString;
+import com.kingmang.lazurite.runtime.Types.LzrMap;
+import com.kingmang.lazurite.runtime.Types.LzrNumber;
+import com.kingmang.lazurite.runtime.Types.LzrString;
 import com.kingmang.lazurite.utils.Handler;
 
 
@@ -21,18 +21,18 @@ public class system implements Library {
         LzrMap system = new LzrMap(7);
 
         //functions
-        system.set("currentTimeMillis", (Value...args) ->{
+        system.set("currentTimeMillis", (LzrValue...args) ->{
             Arguments.check(0, args.length);
             return LzrNumber.of(System.currentTimeMillis());
         });
 
 
-        system.set("nanoTime", (Value...args) ->{
+        system.set("nanoTime", (LzrValue...args) ->{
             Arguments.check(0, args.length);
             return LzrNumber.of(System.nanoTime());
         });
 
-        system.set("exit", (Value... args) -> {
+        system.set("exit", (LzrValue... args) -> {
             Arguments.check(1, args.length);
             try {
                 System.exit((int) args[0].asNumber());
@@ -44,7 +44,7 @@ public class system implements Library {
 
         system.set("getScreenResolution", new Function() {
             @Override
-            public Value execute(Value... args) {
+            public LzrValue execute(LzrValue... args) {
                 Toolkit toolkit = Toolkit.getDefaultToolkit();
                 Dimension dim = toolkit.getScreenSize();
                 LzrMap map = new LzrMap(2);
@@ -56,13 +56,13 @@ public class system implements Library {
 
         system.set("exec", new Function() {
             @Override
-            public Value execute(Value... args) {
+            public LzrValue execute(LzrValue... args) {
                 Arguments.check(1, args.length);
                 Handler.handle(args[0].toString(), "exec()", true, false);
                 return LzrNumber.MINUS_ONE;
             }
         });
-        system.set("getProperty", (Value...args) -> {
+        system.set("getProperty", (LzrValue...args) -> {
             if(Objects.equals(args[0].asString(), "lzr.version")){
                 return new LzrString(getVersion());
             }
@@ -72,35 +72,35 @@ public class system implements Library {
 
         system.set("getUsedMemory", new Function() {
             @Override
-            public Value execute(Value... args){
+            public LzrValue execute(LzrValue... args){
                 return new LzrNumber((Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory()));
             }
         });
 
         system.set("getTotalMemory", new Function() {
             @Override
-            public Value execute(Value... args){
+            public LzrValue execute(LzrValue... args){
                 return new LzrNumber((Runtime.getRuntime().totalMemory()));
             }
         });
 
         system.set("getMaxMemory", new Function() {
             @Override
-            public Value execute(Value... args){
+            public LzrValue execute(LzrValue... args){
                 return new LzrNumber((Runtime.getRuntime().maxMemory()));
             }
         });
 
         system.set("getFreeMemory", new Function() {
             @Override
-            public Value execute(Value... args){
+            public LzrValue execute(LzrValue... args){
                 return new LzrNumber((Runtime.getRuntime().freeMemory()));
             }
         });
 
         system.set("availableProcessors", new Function() {
             @Override
-            public Value execute(Value... args){
+            public LzrValue execute(LzrValue... args){
                 return new LzrNumber((Runtime.getRuntime().availableProcessors()));
             }
         });

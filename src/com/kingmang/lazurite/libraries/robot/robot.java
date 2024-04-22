@@ -4,19 +4,17 @@ import com.kingmang.lazurite.core.Arguments;
 import com.kingmang.lazurite.core.Function;
 import com.kingmang.lazurite.core.Types;
 import com.kingmang.lazurite.exceptions.LZRException;
-import com.kingmang.lazurite.libraries.Keyword;
 import com.kingmang.lazurite.libraries.Library;
-import com.kingmang.lazurite.runtime.Lzr.LzrArray;
-import com.kingmang.lazurite.runtime.Lzr.LzrMap;
-import com.kingmang.lazurite.runtime.Lzr.LzrNumber;
-import com.kingmang.lazurite.runtime.Lzr.LzrString;
-import com.kingmang.lazurite.runtime.Value;
+import com.kingmang.lazurite.runtime.Types.LzrArray;
+import com.kingmang.lazurite.runtime.Types.LzrMap;
+import com.kingmang.lazurite.runtime.Types.LzrNumber;
+import com.kingmang.lazurite.runtime.Types.LzrString;
+import com.kingmang.lazurite.runtime.LzrValue;
 import com.kingmang.lazurite.runtime.Variables;
 
 import java.awt.*;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.StringSelection;
-import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.util.HashMap;
 import java.util.Map;
@@ -161,7 +159,7 @@ public final class robot implements Library {
 
 class MouseMove implements Function {
     @Override
-    public Value execute(Value... args) {
+    public LzrValue execute(LzrValue... args) {
         Arguments.check(2, args.length);
         try {
             robot.lzrRobot.mouseMove(args[0].asInt(), args[1].asInt());
@@ -174,7 +172,7 @@ class MouseMove implements Function {
 class TypeText implements Function{
 
     @Override
-    public Value execute(Value... args) {
+    public LzrValue execute(LzrValue... args) {
         Arguments.check(1, args.length);
         try {
             typeText(args[0].asString());
@@ -231,7 +229,7 @@ class RobotClipboard{
     static final class ToClipboard implements Function {
 
         @Override
-        public Value execute(Value... args) {
+        public LzrValue execute(LzrValue... args) {
             Arguments.check(1, args.length);
             Toolkit.getDefaultToolkit().getSystemClipboard()
                     .setContents(new StringSelection(args[0].asString()), null);
@@ -242,7 +240,7 @@ class RobotClipboard{
     static final class FromClipboard implements Function {
 
         @Override
-        public Value execute(Value... args) {
+        public LzrValue execute(LzrValue... args) {
             try {
                 Object data = Toolkit.getDefaultToolkit().getSystemClipboard()
                         .getData(DataFlavor.stringFlavor);
@@ -266,7 +264,7 @@ final class Execute implements Function {
     }
 
     @Override
-    public Value execute(Value... args) {
+    public LzrValue execute(LzrValue... args) {
         Arguments.checkAtLeast(1, args.length);
 
         try {
@@ -295,7 +293,7 @@ final class Execute implements Function {
         }
     }
 
-    private static String[] toStringArray(Value[] values) {
+    private static String[] toStringArray(LzrValue[] values) {
         final String[] strings = new String[values.length];
         for (int i = 0; i < values.length; i++) {
             strings[i] = values[i].asString();

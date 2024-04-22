@@ -2,8 +2,8 @@ package com.kingmang.lazurite.libraries.json;
 
 import com.kingmang.lazurite.core.*;
 import com.kingmang.lazurite.libraries.Library;
-import com.kingmang.lazurite.runtime.Lzr.LzrMap;
-import com.kingmang.lazurite.runtime.Value;
+import com.kingmang.lazurite.runtime.Types.LzrMap;
+import com.kingmang.lazurite.runtime.LzrValue;
 import com.kingmang.lazurite.runtime.Variables;
 import com.kingmang.lazurite.utils.ValueUtils;
 import org.json.JSONException;
@@ -21,7 +21,7 @@ public final class json implements Library {
         LzrMap json = new LzrMap(2);
         json.set("decode", new Function() {
             @Override
-            public Value execute(Value... args) {
+            public LzrValue execute(LzrValue... args) {
                 Arguments.check(1, args.length);
                 try {
                     final String jsonRaw = args[0].asString();

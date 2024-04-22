@@ -5,10 +5,10 @@ import com.kingmang.lazurite.parser.AST.Statements.Statement;
 import com.kingmang.lazurite.parser.AST.Accessible;
 import com.kingmang.lazurite.patterns.visitor.ResultVisitor;
 import com.kingmang.lazurite.patterns.visitor.Visitor;
-import com.kingmang.lazurite.runtime.Lzr.LzrNumber;
-import com.kingmang.lazurite.runtime.Lzr.LzrString;
+import com.kingmang.lazurite.runtime.Types.LzrNumber;
+import com.kingmang.lazurite.runtime.Types.LzrString;
 import com.kingmang.lazurite.core.Types;
-import com.kingmang.lazurite.runtime.Value;
+import com.kingmang.lazurite.runtime.LzrValue;
 
 
 public final class UnaryExpression implements Expression, Statement {
@@ -50,8 +50,8 @@ public final class UnaryExpression implements Expression, Statement {
     }
     
     @Override
-    public Value eval() {
-        final Value value = expr1.eval();
+    public LzrValue eval() {
+        final LzrValue value = expr1.eval();
         switch (operation) {
             case INCREMENT_PREFIX: {
                 if (expr1 instanceof com.kingmang.lazurite.parser.AST.Accessible) {
@@ -87,7 +87,7 @@ public final class UnaryExpression implements Expression, Statement {
         }
     }
     
-    private Value increment(Value value) {
+    private LzrValue increment(LzrValue value) {
         if (value.type() == Types.NUMBER) {
             final Number number = (Number) value.raw();
             if (number instanceof Double) {
@@ -103,7 +103,7 @@ public final class UnaryExpression implements Expression, Statement {
         return LzrNumber.of(value.asInt() + 1);
     }
     
-    private Value decrement(Value value) {
+    private LzrValue decrement(LzrValue value) {
         if (value.type() == Types.NUMBER) {
             final Number number = (Number) value.raw();
             if (number instanceof Double) {
@@ -119,7 +119,7 @@ public final class UnaryExpression implements Expression, Statement {
         return LzrNumber.of(value.asInt() - 1);
     }
     
-    private Value negate(Value value) {
+    private LzrValue negate(LzrValue value) {
         if (value.type() == Types.STRING) {
             final StringBuilder sb = new StringBuilder(value.asString());
             return new LzrString(sb.reverse().toString());
@@ -139,7 +139,7 @@ public final class UnaryExpression implements Expression, Statement {
         return LzrNumber.of(-value.asInt());
     }
     
-    private Value complement(Value value) {
+    private LzrValue complement(LzrValue value) {
         if (value.type() == Types.NUMBER) {
             final Number number = (Number) value.raw();
             if (number instanceof Long) {
@@ -149,7 +149,7 @@ public final class UnaryExpression implements Expression, Statement {
         return LzrNumber.of(~value.asInt());
     }
     
-    private Value not(Value value) {
+    private LzrValue not(LzrValue value) {
         return LzrNumber.fromBoolean(value.asInt() == 0);
     }
     

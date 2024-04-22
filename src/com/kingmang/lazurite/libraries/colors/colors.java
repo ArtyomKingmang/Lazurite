@@ -4,9 +4,9 @@ package com.kingmang.lazurite.libraries.colors;
 import com.kingmang.lazurite.core.Function;
 import com.kingmang.lazurite.libraries.Library;
 import com.kingmang.lazurite.runtime.*;
-import com.kingmang.lazurite.runtime.Lzr.LzrMap;
-import com.kingmang.lazurite.runtime.Lzr.LzrNumber;
-import com.kingmang.lazurite.runtime.Lzr.LzrString;
+import com.kingmang.lazurite.runtime.Types.LzrMap;
+import com.kingmang.lazurite.runtime.Types.LzrNumber;
+import com.kingmang.lazurite.runtime.Types.LzrString;
 
 
 public class colors implements Library {
@@ -24,7 +24,7 @@ public class colors implements Library {
         col.set("cyan",new LzrString("\u001b[36m"));
         col.set("clear", new Function() {
             @Override
-            public Value execute(Value... args) {
+            public LzrValue execute(LzrValue... args) {
                 System.out.print("\033[H\033[2J");
                 System.out.flush();
                 return LzrNumber.ZERO;

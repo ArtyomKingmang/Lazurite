@@ -1,6 +1,6 @@
 package com.kingmang.lazurite.libraries.gforms;
 
-import com.kingmang.lazurite.runtime.Lzr.LzrMap;
+import com.kingmang.lazurite.runtime.Types.LzrMap;
 
 import java.awt.LayoutManager;
 

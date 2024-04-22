@@ -1,7 +1,6 @@
 package com.kingmang.lazurite.parser.parse.classes;
 
 import com.kingmang.lazurite.exceptions.LZRException;
-import com.kingmang.lazurite.console.Console;
 import com.kingmang.lazurite.libraries.Keyword;
 import com.kingmang.lazurite.core.Types;
 
@@ -15,17 +14,16 @@ import com.kingmang.lazurite.parser.parse.Lexer;
 import com.kingmang.lazurite.parser.parse.Token;
 import com.kingmang.lazurite.parser.parse.TokenType;
 import com.kingmang.lazurite.parser.standart.Standart;
-import com.kingmang.lazurite.runtime.Lzr.LzrMap;
-import com.kingmang.lazurite.runtime.Lzr.LzrNumber;
-import com.kingmang.lazurite.runtime.Lzr.LzrString;
+import com.kingmang.lazurite.runtime.Types.LzrMap;
+import com.kingmang.lazurite.runtime.Types.LzrNumber;
+import com.kingmang.lazurite.runtime.Types.LzrString;
 import com.kingmang.lazurite.runtime.Variables;
 
 public final class LexerImplementation implements Lexer {
 
-    public static List<Token> tokenize(String input) {
-        return new LexerImplementation(input).tokenize();
-    }
     private static final String OPERATOR_CHARS = "+-*/%()[]{}=<>!&|.,^~?:";
+    private static final Map<String, TokenType> OPERATORS;
+    private static final Map<String, TokenType> KEYWORDS;
     private static final TokenType[] tokenTypes = TokenType.values();
 
     //ключевые слова
@@ -50,79 +48,24 @@ public final class LexerImplementation implements Lexer {
             "enum"
     };
 
+    private final String input;
+    private final int length;
 
-    //добавление ключевых слов из массива keywords в Map KEYWORDS
-    private static final Map<String, TokenType> KEYWORDS;
-    static {
-        KEYWORDS = new HashMap<>();
-        for (int i = 0; i < keywords.length; i++) {
-            if (i < tokenTypes.length) {
-                KEYWORDS.put(keywords[i], tokenTypes[i]);
-            } else {
-                System.err.print("Not enough token types for all tokens");
-                break;
-            }
-        }
-        types();
-        convertTypes();
-        standart();
+    private final List<Token> tokens;
+    private final StringBuilder buffer;
 
-    }
+    private int pos;
+    private int row, col;
 
-    public static void types() {
-        LzrMap type = new LzrMap(5);
-        type.set("object", LzrNumber.of(Types.OBJECT));
-        type.set("number", LzrNumber.of(Types.NUMBER));
-        type.set("string", LzrNumber.of(Types.STRING));
-        type.set("array", LzrNumber.of(Types.ARRAY));
-        type.set("map", LzrNumber.of(Types.MAP));
-        type.set("function", LzrNumber.of(Types.FUNCTION));
-        Variables.define("type", type);
-        Keyword.put("typeof", args -> LzrNumber.of(args[0].type()));
-    }
-
-    public static void convertTypes(){
-        Keyword.put("str", args -> new LzrString(args[0].asString()));
-        Keyword.put("num", args -> LzrNumber.of(args[0].asNumber()));
-        Keyword.put("byte", args -> LzrNumber.of((byte)args[0].asInt()));
-        Keyword.put("short", args -> LzrNumber.of((short)args[0].asInt()));
-        Keyword.put("int", args -> LzrNumber.of(args[0].asInt()));
-        Keyword.put("long", args -> LzrNumber.of((long)args[0].asNumber()));
-        Keyword.put("float", args -> LzrNumber.of((float)args[0].asNumber()));
-        Keyword.put("double", args -> LzrNumber.of(args[0].asNumber()));
-    }
-
-    private static void standart(){
-        Keyword.put("try", new Standart.tryCatch());
-        Keyword.put("equals", new Standart.equal());
-        Keyword.put("combine", new Standart.combine());
-        Keyword.put("reduce", new Standart.reduce());
-        Keyword.put("map", new Standart.map());
-        Keyword.put("Array", new Standart.Array());
-        Keyword.put("echo", new Standart.echo());
-        Keyword.put("readln", new Standart.input());
-        Keyword.put("length", new Standart.length());
-        Keyword.put("getBytes", Standart.string::getBytes);
-        Keyword.put("sprintf", new Standart.sprintf());
-        Keyword.put("range", new Standart.range());
-        Keyword.put("substring", new Standart.substr());
-        Keyword.put("foreach", new Standart.foreach());
-        Keyword.put("split", new Standart.split());
-        Keyword.put("filter", new Standart.filter(false));
+    public static List<Token> tokenize(String input) {
+        return new LexerImplementation(input).tokenize();
     }
 
     public static Set<String> getKeywords() {
         return KEYWORDS.keySet();
     }
 
-    private final String input;
-    private final int length;
-    
-    private final List<Token> tokens;
-    private final StringBuilder buffer;
-    
-    private int pos;
-    private int row, col;
+
 
     public LexerImplementation(String input) {
         this.input = input;
@@ -307,7 +250,126 @@ public final class LexerImplementation implements Lexer {
         addToken(TokenType.TEXT, buffer.toString());
     }
 
-    private static final Map<String, TokenType> OPERATORS;
+
+    
+    private void tokenizeComment() {
+        char current = peek(0);
+        while ("\r\n\0".indexOf(current) == -1) {
+            current = next();
+        }
+     }
+    
+    private void tokenizeMultilineComment() {
+        char current = peek(0);
+        while (true) {
+            if (current == '*' && peek(1) == '/') break;
+            if (current == '\0') throw error("Reached end of file while parsing multiline comment");
+            current = next();
+        }
+        next(); // *
+        next(); // /
+    }
+
+    private boolean isLZRIdentifierPart(char current) {
+        return (Character.isLetterOrDigit(current) || (current == '_') || (current == '$'));
+    }
+
+    private boolean isLZRIdentifier(char current) {
+        return (Character.isLetter(current) || (current == '_') || (current == '$'));
+    }
+
+
+    
+    private void clearBuffer() {
+        buffer.setLength(0);
+    }
+    
+    private char next() {
+        pos++;
+        final char result = peek(0);
+        if (result == '\n') {
+            row++;
+            col = 1;
+        } else col++;
+        return result;
+    }
+    
+    private char peek(int relativePosition) {
+        final int position = pos + relativePosition;
+        if (position >= length) return '\0';
+        return input.charAt(position);
+    }
+    
+    private void addToken(TokenType type) {
+        addToken(type, "");
+    }
+    
+    private void addToken(TokenType type, String text) {
+        tokens.add(new Token(type, text, row, col));
+    }
+    
+    private LZRException error(String text) {
+        return new LZRException("Lexer exeption","Lexer error");
+    }
+
+    //добавление ключевых слов из массива keywords в Map KEYWORDS
+    static {
+        KEYWORDS = new HashMap<>();
+        for (int i = 0; i < keywords.length; i++) {
+            if (i < tokenTypes.length) {
+                KEYWORDS.put(keywords[i], tokenTypes[i]);
+            } else {
+                System.err.print("Not enough token types for all tokens");
+                break;
+            }
+        }
+        types();
+        convertTypes();
+        standart();
+
+    }
+
+    public static void types() {
+        LzrMap type = new LzrMap(5);
+        type.set("object", LzrNumber.of(Types.OBJECT));
+        type.set("number", LzrNumber.of(Types.NUMBER));
+        type.set("string", LzrNumber.of(Types.STRING));
+        type.set("array", LzrNumber.of(Types.ARRAY));
+        type.set("map", LzrNumber.of(Types.MAP));
+        type.set("function", LzrNumber.of(Types.FUNCTION));
+        Variables.define("type", type);
+        Keyword.put("typeof", args -> LzrNumber.of(args[0].type()));
+    }
+
+    public static void convertTypes(){
+        Keyword.put("str", args -> new LzrString(args[0].asString()));
+        Keyword.put("num", args -> LzrNumber.of(args[0].asNumber()));
+        Keyword.put("byte", args -> LzrNumber.of((byte)args[0].asInt()));
+        Keyword.put("short", args -> LzrNumber.of((short)args[0].asInt()));
+        Keyword.put("int", args -> LzrNumber.of(args[0].asInt()));
+        Keyword.put("long", args -> LzrNumber.of((long)args[0].asNumber()));
+        Keyword.put("float", args -> LzrNumber.of((float)args[0].asNumber()));
+        Keyword.put("double", args -> LzrNumber.of(args[0].asNumber()));
+    }
+
+    private static void standart(){
+        Keyword.put("try", new Standart.tryCatch());
+        Keyword.put("equals", new Standart.equal());
+        Keyword.put("combine", new Standart.combine());
+        Keyword.put("reduce", new Standart.reduce());
+        Keyword.put("map", new Standart.map());
+        Keyword.put("Array", new Standart.Array());
+        Keyword.put("echo", new Standart.echo());
+        Keyword.put("readln", new Standart.input());
+        Keyword.put("length", new Standart.length());
+        Keyword.put("getBytes", Standart.string::getBytes);
+        Keyword.put("sprintf", new Standart.sprintf());
+        Keyword.put("range", new Standart.range());
+        Keyword.put("substring", new Standart.substr());
+        Keyword.put("foreach", new Standart.foreach());
+        Keyword.put("split", new Standart.split());
+        Keyword.put("filter", new Standart.filter(false));
+    }
     static {
         OPERATORS = new HashMap<>();
 
@@ -373,65 +435,5 @@ public final class LexerImplementation implements Lexer {
         OPERATORS.put("^^", TokenType.CARETCARET);
         OPERATORS.put("?:", TokenType.QUESTIONCOLON);
         OPERATORS.put("??", TokenType.QUESTIONQUESTION);
-    }
-    
-    private void tokenizeComment() {
-        char current = peek(0);
-        while ("\r\n\0".indexOf(current) == -1) {
-            current = next();
-        }
-     }
-    
-    private void tokenizeMultilineComment() {
-        char current = peek(0);
-        while (true) {
-            if (current == '*' && peek(1) == '/') break;
-            if (current == '\0') throw error("Reached end of file while parsing multiline comment");
-            current = next();
-        }
-        next(); // *
-        next(); // /
-    }
-
-    private boolean isLZRIdentifierPart(char current) {
-        return (Character.isLetterOrDigit(current) || (current == '_') || (current == '$'));
-    }
-
-    private boolean isLZRIdentifier(char current) {
-        return (Character.isLetter(current) || (current == '_') || (current == '$'));
-    }
-
-
-    
-    private void clearBuffer() {
-        buffer.setLength(0);
-    }
-    
-    private char next() {
-        pos++;
-        final char result = peek(0);
-        if (result == '\n') {
-            row++;
-            col = 1;
-        } else col++;
-        return result;
-    }
-    
-    private char peek(int relativePosition) {
-        final int position = pos + relativePosition;
-        if (position >= length) return '\0';
-        return input.charAt(position);
-    }
-    
-    private void addToken(com.kingmang.lazurite.parser.parse.TokenType type) {
-        addToken(type, "");
-    }
-    
-    private void addToken(TokenType type, String text) {
-        tokens.add(new Token(type, text, row, col));
-    }
-    
-    private LZRException error(String text) {
-        return new LZRException("Lexer exeption","Lexer error");
     }
 }

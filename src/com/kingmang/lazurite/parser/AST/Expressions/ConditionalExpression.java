@@ -3,9 +3,9 @@ package com.kingmang.lazurite.parser.AST.Expressions;
 import com.kingmang.lazurite.exceptions.OperationIsNotSupportedException;
 import com.kingmang.lazurite.patterns.visitor.ResultVisitor;
 import com.kingmang.lazurite.patterns.visitor.Visitor;
-import com.kingmang.lazurite.runtime.Lzr.LzrNumber;
+import com.kingmang.lazurite.runtime.Types.LzrNumber;
 import com.kingmang.lazurite.core.Types;
-import com.kingmang.lazurite.runtime.Value;
+import com.kingmang.lazurite.runtime.LzrValue;
 
 
 public final class ConditionalExpression implements Expression {
@@ -45,7 +45,7 @@ public final class ConditionalExpression implements Expression {
     }
 
     @Override
-    public Value eval() {
+    public LzrValue eval() {
         switch (operation) {
             case AND:
                 return LzrNumber.fromBoolean((expr1AsInt() != 0) && (expr2AsInt() != 0));
@@ -61,8 +61,8 @@ public final class ConditionalExpression implements Expression {
     }
 
     private boolean evalAndCompare() {
-        final Value value1 = expr1.eval();
-        final Value value2 = expr2.eval();
+        final LzrValue value1 = expr1.eval();
+        final LzrValue value2 = expr2.eval();
 
         double number1, number2;
         if (value1.type() == Types.NUMBER) {
@@ -87,8 +87,8 @@ public final class ConditionalExpression implements Expression {
         }
     }
 
-    private Value nullCoalesce() {
-        Value value1;
+    private LzrValue nullCoalesce() {
+        LzrValue value1;
         try {
             value1 = expr1.eval();
         } catch (NullPointerException npe) {

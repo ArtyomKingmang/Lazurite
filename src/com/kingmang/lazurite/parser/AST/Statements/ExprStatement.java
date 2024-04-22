@@ -4,7 +4,7 @@ import com.kingmang.lazurite.parser.AST.Expressions.Expression;
 import com.kingmang.lazurite.parser.AST.InterruptableNode;
 import com.kingmang.lazurite.patterns.visitor.ResultVisitor;
 import com.kingmang.lazurite.patterns.visitor.Visitor;
-import com.kingmang.lazurite.runtime.Value;
+import com.kingmang.lazurite.runtime.LzrValue;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
@@ -19,7 +19,7 @@ public final class ExprStatement extends InterruptableNode implements Expression
     }
     
     @Override
-    public Value eval() {
+    public LzrValue eval() {
         return expr.eval();
     }
 

@@ -1,8 +1,8 @@
 package com.kingmang.lazurite.core;
 
-import com.kingmang.lazurite.runtime.Value;
+import com.kingmang.lazurite.runtime.LzrValue;
 
 @FunctionalInterface
 public interface Instantiable {
-    Value newInstance(Value[] args);
+    LzrValue newInstance(LzrValue[] args);
 }

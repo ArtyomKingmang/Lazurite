@@ -4,17 +4,17 @@ import com.kingmang.lazurite.core.Function;
 import com.kingmang.lazurite.parser.AST.InterruptableNode;
 import com.kingmang.lazurite.patterns.visitor.ResultVisitor;
 import com.kingmang.lazurite.patterns.visitor.Visitor;
-import com.kingmang.lazurite.runtime.Lzr.LzrFunction;
-import com.kingmang.lazurite.runtime.Lzr.LzrNumber;
-import com.kingmang.lazurite.runtime.Lzr.LzrString;
+import com.kingmang.lazurite.runtime.Types.LzrFunction;
+import com.kingmang.lazurite.runtime.Types.LzrNumber;
+import com.kingmang.lazurite.runtime.Types.LzrString;
 import com.kingmang.lazurite.core.Types;
-import com.kingmang.lazurite.runtime.Value;
+import com.kingmang.lazurite.runtime.LzrValue;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 public final class ValueExpression extends InterruptableNode implements Expression {
     
-    public final Value value;
+    public final LzrValue value;
     
     public ValueExpression(Number value) {
         this.value = LzrNumber.of(value);
@@ -29,7 +29,7 @@ public final class ValueExpression extends InterruptableNode implements Expressi
     }
 
     @Override
-    public Value eval() {
+    public LzrValue eval() {
         super.interruptionCheck();
         return value;
     }

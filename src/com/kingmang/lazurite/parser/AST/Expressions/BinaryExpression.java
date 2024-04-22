@@ -4,13 +4,13 @@ import com.kingmang.lazurite.exceptions.LZRException;
 import com.kingmang.lazurite.exceptions.OperationIsNotSupportedException;
 import com.kingmang.lazurite.patterns.visitor.ResultVisitor;
 import com.kingmang.lazurite.patterns.visitor.Visitor;
-import com.kingmang.lazurite.runtime.Lzr.LzrArray;
+import com.kingmang.lazurite.runtime.Types.LzrArray;
 import com.kingmang.lazurite.libraries.Keyword;
-import com.kingmang.lazurite.runtime.Lzr.LzrMap;
-import com.kingmang.lazurite.runtime.Lzr.LzrNumber;
-import com.kingmang.lazurite.runtime.Lzr.LzrString;
+import com.kingmang.lazurite.runtime.Types.LzrMap;
+import com.kingmang.lazurite.runtime.Types.LzrNumber;
+import com.kingmang.lazurite.runtime.Types.LzrString;
 import com.kingmang.lazurite.core.Types;
-import com.kingmang.lazurite.runtime.Value;
+import com.kingmang.lazurite.runtime.LzrValue;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
@@ -53,9 +53,9 @@ public final class BinaryExpression implements Expression {
 
 
     @Override
-    public Value eval() {
-        final Value value1 = expr1.eval();
-        final Value value2 = expr2.eval();
+    public LzrValue eval() {
+        final LzrValue value1 = expr1.eval();
+        final LzrValue value2 = expr2.eval();
         try {
             return eval(value1, value2);
         } catch (OperationIsNotSupportedException ex) {
@@ -66,7 +66,7 @@ public final class BinaryExpression implements Expression {
         }
     }
     
-    private Value eval(Value value1, Value value2) {
+    private LzrValue eval(LzrValue value1, LzrValue value2) {
         switch (operation) {
             case ADD: return add(value1, value2);
             case SUBTRACT: return subtract(value1, value2);
@@ -85,7 +85,7 @@ public final class BinaryExpression implements Expression {
         }
     }
     
-    private Value add(Value value1, Value value2) {
+    private LzrValue add(LzrValue value1, LzrValue value2) {
         switch (value1.type()) {
             case Types.NUMBER: return add((LzrNumber) value1, value2);
             case Types.ARRAY: return LzrArray.add((LzrArray) value1, value2);
@@ -101,7 +101,7 @@ public final class BinaryExpression implements Expression {
         }
     }
     
-    private Value add(LzrNumber value1, Value value2) {
+    private LzrValue add(LzrNumber value1, LzrValue value2) {
         final Number number1 = value1.raw();
         if (value2.type() == Types.NUMBER) {
             // number1 + number2
@@ -130,7 +130,7 @@ public final class BinaryExpression implements Expression {
         return LzrNumber.of(number1.intValue() + value2.asInt());
     }
     
-    private Value subtract(Value value1, Value value2) {
+    private LzrValue subtract(LzrValue value1, LzrValue value2) {
         switch (value1.type()) {
             case Types.NUMBER: return subtract((LzrNumber) value1, value2);
             default:
@@ -139,7 +139,7 @@ public final class BinaryExpression implements Expression {
         }
     }
     
-    private Value subtract(LzrNumber value1, Value value2) {
+    private LzrValue subtract(LzrNumber value1, LzrValue value2) {
         final Number number1 = value1.raw();
         if (value2.type() == Types.NUMBER) {
             // number1 - number2
@@ -168,7 +168,7 @@ public final class BinaryExpression implements Expression {
         return LzrNumber.of(number1.intValue() - value2.asInt());
     }
     
-    private Value multiply(Value value1, Value value2) {
+    private LzrValue multiply(LzrValue value1, LzrValue value2) {
         switch (value1.type()) {
             case Types.NUMBER: return multiply((LzrNumber) value1, value2);
             case Types.STRING: return multiply((LzrString) value1, value2);
@@ -178,7 +178,7 @@ public final class BinaryExpression implements Expression {
         }
     }
     
-    private Value multiply(LzrNumber value1, Value value2) {
+    private LzrValue multiply(LzrNumber value1, LzrValue value2) {
         final Number number1 = value1.raw();
         if (value2.type() == Types.NUMBER) {
             // number1 * number2
@@ -207,7 +207,7 @@ public final class BinaryExpression implements Expression {
         return LzrNumber.of(number1.intValue() * value2.asInt());
     }
 
-    private Value multiply(LzrString value1, Value value2) {
+    private LzrValue multiply(LzrString value1, LzrValue value2) {
         final String string1 = value1.asString();
         final int iterations = value2.asInt();
         final StringBuilder buffer = new StringBuilder();
@@ -217,7 +217,7 @@ public final class BinaryExpression implements Expression {
         return new LzrString(buffer.toString());
     }
     
-    private Value divide(Value value1, Value value2) {
+    private LzrValue divide(LzrValue value1, LzrValue value2) {
         switch (value1.type()) {
             case Types.NUMBER: return divide((LzrNumber) value1, value2);
             default:
@@ -226,7 +226,7 @@ public final class BinaryExpression implements Expression {
         }
     }
     
-    private Value divide(LzrNumber value1, Value value2) {
+    private LzrValue divide(LzrNumber value1, LzrValue value2) {
         final Number number1 = value1.raw();
         if (value2.type() == Types.NUMBER) {
             // number1 / number2
@@ -255,7 +255,7 @@ public final class BinaryExpression implements Expression {
         return LzrNumber.of(number1.intValue() / value2.asInt());
     }
     
-    private Value remainder(Value value1, Value value2) {
+    private LzrValue remainder(LzrValue value1, LzrValue value2) {
         switch (value1.type()) {
             case Types.NUMBER: return remainder((LzrNumber) value1, value2);
             default:
@@ -264,7 +264,7 @@ public final class BinaryExpression implements Expression {
         }
     }
     
-    private Value remainder(LzrNumber value1, Value value2) {
+    private LzrValue remainder(LzrNumber value1, LzrValue value2) {
         final Number number1 = value1.raw();
         if (value2.type() == Types.NUMBER) {
             // number1 % number2
@@ -293,7 +293,7 @@ public final class BinaryExpression implements Expression {
         return LzrNumber.of(number1.intValue() % value2.asInt());
     }
     
-    private Value push(Value value1, Value value2) {
+    private LzrValue push(LzrValue value1, LzrValue value2) {
         switch (value1.type()) {
             case Types.ARRAY: return LzrArray.add((LzrArray) value1, value2);
             default:
@@ -302,7 +302,7 @@ public final class BinaryExpression implements Expression {
         }
     }
 
-    private Value and(Value value1, Value value2) {
+    private LzrValue and(LzrValue value1, LzrValue value2) {
         switch (value1.type()) {
             case Types.NUMBER: return and((LzrNumber) value1, value2);
             default:
@@ -311,7 +311,7 @@ public final class BinaryExpression implements Expression {
         }
     }
     
-    private Value and(LzrNumber value1, Value value2) {
+    private LzrValue and(LzrNumber value1, LzrValue value2) {
         final Number number1 = value1.raw();
         if (value2.type() == Types.NUMBER) {
             // number1 & number2
@@ -328,7 +328,7 @@ public final class BinaryExpression implements Expression {
         return LzrNumber.of(number1.intValue() & value2.asInt());
     }
     
-    private Value or(Value value1, Value value2) {
+    private LzrValue or(LzrValue value1, LzrValue value2) {
         switch (value1.type()) {
             case Types.NUMBER: return or((LzrNumber) value1, value2);
             default:
@@ -337,7 +337,7 @@ public final class BinaryExpression implements Expression {
         }
     }
     
-    private Value or(LzrNumber value1, Value value2) {
+    private LzrValue or(LzrNumber value1, LzrValue value2) {
         final Number number1 = value1.raw();
         if (value2.type() == Types.NUMBER) {
             // number1 | number2
@@ -354,7 +354,7 @@ public final class BinaryExpression implements Expression {
         return LzrNumber.of(number1.intValue() | value2.asInt());
     }
     
-    private Value xor(Value value1, Value value2) {
+    private LzrValue xor(LzrValue value1, LzrValue value2) {
         switch (value1.type()) {
             case Types.NUMBER: return xor((LzrNumber) value1, value2);
             default:
@@ -363,7 +363,7 @@ public final class BinaryExpression implements Expression {
         }
     }
     
-    private Value xor(LzrNumber value1, Value value2) {
+    private LzrValue xor(LzrNumber value1, LzrValue value2) {
         final Number number1 = value1.raw();
         if (value2.type() == Types.NUMBER) {
             // number1 ^ number2
@@ -380,7 +380,7 @@ public final class BinaryExpression implements Expression {
         return LzrNumber.of(number1.intValue() ^ value2.asInt());
     }
     
-    private Value lshift(Value value1, Value value2) {
+    private LzrValue lshift(LzrValue value1, LzrValue value2) {
         switch (value1.type()) {
             case Types.NUMBER: return lshift((LzrNumber) value1, value2);
             case Types.ARRAY: return lshift((LzrArray) value1, value2);
@@ -390,7 +390,7 @@ public final class BinaryExpression implements Expression {
         }
     }
 
-    private Value lshift(LzrNumber value1, Value value2) {
+    private LzrValue lshift(LzrNumber value1, LzrValue value2) {
         final Number number1 = value1.raw();
         if (value2.type() == Types.NUMBER) {
             // number1 << number2
@@ -407,13 +407,13 @@ public final class BinaryExpression implements Expression {
         return LzrNumber.of(number1.intValue() << value2.asInt());
     }
 
-    private Value lshift(LzrArray value1, Value value2) {
+    private LzrValue lshift(LzrArray value1, LzrValue value2) {
         if (value2.type() != Types.ARRAY)
             throw new LZRException("TypeExeption", "Cannot merge non array value to array");
         return LzrArray.merge(value1, (LzrArray) value2);
     }
     
-    private Value rshift(Value value1, Value value2) {
+    private LzrValue rshift(LzrValue value1, LzrValue value2) {
         switch (value1.type()) {
             case Types.NUMBER: return rshift((LzrNumber) value1, value2);
             default:
@@ -422,7 +422,7 @@ public final class BinaryExpression implements Expression {
         }
     }
     
-    private Value rshift(LzrNumber value1, Value value2) {
+    private LzrValue rshift(LzrNumber value1, LzrValue value2) {
         final Number number1 = value1.raw();
         if (value2.type() == Types.NUMBER) {
             // number1 >> number2
@@ -439,7 +439,7 @@ public final class BinaryExpression implements Expression {
         return LzrNumber.of(number1.intValue() >> value2.asInt());
     }
     
-    private Value urshift(Value value1, Value value2) {
+    private LzrValue urshift(LzrValue value1, LzrValue value2) {
         switch (value1.type()) {
             case Types.NUMBER: return urshift((LzrNumber) value1, value2);
             default:
@@ -448,7 +448,7 @@ public final class BinaryExpression implements Expression {
         }
     }
     
-    private Value urshift(LzrNumber value1, Value value2) {
+    private LzrValue urshift(LzrNumber value1, LzrValue value2) {
         final Number number1 = value1.raw();
         if (value2.type() == Types.NUMBER) {
             // number1 >>> number2

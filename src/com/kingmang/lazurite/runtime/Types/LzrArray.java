@@ -1,15 +1,15 @@
-package com.kingmang.lazurite.runtime.Lzr;
+package com.kingmang.lazurite.runtime.Types;
 
 import com.kingmang.lazurite.exceptions.LZRException;
 import com.kingmang.lazurite.core.*;
-import com.kingmang.lazurite.runtime.Value;
+import com.kingmang.lazurite.runtime.LzrValue;
 
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
 
-public class LzrArray implements Value, Iterable<Value> {
+public class LzrArray implements LzrValue, Iterable<LzrValue> {
 
     public static LzrArray of(byte[] array) {
         final int size = array.length;
@@ -29,7 +29,7 @@ public class LzrArray implements Value, Iterable<Value> {
         return result;
     }
     
-    public static LzrArray add(LzrArray array, Value value) {
+    public static LzrArray add(LzrArray array, LzrValue value) {
         final int last = array.elements.length;
         final LzrArray result = new LzrArray(last + 1);
         System.arraycopy(array.elements, 0, result.elements, 0, last);
@@ -49,7 +49,7 @@ public class LzrArray implements Value, Iterable<Value> {
     
     public static LzrString joinToString(LzrArray array, String delimiter, String prefix, String suffix) {
         final StringBuilder sb = new StringBuilder();
-        for (Value value : array) {
+        for (LzrValue value : array) {
             if (sb.length() > 0) sb.append(delimiter);
             else sb.append(prefix);
             sb.append(value.asString());
@@ -58,28 +58,28 @@ public class LzrArray implements Value, Iterable<Value> {
         return new LzrString(sb.toString());
     }
     
-    private final Value[] elements;
+    private final LzrValue[] elements;
 
     public LzrArray(int size) {
-        this.elements = new Value[size];
+        this.elements = new LzrValue[size];
     }
 
-    public LzrArray(Value[] elements) {
-        this.elements = new Value[elements.length];
+    public LzrArray(LzrValue[] elements) {
+        this.elements = new LzrValue[elements.length];
         System.arraycopy(elements, 0, this.elements, 0, elements.length);
     }
     
-    public LzrArray(List<Value> values) {
+    public LzrArray(List<LzrValue> values) {
         final int size = values.size();
-        this.elements = values.toArray(new Value[size]);
+        this.elements = values.toArray(new LzrValue[size]);
     }
     
     public LzrArray(LzrArray array) {
         this(array.elements);
     }
 
-    public Value[] getCopyElements() {
-        final Value[] result = new Value[elements.length];
+    public LzrValue[] getCopyElements() {
+        final LzrValue[] result = new LzrValue[elements.length];
         System.arraycopy(elements, 0, result, 0, elements.length);
         return result;
     }
@@ -93,11 +93,11 @@ public class LzrArray implements Value, Iterable<Value> {
         return elements.length;
     }
 
-    public Value get(int index) {
+    public LzrValue get(int index) {
         return elements[index];
     }
 
-    public Value get(Value index) {
+    public LzrValue get(LzrValue index) {
         final String prop = index.asString();
         switch (prop) {
             case "length":
@@ -111,7 +111,7 @@ public class LzrArray implements Value, Iterable<Value> {
     }
 
 
-    public void set(int index, Value value) {
+    public void set(int index, LzrValue value) {
         elements[index] = value;
     }
 
@@ -141,7 +141,7 @@ public class LzrArray implements Value, Iterable<Value> {
     }
 
     @Override
-    public Iterator<Value> iterator() {
+    public Iterator<LzrValue> iterator() {
         return Arrays.asList(elements).iterator();
     }
 
@@ -163,7 +163,7 @@ public class LzrArray implements Value, Iterable<Value> {
     }
 
     @Override
-    public int compareTo(Value o) {
+    public int compareTo(LzrValue o) {
         if (o.type() == Types.ARRAY) {
             final int lengthCompare = Integer.compare(size(), ((LzrArray) o).size());
             if (lengthCompare != 0) return lengthCompare;

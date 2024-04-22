@@ -3,7 +3,7 @@ package com.kingmang.lazurite.parser.AST.Expressions;
 import com.kingmang.lazurite.parser.AST.InterruptableNode;
 import com.kingmang.lazurite.patterns.visitor.ResultVisitor;
 import com.kingmang.lazurite.patterns.visitor.Visitor;
-import com.kingmang.lazurite.runtime.Lzr.LzrFunction;
+import com.kingmang.lazurite.runtime.Types.LzrFunction;
 import com.kingmang.lazurite.libraries.Keyword;
 import lombok.AllArgsConstructor;
 

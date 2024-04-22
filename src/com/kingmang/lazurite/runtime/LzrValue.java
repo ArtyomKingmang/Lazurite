@@ -1,6 +1,6 @@
 package com.kingmang.lazurite.runtime;
 
-public interface Value extends Comparable<Value> {
+public interface LzrValue extends Comparable<LzrValue> {
     
     Object raw();
     

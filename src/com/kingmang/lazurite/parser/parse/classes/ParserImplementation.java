@@ -23,8 +23,8 @@ import com.kingmang.lazurite.parser.AST.Statements.*;
 import com.kingmang.lazurite.parser.parse.Token;
 import com.kingmang.lazurite.parser.parse.TokenType;
 import com.kingmang.lazurite.runtime.*;
-import com.kingmang.lazurite.runtime.Lzr.LzrNumber;
-import com.kingmang.lazurite.runtime.Lzr.LzrString;
+import com.kingmang.lazurite.runtime.Types.LzrNumber;
+import com.kingmang.lazurite.runtime.Types.LzrString;
 import lombok.Getter;
 import lombok.Setter;
 

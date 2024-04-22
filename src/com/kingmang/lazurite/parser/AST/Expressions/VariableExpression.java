@@ -5,7 +5,7 @@ import com.kingmang.lazurite.parser.AST.Accessible;
 import com.kingmang.lazurite.parser.AST.InterruptableNode;
 import com.kingmang.lazurite.patterns.visitor.ResultVisitor;
 import com.kingmang.lazurite.patterns.visitor.Visitor;
-import com.kingmang.lazurite.runtime.Value;
+import com.kingmang.lazurite.runtime.LzrValue;
 import com.kingmang.lazurite.runtime.Variables;
 import lombok.AllArgsConstructor;
 
@@ -15,19 +15,19 @@ public final class VariableExpression extends InterruptableNode implements Expre
     public final String name;
 
     @Override
-    public Value eval() {
+    public LzrValue eval() {
         super.interruptionCheck();
         return get();
     }
     
     @Override
-    public Value get() {
+    public LzrValue get() {
         if (!Variables.isExists(name)) throw new VariableDoesNotExistsException(name);
         return Variables.get(name);
     }
 
     @Override
-    public Value set(Value value) {
+    public LzrValue set(LzrValue value) {
         Variables.set(name, value);
         return value;
     }

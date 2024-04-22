@@ -1,8 +1,8 @@
 package com.kingmang.lazurite.patterns.visitor;
 
-import com.kingmang.lazurite.runtime.Lzr.LzrNumber;
+import com.kingmang.lazurite.runtime.Types.LzrNumber;
 import com.kingmang.lazurite.core.Types;
-import com.kingmang.lazurite.runtime.Value;
+import com.kingmang.lazurite.runtime.LzrValue;
 import com.kingmang.lazurite.parser.AST.Expressions.BinaryExpression;
 import com.kingmang.lazurite.parser.AST.Expressions.ConditionalExpression;
 import com.kingmang.lazurite.parser.AST.Statements.IncludeStatement;
@@ -40,7 +40,7 @@ public final class VisitorUtils {
     public static boolean isIntegerValue(Node node, int valueToCheck) {
         if (!isValue(node)) return false;
 
-        final Value value = ((ValueExpression) node).value;
+        final LzrValue value = ((ValueExpression) node).value;
         if (value.type() != Types.NUMBER) return false;
 
         final Number number = ((LzrNumber) value).raw();
@@ -53,7 +53,7 @@ public final class VisitorUtils {
     public static boolean isValueAsInt(Node node, int valueToCheck) {
         if (!isValue(node)) return false;
 
-        final Value value = ((ValueExpression) node).value;
+        final LzrValue value = ((ValueExpression) node).value;
         if (value.type() != Types.NUMBER) return false;
 
         return value.asInt() == valueToCheck;

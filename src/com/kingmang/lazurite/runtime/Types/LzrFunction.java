@@ -1,16 +1,16 @@
-package com.kingmang.lazurite.runtime.Lzr;
+package com.kingmang.lazurite.runtime.Types;
 
 import com.kingmang.lazurite.exceptions.LZRException;
 import com.kingmang.lazurite.core.Function;
 import com.kingmang.lazurite.core.Types;
-import com.kingmang.lazurite.runtime.Value;
+import com.kingmang.lazurite.runtime.LzrValue;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 import java.util.Objects;
 
 @RequiredArgsConstructor
-public class LzrFunction implements Value {
+public class LzrFunction implements LzrValue {
 
     public static final LzrFunction EMPTY = new LzrFunction(args -> LzrNumber.ZERO);
 
@@ -68,7 +68,7 @@ public class LzrFunction implements Value {
     }
     
     @Override
-    public int compareTo(Value o) {
+    public int compareTo(LzrValue o) {
         return asString().compareTo(o.asString());
     }
     

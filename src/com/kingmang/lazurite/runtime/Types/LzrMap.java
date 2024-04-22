@@ -1,8 +1,8 @@
-package com.kingmang.lazurite.runtime.Lzr;
+package com.kingmang.lazurite.runtime.Types;
 
 import com.kingmang.lazurite.exceptions.LZRException;
 import com.kingmang.lazurite.core.*;
-import com.kingmang.lazurite.runtime.Value;
+import com.kingmang.lazurite.runtime.LzrValue;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
@@ -13,7 +13,7 @@ import java.util.Objects;
 import java.util.function.Consumer;
 
 @RequiredArgsConstructor
-public class LzrMap implements Value, Iterable<Map.Entry<Value, Value>> {
+public class LzrMap implements LzrValue, Iterable<Map.Entry<LzrValue, LzrValue>> {
     
     public static final LzrMap EMPTY = new LzrMap(1);
     
@@ -24,17 +24,17 @@ public class LzrMap implements Value, Iterable<Map.Entry<Value, Value>> {
         return result;
     }
     @Getter
-    private final Map<Value, Value> map;
+    private final Map<LzrValue, LzrValue> map;
 
     public LzrMap(int size) {
         this.map = new LinkedHashMap<>(size);
     }
 
-    public boolean ifPresent(String key, Consumer<Value> consumer) {
+    public boolean ifPresent(String key, Consumer<LzrValue> consumer) {
         return ifPresent(new LzrString(key), consumer);
     }
 
-    public boolean ifPresent(Value key, Consumer<Value> consumer) {
+    public boolean ifPresent(LzrValue key, Consumer<LzrValue> consumer) {
         if (map.containsKey(key)) {
             consumer.accept(map.get(key));
             return true;
@@ -46,8 +46,8 @@ public class LzrMap implements Value, Iterable<Map.Entry<Value, Value>> {
         final int size = map.size();
         final LzrArray result = new LzrArray(size);
         int index = 0;
-        for (Map.Entry<Value, Value> entry : map.entrySet()) {
-            result.set(index++, new LzrArray(new Value[] {
+        for (Map.Entry<LzrValue, LzrValue> entry : map.entrySet()) {
+            result.set(index++, new LzrArray(new LzrValue[] {
                 entry.getKey(), entry.getValue()
             }));
         }
@@ -63,15 +63,15 @@ public class LzrMap implements Value, Iterable<Map.Entry<Value, Value>> {
         return map.size();
     }
     
-    public boolean containsKey(Value key) {
+    public boolean containsKey(LzrValue key) {
         return map.containsKey(key);
     }
 
-    public Value get(Value key) {
+    public LzrValue get(LzrValue key) {
         return map.get(key);
     }
 
-    public void set(String key, Value value) {
+    public void set(String key, LzrValue value) {
         set(new LzrString(key), value);
     }
 
@@ -79,7 +79,7 @@ public class LzrMap implements Value, Iterable<Map.Entry<Value, Value>> {
         set(new LzrString(key), new LzrFunction(function));
     }
     
-    public void set(Value key, Value value) {
+    public void set(LzrValue key, LzrValue value) {
         map.put(key, value);
     }
 
@@ -112,7 +112,7 @@ public class LzrMap implements Value, Iterable<Map.Entry<Value, Value>> {
 
 
     @Override
-    public Iterator<Map.Entry<Value, Value>> iterator() {
+    public Iterator<Map.Entry<LzrValue, LzrValue>> iterator() {
         return map.entrySet().iterator();
     }
 
@@ -134,7 +134,7 @@ public class LzrMap implements Value, Iterable<Map.Entry<Value, Value>> {
     }
     
     @Override
-    public int compareTo(Value o) {
+    public int compareTo(LzrValue o) {
         if (o.type() == Types.MAP) {
             final int lengthCompare = Integer.compare(size(), ((LzrMap) o).size());
             if (lengthCompare != 0) return lengthCompare;

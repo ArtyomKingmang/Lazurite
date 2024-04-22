@@ -1,9 +1,9 @@
 package com.kingmang.lazurite.libraries.ML;
 import com.kingmang.lazurite.core.*;
 import com.kingmang.lazurite.libraries.Library;
-import com.kingmang.lazurite.runtime.Lzr.LzrMap;
-import com.kingmang.lazurite.runtime.Lzr.LzrNumber;
-import com.kingmang.lazurite.runtime.Value;
+import com.kingmang.lazurite.runtime.Types.LzrMap;
+import com.kingmang.lazurite.runtime.Types.LzrNumber;
+import com.kingmang.lazurite.runtime.LzrValue;
 import com.kingmang.lazurite.runtime.Variables;
 
 import java.util.function.DoubleBinaryOperator;
@@ -57,7 +57,7 @@ public final class ML implements Library {
         Variables.define("ml", ml);
     }
 
-    private static Value abs(Value... args) {
+    private static LzrValue abs(LzrValue... args) {
         Arguments.check(1, args.length);
         final Object raw = args[0].raw();
         if (raw instanceof Double) {
@@ -72,7 +72,7 @@ public final class ML implements Library {
         return LzrNumber.of(Math.abs(args[0].asInt()));
     }
 
-    private static Value getExponent(Value... args) {
+    private static LzrValue getExponent(LzrValue... args) {
         Arguments.check(1, args.length);
         final Object raw = args[0].raw();
         if (raw instanceof Float) {
@@ -81,7 +81,7 @@ public final class ML implements Library {
         return LzrNumber.of(Math.getExponent(args[0].asNumber()));
     }
 
-    private static Value max(Value... args) {
+    private static LzrValue max(LzrValue... args) {
         Arguments.check(2, args.length);
         final Object raw = args[0].raw();
         if (raw instanceof Double) {
@@ -96,7 +96,7 @@ public final class ML implements Library {
         return LzrNumber.of(Math.max(args[0].asInt(), args[1].asInt()));
     }
 
-    private static Value min(Value... args) {
+    private static LzrValue min(LzrValue... args) {
         Arguments.check(2, args.length);
         final Object raw = args[0].raw();
         if (raw instanceof Double) {
@@ -112,7 +112,7 @@ public final class ML implements Library {
     }
 
 
-    private static Value round(Value... args) {
+    private static LzrValue round(LzrValue... args) {
         Arguments.check(1, args.length);
         final Object raw = args[0].raw();
         if (raw instanceof Float) {

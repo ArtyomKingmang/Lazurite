@@ -3,9 +3,9 @@ package com.kingmang.lazurite.libraries.artify;
 import com.kingmang.lazurite.core.Arguments;
 import com.kingmang.lazurite.core.Function;
 import com.kingmang.lazurite.libraries.Library;
-import com.kingmang.lazurite.runtime.Lzr.LzrMap;
-import com.kingmang.lazurite.runtime.Lzr.LzrString;
-import com.kingmang.lazurite.runtime.Value;
+import com.kingmang.lazurite.runtime.Types.LzrMap;
+import com.kingmang.lazurite.runtime.Types.LzrString;
+import com.kingmang.lazurite.runtime.LzrValue;
 import com.kingmang.lazurite.runtime.Variables;
 
 public class artify implements Library {
@@ -206,7 +206,7 @@ public class artify implements Library {
         LzrMap map = new LzrMap(1);
         map.set("build", new Function() {
             @Override
-            public Value execute(Value... args) {
+            public LzrValue execute(LzrValue... args) {
                 Arguments.check(1, args.length);
                 String raw = args[0].asString().toLowerCase();
                 StringBuilder[] lines = new StringBuilder[4];

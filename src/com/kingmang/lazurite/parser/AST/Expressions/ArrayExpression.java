@@ -2,8 +2,8 @@ package com.kingmang.lazurite.parser.AST.Expressions;
 
 import com.kingmang.lazurite.patterns.visitor.ResultVisitor;
 import com.kingmang.lazurite.patterns.visitor.Visitor;
-import com.kingmang.lazurite.runtime.Lzr.LzrArray;
-import com.kingmang.lazurite.runtime.Value;
+import com.kingmang.lazurite.runtime.Types.LzrArray;
+import com.kingmang.lazurite.runtime.LzrValue;
 import lombok.AllArgsConstructor;
 
 import java.util.List;
@@ -14,7 +14,7 @@ public final class ArrayExpression implements Expression {
     public final List<Expression> elements;
 
     @Override
-    public Value eval() {
+    public LzrValue eval() {
         final int size = elements.size();
         final LzrArray array = new LzrArray(size);
         for (int i = 0; i < size; i++) {

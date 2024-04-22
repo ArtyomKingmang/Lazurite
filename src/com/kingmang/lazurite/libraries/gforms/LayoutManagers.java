@@ -1,7 +1,7 @@
 package com.kingmang.lazurite.libraries.gforms;
 
 import com.kingmang.lazurite.core.Arguments;
-import com.kingmang.lazurite.runtime.Value;
+import com.kingmang.lazurite.runtime.LzrValue;
 
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
@@ -16,7 +16,7 @@ public final class LayoutManagers {
 
     private LayoutManagers() { }
 
-    static Value borderLayout(Value[] args) {
+    static LzrValue borderLayout(LzrValue[] args) {
         Arguments.checkOrOr(0, 2, args.length);
         int hgap = (args.length == 2) ? args[0].asInt() : 0;
         int vgap = (args.length == 2) ? args[1].asInt() : 0;
@@ -25,7 +25,7 @@ public final class LayoutManagers {
         );
     }
 
-    static Value boxLayout(Value[] args) {
+    static LzrValue boxLayout(LzrValue[] args) {
         Arguments.checkOrOr(1, 2, args.length);
         int axis = (args.length == 2) ? args[1].asInt() : BoxLayout.PAGE_AXIS;
         return new LayoutManagerValue(
@@ -33,7 +33,7 @@ public final class LayoutManagers {
         );
     }
 
-    static Value cardLayout(Value[] args) {
+    static LzrValue cardLayout(LzrValue[] args) {
         Arguments.checkOrOr(0, 2, args.length);
         int hgap = (args.length == 2) ? args[0].asInt() : 0;
         int vgap = (args.length == 2) ? args[1].asInt() : 0;
@@ -42,7 +42,7 @@ public final class LayoutManagers {
         );
     }
 
-    static Value gridLayout(Value[] args) {
+    static LzrValue gridLayout(LzrValue[] args) {
         Arguments.checkRange(0, 4, args.length);
         int rows = 1, cols = 0, hgap = 0, vgap = 0;
         switch (args.length) {
@@ -70,7 +70,7 @@ public final class LayoutManagers {
         );
     }
 
-    static Value flowLayout(Value[] args) {
+    static LzrValue flowLayout(LzrValue[] args) {
         Arguments.checkRange(0, 3, args.length);
         final int align, hgap, vgap;
         switch (args.length) {

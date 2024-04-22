@@ -2,9 +2,9 @@ package com.kingmang.lazurite.libraries.gforms;
 
 
 import com.kingmang.lazurite.core.*;
-import com.kingmang.lazurite.runtime.Lzr.LzrFunction;
-import com.kingmang.lazurite.runtime.Lzr.LzrNumber;
-import com.kingmang.lazurite.runtime.Value;
+import com.kingmang.lazurite.runtime.Types.LzrFunction;
+import com.kingmang.lazurite.runtime.Types.LzrNumber;
+import com.kingmang.lazurite.runtime.LzrValue;
 
 import javax.swing.JScrollPane;
 
@@ -31,25 +31,25 @@ public class JScrollPaneValue extends JComponentValue {
         set("setWheelScrollingEnabled", Converters.booleanToVoid(scrollPane::setWheelScrollingEnabled));
     }
     
-    private Value setViewportView(Value[] args) {
+    private LzrValue setViewportView(LzrValue[] args) {
         Arguments.check(1, args.length);
         scrollPane.setViewportView(((com.kingmang.lazurite.libraries.gforms.ComponentValue) args[0]).component);
         return LzrNumber.ZERO;
     }
     
-    private Value setRowHeaderView(Value[] args) {
+    private LzrValue setRowHeaderView(LzrValue[] args) {
         Arguments.check(1, args.length);
         scrollPane.setRowHeaderView(((com.kingmang.lazurite.libraries.gforms.ComponentValue) args[0]).component);
         return LzrNumber.ZERO;
     }
     
-    private Value setColumnHeaderView(Value[] args) {
+    private LzrValue setColumnHeaderView(LzrValue[] args) {
         Arguments.check(1, args.length);
         scrollPane.setColumnHeaderView(((com.kingmang.lazurite.libraries.gforms.ComponentValue) args[0]).component);
         return LzrNumber.ZERO;
     }
     
-    private Value setCorner(Value[] args) {
+    private LzrValue setCorner(LzrValue[] args) {
         Arguments.check(2, args.length);
         scrollPane.setCorner(args[0].asString(), ((ComponentValue) args[1]).component);
         return LzrNumber.ZERO;

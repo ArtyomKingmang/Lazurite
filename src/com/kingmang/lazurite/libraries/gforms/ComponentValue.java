@@ -3,7 +3,7 @@ package com.kingmang.lazurite.libraries.gforms;
 
 import com.kingmang.lazurite.core.*;
 import com.kingmang.lazurite.runtime.*;
-import com.kingmang.lazurite.runtime.Lzr.*;
+import com.kingmang.lazurite.runtime.Types.*;
 import com.kingmang.lazurite.utils.ValueUtils;
 
 import java.awt.*;
@@ -69,7 +69,7 @@ public abstract class ComponentValue extends LzrMap {
         set("validate", Converters.voidToVoid(component::validate));
     }
 
-    private Value addKeyListener(Value[] args) {
+    private LzrValue addKeyListener(LzrValue[] args) {
         Arguments.check(1, args.length);
         final Function action = ValueUtils.consumeFunction(args[0], 0);
         component.addKeyListener(new KeyListener() {
@@ -110,7 +110,7 @@ public abstract class ComponentValue extends LzrMap {
         return LzrNumber.ZERO;
     }
 
-    private Value getLocation(Value[] args) {
+    private LzrValue getLocation(LzrValue[] args) {
         final Point location = component.getLocation();
         final LzrArray result = new LzrArray(2);
         result.set(0, LzrNumber.of(location.x));
@@ -118,7 +118,7 @@ public abstract class ComponentValue extends LzrMap {
         return result;
     }
 
-    private Value getLocationOnScreen(Value[] args) {
+    private LzrValue getLocationOnScreen(LzrValue[] args) {
         final Point location = component.getLocationOnScreen();
         final LzrArray result = new LzrArray(2);
         result.set(0, LzrNumber.of(location.x));
@@ -126,17 +126,17 @@ public abstract class ComponentValue extends LzrMap {
         return result;
     }
 
-    private Value setFont(Value[] args) {
+    private LzrValue setFont(LzrValue[] args) {
         component.setFont(new Font(args[0].asString(), args[1].asInt(), args[2].asInt()));
         return LzrNumber.ZERO;
     }
 
-    private Value getFont(Value[] args) {
+    private LzrValue getFont(LzrValue[] args) {
         component.getFont();
         return LzrNumber.ZERO;
     }
 
-    private Value setLocation(Value[] args) {
+    private LzrValue setLocation(LzrValue[] args) {
         Arguments.check(2, args.length);
         component.setLocation(args[0].asInt(), args[1].asInt());
         return LzrNumber.ZERO;

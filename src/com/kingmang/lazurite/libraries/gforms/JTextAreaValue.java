@@ -2,9 +2,9 @@ package com.kingmang.lazurite.libraries.gforms;
 
 
 import com.kingmang.lazurite.core.*;
-import com.kingmang.lazurite.runtime.Lzr.LzrFunction;
-import com.kingmang.lazurite.runtime.Lzr.LzrNumber;
-import com.kingmang.lazurite.runtime.Value;
+import com.kingmang.lazurite.runtime.Types.LzrFunction;
+import com.kingmang.lazurite.runtime.Types.LzrNumber;
+import com.kingmang.lazurite.runtime.LzrValue;
 
 import javax.swing.JTextArea;
 import javax.swing.text.BadLocationException;
@@ -39,7 +39,7 @@ public class JTextAreaValue extends JTextComponentValue {
         set("setWrapStyleWord", Converters.booleanToVoid(textArea::setWrapStyleWord));
     }
     
-    private Value insert(Value[] args) {
+    private LzrValue insert(LzrValue[] args) {
         Arguments.check(2, args.length);
         textArea.insert(args[0].asString(), args[1].asInt());
         return LzrNumber.ZERO;

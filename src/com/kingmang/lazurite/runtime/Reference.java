@@ -8,7 +8,7 @@ import org.jetbrains.annotations.NotNull;
 import java.io.Serializable;
 
 @AllArgsConstructor
-public class Reference implements Value, Serializable {
+public class Reference implements LzrValue, Serializable {
 
     @Getter
     private Object ref;
@@ -49,7 +49,7 @@ public class Reference implements Value, Serializable {
     }
 
     @Override
-    public int compareTo(@NotNull Value o) {
+    public int compareTo(@NotNull LzrValue o) {
         return 0;
     }
 }

@@ -10,7 +10,7 @@ import com.kingmang.lazurite.core.Function;
 import com.kingmang.lazurite.core.Types;
 import com.kingmang.lazurite.exceptions.LZRException;
 import com.kingmang.lazurite.runtime.*;
-import com.kingmang.lazurite.runtime.Lzr.*;
+import com.kingmang.lazurite.runtime.Types.*;
 import lombok.NoArgsConstructor;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -19,7 +19,7 @@ import org.json.JSONObject;
 @NoArgsConstructor
 public final class ValueUtils {
 
-    public static Object toObject(Value val) throws JSONException {
+    public static Object toObject(LzrValue val) throws JSONException {
         switch (val.type()) {
             case Types.ARRAY:
                 return toObject((LzrArray) val);
@@ -36,7 +36,7 @@ public final class ValueUtils {
 
     public static JSONObject toObject(LzrMap map) throws JSONException {
         final JSONObject result = new JSONObject(new LinkedHashMap<String, Object>());
-        for (Map.Entry<Value, Value> entry : map) {
+        for (Map.Entry<LzrValue, LzrValue> entry : map) {
             final String key = entry.getKey().asString();
             final Object value = toObject(entry.getValue());
             result.put(key, value);
@@ -46,13 +46,13 @@ public final class ValueUtils {
 
     public static JSONArray toObject(LzrArray array) throws JSONException {
         final JSONArray result = new JSONArray();
-        for (Value value : array) {
+        for (LzrValue value : array) {
             result.put(toObject(value));
         }
         return result;
     }
 
-    public static Value toValue(Object obj) throws JSONException {
+    public static LzrValue toValue(Object obj) throws JSONException {
         if (obj instanceof JSONObject) {
             return toValue((JSONObject) obj);
         }
@@ -77,7 +77,7 @@ public final class ValueUtils {
         final Iterator<String> it = json.keys();
         while(it.hasNext()) {
             final String key = it.next();
-            final Value value = toValue(json.get(key));
+            final LzrValue value = toValue(json.get(key));
             result.set(new LzrString(key), value);
         }
         return result;
@@ -87,18 +87,18 @@ public final class ValueUtils {
         final int length = json.length();
         final LzrArray result = new LzrArray(length);
         for (int i = 0; i < length; i++) {
-            final Value value = toValue(json.get(i));
+            final LzrValue value = toValue(json.get(i));
             result.set(i, value);
         }
         return result;
     }
 
-    public static Number getNumber(Value value) {
+    public static Number getNumber(LzrValue value) {
         if (value.type() == Types.NUMBER) return ((LzrNumber) value).raw();
         return value.asInt();
     }
 
-    public static float getFloatNumber(Value value) {
+    public static float getFloatNumber(LzrValue value) {
         if (value.type() == Types.NUMBER) return ((LzrNumber) value).raw().floatValue();
         return (float) value.asNumber();
     }
@@ -112,11 +112,11 @@ public final class ValueUtils {
         return result;
     }
 
-    public static Function consumeFunction(Value value, int argumentNumber) {
+    public static Function consumeFunction(LzrValue value, int argumentNumber) {
         return consumeFunction(value, " at argument " + (argumentNumber + 1));
     }
 
-    public static Function consumeFunction(Value value, String errorMessage) {
+    public static Function consumeFunction(LzrValue value, String errorMessage) {
         final int type = value.type();
         if (type != Types.FUNCTION) {
             throw new LZRException("TypeExeption ", "Function expected" + errorMessage

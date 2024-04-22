@@ -5,7 +5,7 @@ import com.kingmang.lazurite.exceptions.LZRException;
 import com.kingmang.lazurite.libraries.Keyword;
 import com.kingmang.lazurite.libraries.Library;
 import com.kingmang.lazurite.runtime.*;
-import com.kingmang.lazurite.runtime.Lzr.*;
+import com.kingmang.lazurite.runtime.Types.*;
 
 import java.lang.reflect.Array;
 import java.lang.reflect.Constructor;
@@ -68,7 +68,7 @@ public final class reflection implements Library {
 
     private static class JavaClassValue extends LzrMap implements Instantiable {
 
-        public static Value classOrNull(Class<?> clazz) {
+        public static LzrValue classOrNull(Class<?> clazz) {
             if (clazz == null) return new LzrNull();
             return new JavaClassValue(clazz);
         }
@@ -115,33 +115,33 @@ public final class reflection implements Library {
             set("cast", new LzrFunction(this::cast));
         }
 
-        private Value asSubclass(Value[] args) {
+        private LzrValue asSubclass(LzrValue[] args) {
             Arguments.check(1, args.length);
             return new JavaClassValue(clazz.asSubclass( ((JavaClassValue)args[0]).clazz ));
         }
 
-        private Value isAssignableFrom(Value[] args) {
+        private LzrValue isAssignableFrom(LzrValue[] args) {
             Arguments.check(1, args.length);
             return LzrNumber.fromBoolean(clazz.isAssignableFrom( ((JavaClassValue)args[0]).clazz ));
         }
 
         @Override
-        public Value newInstance(Value[] args) {
+        public LzrValue newInstance(LzrValue[] args) {
             return findConstructorAndInstantiate(args, clazz.getConstructors());
         }
 
-        private Value cast(Value[] args) {
+        private LzrValue cast(LzrValue[] args) {
             Arguments.check(1, args.length);
             return objectToValue(clazz, clazz.cast(((ObjectValue)args[0]).object));
         }
 
         @Override
-        public boolean containsKey(Value key) {
+        public boolean containsKey(LzrValue key) {
             return getValue(clazz, null, key.asString()) != null;
         }
 
         @Override
-        public Value get(Value key) {
+        public LzrValue get(LzrValue key) {
             if (super.containsKey(key)) {
                 return super.get(key);
             }
@@ -156,7 +156,7 @@ public final class reflection implements Library {
 
     private static class ObjectValue extends LzrMap {
 
-        public static Value objectOrNull(Object object) {
+        public static LzrValue objectOrNull(Object object) {
             if (object == null) return new LzrNull();
             return new ObjectValue(object);
         }
@@ -169,12 +169,12 @@ public final class reflection implements Library {
         }
 
         @Override
-        public boolean containsKey(Value key) {
+        public boolean containsKey(LzrValue key) {
             return get(key) != null;
         }
 
         @Override
-        public Value get(Value key) {
+        public LzrValue get(LzrValue key) {
             return getValue(object.getClass(), object, key.asString());
         }
 
@@ -190,15 +190,15 @@ public final class reflection implements Library {
     }
 //</editor-fold>
 
-    private Value isNull(Value[] args) {
+    private LzrValue isNull(LzrValue[] args) {
         Arguments.checkAtLeast(1, args.length);
-        for (Value arg : args) {
+        for (LzrValue arg : args) {
             if (arg.raw() == null) return LzrNumber.ONE;
         }
         return LzrNumber.ZERO;
     }
 
-    private Value JClass(Value[] args) {
+    private LzrValue JClass(LzrValue[] args) {
         Arguments.check(1, args.length);
 
         final String className = args[0].asString();
@@ -209,7 +209,7 @@ public final class reflection implements Library {
         }
     }
 
-    private Value JUpload(Value[] args) {
+    private LzrValue JUpload(LzrValue[] args) {
         String path = args[0].asString();
         String addressLib = args[1].asString();
         try {
@@ -225,13 +225,13 @@ public final class reflection implements Library {
 
         return LzrNumber.MINUS_ONE;
     }
-    private Value JObject(Value[] args) {
+    private LzrValue JObject(LzrValue[] args) {
         Arguments.check(1, args.length);
         if (Objects.equals(args[0], new LzrNull())) return new LzrNull();
         return new ObjectValue(valueToObject(args[0]));
     }
 
-    private Value LZRValue(Value[] args) {
+    private LzrValue LZRValue(LzrValue[] args) {
         Arguments.check(1, args.length);
         if (args[0] instanceof ObjectValue) {
             return objectToValue( ((ObjectValue) args[0]).object );
@@ -241,7 +241,7 @@ public final class reflection implements Library {
 
 
     //<editor-fold defaultstate="collapsed" desc="Helpers">
-    private static Value getValue(Class<?> clazz, Object object, String key) {
+    private static LzrValue getValue(Class<?> clazz, Object object, String key) {
         // Trying to get field
         try {
             final Field field = clazz.getField(key);
@@ -271,7 +271,7 @@ public final class reflection implements Library {
         return new LzrNull();
     }
 
-    private static Value findConstructorAndInstantiate(Value[] args, Constructor<?>[] ctors) {
+    private static LzrValue findConstructorAndInstantiate(LzrValue[] args, Constructor<?>[] ctors) {
         for (Constructor<?> ctor : ctors) {
             if (ctor.getParameterCount() != args.length) continue;
             if (!isMatch(args, ctor.getParameterTypes())) continue;
@@ -308,9 +308,9 @@ public final class reflection implements Library {
         };
     }
 
-    private static boolean isMatch(Value[] args, Class<?>[] types) {
+    private static boolean isMatch(LzrValue[] args, Class<?>[] types) {
         for (int i = 0; i < args.length; i++) {
-            final Value arg = args[i];
+            final LzrValue arg = args[i];
             final Class<?> clazz = types[i];
 
             if (Objects.equals(arg, new LzrNull())) continue;
@@ -359,12 +359,12 @@ public final class reflection implements Library {
         return result;
     }
 
-    private static Value objectToValue(Object o) {
+    private static LzrValue objectToValue(Object o) {
         if (o == null) return new LzrNull();
         return objectToValue(o.getClass(), o);
     }
 
-    private static Value objectToValue(Class<?> clazz, Object o) {
+    private static LzrValue objectToValue(Class<?> clazz, Object o) {
         if (o == null || o.equals(new LzrNull())) return new LzrNull();
         if (clazz.isPrimitive()) {
             if (int.class.isAssignableFrom(clazz))
@@ -393,8 +393,8 @@ public final class reflection implements Library {
         if (CharSequence.class.isAssignableFrom(clazz)) {
             return new LzrString( ((CharSequence) o).toString() );
         }
-        if (o instanceof Value) {
-            return (Value) o;
+        if (o instanceof LzrValue) {
+            return (LzrValue) o;
         }
         if (clazz.isArray()) {
             return arrayToValue(clazz, o);
@@ -406,7 +406,7 @@ public final class reflection implements Library {
         return new ObjectValue(o);
     }
 
-    private static Value arrayToValue(Class<?> clazz, Object o) {
+    private static LzrValue arrayToValue(Class<?> clazz, Object o) {
         final int length = Array.getLength(o);
         final LzrArray result = new LzrArray(length);
         final Class<?> componentType = clazz.getComponentType();
@@ -451,7 +451,7 @@ public final class reflection implements Library {
         return result;
     }
 
-    private static Object[] valuesToObjects(Value[] args) {
+    private static Object[] valuesToObjects(LzrValue[] args) {
         Object[] result = new Object[args.length];
         for (int i = 0; i < args.length; i++) {
             result[i] = valueToObject(args[i]);
@@ -459,7 +459,7 @@ public final class reflection implements Library {
         return result;
     }
 
-    private static Object valueToObject(Value value) {
+    private static Object valueToObject(LzrValue value) {
         if (Objects.equals(value, new LzrNull())) return null;
         switch (value.type()) {
             case Types.NUMBER:

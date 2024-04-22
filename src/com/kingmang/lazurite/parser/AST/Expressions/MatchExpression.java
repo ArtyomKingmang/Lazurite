@@ -6,10 +6,10 @@ import com.kingmang.lazurite.parser.AST.InterruptableNode;
 import com.kingmang.lazurite.parser.AST.Statements.Statement;
 import com.kingmang.lazurite.patterns.visitor.ResultVisitor;
 import com.kingmang.lazurite.patterns.visitor.Visitor;
-import com.kingmang.lazurite.runtime.Lzr.LzrArray;
-import com.kingmang.lazurite.runtime.Lzr.LzrNumber;
+import com.kingmang.lazurite.runtime.Types.LzrArray;
+import com.kingmang.lazurite.runtime.Types.LzrNumber;
 import com.kingmang.lazurite.core.Types;
-import com.kingmang.lazurite.runtime.Value;
+import com.kingmang.lazurite.runtime.LzrValue;
 import com.kingmang.lazurite.runtime.Variables;
 import lombok.AllArgsConstructor;
 
@@ -29,9 +29,9 @@ public final class MatchExpression extends InterruptableNode implements Expressi
     }
 
     @Override
-    public Value eval() {
+    public LzrValue eval() {
         super.interruptionCheck();
-        final Value value = expression.eval();
+        final LzrValue value = expression.eval();
         for (Pattern p : patterns) {
             if (p instanceof ConstantPattern) {
                 final ConstantPattern pattern = (ConstantPattern) p;
@@ -50,7 +50,7 @@ public final class MatchExpression extends InterruptableNode implements Expressi
                 } else {
                     Variables.define(pattern.variable, value);
                     if (optMatches(p)) {
-                        final Value result = evalResult(p.result);
+                        final LzrValue result = evalResult(p.result);
                         Variables.remove(pattern.variable);
                         return result;
                     }
@@ -61,7 +61,7 @@ public final class MatchExpression extends InterruptableNode implements Expressi
                 final ListPattern pattern = (ListPattern) p;
                 if (matchListPattern((LzrArray) value, pattern)) {
 
-                    final Value result = evalResult(p.result);
+                    final LzrValue result = evalResult(p.result);
                     for (String var : pattern.parts) {
                         Variables.remove(var);
                     }
@@ -164,7 +164,7 @@ public final class MatchExpression extends InterruptableNode implements Expressi
         return false;
     }
 
-    private boolean match(Value value, Value constant) {
+    private boolean match(LzrValue value, LzrValue constant) {
         if (value.type() != constant.type()) return false;
         return value.equals(constant);
     }
@@ -174,7 +174,7 @@ public final class MatchExpression extends InterruptableNode implements Expressi
         return pattern.optCondition.eval() != LzrNumber.ZERO;
     }
 
-    private Value evalResult(Statement s) {
+    private LzrValue evalResult(Statement s) {
         try {
             s.execute();
         } catch (ReturnStatement ret) {
@@ -220,9 +220,9 @@ public final class MatchExpression extends InterruptableNode implements Expressi
     }
 
     public static class ConstantPattern extends Pattern {
-        Value constant;
+        LzrValue constant;
 
-        public ConstantPattern(Value pattern) {
+        public ConstantPattern(LzrValue pattern) {
             this.constant = pattern;
         }
 
@@ -312,7 +312,7 @@ public final class MatchExpression extends InterruptableNode implements Expressi
 
         private static final Expression ANY = new Expression() {
             @Override
-            public Value eval() {
+            public LzrValue eval() {
                 return LzrNumber.ONE;
             }
 

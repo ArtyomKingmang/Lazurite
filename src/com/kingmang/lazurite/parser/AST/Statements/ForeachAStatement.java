@@ -7,9 +7,9 @@ import com.kingmang.lazurite.parser.AST.InterruptableNode;
 import com.kingmang.lazurite.patterns.visitor.ResultVisitor;
 import com.kingmang.lazurite.patterns.visitor.Visitor;
 import com.kingmang.lazurite.runtime.*;
-import com.kingmang.lazurite.runtime.Lzr.LzrArray;
-import com.kingmang.lazurite.runtime.Lzr.LzrMap;
-import com.kingmang.lazurite.runtime.Lzr.LzrString;
+import com.kingmang.lazurite.runtime.Types.LzrArray;
+import com.kingmang.lazurite.runtime.Types.LzrMap;
+import com.kingmang.lazurite.runtime.Types.LzrString;
 import lombok.AllArgsConstructor;
 
 
@@ -25,9 +25,9 @@ public final class ForeachAStatement extends InterruptableNode implements Statem
     @Override
     public void execute() {
         super.interruptionCheck();
-        final Value previousVariableValue = Variables.isExists(variable) ? Variables.get(variable) : null;
+        final LzrValue previousVariableValue = Variables.isExists(variable) ? Variables.get(variable) : null;
 
-        final Value containerValue = container.eval();
+        final LzrValue containerValue = container.eval();
         switch (containerValue.type()) {
             case Types.STRING:
                 iterateString(containerValue.asString());
@@ -64,7 +64,7 @@ public final class ForeachAStatement extends InterruptableNode implements Statem
     }
 
     private void iterateArray(LzrArray containerValue) {
-        for (Value value : containerValue) {
+        for (LzrValue value : containerValue) {
             Variables.set(variable, value);
             try {
                 body.execute();
@@ -77,8 +77,8 @@ public final class ForeachAStatement extends InterruptableNode implements Statem
     }
 
     private void iterateMap(LzrMap containerValue) {
-        for (Map.Entry<Value, Value> entry : containerValue) {
-            Variables.set(variable, new LzrArray(new Value[] {
+        for (Map.Entry<LzrValue, LzrValue> entry : containerValue) {
+            Variables.set(variable, new LzrArray(new LzrValue[] {
                     entry.getKey(),
                     entry.getValue()
             }));

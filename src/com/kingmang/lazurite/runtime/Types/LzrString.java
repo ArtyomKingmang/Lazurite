@@ -1,22 +1,22 @@
-package com.kingmang.lazurite.runtime.Lzr;
+package com.kingmang.lazurite.runtime.Types;
 
 import com.kingmang.lazurite.exceptions.LZRException;
 import com.kingmang.lazurite.core.*;
 import com.kingmang.lazurite.libraries.Keyword;
-import com.kingmang.lazurite.runtime.Value;
+import com.kingmang.lazurite.runtime.LzrValue;
 import lombok.AllArgsConstructor;
 
 import java.util.Objects;
 
 @AllArgsConstructor
-public final class LzrString implements Value {
+public final class LzrString implements LzrValue {
     
     public static final LzrString EMPTY = new LzrString("");
     
     private final String value;
 
 
-    public Value access(Value propertyValue) {
+    public LzrValue access(LzrValue propertyValue) {
         final String prop = propertyValue.asString();
         switch (prop) {
             case "length":
@@ -26,7 +26,7 @@ public final class LzrString implements Value {
             case "toUpperCase":
                 return new LzrString(value.toUpperCase());
             case "chars": {
-                final Value[] chars = new Value[length()];
+                final LzrValue[] chars = new LzrValue[length()];
                 int i = 0;
                 for (char ch : value.toCharArray()) {
                     chars[i++] = LzrNumber.of((int) ch);
@@ -55,7 +55,7 @@ public final class LzrString implements Value {
                 if (Keyword.isExists(prop)) {
                     final Function f = Keyword.get(prop);
                     return new LzrFunction(args -> {
-                        final Value[] newArgs = new Value[args.length + 1];
+                        final LzrValue[] newArgs = new LzrValue[args.length + 1];
                         newArgs[0] = this;
                         System.arraycopy(args, 0, newArgs, 1, args.length);
                         return f.execute(newArgs);
@@ -119,7 +119,7 @@ public final class LzrString implements Value {
     }
     
     @Override
-    public int compareTo(Value o) {
+    public int compareTo(LzrValue o) {
         if (o.type() == Types.STRING) {
             return value.compareTo(((LzrString) o).value);
         }

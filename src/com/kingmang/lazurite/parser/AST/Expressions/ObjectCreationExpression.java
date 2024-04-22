@@ -8,10 +8,9 @@ import com.kingmang.lazurite.patterns.visitor.ResultVisitor;
 import com.kingmang.lazurite.patterns.visitor.Visitor;
 import com.kingmang.lazurite.runtime.ClassInstanceValue;
 import com.kingmang.lazurite.runtime.ClassMethod;
-import com.kingmang.lazurite.runtime.Value;
+import com.kingmang.lazurite.runtime.LzrValue;
 import com.kingmang.lazurite.runtime.Variables;
 import lombok.AllArgsConstructor;
-import lombok.Getter;
 
 
 import java.util.Iterator;
@@ -24,12 +23,12 @@ public final class ObjectCreationExpression implements Expression {
     public final List<Expression> constructorArguments;
     
     @Override
-    public Value eval() {
+    public LzrValue eval() {
         final ClassDeclarationStatement cd = ClassDeclarations.get(className);
         if (cd == null) {
             // Is Instantiable?
             if (Variables.isExists(className)) {
-                final Value variable = Variables.get(className);
+                final LzrValue variable = Variables.get(className);
                 if (variable instanceof Instantiable) {
                     return ((Instantiable) variable).newInstance(ctorArgs());
                 }
@@ -53,9 +52,9 @@ public final class ObjectCreationExpression implements Expression {
         return instance;
     }
     
-    private Value[] ctorArgs() {
+    private LzrValue[] ctorArgs() {
         final int argsSize = constructorArguments.size();
-        final Value[] ctorArgs = new Value[argsSize];
+        final LzrValue[] ctorArgs = new LzrValue[argsSize];
         for (int i = 0; i < argsSize; i++) {
             ctorArgs[i] = constructorArguments.get(i).eval();
         }

@@ -3,8 +3,8 @@ package com.kingmang.lazurite.libraries.http;
 import com.kingmang.lazurite.exceptions.LZRException;
 import com.kingmang.lazurite.core.*;
 import com.kingmang.lazurite.libraries.Library;
-import com.kingmang.lazurite.runtime.Lzr.*;
-import com.kingmang.lazurite.runtime.Value;
+import com.kingmang.lazurite.runtime.Types.*;
+import com.kingmang.lazurite.runtime.LzrValue;
 import com.kingmang.lazurite.runtime.Variables;
 import okhttp3.*;
 import okhttp3.internal.http.HttpMethod;
@@ -35,7 +35,7 @@ public final class http implements Library {
         Variables.define("url", url);
     }
 
-    private Value HTTPGetContentLength(Value... args) {
+    private LzrValue HTTPGetContentLength(LzrValue... args) {
         Arguments.check(1, args.length);
         return LzrNumber.of(getContentLength(args[0].asString()));
     }
@@ -43,7 +43,7 @@ public final class http implements Library {
     public final class URLEncode implements Function {
 
         @Override
-        public Value execute(Value... args) {
+        public LzrValue execute(LzrValue... args) {
             Arguments.checkOrOr(1, 2, args.length);
 
             String charset = "UTF-8";
@@ -59,7 +59,7 @@ public final class http implements Library {
             }
         }
     }
-    private Value HTTPDownload(Value... args) {
+    private LzrValue HTTPDownload(LzrValue... args) {
         Arguments.checkRange(2, 4, args.length);
         final String downloadUrl = args[0].asString();
         final String filePath = args[1].asString();
@@ -127,7 +127,7 @@ public final class http implements Library {
     }
     public final class Http implements Function {
 
-        private final Value
+        private final LzrValue
                 HEADER_KEY = new LzrString("header"),
                 CHARSET_KEY = new LzrString("charset"),
                 ENCODED_KEY = new LzrString("encoded"),
@@ -139,7 +139,7 @@ public final class http implements Library {
         private final OkHttpClient client = new OkHttpClient();
 
         @Override
-        public Value execute(Value... args) {
+        public LzrValue execute(LzrValue... args) {
             String url, method;
             switch (args.length) {
                 case 1: // http(url)
@@ -185,19 +185,19 @@ public final class http implements Library {
             }
         }
 
-        private Value process(String url, String method) {
+        private LzrValue process(String url, String method) {
             return process(url, method, LzrFunction.EMPTY);
         }
 
-        private Value process(String url, String method, LzrFunction function) {
+        private LzrValue process(String url, String method, LzrFunction function) {
             return process(url, method, LzrMap.EMPTY, function);
         }
 
-        private Value process(String url, String method, Value params, LzrFunction function) {
+        private LzrValue process(String url, String method, LzrValue params, LzrFunction function) {
             return process(url, method, params, LzrMap.EMPTY, function);
         }
 
-        private Value process(String url, String methodStr, Value requestParams, LzrMap options, LzrFunction function) {
+        private LzrValue process(String url, String methodStr, LzrValue requestParams, LzrMap options, LzrFunction function) {
             final String method = methodStr.toUpperCase();
             final Function callback = function.getValue();
             try {
@@ -216,7 +216,7 @@ public final class http implements Library {
             }
         }
 
-        private Value getResult(Response response, LzrMap options) throws IOException {
+        private LzrValue getResult(Response response, LzrMap options) throws IOException {
             if (options.containsKey(EXTENDED_RESULT)) {
                 final LzrMap map = new LzrMap(10);
                 map.set("text", new LzrString(response.body().string()));
@@ -240,12 +240,12 @@ public final class http implements Library {
         }
 
         private void applyHeaderParams(LzrMap headerParams, Request.Builder builder) {
-            for (Map.Entry<Value, Value> p : headerParams) {
+            for (Map.Entry<LzrValue, LzrValue> p : headerParams) {
                 builder.header(p.getKey().asString(), p.getValue().asString());
             }
         }
 
-        private RequestBody getRequestBody(String method, Value params, LzrMap options) throws UnsupportedEncodingException {
+        private RequestBody getRequestBody(String method, LzrValue params, LzrMap options) throws UnsupportedEncodingException {
             if (!HttpMethod.permitsRequestBody(method)) return null;
 
             if (params.type() == Types.MAP) {
@@ -258,7 +258,7 @@ public final class http implements Library {
             final FormBody.Builder form = new FormBody.Builder();
             final boolean alreadyEncoded = (options.containsKey(ENCODED_KEY)
                     && options.get(ENCODED_KEY).asInt() != 0);
-            for (Map.Entry<Value, Value> param : params) {
+            for (Map.Entry<LzrValue, LzrValue> param : params) {
                 final String name = param.getKey().asString();
                 final String value = param.getValue().asString();
                 if (alreadyEncoded)
@@ -269,7 +269,7 @@ public final class http implements Library {
             return form.build();
         }
 
-        private RequestBody getStringRequestBody(Value params, LzrMap options) throws UnsupportedEncodingException {
+        private RequestBody getStringRequestBody(LzrValue params, LzrMap options) throws UnsupportedEncodingException {
             final MediaType type;
             if (options.containsKey(CONTENT_TYPE)) {
                 type = MediaType.parse(options.get(CONTENT_TYPE).asString());

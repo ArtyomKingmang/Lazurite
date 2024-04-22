@@ -5,8 +5,8 @@ import com.kingmang.lazurite.core.Arguments;
 import com.kingmang.lazurite.core.Function;
 import com.kingmang.lazurite.libraries.Keyword;
 import com.kingmang.lazurite.libraries.Library;
-import com.kingmang.lazurite.runtime.Lzr.LzrNumber;
-import com.kingmang.lazurite.runtime.Value;
+import com.kingmang.lazurite.runtime.Types.LzrNumber;
+import com.kingmang.lazurite.runtime.LzrValue;
 
 import java.util.Random;
 
@@ -23,7 +23,7 @@ public final class random implements Library {
         private final Random RND = new Random();
 
         @Override
-        public Value execute(Value... args) {
+        public LzrValue execute(LzrValue... args) {
             Arguments.checkRange(0, 2, args.length);
             if (args.length == 0) return LzrNumber.of(RND.nextDouble());
 

@@ -13,7 +13,7 @@ public class ClassMethod extends UserDefinedFunction {
     }
     
     @Override
-    public Value execute(Value[] values) {
+    public LzrValue execute(LzrValue[] values) {
         Variables.push();
         Variables.define("this", classInstance.getThisMap());
         

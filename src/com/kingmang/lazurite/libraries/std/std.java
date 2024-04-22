@@ -7,8 +7,8 @@ import com.kingmang.lazurite.libraries.Keyword;
 import com.kingmang.lazurite.core.Types;
 import com.kingmang.lazurite.libraries.Library;
 import com.kingmang.lazurite.console.Console;
-import com.kingmang.lazurite.runtime.Lzr.*;
-import com.kingmang.lazurite.runtime.Value;
+import com.kingmang.lazurite.runtime.Types.*;
+import com.kingmang.lazurite.runtime.LzrValue;
 import com.kingmang.lazurite.runtime.Variables;
 import com.kingmang.lazurite.utils.ValueUtils;
 
@@ -75,7 +75,7 @@ public class std implements Library {
     public final static class flatmap implements Function {
 
         @Override
-        public Value execute(Value... args) {
+        public LzrValue execute(LzrValue... args) {
             Arguments.check(2, args.length);
             if (args[0].type() != Types.ARRAY) {
                 throw new LZRException("TypeExeption ", "Array expected in first argument");
@@ -84,15 +84,15 @@ public class std implements Library {
             return flatMapArray((LzrArray) args[0], mapper);
         }
 
-        private Value flatMapArray(LzrArray array, Function mapper) {
-            final List<Value> values = new ArrayList<>();
+        private LzrValue flatMapArray(LzrArray array, Function mapper) {
+            final List<LzrValue> values = new ArrayList<>();
             final int size = array.size();
             for (int i = 0; i < size; i++) {
-                final Value inner = mapper.execute(array.get(i));
+                final LzrValue inner = mapper.execute(array.get(i));
                 if (inner.type() != Types.ARRAY) {
                     throw new LZRException("TypeExeption ", "Array expected " + inner);
                 }
-                for (Value value : (LzrArray) inner) {
+                for (LzrValue value : (LzrArray) inner) {
                     values.add(value);
                 }
             }
@@ -102,7 +102,7 @@ public class std implements Library {
     public final class thread implements Function {
 
         @Override
-        public Value execute(Value... args) {
+        public LzrValue execute(LzrValue... args) {
             Arguments.checkAtLeast(1, args.length);
 
             Function body;
@@ -112,7 +112,7 @@ public class std implements Library {
                 body = Keyword.get(args[0].asString());
             }
 
-            final Value[] params = new Value[args.length - 1];
+            final LzrValue[] params = new LzrValue[args.length - 1];
             if (params.length > 0) {
                 System.arraycopy(args, 1, params, 0, params.length);
             }
@@ -125,28 +125,28 @@ public class std implements Library {
     }
 
     public static final class LzrArrayDeque {
-        static Deque<Value> queue = new ArrayDeque<>();
+        static Deque<LzrValue> queue = new ArrayDeque<>();
 
-        public static Value addToQueue(Value[] args) {
+        public static LzrValue addToQueue(LzrValue[] args) {
             Arguments.check(1,  args.length);
             queue.add(args[0]);
             return LzrNumber.ZERO;
 
         }
 
-        public static Value toArray(Value[] args) {
-            List<Value> array_list = new ArrayList<>(queue);
+        public static LzrValue toArray(LzrValue[] args) {
+            List<LzrValue> array_list = new ArrayList<>(queue);
             return new LzrArray(array_list);
 
         }
 
-        public static Value remove(Value[] args) {
+        public static LzrValue remove(LzrValue[] args) {
             Arguments.check(1,  args.length);
             queue.remove(args[0]);
             return LzrNumber.ZERO;
         }
 
-        public static Value sizeQueue(Value[] args) {
+        public static LzrValue sizeQueue(LzrValue[] args) {
             Arguments.check(1,  args.length);
             return new LzrNumber(queue.size());
         }
@@ -156,51 +156,51 @@ public class std implements Library {
     }
     public static final class IntegerClass {
 
-        public static Value parseInt(Value[] args) {
+        public static LzrValue parseInt(LzrValue[] args) {
             Arguments.checkOrOr(1, 2, args.length);
             final int radix = (args.length == 2) ? args[1].asInt() : 10;
             return LzrNumber.of(Integer.parseInt(args[0].asString(), radix));
 
         }
 
-        public static Value compare(Value[] args) {
+        public static LzrValue compare(LzrValue[] args) {
             Arguments.check(2, args.length);
             return LzrNumber.of(Integer.compare(args[0].asInt(),args[1].asInt()));
 
         }
 
-        public static Value bitCount(Value[] args) {
+        public static LzrValue bitCount(LzrValue[] args) {
             Arguments.check(1, args.length);
 
             return LzrNumber.of(Integer.bitCount(args[0].asInt()));
 
         }
 
-        public static Value signum(Value[] args) {
+        public static LzrValue signum(LzrValue[] args) {
             Arguments.check(1, args.length);
             return LzrNumber.of(Integer.signum(args[0].asInt()));
 
         }
 
-        public static Value decode(Value[] args) {
+        public static LzrValue decode(LzrValue[] args) {
             Arguments.check(1, args.length);
             return LzrNumber.of(Integer.decode(args[0].asString()));
 
         }
 
-        public static Value compareUnsigned(Value[] args) {
+        public static LzrValue compareUnsigned(LzrValue[] args) {
             Arguments.check(2, args.length);
             return LzrNumber.of(Integer.compareUnsigned(args[0].asInt(), args[1].asInt()));
 
         }
 
-        public static Value max(Value[] args) {
+        public static LzrValue max(LzrValue[] args) {
             Arguments.check(2, args.length);
             return LzrNumber.of(Integer.max(args[0].asInt(), args[1].asInt()));
 
         }
 
-        public static Value min(Value[] args) {
+        public static LzrValue min(LzrValue[] args) {
             Arguments.check(2, args.length);
             return LzrNumber.of(Integer.min(args[0].asInt(), args[1].asInt()));
 
@@ -208,28 +208,28 @@ public class std implements Library {
     }
 
     public static final class DoubleClass {
-        public static Value parseDouble(Value[] args) {
+        public static LzrValue parseDouble(LzrValue[] args) {
             Arguments.check(1, args.length);
             return LzrNumber.of(Double.parseDouble(args[0].asString()));
 
         }
-        public static Value compare(Value[] args) {
+        public static LzrValue compare(LzrValue[] args) {
             Arguments.check(2, args.length);
             return LzrNumber.of(Double.compare(args[0].asInt(),args[1].asInt()));
 
         }
-        public static Value doubleToLongBits(Value[] args) {
+        public static LzrValue doubleToLongBits(LzrValue[] args) {
             Arguments.check(1, args.length);
             return LzrNumber.of(Double.doubleToLongBits(args[0].asNumber()));
 
         }
-        public static Value max(Value[] args) {
+        public static LzrValue max(LzrValue[] args) {
             Arguments.check(2, args.length);
             return LzrNumber.of(Double.max(args[0].asInt(), args[1].asInt()));
 
         }
 
-        public static Value min(Value[] args) {
+        public static LzrValue min(LzrValue[] args) {
             Arguments.check(2, args.length);
             return LzrNumber.of(Double.min(args[0].asInt(), args[1].asInt()));
 
@@ -238,19 +238,19 @@ public class std implements Library {
 
     public static final class StringClass {
 
-        public static Value valueOf(Value[] args) {
+        public static LzrValue valueOf(LzrValue[] args) {
             Arguments.check(1, args.length);
             return new LzrString(String.valueOf(args[0]));
 
         }
 
-        public static Value format(Value[] args) {
+        public static LzrValue format(LzrValue[] args) {
             Arguments.check(2, args.length);
             return new LzrString(String.format(args[0].asString(), args[1]));
 
         }
 
-        public static Value join(Value[] args) {
+        public static LzrValue join(LzrValue[] args) {
             Arguments.check(2, args.length);
             return new LzrString(String.join((CharSequence) args[0], (CharSequence) args[1], (CharSequence) args[2]));
 
@@ -259,10 +259,10 @@ public class std implements Library {
 
     }
 
-    private Function mapFunction(final Supplier<Map<Value, Value>> mapSupplier) {
+    private Function mapFunction(final Supplier<Map<LzrValue, LzrValue>> mapSupplier) {
         return (args) -> {
             Arguments.checkOrOr(0, 1, args.length);
-            final Map<Value, Value> map = mapSupplier.get();
+            final Map<LzrValue, LzrValue> map = mapSupplier.get();
             if (args.length == 1) {
                 if (args[0].type() == Types.MAP) {
                     map.putAll(((LzrMap) args[0]).getMap());
@@ -274,13 +274,13 @@ public class std implements Library {
         };
     }
 
-    private Function sortedMapFunction(final Supplier<SortedMap<Value, Value>> mapSupplier,
+    private Function sortedMapFunction(final Supplier<SortedMap<LzrValue, LzrValue>> mapSupplier,
                                        final java.util.function.Function<
-                                               Comparator<? super Value>,
-                                               SortedMap<Value, Value>> comparatorToMapFunction) {
+                                               Comparator<? super LzrValue>,
+                                               SortedMap<LzrValue, LzrValue>> comparatorToMapFunction) {
         return (args) -> {
             Arguments.checkRange(0, 2, args.length);
-            final SortedMap<Value, Value> map;
+            final SortedMap<LzrValue, LzrValue> map;
             switch (args.length) {
                 case 0: // treeMap()
                     map = mapSupplier.get();

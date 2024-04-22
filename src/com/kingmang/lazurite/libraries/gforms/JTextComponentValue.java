@@ -2,10 +2,10 @@ package com.kingmang.lazurite.libraries.gforms;
 
 
 import com.kingmang.lazurite.core.*;
-import com.kingmang.lazurite.runtime.Lzr.LzrMap;
-import com.kingmang.lazurite.runtime.Lzr.LzrNumber;
-import com.kingmang.lazurite.runtime.Lzr.LzrString;
-import com.kingmang.lazurite.runtime.Value;
+import com.kingmang.lazurite.runtime.Types.LzrMap;
+import com.kingmang.lazurite.runtime.Types.LzrNumber;
+import com.kingmang.lazurite.runtime.Types.LzrString;
+import com.kingmang.lazurite.runtime.LzrValue;
 import com.kingmang.lazurite.utils.ValueUtils;
 
 import javax.swing.event.CaretEvent;
@@ -48,7 +48,7 @@ public class JTextComponentValue extends JComponentValue {
         set("setText", Converters.stringToVoid(textComponent::setText));
     }
     
-    private Value addCaretListener(Value[] args) {
+    private LzrValue addCaretListener(LzrValue[] args) {
         Arguments.check(1, args.length);
         final Function action = com.kingmang.lazurite.utils.ValueUtils.consumeFunction(args[0], 0);
         textComponent.addCaretListener((CaretEvent e) -> {
@@ -60,7 +60,7 @@ public class JTextComponentValue extends JComponentValue {
         return LzrNumber.ZERO;
     }
     
-    private Value addDocumentListener(Value[] args) {
+    private LzrValue addDocumentListener(LzrValue[] args) {
         Arguments.check(1, args.length);
         final Function action = ValueUtils.consumeFunction(args[0], 0);
         textComponent.getDocument().addDocumentListener(new DocumentListener() {

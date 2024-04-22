@@ -1,8 +1,8 @@
 package com.kingmang.lazurite.core;
 
-import com.kingmang.lazurite.runtime.Value;
+import com.kingmang.lazurite.runtime.LzrValue;
 
 @FunctionalInterface
 public interface Function {
-    Value execute(Value... args);
+    LzrValue execute(LzrValue... args);
 }

@@ -2,7 +2,7 @@ package com.kingmang.lazurite.parser.AST.Expressions;
 
 import com.kingmang.lazurite.patterns.visitor.ResultVisitor;
 import com.kingmang.lazurite.patterns.visitor.Visitor;
-import com.kingmang.lazurite.runtime.Value;
+import com.kingmang.lazurite.runtime.LzrValue;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
@@ -11,7 +11,7 @@ public final class TernaryExpression implements Expression {
     public final Expression trueExpr, falseExpr;
 
     @Override
-    public Value eval() {
+    public LzrValue eval() {
         if (condition.eval().asInt() != 0) {
             return trueExpr.eval();
         } else {

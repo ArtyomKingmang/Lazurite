@@ -8,8 +8,8 @@ import com.kingmang.lazurite.parser.parse.classes.LexerImplementation;
 import com.kingmang.lazurite.parser.parse.classes.ParserImplementation;
 import com.kingmang.lazurite.parser.parse.Token;
 import com.kingmang.lazurite.parser.preprocessor.Preprocessor;
-import com.kingmang.lazurite.runtime.Lzr.LzrNumber;
-import com.kingmang.lazurite.runtime.Value;
+import com.kingmang.lazurite.runtime.Types.LzrNumber;
+import com.kingmang.lazurite.runtime.LzrValue;
 import com.kingmang.lazurite.runtime.Variables;
 
 import java.io.IOException;
@@ -64,7 +64,7 @@ public class Handler {
         }
     }
 
-    public static Value returnHandle(String input, String pathToScript) {
+    public static LzrValue returnHandle(String input, String pathToScript) {
         try {
             final List<Token> tokens = new LexerImplementation(input).tokenize();
             final Expression program = new ParserImplementation(tokens).parseExpr();

@@ -2,9 +2,9 @@ package com.kingmang.lazurite.libraries.gforms;
 
 
 import com.kingmang.lazurite.core.*;
-import com.kingmang.lazurite.runtime.Lzr.LzrFunction;
-import com.kingmang.lazurite.runtime.Lzr.LzrNumber;
-import com.kingmang.lazurite.runtime.Value;
+import com.kingmang.lazurite.runtime.Types.LzrFunction;
+import com.kingmang.lazurite.runtime.Types.LzrNumber;
+import com.kingmang.lazurite.runtime.LzrValue;
 
 import javax.swing.JTextField;
 
@@ -33,7 +33,7 @@ public class JTextFieldValue extends JTextComponentValue {
         set("setScrollOffset", Converters.intToVoid(textField::setScrollOffset));
     }
 
-    private Value addActionListener(Value... args) {
+    private LzrValue addActionListener(LzrValue... args) {
         Arguments.check(1, args.length);
         Function action = consumeFunction(args[0], 1);
         textField.addActionListener(e -> action.execute());

@@ -6,7 +6,7 @@ import com.kingmang.lazurite.parser.AST.Argument;
 import com.kingmang.lazurite.parser.AST.Arguments;
 import com.kingmang.lazurite.parser.AST.Statements.ReturnStatement;
 import com.kingmang.lazurite.parser.AST.Statements.Statement;
-import com.kingmang.lazurite.runtime.Lzr.LzrNumber;
+import com.kingmang.lazurite.runtime.Types.LzrNumber;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
@@ -25,7 +25,7 @@ public class UserDefinedFunction implements Function {
     }
 
     @Override
-    public Value execute(Value... values) {
+    public LzrValue execute(LzrValue... values) {
         final int size = values.length;
         final int requiredArgsCount = arguments.getRequiredArgumentsCount();
         if (size < requiredArgsCount) {

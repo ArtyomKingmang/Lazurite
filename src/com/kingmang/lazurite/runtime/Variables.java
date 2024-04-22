@@ -1,6 +1,6 @@
 package com.kingmang.lazurite.runtime;
 
-import com.kingmang.lazurite.runtime.Lzr.LzrNumber;
+import com.kingmang.lazurite.runtime.Types.LzrNumber;
 import lombok.NoArgsConstructor;
 
 import java.util.Map;
@@ -13,7 +13,7 @@ public final class Variables {
 
     private static class Scope {
         final Scope parent;
-        final Map<String, Value> variables;
+        final Map<String, LzrValue> variables;
 
         Scope() {
             this(null);
@@ -35,7 +35,7 @@ public final class Variables {
         Variables.clear();
     }
 
-    public static Map<String, Value> variables() {
+    public static Map<String, LzrValue> variables() {
         return scope.variables;
     }
 
@@ -66,7 +66,7 @@ public final class Variables {
         }
     }
     
-    public static Value get(String key) {
+    public static LzrValue get(String key) {
         synchronized (lock) {
             final ScopeFindData scopeData = findScope(key);
             if (scopeData.isFound) {
@@ -76,13 +76,13 @@ public final class Variables {
         return LzrNumber.ZERO;
     }
     
-    public static void set(String key, Value value) {
+    public static void set(String key, LzrValue value) {
         synchronized (lock) {
             findScope(key).scope.variables.put(key, value);
         }
     }
     
-    public static void define(String key, Value value) {
+    public static void define(String key, LzrValue value) {
         synchronized (lock) {
             scope.variables.put(key, value);
         }

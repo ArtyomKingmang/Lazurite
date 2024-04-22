@@ -7,10 +7,10 @@ import com.kingmang.lazurite.parser.AST.InterruptableNode;
 import com.kingmang.lazurite.patterns.visitor.ResultVisitor;
 import com.kingmang.lazurite.patterns.visitor.Visitor;
 import com.kingmang.lazurite.runtime.*;
-import com.kingmang.lazurite.runtime.Lzr.LzrArray;
-import com.kingmang.lazurite.runtime.Lzr.LzrMap;
-import com.kingmang.lazurite.runtime.Lzr.LzrNumber;
-import com.kingmang.lazurite.runtime.Lzr.LzrString;
+import com.kingmang.lazurite.runtime.Types.LzrArray;
+import com.kingmang.lazurite.runtime.Types.LzrMap;
+import com.kingmang.lazurite.runtime.Types.LzrNumber;
+import com.kingmang.lazurite.runtime.Types.LzrString;
 import lombok.AllArgsConstructor;
 
 
@@ -26,10 +26,10 @@ public final class ForeachMStatement extends InterruptableNode implements Statem
     @Override
     public void execute() {
         super.interruptionCheck();
-        final Value previousVariableValue1 = Variables.isExists(key) ? Variables.get(key) : null;
-        final Value previousVariableValue2 = Variables.isExists(value) ? Variables.get(value) : null;
+        final LzrValue previousVariableValue1 = Variables.isExists(key) ? Variables.get(key) : null;
+        final LzrValue previousVariableValue2 = Variables.isExists(value) ? Variables.get(value) : null;
 
-        final Value containerValue = container.eval();
+        final LzrValue containerValue = container.eval();
         switch (containerValue.type()) {
             case Types.STRING:
                 iterateString(containerValue.asString());
@@ -73,7 +73,7 @@ public final class ForeachMStatement extends InterruptableNode implements Statem
 
     private void iterateArray(LzrArray containerValue) {
         int index = 0;
-        for (Value v : containerValue) {
+        for (LzrValue v : containerValue) {
             Variables.set(key, v);
             Variables.set(value, LzrNumber.of(index++));
             try {
@@ -87,7 +87,7 @@ public final class ForeachMStatement extends InterruptableNode implements Statem
     }
 
     private void iterateMap(LzrMap containerValue) {
-        for (Map.Entry<Value, Value> entry : containerValue) {
+        for (Map.Entry<LzrValue, LzrValue> entry : containerValue) {
             Variables.set(key, entry.getKey());
             Variables.set(value, entry.getValue());
             try {

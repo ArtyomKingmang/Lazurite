@@ -1,7 +1,7 @@
 package com.kingmang.lazurite.libraries.gforms;
 
 import com.kingmang.lazurite.core.Arguments;
-import com.kingmang.lazurite.runtime.Value;
+import com.kingmang.lazurite.runtime.LzrValue;
 import lombok.NoArgsConstructor;
 
 import java.awt.Component;
@@ -10,7 +10,7 @@ import javax.swing.*;
 @NoArgsConstructor
 public final class Components {
 
-    static Value newWindow(Value[] args) {
+    static LzrValue newWindow(LzrValue[] args) {
         Arguments.checkOrOr(0, 1, args.length);
         String title = (args.length == 1) ? args[0].asString() : "";
         final JFrame frame = new JFrame(title);
@@ -20,7 +20,7 @@ public final class Components {
 
 
 
-    static Value newPanel(Value[] args) {
+    static LzrValue newPanel(LzrValue[] args) {
         Arguments.checkOrOr(0, 1, args.length);
         final JPanel panel = new JPanel();
         if (args.length == 1) {
@@ -29,28 +29,28 @@ public final class Components {
         return new JPanelValue(panel);
     }
 
-    static Value newButton(Value[] args) {
+    static LzrValue newButton(LzrValue[] args) {
         Arguments.checkOrOr(0, 1, args.length);
         String text = (args.length == 1) ? args[0].asString() : "";
         return new JButtonValue(new JButton(text));
     }
 
-    static Value newMenuBar(Value[] args){
+    static LzrValue newMenuBar(LzrValue[] args){
         return new JMenuBarValue(new JMenuBar());
     }
 
-    static Value newLabel(Value[] args) {
+    static LzrValue newLabel(LzrValue[] args) {
         Arguments.checkRange(0, 2, args.length);
         String text = (args.length >= 1) ? args[0].asString() : "";
         int align = (args.length == 2) ? args[1].asInt() : SwingConstants.LEADING;
         return new JLabelValue(new JLabel(text, align));
     }
 
-    static Value newFileChooser(Value[] args) {
+    static LzrValue newFileChooser(LzrValue[] args) {
        return new JFileChooserValue(new JFileChooser());
     }
 
-    static Value newTextField(Value[] args) {
+    static LzrValue newTextField(LzrValue[] args) {
         Arguments.checkRange(0, 2, args.length);
         String text = "";
         int cols = 0;
@@ -66,7 +66,7 @@ public final class Components {
         return new JTextFieldValue(new JTextField(text, cols));
     }
     
-    static Value newTextArea(Value[] args) {
+    static LzrValue newTextArea(LzrValue[] args) {
         Arguments.checkRange(0, 3, args.length);
         String text = "";
         int rows = 0;
@@ -88,7 +88,7 @@ public final class Components {
         return new JTextAreaValue(new JTextArea(text, rows, cols));
     }
     
-    static Value newProgressBar(Value[] args) {
+    static LzrValue newProgressBar(LzrValue[] args) {
         Arguments.checkRange(0, 3, args.length);
         boolean isVertical = false;
         int min = 0;
@@ -113,7 +113,7 @@ public final class Components {
         ));
     }
     
-    static Value newScrollPane(Value[] args) {
+    static LzrValue newScrollPane(LzrValue[] args) {
         Arguments.checkRange(0, 3, args.length);
         Component view = null;
         int vsbPolicy = JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED;

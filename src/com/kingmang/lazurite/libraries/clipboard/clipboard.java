@@ -6,8 +6,8 @@ import java.awt.datatransfer.*;
 
 import com.kingmang.lazurite.libraries.Library;
 import com.kingmang.lazurite.exceptions.LZRException;
-import com.kingmang.lazurite.runtime.Lzr.*;
-import com.kingmang.lazurite.runtime.Value;
+import com.kingmang.lazurite.runtime.Types.*;
+import com.kingmang.lazurite.runtime.LzrValue;
 import com.kingmang.lazurite.runtime.Variables;
 import com.kingmang.lazurite.core.Function;
 import com.kingmang.lazurite.core.Arguments;
@@ -25,7 +25,7 @@ public class clipboard implements Library {
 		Variables.define("clipboard", clipboard);
 	}
 
-	public static Value get() {
+	public static LzrValue get() {
 		Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
 		DataFlavor flavor = DataFlavor.stringFlavor;
 		if (clipboard.isDataFlavorAvailable(flavor)) {
@@ -52,7 +52,7 @@ public class clipboard implements Library {
 
 	private class getText implements Function {
 		@Override
-		public Value execute(Value... args) {
+		public LzrValue execute(LzrValue... args) {
 			Arguments.check(0, args.length);
 			return clipboard.get();
 		}
@@ -60,9 +60,9 @@ public class clipboard implements Library {
 
 	private class hasText implements Function {
 		@Override
-		public Value execute(Value... args) {
+		public LzrValue execute(LzrValue... args) {
 			Arguments.check(0, args.length);
-			Value text = clipboard.get();
+			LzrValue text = clipboard.get();
 			if (text != LzrNumber.ZERO && text != LzrString.EMPTY) {
 				return LzrNumber.ONE;
 			}
@@ -72,7 +72,7 @@ public class clipboard implements Library {
 
 	private class setText implements Function {
 		@Override
-		public Value execute(Value... args) {
+		public LzrValue execute(LzrValue... args) {
 			Arguments.check(1, args.length);
 			clipboard.set(args[0].asString());
 			return LzrNumber.ZERO;
@@ -81,9 +81,9 @@ public class clipboard implements Library {
 	
 	private class addText implements Function {
 		@Override
-		public Value execute(Value... args) {
+		public LzrValue execute(LzrValue... args) {
 			Arguments.check(1, args.length);
-			Value text = clipboard.get();
+			LzrValue text = clipboard.get();
 			if (text == LzrNumber.ZERO) {
 				throw new LZRException("ClipboardException: ", "Failed to read clipboard");
 			}
@@ -94,7 +94,7 @@ public class clipboard implements Library {
 
 	private class clear implements Function {
 		@Override
-		public Value execute(Value... args) {
+		public LzrValue execute(LzrValue... args) {
 			Arguments.check(0, args.length);
 			clipboard.set("");
 			return LzrNumber.ZERO;

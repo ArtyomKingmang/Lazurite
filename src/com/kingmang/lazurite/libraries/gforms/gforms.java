@@ -1,16 +1,14 @@
 package com.kingmang.lazurite.libraries.gforms;
 
-import com.kingmang.lazurite.core.Function;
 import com.kingmang.lazurite.libraries.Keyword;
 import com.kingmang.lazurite.libraries.Library;
-import com.kingmang.lazurite.runtime.Lzr.LzrMap;
-import com.kingmang.lazurite.runtime.Lzr.LzrNumber;
-import com.kingmang.lazurite.runtime.Lzr.LzrString;
+import com.kingmang.lazurite.runtime.Types.LzrMap;
+import com.kingmang.lazurite.runtime.Types.LzrNumber;
+import com.kingmang.lazurite.runtime.Types.LzrString;
 import com.kingmang.lazurite.runtime.Variables;
 
 import java.awt.BorderLayout;
 import java.awt.event.WindowEvent;
-import java.security.Key;
 import javax.swing.*;
 
 import javax.swing.JFrame;

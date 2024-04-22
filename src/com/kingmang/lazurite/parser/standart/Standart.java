@@ -4,13 +4,11 @@ import com.kingmang.lazurite.exceptions.LZRException;
 import com.kingmang.lazurite.core.Arguments;
 import com.kingmang.lazurite.core.Function;
 import com.kingmang.lazurite.core.Types;
-import com.kingmang.lazurite.utils.Handler;
 import com.kingmang.lazurite.utils.ValueUtils;
 import com.kingmang.lazurite.console.Console;
-import com.kingmang.lazurite.runtime.Lzr.*;
+import com.kingmang.lazurite.runtime.Types.*;
 import com.kingmang.lazurite.runtime.UserDefinedFunction;
-import com.kingmang.lazurite.runtime.Value;
-import kotlin.jvm.internal.FunInterfaceConstructorReference;
+import com.kingmang.lazurite.runtime.LzrValue;
 
 import java.io.UnsupportedEncodingException;
 import java.util.*;
@@ -20,9 +18,9 @@ public class Standart {
     public static final class echo implements Function {
 
         @Override
-        public Value execute(Value... args) {
+        public LzrValue execute(LzrValue... args) {
             final StringBuilder sb = new StringBuilder();
-            for (Value arg : args) {
+            for (LzrValue arg : args) {
                 sb.append(arg.asString());
                 sb.append(" ");
             }
@@ -36,10 +34,10 @@ public class Standart {
     public static class combine implements Function {
 
         @Override
-        public Value execute(Value[] args) {
+        public LzrValue execute(LzrValue[] args) {
             Arguments.checkAtLeast(1, args.length);
             Function result = null;
-            for (Value arg : args) {
+            for (LzrValue arg : args) {
                 if (arg.type() != Types.FUNCTION) {
                     throw new LZRException("TypeException ", arg + " is not a function");
                 }
@@ -58,7 +56,7 @@ public class Standart {
 
     public static final class input implements Function {
         @Override
-        public Value execute(Value... args) {
+        public LzrValue execute(LzrValue... args) {
             Scanner sc = new Scanner(System.in);
             return new LzrString(sc.nextLine());
         }
@@ -66,7 +64,7 @@ public class Standart {
 
     public static final class equal implements Function {
         @Override
-        public Value execute(Value... args) {
+        public LzrValue execute(LzrValue... args) {
            boolean check = args[0].equals(args[1]);
            return LzrNumber.fromBoolean(check);
         }
@@ -74,11 +72,11 @@ public class Standart {
     public static final class Array implements Function {
 
         @Override
-        public Value execute(Value... args) {
+        public LzrValue execute(LzrValue... args) {
             return createArray(args, 0);
         }
 
-        private LzrArray createArray(Value[] args, int index) {
+        private LzrArray createArray(LzrValue[] args, int index) {
             final int size = args[index].asInt();
             final int last = args.length - 1;
             LzrArray array = new LzrArray(size);
@@ -98,7 +96,7 @@ public class Standart {
 
         private string() { }
 
-        public static LzrArray getBytes(Value[] args) {
+        public static LzrArray getBytes(LzrValue[] args) {
             Arguments.checkOrOr(1, 2, args.length);
             final String charset = (args.length == 2) ? args[1].asString() : "UTF-8";
             try {
@@ -113,10 +111,10 @@ public class Standart {
     public static final class length implements Function {
 
         @Override
-        public Value execute(Value... args) {
+        public LzrValue execute(LzrValue... args) {
             Arguments.check(1, args.length);
 
-            final Value val = args[0];
+            final LzrValue val = args[0];
             final int length;
             switch (val.type()) {
                 case Types.ARRAY:
@@ -147,7 +145,7 @@ public class Standart {
     public static final class sprintf implements Function {
 
         @Override
-        public Value execute(Value... args) {
+        public LzrValue execute(LzrValue... args) {
             Arguments.checkAtLeast(1, args.length);
 
             final String format = args[0].asString();
@@ -164,7 +162,7 @@ public class Standart {
     public static final class substr implements Function {
 
         @Override
-        public Value execute(Value... args) {
+        public LzrValue execute(LzrValue... args) {
             Arguments.checkOrOr(2, 3, args.length);
 
             final String input = args[0].asString();
@@ -188,9 +186,9 @@ public class Standart {
         private static final int UNKNOWN = -1;
 
         @Override
-        public Value execute(Value... args) {
+        public LzrValue execute(LzrValue... args) {
             Arguments.check(2, args.length);
-            final Value container = args[0];
+            final LzrValue container = args[0];
             final Function consumer = ValueUtils.consumeFunction(args[1], 1);
             final int argsCount;
             if (consumer instanceof UserDefinedFunction) {
@@ -217,11 +215,11 @@ public class Standart {
                     final LzrArray array = (LzrArray) container;
                     if (argsCount == 2) {
                         int index = 0;
-                        for (Value element : array) {
+                        for (LzrValue element : array) {
                             consumer.execute(element, LzrNumber.of(index++));
                         }
                     } else {
-                        for (Value element : array) {
+                        for (LzrValue element : array) {
                             consumer.execute(element);
                         }
                     }
@@ -229,7 +227,7 @@ public class Standart {
 
                 case Types.MAP:
                     final LzrMap map = (LzrMap) container;
-                    for (Map.Entry<Value, Value> element : map) {
+                    for (Map.Entry<LzrValue, LzrValue> element : map) {
                         consumer.execute(element.getKey(), element.getValue());
                     }
                     return map;
@@ -250,9 +248,9 @@ public class Standart {
         }
 
         @Override
-        public Value execute(Value... args) {
+        public LzrValue execute(LzrValue... args) {
             Arguments.check(2, args.length);
-            final Value container = args[0];
+            final LzrValue container = args[0];
             final Function predicate = ValueUtils.consumeFunction(args[1], 1);
             if (container.type() == Types.ARRAY) {
                 return filterArray((LzrArray) container, predicate, takeWhile);
@@ -265,21 +263,21 @@ public class Standart {
             throw new LZRException("TypeExeption", "Invalid first argument. Array or map expected");
         }
 
-        private Value filterArray(LzrArray array, Function predicate, boolean takeWhile) {
+        private LzrValue filterArray(LzrArray array, Function predicate, boolean takeWhile) {
             final int size = array.size();
-            final List<Value> values = new ArrayList<>(size);
-            for (Value value : array) {
+            final List<LzrValue> values = new ArrayList<>(size);
+            for (LzrValue value : array) {
                 if (predicate.execute(value) != LzrNumber.ZERO) {
                     values.add(value);
                 } else if (takeWhile) break;
             }
             final int newSize = values.size();
-            return new LzrArray(values.toArray(new Value[newSize]));
+            return new LzrArray(values.toArray(new LzrValue[newSize]));
         }
 
-        private Value filterMap(LzrMap map, Function predicate, boolean takeWhile) {
+        private LzrValue filterMap(LzrMap map, Function predicate, boolean takeWhile) {
             final LzrMap result = new LzrMap(map.size());
-            for (Map.Entry<Value, Value> element : map) {
+            for (Map.Entry<LzrValue, LzrValue> element : map) {
                 if (predicate.execute(element.getKey(), element.getValue()) != LzrNumber.ZERO) {
                     result.set(element.getKey(), element.getValue());
                 } else if (takeWhile) break;
@@ -291,7 +289,7 @@ public class Standart {
     public static final class split implements Function {
 
         @Override
-        public Value execute(Value... args) {
+        public LzrValue execute(LzrValue... args) {
             Arguments.checkOrOr(2, 3, args.length);
 
             final String input = args[0].asString();
@@ -306,7 +304,7 @@ public class Standart {
     public static final class range implements Function {
 
         @Override
-        public Value execute(Value... args) {
+        public LzrValue execute(LzrValue... args) {
             Arguments.checkRange(1, 3, args.length);
 
             final long from, to, step;
@@ -331,7 +329,7 @@ public class Standart {
             return RangeValue.of(from, to, step);
         }
 
-        private static long getLong(Value v) {
+        private static long getLong(LzrValue v) {
             if (v.type() == Types.NUMBER) {
                 return ((LzrNumber) v).asLong();
             }
@@ -353,7 +351,7 @@ public class Standart {
             private final int size;
 
             public RangeValue(long from, long to, long step) {
-                super(new Value[0]);
+                super(new LzrValue[0]);
                 this.from = from;
                 this.to = to;
                 this.step = step;
@@ -363,8 +361,8 @@ public class Standart {
             }
 
             @Override
-            public Value[] getCopyElements() {
-                final Value[] result = new Value[size];
+            public LzrValue[] getCopyElements() {
+                final LzrValue[] result = new LzrValue[size];
                 int i = 0;
                 if (isIntegerRange()) {
                     final int toInt = (int) to;
@@ -393,7 +391,7 @@ public class Standart {
             }
 
             @Override
-            public Value get(int index) {
+            public LzrValue get(int index) {
                 if (isIntegerRange()) {
                     return LzrNumber.of((int) (from + index * step));
                 }
@@ -401,7 +399,7 @@ public class Standart {
             }
 
             @Override
-            public void set(int index, Value value) {
+            public void set(int index, LzrValue value) {
                 // not implemented
             }
 
@@ -424,11 +422,11 @@ public class Standart {
             }
 
             @Override
-            public Iterator<Value> iterator() {
+            public Iterator<LzrValue> iterator() {
                 if (isIntegerRange()) {
                     final int toInt = (int) to;
                     final int stepInt = (int) step;
-                    return new Iterator<Value>() {
+                    return new Iterator<LzrValue>() {
 
                         int value = (int) from;
 
@@ -438,7 +436,7 @@ public class Standart {
                         }
 
                         @Override
-                        public Value next() {
+                        public LzrValue next() {
                             final int result = value;
                             value += stepInt;
                             return LzrNumber.of(result);
@@ -448,7 +446,7 @@ public class Standart {
                         public void remove() { }
                     };
                 }
-                return new Iterator<Value>() {
+                return new Iterator<LzrValue>() {
 
                     long value = from;
 
@@ -458,7 +456,7 @@ public class Standart {
                     }
 
                     @Override
-                    public Value next() {
+                    public LzrValue next() {
                         final long result = value;
                         value += step;
                         return LzrNumber.of(result);
@@ -492,7 +490,7 @@ public class Standart {
             }
 
             @Override
-            public int compareTo(Value o) {
+            public int compareTo(LzrValue o) {
                 if (o.type() == Types.ARRAY) {
                     final int lengthCompare = Integer.compare(size(), ((LzrArray) o).size());
                     if (lengthCompare != 0) return lengthCompare;
@@ -522,24 +520,24 @@ public class Standart {
     public static final class reduce implements Function {
 
         @Override
-        public Value execute(Value... args) {
+        public LzrValue execute(LzrValue... args) {
             Arguments.check(3, args.length);
 
-            final Value container = args[0];
-            final Value identity = args[1];
+            final LzrValue container = args[0];
+            final LzrValue identity = args[1];
             final Function accumulator = ValueUtils.consumeFunction(args[2], 2);
             if (container.type() == Types.ARRAY) {
-                Value result = identity;
+                LzrValue result = identity;
                 final LzrArray array = (LzrArray) container;
-                for (Value element : array) {
+                for (LzrValue element : array) {
                     result = accumulator.execute(result, element);
                 }
                 return result;
             }
             if (container.type() == Types.MAP) {
-                Value result = identity;
+                LzrValue result = identity;
                 final LzrMap map = (LzrMap) container;
-                for (Map.Entry<Value, Value> element : map) {
+                for (Map.Entry<LzrValue, LzrValue> element : map) {
                     result = accumulator.execute(result, element.getKey(), element.getValue());
                 }
                 return result;
@@ -551,7 +549,7 @@ public class Standart {
     public final static class tryCatch implements Function{
 
         @Override
-        public Value execute(Value... args) {
+        public LzrValue execute(LzrValue... args) {
             Arguments.checkOrOr(1,2,args.length);
             try{
                 return ValueUtils.consumeFunction(args[0],0).execute();
@@ -578,10 +576,10 @@ public class Standart {
     public static final class map implements Function {
 
         @Override
-        public Value execute(Value[] args) {
+        public LzrValue execute(LzrValue[] args) {
             Arguments.checkOrOr(2, 3, args.length);
 
-            final Value container = args[0];
+            final LzrValue container = args[0];
             if (container.type() == Types.ARRAY) {
                 final Function mapper = ValueUtils.consumeFunction(args[1], 1);
                 return mapArray((LzrArray) container, mapper);
@@ -607,9 +605,9 @@ public class Standart {
 
         static LzrMap mapMap(LzrMap map, Function keyMapper, Function valueMapper) {
             final LzrMap result = new LzrMap(map.size());
-            for (Map.Entry<Value, Value> element : map) {
-                final Value newKey = keyMapper.execute(element.getKey());
-                final Value newValue = valueMapper.execute(element.getValue());
+            for (Map.Entry<LzrValue, LzrValue> element : map) {
+                final LzrValue newKey = keyMapper.execute(element.getKey());
+                final LzrValue newValue = valueMapper.execute(element.getValue());
                 result.set(newKey, newValue);
             }
             return result;

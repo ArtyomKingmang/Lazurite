@@ -6,9 +6,9 @@ import com.kingmang.lazurite.parser.AST.Accessible;
 import com.kingmang.lazurite.patterns.visitor.ResultVisitor;
 import com.kingmang.lazurite.patterns.visitor.Visitor;
 import com.kingmang.lazurite.runtime.*;
-import com.kingmang.lazurite.runtime.Lzr.LzrArray;
-import com.kingmang.lazurite.runtime.Lzr.LzrMap;
-import com.kingmang.lazurite.runtime.Lzr.LzrString;
+import com.kingmang.lazurite.runtime.Types.LzrArray;
+import com.kingmang.lazurite.runtime.Types.LzrMap;
+import com.kingmang.lazurite.runtime.Types.LzrString;
 import lombok.Getter;
 
 
@@ -36,14 +36,14 @@ public final class ContainerAccessExpression implements Expression, Accessible {
 
 
     @Override
-    public Value eval() {
+    public LzrValue eval() {
         return get();
     }
     
     @Override
-    public Value get() {
-        final Value container = getContainer();
-        final Value lastIndex = lastIndex();
+    public LzrValue get() {
+        final LzrValue container = getContainer();
+        final LzrValue lastIndex = lastIndex();
         switch (container.type()) {
             case Types.ARRAY:
                 return ((LzrArray) container).get(lastIndex);
@@ -63,9 +63,9 @@ public final class ContainerAccessExpression implements Expression, Accessible {
     }
 
     @Override
-    public Value set(Value value) {
-        final Value container = getContainer();
-        final Value lastIndex = lastIndex();
+    public LzrValue set(LzrValue value) {
+        final LzrValue container = getContainer();
+        final LzrValue lastIndex = lastIndex();
         switch (container.type()) {
             case Types.ARRAY:
                 final int arrayIndex = lastIndex.asInt();
@@ -85,11 +85,11 @@ public final class ContainerAccessExpression implements Expression, Accessible {
         }
     }
     
-    public Value getContainer() {
-        Value container = root.eval();
+    public LzrValue getContainer() {
+        LzrValue container = root.eval();
         final int last = indices.size() - 1;
         for (int i = 0; i < last; i++) {
-            final Value index = index(i);
+            final LzrValue index = index(i);
             switch (container.type()) {
                 case Types.ARRAY:
                     final int arrayIndex = index.asInt();
@@ -107,15 +107,15 @@ public final class ContainerAccessExpression implements Expression, Accessible {
         return container;
     }
     
-    public Value lastIndex() {
+    public LzrValue lastIndex() {
         return index(indices.size() - 1);
     }
     
-    private Value index(int index) {
+    private LzrValue index(int index) {
         return indices.get(index).eval();
     }
     
-    public LzrMap consumeMap(Value value) {
+    public LzrMap consumeMap(LzrValue value) {
         if (value.type() != Types.MAP) {
             throw new LZRException("TypeExeption","Map expected");
         }

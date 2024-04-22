@@ -2,9 +2,9 @@ package com.kingmang.lazurite.libraries.gforms;
 
 
 import com.kingmang.lazurite.core.*;
-import com.kingmang.lazurite.runtime.Lzr.LzrFunction;
-import com.kingmang.lazurite.runtime.Lzr.LzrNumber;
-import com.kingmang.lazurite.runtime.Value;
+import com.kingmang.lazurite.runtime.Types.LzrFunction;
+import com.kingmang.lazurite.runtime.Types.LzrNumber;
+import com.kingmang.lazurite.runtime.LzrValue;
 import com.kingmang.lazurite.utils.ValueUtils;
 
 import javax.swing.AbstractButton;
@@ -44,14 +44,14 @@ public class AbstractButtonValue extends JComponentValue {
         set("setVerticalTextPosition", Converters.intToVoid(abstractButton::setVerticalTextPosition));
     }
 
-    private Value addActionListener(Value[] args) {
+    private LzrValue addActionListener(LzrValue[] args) {
         Arguments.check(1, args.length);
         final Function action = com.kingmang.lazurite.utils.ValueUtils.consumeFunction(args[0], 0);
         abstractButton.addActionListener(e -> action.execute());
         return LzrNumber.ZERO;
     }
     
-    private Value addChangeListener(Value[] args) {
+    private LzrValue addChangeListener(LzrValue[] args) {
         Arguments.check(1, args.length);
         final Function action = ValueUtils.consumeFunction(args[0], 0);
         abstractButton.addChangeListener(e -> action.execute());

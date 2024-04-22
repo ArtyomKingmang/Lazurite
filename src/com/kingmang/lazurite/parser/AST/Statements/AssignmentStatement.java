@@ -4,9 +4,9 @@ import com.kingmang.lazurite.exceptions.LZRException;
 import com.kingmang.lazurite.parser.AST.Expressions.Expression;
 import com.kingmang.lazurite.patterns.visitor.ResultVisitor;
 import com.kingmang.lazurite.patterns.visitor.Visitor;
-import com.kingmang.lazurite.runtime.Lzr.LzrNumber;
-import com.kingmang.lazurite.runtime.Lzr.LzrString;
-import com.kingmang.lazurite.runtime.Value;
+import com.kingmang.lazurite.runtime.Types.LzrNumber;
+import com.kingmang.lazurite.runtime.Types.LzrString;
+import com.kingmang.lazurite.runtime.LzrValue;
 import com.kingmang.lazurite.runtime.Variables;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -29,7 +29,7 @@ public final class AssignmentStatement implements Statement {
     @Override
     public void execute() {
         if (mode == 0){
-            final Value result = expression.eval();
+            final LzrValue result = expression.eval();
             Variables.set(variable, result);
         }
         else {
@@ -38,25 +38,25 @@ public final class AssignmentStatement implements Statement {
                 Integer.parseInt(Variables.get(variable).asString());
                 // =========
                 if (mode == 1){
-                    final Value result = expression.eval();
+                    final LzrValue result = expression.eval();
                     Variables.set(variable, LzrNumber.of(Variables.get(variable).asInt() + result.asInt()));
                 }
                 else if(mode == 2){
-                    final Value result = expression.eval();
+                    final LzrValue result = expression.eval();
                     Variables.set(variable, LzrNumber.of(Variables.get(variable).asInt() - result.asInt()));
                 }
                 else if(mode == 3){
-                    final Value result = expression.eval();
+                    final LzrValue result = expression.eval();
                     Variables.set(variable, LzrNumber.of(Variables.get(variable).asInt() * result.asInt()));
                 }
                 else if(mode == 4){
-                    final Value result = expression.eval();
+                    final LzrValue result = expression.eval();
                     Variables.set(variable, LzrNumber.of(Variables.get(variable).asInt() / result.asInt()));
                 }
             }
             catch (Exception ex){
                 if (mode == 1){
-                    final Value result = expression.eval();
+                    final LzrValue result = expression.eval();
                     Variables.set(variable, new LzrString(Variables.get(variable).toString() + result.toString()));
                 }
                 else{

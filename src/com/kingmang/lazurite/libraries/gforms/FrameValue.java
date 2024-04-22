@@ -2,10 +2,10 @@ package com.kingmang.lazurite.libraries.gforms;
 
 
 import com.kingmang.lazurite.core.*;
-import com.kingmang.lazurite.runtime.Lzr.LzrMap;
-import com.kingmang.lazurite.runtime.Lzr.LzrNumber;
-import com.kingmang.lazurite.runtime.Lzr.LzrString;
-import com.kingmang.lazurite.runtime.Value;
+import com.kingmang.lazurite.runtime.Types.LzrMap;
+import com.kingmang.lazurite.runtime.Types.LzrNumber;
+import com.kingmang.lazurite.runtime.Types.LzrString;
+import com.kingmang.lazurite.runtime.LzrValue;
 import com.kingmang.lazurite.utils.ValueUtils;
 
 import java.awt.Window;
@@ -45,7 +45,7 @@ public class FrameValue extends ContainerValue {
     }
     
     
-    private Value addWindowListener(Value[] args) {
+    private LzrValue addWindowListener(LzrValue[] args) {
         Arguments.check(1, args.length);
         final Function action = ValueUtils.consumeFunction(args[0], 0);
         window.addWindowListener(new WindowListener() {

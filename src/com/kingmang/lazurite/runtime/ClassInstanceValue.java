@@ -2,12 +2,12 @@ package com.kingmang.lazurite.runtime;
 
 import com.kingmang.lazurite.exceptions.LZRException;
 import com.kingmang.lazurite.core.Types;
-import com.kingmang.lazurite.runtime.Lzr.LzrMap;
+import com.kingmang.lazurite.runtime.Types.LzrMap;
 import lombok.Getter;
 
 import java.util.Objects;
 
-public class ClassInstanceValue implements Value {
+public class ClassInstanceValue implements LzrValue {
     @Getter
     private final String className;
     private final LzrMap thisMap;
@@ -24,7 +24,7 @@ public class ClassInstanceValue implements Value {
     }
 
 
-    public void addField(String name, Value value) {
+    public void addField(String name, LzrValue value) {
         thisMap.set(name, value);
     }
 
@@ -39,18 +39,18 @@ public class ClassInstanceValue implements Value {
     }
 
 
-    public void callConstructor(Value[] args) {
+    public void callConstructor(LzrValue[] args) {
         if (constructor != null) {
             constructor.execute(args);
         }
     }
 
-    public Value access(Value value) {
+    public LzrValue access(LzrValue value) {
         return thisMap.get(value);
     }
 
-    public void set(Value key, Value value) {
-        final Value v = thisMap.get(key);
+    public void set(LzrValue key, LzrValue value) {
+        final LzrValue v = thisMap.get(key);
         if (v == null) {
             throw new LZRException("RuntimeException ", "Unable to add new field "
                     + key.asString() + " to class " + className);
@@ -76,7 +76,7 @@ public class ClassInstanceValue implements Value {
     @Override
     public String asString() {
         if (toString != null) {
-            return toString.execute(new Value[] {}).asString();
+            return toString.execute(new LzrValue[] {}).asString();
         }
         return className + "@" + thisMap;
     }
@@ -111,7 +111,7 @@ public class ClassInstanceValue implements Value {
     }
 
     @Override
-    public int compareTo(Value o) {
+    public int compareTo(LzrValue o) {
         return asString().compareTo(o.asString());
     }
 

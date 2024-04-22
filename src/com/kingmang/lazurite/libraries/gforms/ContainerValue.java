@@ -2,9 +2,9 @@ package com.kingmang.lazurite.libraries.gforms;
 
 
 import com.kingmang.lazurite.core.*;
-import com.kingmang.lazurite.runtime.Lzr.LzrFunction;
-import com.kingmang.lazurite.runtime.Lzr.LzrNumber;
-import com.kingmang.lazurite.runtime.Value;
+import com.kingmang.lazurite.runtime.Types.LzrFunction;
+import com.kingmang.lazurite.runtime.Types.LzrNumber;
+import com.kingmang.lazurite.runtime.LzrValue;
 
 import java.awt.Component;
 import java.awt.Container;
@@ -33,7 +33,7 @@ public abstract class ContainerValue extends ComponentValue {
         set("setLayout", new LzrFunction(this::setLayout));
     }
 
-    private Value add(Value... args) {
+    private LzrValue add(LzrValue... args) {
         Arguments.checkRange(1, 3, args.length);
 
         final Component newComponent;
@@ -63,7 +63,7 @@ public abstract class ContainerValue extends ComponentValue {
         return LzrNumber.ZERO;
     }
 
-    private Value remove(Value... args) {
+    private LzrValue remove(LzrValue... args) {
         Arguments.check(1, args.length);
         if (args[0] instanceof com.kingmang.lazurite.libraries.gforms.JComponentValue) {
             container.remove(((JComponentValue) args[0]).component);
@@ -73,7 +73,7 @@ public abstract class ContainerValue extends ComponentValue {
         return LzrNumber.ZERO;
     }
 
-    private Value setLayout(Value... args) {
+    private LzrValue setLayout(LzrValue... args) {
         Arguments.check(1, args.length);
         container.setLayout(((LayoutManagerValue) args[0]).layout);
         return LzrNumber.ZERO;

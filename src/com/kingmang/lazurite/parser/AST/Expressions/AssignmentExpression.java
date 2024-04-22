@@ -5,8 +5,7 @@ import com.kingmang.lazurite.parser.AST.Accessible;
 import com.kingmang.lazurite.parser.AST.InterruptableNode;
 import com.kingmang.lazurite.patterns.visitor.ResultVisitor;
 import com.kingmang.lazurite.patterns.visitor.Visitor;
-import com.kingmang.lazurite.runtime.Value;
-import lombok.AllArgsConstructor;
+import com.kingmang.lazurite.runtime.LzrValue;
 
 
 public final class AssignmentExpression extends InterruptableNode implements Expression, Statement {
@@ -26,7 +25,7 @@ public final class AssignmentExpression extends InterruptableNode implements Exp
     }
 
     @Override
-    public Value eval() {
+    public LzrValue eval() {
         super.interruptionCheck();
         if (operation == null) {
             // Simple assignment

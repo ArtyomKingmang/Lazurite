@@ -3,9 +3,9 @@ package com.kingmang.lazurite.libraries.lsoup;
 
 import com.kingmang.lazurite.core.Function;
 import com.kingmang.lazurite.libraries.Library;
-import com.kingmang.lazurite.runtime.Lzr.LzrMap;
-import com.kingmang.lazurite.runtime.Lzr.LzrString;
-import com.kingmang.lazurite.runtime.Value;
+import com.kingmang.lazurite.runtime.Types.LzrMap;
+import com.kingmang.lazurite.runtime.Types.LzrString;
+import com.kingmang.lazurite.runtime.LzrValue;
 import com.kingmang.lazurite.runtime.Variables;
 
 import org.jsoup.Jsoup;
@@ -35,7 +35,7 @@ public class lsoup implements Library {
 
     private static class body implements Function {
         @Override
-        public Value execute(Value... args) {
+        public LzrValue execute(LzrValue... args) {
             if (docum != null) {
                 return new LzrString(docum.body().toString());
             } else {
@@ -46,7 +46,7 @@ public class lsoup implements Library {
 
     private static class pars implements Function {
         @Override
-        public Value execute(Value... args) {
+        public LzrValue execute(LzrValue... args) {
             Document doc = null;
             try {
                 doc = Jsoup.connect(args[0].toString()).get();
@@ -65,7 +65,7 @@ public class lsoup implements Library {
 
     private static class select implements Function {
         @Override
-        public Value execute(Value... args) {
+        public LzrValue execute(LzrValue... args) {
             Elements divs = docum.select(args[0].toString());
             Variables.set("elements", new LzrString((divs.toString()).getBytes(StandardCharsets.UTF_8).toString()));
             element = divs;

@@ -8,8 +8,8 @@ import com.kingmang.lazurite.parser.AST.Statements.Statement;
 import com.kingmang.lazurite.parser.AST.InterruptableNode;
 import com.kingmang.lazurite.patterns.visitor.ResultVisitor;
 import com.kingmang.lazurite.patterns.visitor.Visitor;
-import com.kingmang.lazurite.runtime.Lzr.LzrFunction;
-import com.kingmang.lazurite.runtime.Value;
+import com.kingmang.lazurite.runtime.Types.LzrFunction;
+import com.kingmang.lazurite.runtime.LzrValue;
 import com.kingmang.lazurite.runtime.Variables;
 
 
@@ -37,17 +37,17 @@ public final class FunctionalExpression extends InterruptableNode implements Exp
     }
     
     @Override
-    public Value eval() {
+    public LzrValue eval() {
         super.interruptionCheck();
         final int size = arguments.size();
-        final Value[] values = new Value[size];
+        final LzrValue[] values = new LzrValue[size];
         for (int i = 0; i < size; i++) {
             values[i] = arguments.get(i).eval();
         }
         final Function f = consumeFunction(functionExpr);
         CallStack.enter(functionExpr.toString(), f);
         try {
-            final Value result = f.execute(values);
+            final LzrValue result = f.execute(values);
             CallStack.exit();
             return result;
         } catch (LZRException ex) {
@@ -57,7 +57,7 @@ public final class FunctionalExpression extends InterruptableNode implements Exp
     
     private Function consumeFunction(Expression expr) {
         try {
-            final Value value = expr.eval();
+            final LzrValue value = expr.eval();
             if (value.type() == Types.FUNCTION) {
                 return ((LzrFunction) value).getValue();
             }
@@ -72,7 +72,7 @@ public final class FunctionalExpression extends InterruptableNode implements Exp
             return Keyword.get(key);
         }
         if (Variables.isExists(key)) {
-            final Value variable = Variables.get(key);
+            final LzrValue variable = Variables.get(key);
             if (variable.type() == Types.FUNCTION) {
                 return ((LzrFunction)variable).getValue();
             }

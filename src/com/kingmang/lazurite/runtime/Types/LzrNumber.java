@@ -1,13 +1,12 @@
-package com.kingmang.lazurite.runtime.Lzr;
+package com.kingmang.lazurite.runtime.Types;
 
 
 import com.kingmang.lazurite.core.Types;
-import com.kingmang.lazurite.runtime.Value;
-import lombok.Getter;
+import com.kingmang.lazurite.runtime.LzrValue;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
-public final class LzrNumber implements Value {
+public final class LzrNumber implements LzrValue {
 
     private static final int CACHE_MIN = -128;
     private static final int CACHE_MAX = 127;
@@ -132,7 +131,7 @@ public final class LzrNumber implements Value {
     }
     
     @Override
-    public int compareTo(Value o) {
+    public int compareTo(LzrValue o) {
         if (o.type() == Types.NUMBER) {
             final Number other = ((LzrNumber) o).value;
             if (value instanceof Double || other instanceof Double) {

@@ -3,10 +3,10 @@ import com.kingmang.lazurite.exceptions.LZRException;
 import com.kingmang.lazurite.core.*;
 
 import com.kingmang.lazurite.libraries.Library;
-import com.kingmang.lazurite.runtime.Lzr.LzrArray;
-import com.kingmang.lazurite.runtime.Lzr.LzrMap;
-import com.kingmang.lazurite.runtime.Lzr.LzrNumber;
-import com.kingmang.lazurite.runtime.Value;
+import com.kingmang.lazurite.runtime.Types.LzrArray;
+import com.kingmang.lazurite.runtime.Types.LzrMap;
+import com.kingmang.lazurite.runtime.Types.LzrNumber;
+import com.kingmang.lazurite.runtime.LzrValue;
 import com.kingmang.lazurite.runtime.Variables;
 import com.kingmang.lazurite.utils.ValueUtils;
 
@@ -17,7 +17,7 @@ public final class arrays implements Library {
         LzrMap array = new LzrMap(4);
         array.set("join", new Function() {
             @Override
-            public Value execute(Value... args) {
+            public LzrValue execute(LzrValue... args) {
                 Arguments.checkRange(1, 4, args.length);
                 if (args[0].type() != Types.ARRAY) {
                     throw new LZRException("TypeExeption ","Array expected in first argument");
@@ -40,12 +40,12 @@ public final class arrays implements Library {
         });
         array.set("sort", new Function() {
             @Override
-            public Value execute(Value... args) {
+            public LzrValue execute(LzrValue... args) {
                 Arguments.checkAtLeast(1, args.length);
                 if (args[0].type() != Types.ARRAY) {
                     throw new LZRException("TypeExeption ","Array expected in first argument");
                 }
-                final Value[] elements = ((LzrArray) args[0]).getCopyElements();
+                final LzrValue[] elements = ((LzrArray) args[0]).getCopyElements();
 
                 switch (args.length) {
                     case 1:
@@ -65,7 +65,7 @@ public final class arrays implements Library {
         });
         array.set("combine", new Function() {
             @Override
-            public Value execute(Value... args) {
+            public LzrValue execute(LzrValue... args) {
                 Arguments.check(2, args.length);
                 if (args[0].type() != Types.ARRAY) {
                     throw new LZRException("TypeException","Array expected in first argument");
@@ -88,7 +88,7 @@ public final class arrays implements Library {
         });
         array.set("keyExists", new Function() {
             @Override
-            public Value execute(Value... args) {
+            public LzrValue execute(LzrValue... args) {
                 Arguments.check(2, args.length);
                 if (args[1].type() != Types.MAP) {
                     throw new LZRException("TypeException","Map expected in second argument");

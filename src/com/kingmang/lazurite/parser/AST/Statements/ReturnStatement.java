@@ -3,7 +3,7 @@ package com.kingmang.lazurite.parser.AST.Statements;
 import com.kingmang.lazurite.parser.AST.Expressions.Expression;
 import com.kingmang.lazurite.patterns.visitor.ResultVisitor;
 import com.kingmang.lazurite.patterns.visitor.Visitor;
-import com.kingmang.lazurite.runtime.Value;
+import com.kingmang.lazurite.runtime.LzrValue;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
@@ -12,7 +12,7 @@ public final class ReturnStatement extends RuntimeException implements Statement
 
     public final Expression expression;
     @Getter
-    private Value result;
+    private LzrValue result;
 
 
     

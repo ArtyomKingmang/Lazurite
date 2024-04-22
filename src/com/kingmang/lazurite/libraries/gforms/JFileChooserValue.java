@@ -1,19 +1,15 @@
 package com.kingmang.lazurite.libraries.gforms;
 
 import com.kingmang.lazurite.exceptions.LZRException;
-import com.kingmang.lazurite.parser.parse.classes.ParserImplementation;
-import com.kingmang.lazurite.runtime.Lzr.LzrFunction;
-import com.kingmang.lazurite.runtime.Lzr.LzrNumber;
-import com.kingmang.lazurite.runtime.Lzr.LzrString;
-import com.kingmang.lazurite.runtime.Value;
+import com.kingmang.lazurite.runtime.Types.LzrFunction;
+import com.kingmang.lazurite.runtime.Types.LzrNumber;
+import com.kingmang.lazurite.runtime.Types.LzrString;
+import com.kingmang.lazurite.runtime.LzrValue;
 
 import javax.swing.*;
-import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.util.ArrayList;
 
 public class JFileChooserValue extends JComponentValue {
 
@@ -32,19 +28,19 @@ public class JFileChooserValue extends JComponentValue {
 
     }
 
-    private Value showOpenDialog(Value... args){
+    private LzrValue showOpenDialog(LzrValue... args){
         fileChooser.showOpenDialog(null);
         return LzrNumber.ZERO;
     }
 
-    private Value showSaveDialog(Value... args){
+    private LzrValue showSaveDialog(LzrValue... args){
         try {
             fileChooser.showSaveDialog(null);
         }catch(Exception ignored){}
 
         return LzrNumber.ZERO;
     }
-    private Value getTextFromFile(Value... args){
+    private LzrValue getTextFromFile(LzrValue... args){
         File selectedFile = fileChooser.getSelectedFile();
         try {
             String fileContent = new String(Files.readAllBytes(selectedFile.toPath()));

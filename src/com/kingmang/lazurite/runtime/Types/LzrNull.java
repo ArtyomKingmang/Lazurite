@@ -1,8 +1,8 @@
-package com.kingmang.lazurite.runtime.Lzr;
+package com.kingmang.lazurite.runtime.Types;
 
-import com.kingmang.lazurite.runtime.Value;
+import com.kingmang.lazurite.runtime.LzrValue;
 
-public class LzrNull implements Value {
+public class LzrNull implements LzrValue {
 
 
     @Override
@@ -36,7 +36,7 @@ public class LzrNull implements Value {
     }
 
     @Override
-    public int compareTo(Value o) {
+    public int compareTo(LzrValue o) {
         if (o.raw() == null) return 0;
         return -1;
     }

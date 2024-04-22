@@ -1,13 +1,9 @@
 package com.kingmang.lazurite.libraries.gforms;
 
-import com.kingmang.lazurite.core.Arguments;
 import com.kingmang.lazurite.core.Function;
-import com.kingmang.lazurite.core.Types;
-import com.kingmang.lazurite.runtime.Lzr.LzrFunction;
-import com.kingmang.lazurite.runtime.Lzr.LzrMap;
-import com.kingmang.lazurite.runtime.Lzr.LzrNumber;
-import com.kingmang.lazurite.runtime.Lzr.LzrString;
-import com.kingmang.lazurite.runtime.Value;
+import com.kingmang.lazurite.runtime.Types.LzrFunction;
+import com.kingmang.lazurite.runtime.Types.LzrNumber;
+import com.kingmang.lazurite.runtime.LzrValue;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -27,7 +23,7 @@ public class JMenuBarValue extends JComponentValue {
         set("setAction", new LzrFunction(this::setAction));
     }
 
-    private Value add(Value... args) {
+    private LzrValue add(LzrValue... args) {
         JMenu menu = new JMenu(args[0].asString());
         bar.add(menu);
         items = new JMenuItem[10];
@@ -40,7 +36,7 @@ public class JMenuBarValue extends JComponentValue {
         return LzrNumber.ZERO;
     }
 
-    private Value setAction(Value... args){
+    private LzrValue setAction(LzrValue... args){
         Function body;
         body = ((LzrFunction) args[1]).getValue();
         ActionListener enableActionListener = new ActionListener() {

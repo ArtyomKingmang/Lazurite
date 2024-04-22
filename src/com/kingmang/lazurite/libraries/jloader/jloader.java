@@ -3,9 +3,9 @@ package com.kingmang.lazurite.libraries.jloader;
 import com.kingmang.lazurite.core.Arguments;
 import com.kingmang.lazurite.core.Function;
 import com.kingmang.lazurite.libraries.Library;
-import com.kingmang.lazurite.runtime.Lzr.LzrMap;
-import com.kingmang.lazurite.runtime.Lzr.LzrNumber;
-import com.kingmang.lazurite.runtime.Value;
+import com.kingmang.lazurite.runtime.Types.LzrMap;
+import com.kingmang.lazurite.runtime.Types.LzrNumber;
+import com.kingmang.lazurite.runtime.LzrValue;
 import com.kingmang.lazurite.runtime.Variables;
 
 import java.io.File;
@@ -21,7 +21,7 @@ public class jloader implements Library {
         LzrMap base = new LzrMap(1);
         base.set("invoke", new Function() {
             @Override
-            public Value execute(Value... args) {
+            public LzrValue execute(LzrValue... args) {
                 Arguments.check(5, args.length);
                 final String cname = args[2].asString();
                 final String class_ = args[1].asString();

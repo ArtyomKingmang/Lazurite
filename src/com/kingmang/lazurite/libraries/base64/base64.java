@@ -3,9 +3,9 @@ package com.kingmang.lazurite.libraries.base64;
 import com.kingmang.lazurite.core.Arguments;
 import com.kingmang.lazurite.utils.ValueUtils;
 import com.kingmang.lazurite.libraries.Library;
-import com.kingmang.lazurite.runtime.Lzr.LzrArray;
-import com.kingmang.lazurite.runtime.Lzr.LzrMap;
-import com.kingmang.lazurite.runtime.Value;
+import com.kingmang.lazurite.runtime.Types.LzrArray;
+import com.kingmang.lazurite.runtime.Types.LzrMap;
+import com.kingmang.lazurite.runtime.LzrValue;
 import com.kingmang.lazurite.runtime.Variables;
 
 import java.nio.charset.StandardCharsets;
@@ -22,19 +22,19 @@ public class base64 implements Library {
         base.set("decode", this::decode);
         Variables.define("base64", base);
     }
-    private Value encode(Value... args){
+    private LzrValue encode(LzrValue... args){
         Arguments.checkOrOr(1,2,args.length);
         return LzrArray.of(enc(args).encode(input(args)));
 
     }
 
-    private Base64.Encoder enc(Value[] args){
+    private Base64.Encoder enc(LzrValue[] args){
         if(args.length == 2 && args[1].asInt() == TYPE){
             return Base64.getUrlEncoder();
         }
         return Base64.getEncoder();
     }
-    private byte[] input(Value[] args){
+    private byte[] input(LzrValue[] args){
         byte[] input;
         if(args[0].type() == Types.ARRAY){
             input = ValueUtils.toByteArray((LzrArray) args[0]);
@@ -48,7 +48,7 @@ public class base64 implements Library {
         return input;
     }
 
-    private Value decode(Value[] args) {
+    private LzrValue decode(LzrValue[] args) {
         Arguments.checkOrOr(1, 2, args.length);
         final Base64.Decoder decoder = getDecoder(args);
         final byte[] result;
@@ -62,7 +62,7 @@ public class base64 implements Library {
 
 
 
-    private Base64.Decoder getDecoder(Value[] args) {
+    private Base64.Decoder getDecoder(LzrValue[] args) {
         if (args.length == 2 && args[1].asInt() == 8) {
             return Base64.getUrlDecoder();
         }
