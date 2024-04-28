@@ -9,7 +9,7 @@ import com.kingmang.lazurite.runtime.Types.LzrNumber;
 import com.kingmang.lazurite.runtime.LzrValue;
 import com.kingmang.lazurite.runtime.Variables;
 
-import javax.imageio.ImageIO;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyAdapter;
@@ -18,8 +18,6 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
 
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 
 public class graph implements Library {
 
@@ -29,8 +27,6 @@ public class graph implements Library {
     private static CanvasPanel panel;
     private static Graphics2D graphics;
     private static BufferedImage img;
-    static BufferedImage image;
-
     private static LzrNumber lastKey;
     private static LzrArray mouseHover;
 
@@ -135,7 +131,7 @@ public class graph implements Library {
         Keyword.put("clip", intConsumer4Convert(graph::clip));
         Keyword.put("text", new DrawText());
         Keyword.put("fill", new fill());
-        Keyword.put("Redraw", (Function) new Redraw());
+        Keyword.put("Redraw", new Redraw());
         lastKey = MINUS_ONE;
         mouseHover = new LzrArray(new LzrValue[]{LzrNumber.ZERO, LzrNumber.ZERO});
     }
@@ -196,6 +192,8 @@ public class graph implements Library {
         }
     }
 
+
+
     private static class Frame implements Function {
 
         @Override
@@ -236,27 +234,6 @@ public class graph implements Library {
         }
     }
 
-    private static class LImage implements Function{
-        @Override
-        public LzrValue execute(LzrValue... args) {
-            try {
-                File file = new File(args[0].asString());
-                image = ImageIO.read(file);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            return LzrNumber.ZERO;
-        }
-    }
-
-    private static class image implements Function{
-
-        @Override
-        public LzrValue execute(LzrValue... args) {
-            graphics.drawImage(image,args[0].asInt(),args[1].asInt(),100,100,null);
-            return LzrNumber.ZERO;
-        }
-    }
     private static class MouseHover implements Function {
 
         @Override

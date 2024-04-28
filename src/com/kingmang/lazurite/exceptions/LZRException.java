@@ -15,4 +15,5 @@ public class LZRException extends RuntimeException {
         this.text = text;
 
     }
+
 }
