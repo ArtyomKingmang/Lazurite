@@ -60,9 +60,25 @@ public final class reflection implements Library {
         Keyword.put("JUpload", this::JUpload);
         Keyword.put("JClass", this::JClass);
         Keyword.put("JObject", this::JObject);
-        Keyword.put("LZRValue", this::LZRValue);
+        Keyword.put("LzrValue", this::LZRValue);
     }
 
+    private LzrValue JUpload(LzrValue[] args) {
+        String path = args[0].asString();
+        String addressLib = args[1].asString();
+        try {
+            URLClassLoader child = new URLClassLoader(
+                    new URL[] { new URL("file:" + path) },
+                    this.getClass().getClassLoader()
+            );
+            Library module = (Library) Class.forName(addressLib + ".invoker", true, child).newInstance();
+            module.init();
+        } catch (MalformedURLException | ClassNotFoundException | InstantiationException | IllegalAccessException e) {
+            throw new LZRException(e.getLocalizedMessage(), e.getMessage());
+        }
+
+        return LzrNumber.MINUS_ONE;
+    }
 
 
 
@@ -188,7 +204,6 @@ public final class reflection implements Library {
             return "ObjectValue " + asString();
         }
     }
-//</editor-fold>
 
     private LzrValue isNull(LzrValue[] args) {
         Arguments.checkAtLeast(1, args.length);
@@ -209,22 +224,7 @@ public final class reflection implements Library {
         }
     }
 
-    private LzrValue JUpload(LzrValue[] args) {
-        String path = args[0].asString();
-        String addressLib = args[1].asString();
-        try {
-            URLClassLoader child = new URLClassLoader(
-                    new URL[] { new URL("file:" + path) },
-                    this.getClass().getClassLoader()
-            );
-            Library module = (Library) Class.forName(addressLib + ".invoker", true, child).newInstance();
-            module.init();
-        } catch (MalformedURLException | ClassNotFoundException | InstantiationException | IllegalAccessException e) {
-            throw new LZRException(e.getLocalizedMessage(), e.getMessage());
-        }
 
-        return LzrNumber.MINUS_ONE;
-    }
     private LzrValue JObject(LzrValue[] args) {
         Arguments.check(1, args.length);
         if (Objects.equals(args[0], new LzrNull())) return new LzrNull();
@@ -240,7 +240,7 @@ public final class reflection implements Library {
     }
 
 
-    //<editor-fold defaultstate="collapsed" desc="Helpers">
+
     private static LzrValue getValue(Class<?> clazz, Object object, String key) {
         // Trying to get field
         try {

@@ -120,7 +120,7 @@ public class graph implements Library {
         Keyword.put("translate", new translate());
         Keyword.put("Frame", new Frame());
         Keyword.put("fill3d", intConsumer4Convert(graph::fill3d));
-        Keyword.put("cube", intConsumer4Convert(graph::Cude));
+        Keyword.put("cube", intConsumer4Convert(graph::cube));
         Keyword.put("keyPressed", new KeyPressed());
         Keyword.put("mouseHover", new MouseHover());
         Keyword.put("line", intConsumer4Convert(graph::line));
@@ -351,6 +351,7 @@ public class graph implements Library {
 
     private static void line(int x1, int y1, int x2, int y2) {
         graphics.drawLine(x1, y1, x2, y2);
+
     }
     private static void lellipse(int x, int y, int w, int h) {
         graphics.drawOval(x, y, w, h);
@@ -361,9 +362,10 @@ public class graph implements Library {
     private static void lrect(int x, int y, int w, int h) {
         graphics.drawRect(x, y, w, h);
     }
-    private static void Cude(int x, int y, int w, int h) {
+    private static void cube(int x, int y, int w, int h) {
         graphics.draw3DRect(x,y,w,h,true);
     }
+
     private static void fill3d(int x, int y, int w, int h) {graphics.fill3DRect(x,y,w,h,true);}
     private static void rect(int x, int y, int w, int h) {graphics.fillRect(x, y, w, h);}
     private static void clip(int x, int y, int w, int h) {
