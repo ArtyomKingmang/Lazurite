@@ -39,15 +39,15 @@ background(r,g,b) - установка цвета фона
 Redraw() - обновление экрана
 ````
 ### Примитивы
-ellipse(x,y,w,h) - создает закрашенный эллипс в координатах x, y с размерами w, h
+`ellipse(x,y,w,h)` - создает закрашенный эллипс в координатах x, y с размерами w, h
 
-lellipse(x,y,w,h) - создает эллипс в координатах x, y с размерами w, h
+`lellipse(x,y,w,h)` - создает эллипс в координатах x, y с размерами w, h
 
-rect(x,y,w,h) - создает закрашенный прямоугольник в координатах x, y с размерами w, h
+`rect(x,y,w,h)` - создает закрашенный прямоугольник в координатах x, y с размерами w, h
 
-lrect(x,y,w,h) - создает прямоугольник в координатах x, y с размерами w, h
+`lrect(x,y,w,h)` - создает прямоугольник в координатах x, y с размерами w, h
 
-fill(rgb) - закрашивает все фигуры, идущие после него 
+`fill(rgb)` - закрашивает все фигуры, идущие после него 
 
 ````java
 using "graph"
@@ -62,14 +62,14 @@ lrect(100,100,100,100)
 
 
 ### Текст
-text("text", x, y) - создает текст в координатах x, y
+`text("text", x, y)` - создает текст в координатах x, y
 ````java
 using "graph"
 Frame(500,500)
 fill(0)
 text("Hello",100,100)
 ````
-font("Arial", size) - устанавливает шрифт с определенным размером
+`font("Arial", size)` - устанавливает шрифт с определенным размером
 ````java
 using "graph"
 Frame(500,500)
@@ -80,7 +80,7 @@ fill(0)
 text("Hello",100,100)
 ````
 ### Обработка нажатий
-keyPressed()
+`keyPressed()`
 ````java
 using "graph"
 Frame(500,500)
@@ -94,7 +94,7 @@ while(1){
     }
 }
 ````
-mouseHover()
+`mouseHover()`
 ````java
 using "graph"
 
@@ -119,30 +119,30 @@ rotate(arg[0]) || rotate(arg[0], arg[1], arg[2])
 scale(arg[0], arg[1])
 ````
 # http
-http.download() - загружает файл из downloadUrl в filePath
+`http.download()` - загружает файл из downloadUrl в filePath
 ````java
 using "http"
 http.download("https://test/tester.html", "test.txt")
 ````
 
 
-http.getContentLength(url) - получает длину содержимого, отправляя запрос HEAD на указанный URL-адрес
+`http.getContentLength(url)` - получает длину содержимого, отправляя запрос HEAD на указанный URL-адрес
 
-http.request(url) - выполняет GET-запрос на указанный адрес url.
+`http.request(url)` - выполняет GET-запрос на указанный адрес url.
 
-http.request(url, method) - выполняет запрос на указанный адрес url методом method (GET, POST, PUT, DELETE, PATCH, OPTIONS).
+`http.request(url, method)` - выполняет запрос на указанный адрес url методом method (GET, POST, PUT, DELETE, PATCH, OPTIONS).
 
-http.request(url, callback) - выполняет GET-запрос на указанный адрес url, ответ сервера передаёт в функцию callback.
+`http.request(url, callback)` - выполняет GET-запрос на указанный адрес url, ответ сервера передаёт в функцию callback.
 ````java
 http.request("https://github.com/ArtyomKingmang/Lazurite/blob/main/docs/RU.md", ::echo)
 ````
-http.request(url, method, params) - выполняет запрос на указанный адрес url, методом method c данными params (объект).
+`http.request(url, method, params)` - выполняет запрос на указанный адрес url, методом method c данными params (объект).
 
-http.request(url, method, callback) - выполняет запрос на указанный адрес url, методом method, ответ сервера передаёт в функцию callback.
+`http.request(url, method, callback)` - выполняет запрос на указанный адрес url, методом method, ответ сервера передаёт в функцию callback.
 
-http.request(url, method, params, callback) - выполняет запрос на указанный адрес url, методом method, с данными params, ответ сервера передаёт в функцию callback.
+`http.request(url, method, params, callback)` - выполняет запрос на указанный адрес url, методом method, с данными params, ответ сервера передаёт в функцию callback.
 
-http.request(url, method, params, options, callback) - выполняет запрос на указанный адрес url, методом method, с данными params, параметрами подключения options, ответ сервера передаёт в функцию callback.
+`http.request(url, method, params, options, callback)` - выполняет запрос на указанный адрес url, методом method, с данными params, параметрами подключения options, ответ сервера передаёт в функцию callback.
 
 Параметрами подключения выступает объект. Допустимы следующие параметры
 
@@ -166,12 +166,12 @@ http.request(url, method, params, options, callback) - выполняет зап
 
         content_type - Content-Type
 
-url.encode(str) - преобразует строку в URL-формат
+`url.encode(str)` - преобразует строку в URL-формат
 
 # lsoup
-lsoup.parse(url) - загружает HTML-код веб-страницы по указанному URL.
+`lsoup.parse(url)` - загружает HTML-код веб-страницы по указанному URL.
 
-lsoup.select("tag") выполняет поиск элементов с тегом "tag" в загруженном HTML-коде.
+`lsoup.select("tag")` - выполняет поиск элементов с тегом "tag" в загруженном HTML-коде.
 
 ````java
 using "lsoup"
@@ -185,7 +185,7 @@ print(result)
 # reflection
 Работа с пакетами java и конвертацией java в lazurite (и наоборот) 
 
-JClass(arg) - создает новый JavaClassValue
+`JClass(arg)` - создает новый JavaClassValue
 
 ````java
 using "reflection"
@@ -197,9 +197,16 @@ println("Locale: " + locale1)
 println("Country Name: " + locale1.getDisplayCountry());
 ````
 
-JObject(arg) - конвертирует LZRValue в java объект
+`JObject(arg)` - конвертирует LZRValue в java объект
 
-LZRValue(arg) - конвертирует java объект в LZRValue
+`LZRValue(arg)` - конвертирует java объект в LZRValue
+
+### Добавлено с версии 2.7.3
+`JUpload("jarname.jar", "com.example")` - 
+динамическая загрузка библиотеки
+из jar файла. Первый аргумент - имя jar
+файла, второй - название пакета, в котором
+должен находится класс invoker
 
 # gforms
 * [Виджеты](#Виджеты)
@@ -211,30 +218,9 @@ LZRValue(arg) - конвертирует java объект в LZRValue
   * [BorderLayout](#BorderLayout)
   * [BoxLayout](#BoxLayout)
 ## Виджеты
-Frame(title = "") - создает новое окно
+`Frame(title = "")` - создает новое окно
 
-Button(text = "") - создает новую кнопку
-
-ProgressBar(isVertical = true, min, max) - создает новый индикатор
-
-ScrollPane(view, vsbPolicy, hsbPolicy) - создает новую панель прокрутки
-
-Label(text = "", SwingConstants.LEADING) - создает новый текст
-
-Panel(layoutManager) -  создает новую панель с дополнительным менеджером макетов
-
-TextField(text = "") - создает новое текстовое поле
-
-TextArea(text = "") - создает новую текстовую область
-
-
-### Добавлено с версии 2.7.3
-
-MenuBar(menu = "", item1 = "") - создает новый menuBar. Первый аргумент - заголовок к меню.
-Последующие аргументы - ячейки в заданном меню
-
-
-FileChooser() - создает контейнер, в котором расположены несколько компонентов, списков и кнопок, «управляющих» выбором файлов
+`Button(text = "")` - создает новую кнопку
 
 ````java
 using "gforms"
@@ -247,6 +233,29 @@ window.add(button)
 window.pack()
 window.setVisible()
 ````
+
+`ProgressBar(isVertical = true, min, max)` - создает новый индикатор
+
+`ScrollPane(view, vsbPolicy, hsbPolicy)` - создает новую панель прокрутки
+
+`Label(text = "", SwingConstants.LEADING)` - создает новый текст
+
+`Panel(layoutManager)` - создает новую панель с дополнительным менеджером макетов
+
+`TextField(text = "")` - создает новое текстовое поле
+
+`TextArea(text = "")` - создает новую текстовую область
+
+
+### Добавлено с версии 2.7.3
+
+`MenuBar(menu = "", item1 = "")` - создает новый menuBar. Первый аргумент - заголовок к меню.
+Последующие аргументы - ячейки в заданном меню
+
+
+`FileChooser()` - создает контейнер, в котором расположены несколько компонентов, списков и кнопок, «управляющих» выбором файлов
+
+
 ## Функции всех виджетов
 ````
 setFont(Font)
@@ -527,6 +536,7 @@ print(output)
 `Integer.MAX_VALUE` - Константа, содержащая максимальное значение, которое может иметь int (2**31-1).
 
 `Integer.MIN_VALUE `- Константа, содержащая минимальное значение, которое может иметь int, (-2**31).
+
 #### Double
 `Double.max(arg1 = 0, arg2 = 0)` - Возвращает большее из двух значений double.
 
