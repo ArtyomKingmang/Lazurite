@@ -24,13 +24,16 @@ import static com.kingmang.lazurite.libraries.robot.robot.SYMBOL_CODES;
 import static com.kingmang.lazurite.libraries.robot.robot.TYPING_DELAY;
 
 public final class robot implements Library {
+    public static Robot lzrRobot;
 
     public static final int CLICK_DELAY = 200;
     public static final int TYPING_DELAY = 50;
-    public static Robot lzrRobot;
     static LzrMap robotKeywords;
     public static void initKeys() {
         LzrMap keys = new LzrMap(70);
+        Variables.define("CLICK_DELAY", new LzrNumber(CLICK_DELAY));
+        Variables.define("TYPING_DELAY", new LzrNumber(TYPING_DELAY));
+
         keys.set("UP", new LzrNumber(KeyEvent.VK_UP));
         keys.set("DOWN", new LzrNumber(KeyEvent.VK_DOWN));
         keys.set("LEFT", new LzrNumber(KeyEvent.VK_LEFT));
@@ -75,6 +78,7 @@ public final class robot implements Library {
         keys.set("Z", new LzrNumber(KeyEvent.VK_Z));
 
         keys.set("TAB", new LzrNumber(KeyEvent.VK_TAB));
+        keys.set("SHIFT", new LzrNumber(KeyEvent.VK_SHIFT));
         keys.set("CAPS_LOCK", new LzrNumber(KeyEvent.VK_CAPS_LOCK));
         keys.set("CONTROL", new LzrNumber(KeyEvent.VK_CONTROL));
         keys.set("ENTER", new LzrNumber(KeyEvent.VK_ENTER));
