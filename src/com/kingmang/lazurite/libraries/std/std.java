@@ -310,34 +310,5 @@ public class std implements Library {
             return new LzrMap(map);
         };
     }
-    /*
-
-    public static Value parseFloat(Value[] args) {
-            Arguments.check(1, args.length);
-            return LzrNumber.of(Float.parseFloat(args[0].asString()));
-        }
-
-        public static Value parseByte(Value[] args) {
-            Arguments.check(1, args.length);
-            return LzrNumber.of(Byte.parseByte(args[0].asString()));
-        }
-
-        public static Value parseShort(Value[] args) {
-            Arguments.check(1, args.length);
-            return LzrNumber.of(Short.parseShort(args[0].asString()));
-        }
-
-        static Value parseDouble(Value[] args) {
-            Arguments.check(1, args.length);
-            return LzrNumber.of(Double.parseDouble(args[0].asString()));
-        }
-        public static Value parseLong(Value[] args) {
-            Arguments.checkOrOr(1, 2, args.length);
-            final int radix = (args.length == 2) ? args[1].asInt() : 10;
-            return LzrNumber.of(Long.parseLong(args[0].asString(), radix));
-        }
-    }
-     */
-
 
 }

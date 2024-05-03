@@ -31,6 +31,7 @@ public class graph implements Library {
     private static LzrArray mouseHover;
 
     public static void initColors() {
+
         Variables.set("RED", new LzrNumber(16711688));
         Variables.set("GREEN", new LzrNumber(65309));
         Variables.set("BLUE", new LzrNumber(5887));
@@ -296,8 +297,6 @@ public class graph implements Library {
             return LzrNumber.ZERO;
         }
     }
-
-
 
 
     private static class rotate implements Function {
