@@ -557,9 +557,10 @@ output = std.flatmap(numbers, func(x) {
 
 print(output)
 ````
+
 ### Обертки для классов (Добавлено с 2.7.3)
 
-#### Integer
+##### Integer
 `Integer.bitCount(arg = 0)` - Возвращает количество однобитовых чисел в двоичном представлении указанного целочисленного значения.
 
 `Integer.max(arg1 = 0, arg2 = 0)` - Возвращает большее из двух значений int.
@@ -580,15 +581,55 @@ print(output)
 
 `Integer.MIN_VALUE `- Константа, содержащая минимальное значение, которое может иметь int, (-2**31).
 
-#### Double
+##### Double
 `Double.max(arg1 = 0, arg2 = 0)` - Возвращает большее из двух значений double.
 
 `Double.min(arg1 = 0, arg2 = 0)` - Возвращает меньшее из двух значений double.
 
 `Double.doubleToLongBits(arg)` - функция используется для преобразования числа типа double в его битовое представление типа long
 
+`Double.parseDouble(arg)` - Анализирует строковый аргумент как десятичное целое число со знаком.
 
+`Double.MAX_VALUE` - Константа, содержащая максимальное значение, которое может иметь double.
 
+`Double.MIN_VALUE `- Константа, содержащая минимальное значение, которое может иметь double.
+
+#### Функции String
+
+`String.valueOf(arg)`
+
+`String.format(arg,arg)`
+
+`String.join(arg,arg)`
+
+`String.CASE_INSENSITIVE_ORDER`
+
+### Коллекции (добавлено с 2.7.3)
+
+`arrayDeque` - новый ArrayDeque
+
+Функции arrayDeque:
+
+````
+arrayDeque.add()
+
+arrayDeque.remove()
+
+arrayDeque.size()
+
+arrayDeque.toArray()
+
+````
+
+`hashMap(fromMap = {})` — создаёт новый HashMap из значений fromMap
+
+`linkedHashMap(fromMap = {})` — создаёт новый LinkedHashMap из значений fromMap
+
+`concurrentHashMap(fromMap = {})` — создаёт новый ConcurrentHashMap из значений fromMap
+
+`treeMap(fromMap = {}, comparator = func(a, b) = 0)` — создаёт новый TreeMap из значений fromMap и компаратора comparator
+
+`concurrentSkipListMap(fromMap = {}, comparator = func(a, b) = 0)` — создаёт новый ConcurrentSkipListMap из значений fromMap и компаратора comparator
 # artify
 Библиотека для преобразования текста в ASCII арт.
 
