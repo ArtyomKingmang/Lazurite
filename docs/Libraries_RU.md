@@ -4,10 +4,11 @@
 * [lsoup - работа с HTML ](#lsoup)
 * [reflection - внедрение java пакетов](#reflection)
 * [gforms - графическая библиотека (виджеты)](#gforms)
-* [jloader - загрузка jar файлов в lazurite](#jloader)
-* [arrays - работа с массивами](#arrays)
+* [robot - автоматизация](#robot)
 * [async](#async)
 * [std](#std)
+* [jloader - загрузка jar файлов](#jloader)
+* [arrays - работа с массивами](#arrays)
 * [artify](#artify)
 * [base64](#base64)
 * [clipboard](#clipboard)
@@ -403,6 +404,48 @@ LINE_AXIS;
 
 PAGE_AXIS
 ````
+
+# robot
+#### Добавлено с версии 2.7.3
+Содержит методы для автоматизации 
+взаимодействия с графическим 
+интерфейсом пользователя
+
+`robot.click(buttons)` - Осуществляет клик мышью с заданными клавишами.
+
+`robot.execProcess(args...)` - Запускает процесс с указанными аргументами. Если передано несколько аргументов, они все передаются как параметры. Если передан только один массив, его элементы используются как параметры. Если передан только один параметр, он служит единственным параметром.
+````cpp
+using "robot"
+robot.execProcess("mkdir", "Hello")
+````
+
+`robot.keyPress(key)` - Зажимает клавишу с указанным кодом.
+
+````cpp
+using "robot"
+robot.keyPress(KEY.TAB)
+robot.keyPress(KEY.A)
+````
+
+`robot.keyRelease(key)` - Отпускает клавишу с указанным кодом.
+
+`robot.mouseMove(x, y)` - Перемещает указатель мыши в указанные координаты.
+
+`robot.execProcessAndWait(args...)` - Аналогично execProcess, но ожидает завершение порождаемого процесса и возвращает его статус.
+
+`robot.fromClipboard()` - Получает строку из буфера обмена.
+
+`robot.mousePress(buttons)` - Зажимает указанную кнопку мыши.
+
+`robot.mouseRelease(buttons)` - Отпускает указанную кнопку мыши.
+
+`robot.mouseWheel(value)` - Прокручивает колесо мыши (отрицательное значение - вверх, положительное - вниз).
+
+`robot.setAutoDelay(ms)` - Устанавливает задержку после каждого автоматического события.
+
+`robot.toClipboard(text)` - Копирует строку в буфер обмена.
+
+`robot.typeText(text)` - Последовательно нажимает клавиши для ввода указанного текста
 
 # jloader
 Библиотека позволяет загружать jar-файлы, не добавляя их в сам lazurite
