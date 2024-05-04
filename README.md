@@ -16,10 +16,13 @@ lsoup:
 ```cpp
 using "lsoup"
 
-lsoup.parse("https://artyomkingmang.github.io/lazurite-pages/")
-result = lsoup.select("title")
+lsoup.parse("https://www.lipsum.com")
 
-print(result)
+title = lsoup.select("title")
+text = lsoup.select("h3")
+
+println(title)
+print(text)
 ```
 
 async example:
