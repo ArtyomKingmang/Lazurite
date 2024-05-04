@@ -78,6 +78,7 @@ public final class robot implements Library {
         keys.set("Z", new LzrNumber(KeyEvent.VK_Z));
 
         keys.set("TAB", new LzrNumber(KeyEvent.VK_TAB));
+        keys.set("ALT", new LzrNumber(KeyEvent.VK_ALT));
         keys.set("SHIFT", new LzrNumber(KeyEvent.VK_SHIFT));
         keys.set("CAPS_LOCK", new LzrNumber(KeyEvent.VK_CAPS_LOCK));
         keys.set("CONTROL", new LzrNumber(KeyEvent.VK_CONTROL));
