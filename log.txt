@@ -1,0 +1,14 @@
+TypeExeption: Array or map expected. Got object in enum Type {
+    PLUS,
+    MINUS
+}
+
+print(Type.PLUS) (Thu May 09 18:58:09 MSK 2024)
+
+UnknownFunctionException : Unknown function sb in using "std"
+
+sb = stringBuffer.new()
+sb.append("Hello ")
+sb.append("Artyom")
+print(sb.toStr()) (Thu May 09 19:19:08 MSK 2024)
+

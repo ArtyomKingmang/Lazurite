@@ -1,2 +1,9 @@
-asda = 1.423;
-println(asda);
+using "std"
+
+sb = stringBuffer
+sb.newBuffer()
+
+sb.append("Hello ")
+sb.append("Artyom")
+
+print(sb.toStr())
