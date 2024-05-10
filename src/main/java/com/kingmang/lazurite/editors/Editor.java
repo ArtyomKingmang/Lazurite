@@ -51,6 +51,9 @@ public class Editor {
                     System.out.println("IOException");
                 }
             } else {
+                code.append(line);
+                code.append('\n');
+
                 line = line.replaceAll("\\b(if|else|print|println|while|class|new|for)\\b", ansi().fg(Ansi.Color.RED).a("$1").reset().toString());
                 line = line.replaceAll("\\b(return|func)\\b", ansi().fg(Ansi.Color.BLUE).a("$1").reset().toString());
                 line = line.replaceAll("//.*", ansi().fg(Ansi.Color.GREEN).a("$0").reset().toString());
