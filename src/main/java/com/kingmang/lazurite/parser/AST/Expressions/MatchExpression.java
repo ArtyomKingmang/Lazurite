@@ -33,14 +33,12 @@ public final class MatchExpression extends InterruptableNode implements Expressi
         super.interruptionCheck();
         final LzrValue value = expression.eval();
         for (Pattern p : patterns) {
-            if (p instanceof ConstantPattern) {
-                final ConstantPattern pattern = (ConstantPattern) p;
+            if (p instanceof ConstantPattern pattern) {
                 if (match(value, pattern.constant) && optMatches(p)) {
                     return evalResult(p.result);
                 }
             }
-            if (p instanceof VariablePattern) {
-                final VariablePattern pattern = (VariablePattern) p;
+            if (p instanceof VariablePattern pattern) {
                 if (pattern.variable.equals("_")) return evalResult(p.result);
 
                 if (Variables.isExists(pattern.variable)) {
@@ -57,8 +55,7 @@ public final class MatchExpression extends InterruptableNode implements Expressi
                     Variables.remove(pattern.variable);
                 }
             }
-            if ((value.type() == Types.ARRAY) && (p instanceof ListPattern)) {
-                final ListPattern pattern = (ListPattern) p;
+            if ((value.type() == Types.ARRAY) && (p instanceof ListPattern pattern)) {
                 if (matchListPattern((LzrArray) value, pattern)) {
 
                     final LzrValue result = evalResult(p.result);
@@ -68,8 +65,7 @@ public final class MatchExpression extends InterruptableNode implements Expressi
                     return result;
                 }
             }
-            if ((value.type() == Types.ARRAY) && (p instanceof TuplePattern)) {
-                final TuplePattern pattern = (TuplePattern) p;
+            if ((value.type() == Types.ARRAY) && (p instanceof TuplePattern pattern)) {
                 if (matchTuplePattern((LzrArray) value, pattern) && optMatches(p)) {
                     return evalResult(p.result);
                 }
@@ -97,10 +93,7 @@ public final class MatchExpression extends InterruptableNode implements Expressi
         final int arraySize = array.size();
         switch (partsSize) {
             case 0:
-                if ((arraySize == 0) && optMatches(p)) {
-                    return true;
-                }
-                return false;
+                return (arraySize == 0) && optMatches(p);
 
             case 1:
                 final String variable = parts.get(0);
@@ -280,7 +273,7 @@ public final class MatchExpression extends InterruptableNode implements Expressi
         public List<Expression> values;
 
         public TuplePattern() {
-            this(new ArrayList<Expression>());
+            this(new ArrayList<>());
         }
 
         public TuplePattern(List<Expression> parts) {

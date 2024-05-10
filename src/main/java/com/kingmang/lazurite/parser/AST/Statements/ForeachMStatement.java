@@ -41,7 +41,7 @@ public final class ForeachMStatement extends InterruptableNode implements Statem
                 iterateMap((LzrMap) containerValue);
                 break;
             default:
-                throw new LZRException("TypeExeption","Cannot iterate " + Types.typeToString(containerValue.type()) + " as key, value pair");
+                throw new LZRException("TypeException","Cannot iterate " + Types.typeToString(containerValue.type()) + " as key, value pair");
         }
 
         // Restore variables

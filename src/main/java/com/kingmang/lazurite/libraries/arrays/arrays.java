@@ -24,18 +24,13 @@ public final class arrays implements Library {
                 }
 
                 final LzrArray array = (LzrArray) args[0];
-                switch (args.length) {
-                    case 1:
-                        return LzrArray.joinToString(array, "", "", "");
-                    case 2:
-                        return LzrArray.joinToString(array, args[1].asString(), "", "");
-                    case 3:
-                        return LzrArray.joinToString(array, args[1].asString(), args[2].asString(), args[2].asString());
-                    case 4:
-                        return LzrArray.joinToString(array, args[1].asString(), args[2].asString(), args[3].asString());
-                    default:
-                        throw new LZRException("ArgumentsMismatchException ","Wrong number of arguments");
-                }
+                return switch (args.length) {
+                    case 1 -> LzrArray.joinToString(array, "", "", "");
+                    case 2 -> LzrArray.joinToString(array, args[1].asString(), "", "");
+                    case 3 -> LzrArray.joinToString(array, args[1].asString(), args[2].asString(), args[2].asString());
+                    case 4 -> LzrArray.joinToString(array, args[1].asString(), args[2].asString(), args[3].asString());
+                    default -> throw new LZRException("ArgumentsMismatchException ", "Wrong number of arguments");
+                };
             }
         });
         array.set("sort", new Function() {

@@ -26,7 +26,7 @@ public final class UnaryExpression implements Expression, Statement {
         
         private final String name;
 
-        private Operator(String name) {
+        Operator(String name) {
             this.name = name;
         }
 
@@ -52,39 +52,39 @@ public final class UnaryExpression implements Expression, Statement {
     @Override
     public LzrValue eval() {
         final LzrValue value = expr1.eval();
-        switch (operation) {
-            case INCREMENT_PREFIX: {
+        return switch (operation) {
+            case INCREMENT_PREFIX -> {
                 if (expr1 instanceof Accessible) {
-                    return ((Accessible) expr1).set(increment(value));
+                    yield ((Accessible) expr1).set(increment(value));
                 }
-                return increment(value);
+                yield increment(value);
             }
-            case DECREMENT_PREFIX: {
+            case DECREMENT_PREFIX -> {
                 if (expr1 instanceof Accessible) {
-                    return ((Accessible) expr1).set(decrement(value));
+                    yield ((Accessible) expr1).set(decrement(value));
                 }
-                return decrement(value);
+                yield decrement(value);
             }
-            case INCREMENT_POSTFIX: {
+            case INCREMENT_POSTFIX -> {
                 if (expr1 instanceof Accessible) {
                     ((Accessible) expr1).set(increment(value));
-                    return value;
+                    yield value;
                 }
-                return increment(value);
+                yield increment(value);
             }
-            case DECREMENT_POSTFIX: {
+            case DECREMENT_POSTFIX -> {
                 if (expr1 instanceof Accessible) {
                     ((Accessible) expr1).set(decrement(value));
-                    return value;
+                    yield value;
                 }
-                return decrement(value);
+                yield decrement(value);
             }
-            case NEGATE: return negate(value);
-            case COMPLEMENT: return complement(value);
-            case NOT: return not(value);
-            default:
-                throw new LZRException("OperationIsNotSupportedException ","Operation " + operation + " is not supported");
-        }
+            case NEGATE -> negate(value);
+            case COMPLEMENT -> complement(value);
+            case NOT -> not(value);
+            default ->
+                    throw new LZRException("OperationIsNotSupportedException ", "Operation " + operation + " is not supported");
+        };
     }
     
     private LzrValue increment(LzrValue value) {
@@ -165,12 +165,9 @@ public final class UnaryExpression implements Expression, Statement {
     
     @Override
     public String toString() {
-        switch (operation) {
-            case INCREMENT_POSTFIX:
-            case DECREMENT_POSTFIX:
-                return String.format("%s %s", expr1, operation);
-            default:
-                return String.format("%s %s", operation, expr1);
-        }
+        return switch (operation) {
+            case INCREMENT_POSTFIX, DECREMENT_POSTFIX -> String.format("%s %s", expr1, operation);
+            default -> String.format("%s %s", operation, expr1);
+        };
     }
 }

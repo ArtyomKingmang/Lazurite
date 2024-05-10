@@ -4,12 +4,11 @@ import com.kingmang.lazurite.parser.AST.Expressions.Expression;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
+@Getter
 @AllArgsConstructor
 public final class Argument {
 
-    @Getter
     private final String name;
-    @Getter
     private final Expression valueExpr;
 
     public Argument(String name) {

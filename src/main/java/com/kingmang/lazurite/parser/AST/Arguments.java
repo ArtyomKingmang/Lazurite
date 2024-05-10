@@ -2,6 +2,8 @@ package com.kingmang.lazurite.parser.AST;
 
 import com.kingmang.lazurite.exceptions.LZRException;
 import com.kingmang.lazurite.parser.AST.Expressions.Expression;
+import lombok.Getter;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -10,6 +12,7 @@ import java.util.List;
 public final class Arguments implements Iterable<Argument> {
     
     private final List<Argument> arguments;
+    @Getter
     private int requiredArgumentsCount;
 
     public Arguments() {
@@ -36,15 +39,12 @@ public final class Arguments implements Iterable<Argument> {
     public Argument get(int index) {
         return arguments.get(index);
     }
-    
-    public int getRequiredArgumentsCount() {
-        return requiredArgumentsCount;
-    }
 
     public int size() {
         return arguments.size();
     }
 
+    @NotNull
     @Override
     public Iterator<Argument> iterator() {
         return arguments.iterator();

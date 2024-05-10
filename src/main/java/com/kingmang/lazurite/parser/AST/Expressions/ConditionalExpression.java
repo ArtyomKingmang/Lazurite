@@ -6,10 +6,12 @@ import com.kingmang.lazurite.patterns.visitor.Visitor;
 import com.kingmang.lazurite.runtime.Types.LzrNumber;
 import com.kingmang.lazurite.core.Types;
 import com.kingmang.lazurite.runtime.LzrValue;
+import lombok.Getter;
 
 
 public final class ConditionalExpression implements Expression {
 
+    @Getter
     public enum Operator {
         EQUALS("=="),
         NOT_EQUALS("!="),
@@ -26,13 +28,10 @@ public final class ConditionalExpression implements Expression {
 
         private final String name;
 
-        private Operator(String name) {
+        Operator(String name) {
             this.name = name;
         }
 
-        public String getName() {
-            return name;
-        }
     }
 
     public final Expression expr1, expr2;
@@ -46,18 +45,12 @@ public final class ConditionalExpression implements Expression {
 
     @Override
     public LzrValue eval() {
-        switch (operation) {
-            case AND:
-                return LzrNumber.fromBoolean((expr1AsInt() != 0) && (expr2AsInt() != 0));
-            case OR:
-                return LzrNumber.fromBoolean((expr1AsInt() != 0) || (expr2AsInt() != 0));
-
-            case NULL_COALESCE:
-                return nullCoalesce();
-
-            default:
-                return LzrNumber.fromBoolean(evalAndCompare());
-        }
+        return switch (operation) {
+            case AND -> LzrNumber.fromBoolean((expr1AsInt() != 0) && (expr2AsInt() != 0));
+            case OR -> LzrNumber.fromBoolean((expr1AsInt() != 0) || (expr2AsInt() != 0));
+            case NULL_COALESCE -> nullCoalesce();
+            default -> LzrNumber.fromBoolean(evalAndCompare());
+        };
     }
 
     private boolean evalAndCompare() {
@@ -73,18 +66,15 @@ public final class ConditionalExpression implements Expression {
             number2 = 0;
         }
 
-        switch (operation) {
-            case EQUALS: return number1 == number2;
-            case NOT_EQUALS: return number1 != number2;
-
-            case LT: return number1 < number2;
-            case LTEQ: return number1 <= number2;
-            case GT: return number1 > number2;
-            case GTEQ: return number1 >= number2;
-
-            default:
-                throw new OperationIsNotSupportedException(operation);
-        }
+        return switch (operation) {
+            case EQUALS -> number1 == number2;
+            case NOT_EQUALS -> number1 != number2;
+            case LT -> number1 < number2;
+            case LTEQ -> number1 <= number2;
+            case GT -> number1 > number2;
+            case GTEQ -> number1 >= number2;
+            default -> throw new OperationIsNotSupportedException(operation);
+        };
     }
 
     private LzrValue nullCoalesce() {

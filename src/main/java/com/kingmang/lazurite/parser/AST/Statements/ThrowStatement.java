@@ -1,7 +1,6 @@
 package com.kingmang.lazurite.parser.AST.Statements;
 
 import com.kingmang.lazurite.exceptions.LZRException;
-import com.kingmang.lazurite.exceptions.OperationIsNotSupportedException;
 import com.kingmang.lazurite.parser.AST.Expressions.Expression;
 import com.kingmang.lazurite.patterns.visitor.ResultVisitor;
 import com.kingmang.lazurite.patterns.visitor.Visitor;
@@ -9,13 +8,11 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
+@Setter
+@Getter
 @AllArgsConstructor
 public class ThrowStatement implements Statement {
-    @Getter
-    @Setter
     private String type;
-    @Getter
-    @Setter
     private Expression expr;
 
 
