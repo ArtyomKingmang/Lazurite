@@ -67,38 +67,36 @@ public final class BinaryExpression implements Expression {
     }
     
     private LzrValue eval(LzrValue value1, LzrValue value2) {
-        switch (operation) {
-            case ADD: return add(value1, value2);
-            case SUBTRACT: return subtract(value1, value2);
-            case MULTIPLY: return multiply(value1, value2);
-            case DIVIDE: return divide(value1, value2);
-            case REMAINDER: return remainder(value1, value2);
-            case PUSH: return push(value1, value2);
-            case AND: return and(value1, value2);
-            case OR: return or(value1, value2);
-            case XOR: return xor(value1, value2);
-            case LSHIFT: return lshift(value1, value2);
-            case RSHIFT: return rshift(value1, value2);
-            case URSHIFT: return urshift(value1, value2);
-            default:
-                throw new OperationIsNotSupportedException(operation);
-        }
+        return switch (operation) {
+            case ADD -> add(value1, value2);
+            case SUBTRACT -> subtract(value1, value2);
+            case MULTIPLY -> multiply(value1, value2);
+            case DIVIDE -> divide(value1, value2);
+            case REMAINDER -> remainder(value1, value2);
+            case PUSH -> push(value1, value2);
+            case AND -> and(value1, value2);
+            case OR -> or(value1, value2);
+            case XOR -> xor(value1, value2);
+            case LSHIFT -> lshift(value1, value2);
+            case RSHIFT -> rshift(value1, value2);
+            case URSHIFT -> urshift(value1, value2);
+            default -> throw new OperationIsNotSupportedException(operation);
+        };
     }
     
     private LzrValue add(LzrValue value1, LzrValue value2) {
-        switch (value1.type()) {
-            case Types.NUMBER: return add((LzrNumber) value1, value2);
-            case Types.ARRAY: return LzrArray.add((LzrArray) value1, value2);
-            case Types.MAP:
+        return switch (value1.type()) {
+            case Types.NUMBER -> add((LzrNumber) value1, value2);
+            case Types.ARRAY -> LzrArray.add((LzrArray) value1, value2);
+            case Types.MAP -> {
                 if (value2.type() != Types.MAP)
-                    throw new LZRException("TypeExeption","Cannot merge non map value to map");
-                return LzrMap.merge((LzrMap) value1, (LzrMap) value2);
-            case Types.FUNCTION: /* TODO: combining functions */
-            case Types.STRING:
-            default:
+                    throw new LZRException("TypeException", "Cannot merge non map value to map");
+                yield LzrMap.merge((LzrMap) value1, (LzrMap) value2);
+            } /* TODO: combining functions */
+            default ->
                 // Concatenation strings
-                return new LzrString(value1.asString() + value2.asString());
-        }
+                    new LzrString(value1.asString() + value2.asString());
+        };
     }
     
     private LzrValue add(LzrNumber value1, LzrValue value2) {
@@ -131,12 +129,11 @@ public final class BinaryExpression implements Expression {
     }
     
     private LzrValue subtract(LzrValue value1, LzrValue value2) {
-        switch (value1.type()) {
-            case Types.NUMBER: return subtract((LzrNumber) value1, value2);
-            default:
-                throw new OperationIsNotSupportedException(operation,
-                        "for " + Types.typeToString(value1.type()));
+        if (value1.type() == Types.NUMBER) {
+            return subtract((LzrNumber) value1, value2);
         }
+        throw new OperationIsNotSupportedException(operation,
+                "for " + Types.typeToString(value1.type()));
     }
     
     private LzrValue subtract(LzrNumber value1, LzrValue value2) {
@@ -169,13 +166,12 @@ public final class BinaryExpression implements Expression {
     }
     
     private LzrValue multiply(LzrValue value1, LzrValue value2) {
-        switch (value1.type()) {
-            case Types.NUMBER: return multiply((LzrNumber) value1, value2);
-            case Types.STRING: return multiply((LzrString) value1, value2);
-            default:
-                throw new OperationIsNotSupportedException(operation,
-                        "for " + Types.typeToString(value1.type()));
-        }
+        return switch (value1.type()) {
+            case Types.NUMBER -> multiply((LzrNumber) value1, value2);
+            case Types.STRING -> multiply((LzrString) value1, value2);
+            default -> throw new OperationIsNotSupportedException(operation,
+                    "for " + Types.typeToString(value1.type()));
+        };
     }
     
     private LzrValue multiply(LzrNumber value1, LzrValue value2) {
@@ -210,20 +206,15 @@ public final class BinaryExpression implements Expression {
     private LzrValue multiply(LzrString value1, LzrValue value2) {
         final String string1 = value1.asString();
         final int iterations = value2.asInt();
-        final StringBuilder buffer = new StringBuilder();
-        for (int i = 0; i < iterations; i++) {
-            buffer.append(string1);
-        }
-        return new LzrString(buffer.toString());
+        return new LzrString(String.valueOf(string1).repeat(Math.max(0, iterations)));
     }
     
     private LzrValue divide(LzrValue value1, LzrValue value2) {
-        switch (value1.type()) {
-            case Types.NUMBER: return divide((LzrNumber) value1, value2);
-            default:
-                throw new OperationIsNotSupportedException(operation,
-                        "for " + Types.typeToString(value1.type()));
+        if (value1.type() == Types.NUMBER) {
+            return divide((LzrNumber) value1, value2);
         }
+        throw new OperationIsNotSupportedException(operation,
+                "for " + Types.typeToString(value1.type()));
     }
     
     private LzrValue divide(LzrNumber value1, LzrValue value2) {
@@ -256,12 +247,11 @@ public final class BinaryExpression implements Expression {
     }
     
     private LzrValue remainder(LzrValue value1, LzrValue value2) {
-        switch (value1.type()) {
-            case Types.NUMBER: return remainder((LzrNumber) value1, value2);
-            default:
-                throw new OperationIsNotSupportedException(operation,
-                        "for " + Types.typeToString(value1.type()));
+        if (value1.type() == Types.NUMBER) {
+            return remainder((LzrNumber) value1, value2);
         }
+        throw new OperationIsNotSupportedException(operation,
+                "for " + Types.typeToString(value1.type()));
     }
     
     private LzrValue remainder(LzrNumber value1, LzrValue value2) {
@@ -294,21 +284,19 @@ public final class BinaryExpression implements Expression {
     }
     
     private LzrValue push(LzrValue value1, LzrValue value2) {
-        switch (value1.type()) {
-            case Types.ARRAY: return LzrArray.add((LzrArray) value1, value2);
-            default:
-                throw new OperationIsNotSupportedException(operation,
-                        "for " + Types.typeToString(value1.type()));
+        if (value1.type() == Types.ARRAY) {
+            return LzrArray.add((LzrArray) value1, value2);
         }
+        throw new OperationIsNotSupportedException(operation,
+                "for " + Types.typeToString(value1.type()));
     }
 
     private LzrValue and(LzrValue value1, LzrValue value2) {
-        switch (value1.type()) {
-            case Types.NUMBER: return and((LzrNumber) value1, value2);
-            default:
-                throw new OperationIsNotSupportedException(operation,
-                        "for " + Types.typeToString(value1.type()));
+        if (value1.type() == Types.NUMBER) {
+            return and((LzrNumber) value1, value2);
         }
+        throw new OperationIsNotSupportedException(operation,
+                "for " + Types.typeToString(value1.type()));
     }
     
     private LzrValue and(LzrNumber value1, LzrValue value2) {
@@ -329,12 +317,11 @@ public final class BinaryExpression implements Expression {
     }
     
     private LzrValue or(LzrValue value1, LzrValue value2) {
-        switch (value1.type()) {
-            case Types.NUMBER: return or((LzrNumber) value1, value2);
-            default:
-                throw new OperationIsNotSupportedException(operation,
-                        "for " + Types.typeToString(value1.type()));
+        if (value1.type() == Types.NUMBER) {
+            return or((LzrNumber) value1, value2);
         }
+        throw new OperationIsNotSupportedException(operation,
+                "for " + Types.typeToString(value1.type()));
     }
     
     private LzrValue or(LzrNumber value1, LzrValue value2) {
@@ -355,12 +342,11 @@ public final class BinaryExpression implements Expression {
     }
     
     private LzrValue xor(LzrValue value1, LzrValue value2) {
-        switch (value1.type()) {
-            case Types.NUMBER: return xor((LzrNumber) value1, value2);
-            default:
-                throw new OperationIsNotSupportedException(operation,
-                        "for " + Types.typeToString(value1.type()));
+        if (value1.type() == Types.NUMBER) {
+            return xor((LzrNumber) value1, value2);
         }
+        throw new OperationIsNotSupportedException(operation,
+                "for " + Types.typeToString(value1.type()));
     }
     
     private LzrValue xor(LzrNumber value1, LzrValue value2) {
@@ -381,13 +367,12 @@ public final class BinaryExpression implements Expression {
     }
     
     private LzrValue lshift(LzrValue value1, LzrValue value2) {
-        switch (value1.type()) {
-            case Types.NUMBER: return lshift((LzrNumber) value1, value2);
-            case Types.ARRAY: return lshift((LzrArray) value1, value2);
-            default:
-                throw new OperationIsNotSupportedException(operation,
-                        "for " + Types.typeToString(value1.type()));
-        }
+        return switch (value1.type()) {
+            case Types.NUMBER -> lshift((LzrNumber) value1, value2);
+            case Types.ARRAY -> lshift((LzrArray) value1, value2);
+            default -> throw new OperationIsNotSupportedException(operation,
+                    "for " + Types.typeToString(value1.type()));
+        };
     }
 
     private LzrValue lshift(LzrNumber value1, LzrValue value2) {
@@ -409,17 +394,16 @@ public final class BinaryExpression implements Expression {
 
     private LzrValue lshift(LzrArray value1, LzrValue value2) {
         if (value2.type() != Types.ARRAY)
-            throw new LZRException("TypeExeption", "Cannot merge non array value to array");
+            throw new LZRException("TypeException", "Cannot merge non array value to array");
         return LzrArray.merge(value1, (LzrArray) value2);
     }
     
     private LzrValue rshift(LzrValue value1, LzrValue value2) {
-        switch (value1.type()) {
-            case Types.NUMBER: return rshift((LzrNumber) value1, value2);
-            default:
-                throw new OperationIsNotSupportedException(operation,
-                        "for " + Types.typeToString(value1.type()));
+        if (value1.type() == Types.NUMBER) {
+            return rshift((LzrNumber) value1, value2);
         }
+        throw new OperationIsNotSupportedException(operation,
+                "for " + Types.typeToString(value1.type()));
     }
     
     private LzrValue rshift(LzrNumber value1, LzrValue value2) {
@@ -440,12 +424,11 @@ public final class BinaryExpression implements Expression {
     }
     
     private LzrValue urshift(LzrValue value1, LzrValue value2) {
-        switch (value1.type()) {
-            case Types.NUMBER: return urshift((LzrNumber) value1, value2);
-            default:
-                throw new OperationIsNotSupportedException(operation,
-                        "for " + Types.typeToString(value1.type()));
+        if (value1.type() == Types.NUMBER) {
+            return urshift((LzrNumber) value1, value2);
         }
+        throw new OperationIsNotSupportedException(operation,
+                "for " + Types.typeToString(value1.type()));
     }
     
     private LzrValue urshift(LzrNumber value1, LzrValue value2) {

@@ -15,14 +15,12 @@ import lombok.Getter;
 import java.util.List;
 
 
+@Getter
 public final class ContainerAccessExpression implements Expression, Accessible {
 
-    @Getter
     public final Expression root;
-    @Getter
     public final List<Expression> indices;
-    @Getter
-    private boolean rootIsVariable;
+    private final boolean rootIsVariable;
 
     public ContainerAccessExpression(String variable, List<Expression> indices) {
         this(new VariableExpression(variable), indices);
@@ -44,22 +42,14 @@ public final class ContainerAccessExpression implements Expression, Accessible {
     public LzrValue get() {
         final LzrValue container = getContainer();
         final LzrValue lastIndex = lastIndex();
-        switch (container.type()) {
-            case Types.ARRAY:
-                return ((LzrArray) container).get(lastIndex);
-
-            case Types.MAP:
-                return ((LzrMap) container).get(lastIndex);
-
-            case Types.STRING:
-                return ((LzrString) container).access(lastIndex);
-                
-            case Types.CLASS:
-                return ((ClassInstanceValue) container).access(lastIndex);
-                
-            default:
-                throw new LZRException("TypeExeption","Array or map expected. Got " + Types.typeToString(container.type()));
-        }
+        return switch (container.type()) {
+            case Types.ARRAY -> ((LzrArray) container).get(lastIndex);
+            case Types.MAP -> ((LzrMap) container).get(lastIndex);
+            case Types.STRING -> ((LzrString) container).access(lastIndex);
+            case Types.CLASS -> ((ClassInstanceValue) container).access(lastIndex);
+            default ->
+                    throw new LZRException("TypeException", "Array or map expected. Got " + Types.typeToString(container.type()));
+        };
     }
 
     @Override
@@ -81,7 +71,7 @@ public final class ContainerAccessExpression implements Expression, Accessible {
                 return value;
                 
             default:
-                throw new LZRException("TypeExeption","Array or map expected. Got " + container.type());
+                throw new LZRException("TypeException","Array or map expected. Got " + container.type());
         }
     }
     
@@ -90,19 +80,14 @@ public final class ContainerAccessExpression implements Expression, Accessible {
         final int last = indices.size() - 1;
         for (int i = 0; i < last; i++) {
             final LzrValue index = index(i);
-            switch (container.type()) {
-                case Types.ARRAY:
+            container = switch (container.type()) {
+                case Types.ARRAY -> {
                     final int arrayIndex = index.asInt();
-                    container = ((LzrArray) container).get(arrayIndex);
-                    break;
-                    
-                case Types.MAP:
-                    container = ((LzrMap) container).get(index);
-                    break;
-                    
-                default:
-                    throw new LZRException("TypeExeption","Array or map expected");
-            }
+                    yield ((LzrArray) container).get(arrayIndex);
+                }
+                case Types.MAP -> ((LzrMap) container).get(index);
+                default -> throw new LZRException("TypeException", "Array or map expected");
+            };
         }
         return container;
     }
@@ -117,7 +102,7 @@ public final class ContainerAccessExpression implements Expression, Accessible {
     
     public LzrMap consumeMap(LzrValue value) {
         if (value.type() != Types.MAP) {
-            throw new LZRException("TypeExeption","Map expected");
+            throw new LZRException("TypeException","Map expected");
         }
         return (LzrMap) value;
     }

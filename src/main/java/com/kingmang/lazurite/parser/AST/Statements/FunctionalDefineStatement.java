@@ -6,8 +6,6 @@ import com.kingmang.lazurite.patterns.visitor.ResultVisitor;
 import com.kingmang.lazurite.patterns.visitor.Visitor;
 import com.kingmang.lazurite.runtime.UserDefinedFunction;
 
-import java.util.List;
-
 public class FunctionalDefineStatement implements Statement {
     private final String name;
     private final Arguments argNames;

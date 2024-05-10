@@ -25,10 +25,8 @@ public final class IncludeStatement extends InterruptableNode implements Stateme
         super.interruptionCheck();
         try {
             final Statement program = loadProgram(expression.eval().asString());
-            if (program != null) {
-                program.accept(new FunctionAdder());
-                program.execute();
-            }
+            program.accept(new FunctionAdder());
+            program.execute();
         } catch (Exception ex) {
             throw new RuntimeException(ex);
         }
