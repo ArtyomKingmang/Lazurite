@@ -12,3 +12,31 @@ sb.append("Hello ")
 sb.append("Artyom")
 print(sb.toStr()) (Thu May 09 19:19:08 MSK 2024)
 
+UnknownFunctionException : Unknown function SQUARE in using "std"
+
+macro SQUARE(x) = x * x
+
+print(SQUARE(5))
+ (Thu May 09 21:10:19 MSK 2024)
+
+UnknownFunctionException : Unknown function SQUARE in using "std"
+
+macro SQUARE(x){
+    x * x
+}
+
+print(SQUARE(5))
+ (Thu May 09 21:10:31 MSK 2024)
+
+UnknownFunctionException : Unknown function fn in using "std"
+#define fn() Integer.parseInt("5")
+
+
+fn("5") (Fri May 10 08:52:05 MSK 2024)
+
+UnknownFunctionException : Unknown function fn in using "std"
+#define fn() Integer.parseInt("5")
+
+
+fn() (Fri May 10 08:52:15 MSK 2024)
+

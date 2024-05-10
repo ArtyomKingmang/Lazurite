@@ -28,6 +28,8 @@ public final class LexerImplementation implements Lexer {
 
     //ключевые слова
     private static final String[] keywords = {
+            "enum",
+            "macro",
             "throw",
             "print",
             "println",
@@ -44,8 +46,7 @@ public final class LexerImplementation implements Lexer {
             "case",
             "include",
             "class",
-            "new",
-            "enum"
+            "new"
     };
 
     private final String input;

@@ -3,6 +3,8 @@ package com.kingmang.lazurite.parser.parse;
 
 public enum TokenType {
     //KEYWORDS
+    ENUM,
+    MACRO,
     THROW,
     PRINT,
     PRINTLN,
@@ -20,7 +22,6 @@ public enum TokenType {
     INCLUDE,
     CLASS,
     NEW,
-    ENUM,
 
     NUMBER,
     HEX_NUMBER,

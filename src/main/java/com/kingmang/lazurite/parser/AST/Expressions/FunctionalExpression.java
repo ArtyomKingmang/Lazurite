@@ -11,6 +11,7 @@ import com.kingmang.lazurite.patterns.visitor.Visitor;
 import com.kingmang.lazurite.runtime.Types.LzrFunction;
 import com.kingmang.lazurite.runtime.LzrValue;
 import com.kingmang.lazurite.runtime.Variables;
+import lombok.AllArgsConstructor;
 
 
 import java.util.ArrayList;
@@ -18,6 +19,7 @@ import java.util.Iterator;
 import java.util.List;
 
 
+@AllArgsConstructor
 public final class FunctionalExpression extends InterruptableNode implements Expression, Statement {
     public final Expression functionExpr;
     public final List<Expression> arguments;

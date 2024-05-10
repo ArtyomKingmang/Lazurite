@@ -15,6 +15,7 @@ public class Preprocessor {
 
         macros.put("Lazurite", "\"" + RunnerInfo.getVersion() + "\"");
 
+        StringBuilder codeBuilder = new StringBuilder(code);
         for (String line : lines) {
             List<String> parts = Arrays.asList(line.split(" "));
             if (parts.isEmpty()) continue;
@@ -25,7 +26,7 @@ public class Preprocessor {
                     String id = parts.get(1);
                     String replacement = String.join(" ", parts.subList(2, parts.size()));
                     if (id.contains("(")) {
-                        code = "\n" + "func " + id + " return " + replacement + "\n" + code;
+                        codeBuilder.insert(0, "\n" + "func " + id + " return " + replacement + "\n");
                         continue;
                     }
                     macros.put(id, replacement);
@@ -47,6 +48,7 @@ public class Preprocessor {
                     break;
             }
         }
+        code = codeBuilder.toString();
 
         lines = Arrays.asList(code.split("\n"));
         StringBuilder result = new StringBuilder();

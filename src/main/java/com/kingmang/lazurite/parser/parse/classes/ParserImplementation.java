@@ -143,6 +143,10 @@ public final class ParserImplementation {
     }
 
     private Statement statement() {
+
+        if (lookMatch(0, TokenType.WORD) && macros.containsKey(get(0).getText())) {
+            return macroUsage();
+        }
        if (match(TokenType.PRINT)) {
             return new PrintStatement(expression());
         }
@@ -176,6 +180,9 @@ public final class ParserImplementation {
         if (match(TokenType.FOR)) {
             return forStatement();
         }
+        if(match(TokenType.MACRO)){
+            return macro();
+        }
         if (match(TokenType.FUNC)) {
             return functionDefine();
         }
@@ -192,6 +199,24 @@ public final class ParserImplementation {
             return throwSt();
         }
         return assignmentStatement();
+    }
+
+    private Statement macro() {
+        String name = consume(TokenType.WORD).getText();
+        Arguments args = arguments();
+        Statement block = statementOrBlock();
+        macros.put(name, args.size());
+        return new FunctionalDefineStatement(name, args, block);
+    }
+
+    private Statement macroUsage() {
+        String name = consume(TokenType.WORD).getText();
+        ArrayList<Expression> exprs = new ArrayList<>();
+        for (int i = 0; i < macros.get(name); i++) {
+            exprs.add(expression());
+        }
+        FunctionalExpression func = new FunctionalExpression(new VariableExpression(name), exprs);
+        return func;
     }
 
     private Statement throwSt() {

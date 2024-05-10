@@ -1,9 +1,0 @@
-using "std"
-
-sb = stringBuffer
-sb.newBuffer()
-
-sb.append("Hello ")
-sb.append("Artyom")
-
-print(sb.toStr())

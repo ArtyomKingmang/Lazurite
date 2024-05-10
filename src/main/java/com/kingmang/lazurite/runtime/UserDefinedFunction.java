@@ -9,16 +9,18 @@ import com.kingmang.lazurite.parser.AST.Statements.Statement;
 import com.kingmang.lazurite.runtime.Types.LzrNumber;
 import lombok.AllArgsConstructor;
 
+import java.util.List;
+
 @AllArgsConstructor
 public class UserDefinedFunction implements Function {
-    
+
     public final Arguments arguments;
     public final Statement body;
-    
+
     public int getArgsCount() {
         return arguments.size();
     }
-    
+
     public String getArgsName(int index) {
         if (index < 0 || index >= getArgsCount()) return "";
         return arguments.get(index).getName();
