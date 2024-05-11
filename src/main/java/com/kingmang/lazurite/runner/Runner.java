@@ -18,6 +18,7 @@ import java.util.Map;
 public class Runner {
 
     public static void main(String[] args) throws IOException {
+
         if (args.length < 1) {
             console();
         } else {
@@ -30,11 +31,12 @@ public class Runner {
             case "help", "-h" -> RunnerInfo.Command();
             case "editor", "-e" -> Editor.openEditor();
             case "version", "-v" -> versionCMD();
-            case "run", "r" -> runCMD(cmd);
+            case "run", "-r" -> runCMD(cmd);
             case "new", "-n" -> newCMD(cmd);
             default -> System.out.println("Command not found!");
         }
     }
+
 
     private static void console() throws IOException {
         RunnerInfo.Console();
@@ -47,11 +49,11 @@ public class Runner {
 
             String[] cmd = sc.readLine().split(" ");
             switch (cmd[0]) {
-                case "help", "h" -> RunnerInfo.Console();
-                case "editor", "e" -> Editor.openEditor();
-                case "version", "v" -> versionCMD();
-                case "run", "r" -> runCMD(cmd);
-                case "new", "n" -> newCMD(cmd);
+                case "help", "-h" -> RunnerInfo.Console();
+                case "editor", "-e" -> Editor.openEditor();
+                case "version", "-v" -> versionCMD();
+                case "run", "-r" -> runCMD(cmd);
+                case "new", "-n" -> newCMD(cmd);
                 case "cls" -> {
                     System.out.print("\033[H\033[2J");
                     System.out.flush();
@@ -138,19 +140,20 @@ public class Runner {
     }
 
     private static void newCMD(String[] cmd) throws IOException {
-        if (cmd[cmd.length-1].startsWith("-") || !cmd[cmd.length-1].matches("^[a-z0-9\\-]+$")) {
+        String name = cmd[cmd.length-1];
+        if (name.startsWith("-") || !name.matches("^[a-z0-9\\-]+$")) {
             System.out.println("Name of project should contain only `a-z`, `0-9` and `-`");
             return;
         }
         boolean is_lib = cmd[1].equals("--lib") || cmd[1].equals("-l");
-        File dir = new File(String.format("%s/%s", System.getProperty("user.dir"), cmd[cmd.length-1]));
+        File dir = new File(String.format("%s/%s", System.getProperty("user.dir"), name));
         final Path path = dir.toPath();
 
         if (Files.exists(path) && Files.isDirectory(path)) {
             try (DirectoryStream<Path> directory = Files.newDirectoryStream(path)) {
                 if (directory.iterator().hasNext()) {
                     directory.close();
-                    System.out.println("Can't create project " + cmd[cmd.length-1] + " in existing folder that contains something in it");
+                    System.out.println("Can't create project " + name + " in existing folder that contains something in it");
                     return;
                 }
             }
@@ -170,7 +173,7 @@ public class Runner {
             try {
                 FileWriter writer = new FileWriter(path
                         + "/src/main.lzr");
-                writer.write("func main() {}");
+                writer.write("print(\"Hello World\")");
                 writer.close();
             } catch (IOException e) {
                 System.out.println("IOException");
@@ -180,7 +183,7 @@ public class Runner {
         try {
             Map<String, Object> settings_map = new HashMap<>() {{
                 put("package", new HashMap<>() {{
-                    put("name", cmd[cmd.length-1]);
+                    put("name", name);
                     put("version", "0.1.0");
                     if (is_lib) {
                         put("lib_file", "/src/lib.lzr");
