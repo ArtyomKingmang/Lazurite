@@ -143,61 +143,61 @@ public final class ParserImplementation {
     }
 
     private Statement statement() {
-
-        if (lookMatch(0, TokenType.WORD) && macros.containsKey(get(0).getText())) {
+       if (lookMatch(0, TokenType.WORD) && macros.containsKey(get(0).getText())) {
             return macroUsage();
-        }
+       }
        if (match(TokenType.PRINT)) {
             return new PrintStatement(expression());
-        }
-        if (match(TokenType.PRINTLN)) {
+       }
+       if (match(TokenType.PRINTLN)) {
             return new PrintlnStatement(expression());
-        }
-        if (match(TokenType.IF)) {
+       }
+       if (match(TokenType.IF)) {
             return ifElse();
-        }
-        if (match(TokenType.WHILE)) {
+       }
+       if (match(TokenType.WHILE)) {
             return whileStatement();
-        }
-        if (match(TokenType.BREAK)) {
+       }
+       if (match(TokenType.BREAK)) {
             return new BreakStatement();
-        }
-        if (match(TokenType.CONTINUE)) {
+       }
+       if (match(TokenType.CONTINUE)) {
             return new ContinueStatement();
-        }
-        if (match(TokenType.RETURN)) {
+       }
+       if (match(TokenType.RETURN)) {
             return new ReturnStatement(expression());
-        }
-        if(match(TokenType.ENUM)){
+       }
+       if(match(TokenType.ENUM)){
             return enums();
-        }
-        if (match(TokenType.USING)) {
+       }
+       if (match(TokenType.USING)) {
             return new UsingStatement(expression());
-        }
-        if (match(TokenType.INCLUDE)) {
+       }
+       if (match(TokenType.INCLUDE)) {
             return new IncludeStatement(expression());
-        }
-        if (match(TokenType.FOR)) {
+       }
+       if (match(TokenType.FOR)) {
             return forStatement();
-        }
-        if(match(TokenType.MACRO)){
+       }
+       if(match(TokenType.MACRO)){
             return macro();
-        }
-        if (match(TokenType.FUNC)) {
+       }
+       if (match(TokenType.FUNC)) {
             return functionDefine();
-        }
-        if (match(TokenType.SWITCH)) {
+       }
+       if (match(TokenType.SWITCH)) {
             return match();
-        }
-        if (match(TokenType.CLASS)) {
+       }
+       if (match(TokenType.CLASS)) {
             return classDeclaration();
-        }
-        if (lookMatch(0, TokenType.WORD) && lookMatch(1, TokenType.LPAREN)) {
+       }
+       if (lookMatch(0, TokenType.WORD) && lookMatch(1, TokenType.LPAREN)) {
             return new ExprStatement(functionChain(qualifiedName()));
 
-        }else if (match(TokenType.THROW)){
+       }
+       else if (match(TokenType.THROW)){
             return throwSt();
-        }
+       }
         return assignmentStatement();
     }
 
@@ -206,7 +206,7 @@ public final class ParserImplementation {
         Arguments args = arguments();
         Statement block = statementOrBlock();
         macros.put(name, args.size());
-        return new FunctionalDefineStatement(name, args, block);
+        return new FunctionDefineStatement(name, args, block);
     }
 
     private Statement macroUsage() {
