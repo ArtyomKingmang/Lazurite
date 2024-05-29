@@ -5,6 +5,7 @@ import java.io.IOException;
 
 public class TestRunner {
     public static void main(String[] args) throws IOException {
+
         StringBuilder builder = new StringBuilder();
         String path = "test/";
         builder.append(path);

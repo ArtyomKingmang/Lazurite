@@ -1,0 +1,780 @@
+UnknownFunctionException : Unknown function circle in using "graph"
+using "ML"
+using "std"
+using "random"
+using "time"
+
+w = 800  h = 600
+w2 = w/2
+h2 = h/2
+Frame(w, h)
+
+// поле
+fieldWidth = 5000
+fieldHeight = 3000
+fieldX = random(fieldWidth) - w2
+fieldY = random(fieldHeight) - h2
+
+// еда
+NUM_FOOD = 350
+food = Array(4, NUM_FOOD)
+
+for i = 0, i < NUM_FOOD, i++ {
+    food[0][i] = random(fieldWidth)
+    food[1][i] = random(fieldHeight)
+    food[2][i] = 6 + random(2)
+    food[3][i] = random(#ffffff)
+}
+
+// игрок
+playerSize = 8
+playerColor = random(#ffffff)
+
+run = 1
+while run {
+    mouse = mouseHover()
+    angle = ml.atan2(mouse[1] - h2, mouse[0] - w2)
+    fieldX += ml.cos(angle) * 50/playerSize
+    fieldY += ml.sin(angle) * 50/playerSize
+    if (fieldX < -w2) fieldX = -w2
+    else if (fieldX > fieldWidth - w2 - 1) fieldX = fieldWidth - w2 - 1
+    if (fieldY < -h2) fieldY = -h2
+    else if (fieldY > fieldHeight - h2 - 1) fieldY = fieldHeight - h2 - 1
+
+    // очистка экрана
+    fill(#ffffff)
+    rect(0, 0, w, h)
+    // граница
+    fill(#333333)
+    lrect(-fieldX, -fieldY, fieldWidth, fieldHeight)
+
+    for i = 0, i < NUM_FOOD, i++ {
+        dx = food[0][i] - fieldX - w2
+        dy = food[1][i] - fieldY - h2
+        rad = food[2][i] + playerSize
+        if ( (dx*dx + dy*dy) < (rad*rad) ) {
+            // есть столкновение
+            playerSize++
+            food[0][i] = random(w)
+            food[1][i] = random(h)
+            food[2][i] = 6 + random(2)
+            food[3][i] = random(#ffffff)
+        }
+        // отрисовка еды
+        fill(food[3][i])
+        circle(food[0][i] - fieldX, food[1][i] - fieldY, food[2][i])
+    }
+
+    // отрисовка игрока
+    fill(playerColor)
+    circle(w2, h2, playerSize)
+    fill(0)
+    text(playerSize, w2-7, h2+4)
+
+    Redraw()
+    sleep(20)
+}
+
+
+func circle(cx, cy, rad) ellipse(cx-rad, cy-rad, 2*rad, 2*rad) (Sun May 12 18:31:30 MSK 2024)
+
+UnknownFunctionException : Unknown function circle in using "graph"
+using "ML"
+using "std"
+using "random"
+using "time"
+
+w = 800  h = 600
+w2 = w/2
+h2 = h/2
+Frame(w, h)
+
+// поле
+fieldWidth = 5000
+fieldHeight = 3000
+fieldX = random(fieldWidth) - w2
+fieldY = random(fieldHeight) - h2
+
+// еда
+NUM_FOOD = 350
+food = Array(4, NUM_FOOD)
+
+for i = 0, i < NUM_FOOD, i++ {
+    food[0][i] = random(fieldWidth)
+    food[1][i] = random(fieldHeight)
+    food[2][i] = 6 + random(2)
+    food[3][i] = random(#ffffff)
+}
+
+// игрок
+playerSize = 8
+playerColor = random(#ffffff)
+
+run = 1
+while run {
+    mouse = mouseHover()
+    angle = ml.atan2(mouse[1] - h2, mouse[0] - w2)
+    fieldX += ml.cos(angle) * 50/playerSize
+    fieldY += ml.sin(angle) * 50/playerSize
+    if (fieldX < -w2) fieldX = -w2
+    else if (fieldX > fieldWidth - w2 - 1) fieldX = fieldWidth - w2 - 1
+    if (fieldY < -h2) fieldY = -h2
+    else if (fieldY > fieldHeight - h2 - 1) fieldY = fieldHeight - h2 - 1
+
+    // очистка экрана
+    fill(#ffffff)
+    rect(0, 0, w, h)
+    // граница
+    fill(#333333)
+    lrect(-fieldX, -fieldY, fieldWidth, fieldHeight)
+
+    for i = 0, i < NUM_FOOD, i++ {
+        dx = food[0][i] - fieldX - w2
+        dy = food[1][i] - fieldY - h2
+        rad = food[2][i] + playerSize
+        if ( (dx*dx + dy*dy) < (rad*rad) ) {
+            // есть столкновение
+            playerSize++
+            food[0][i] = random(w)
+            food[1][i] = random(h)
+            food[2][i] = 6 + random(2)
+            food[3][i] = random(#ffffff)
+        }
+        // отрисовка еды
+        fill(food[3][i])
+        circle(food[0][i] - fieldX, food[1][i] - fieldY, food[2][i])
+    }
+
+    // отрисовка игрока
+    fill(playerColor)
+    circle(w2, h2, playerSize)
+    fill(0)
+    text(playerSize, w2-7, h2+4)
+
+    Redraw()
+    sleep(20)
+}
+
+
+func circle(cx, cy, rad) {
+    ellipse(cx-rad, cy-rad, 2*rad, 2*rad)
+} (Sun May 12 18:32:15 MSK 2024)
+
+UnknownFunctionException : Unknown function circle in using "graph"
+using "ML"
+using "std"
+using "random"
+using "time"
+
+w = 800  h = 600
+w2 = w/2
+h2 = h/2
+Frame(w, h)
+
+// поле
+fieldWidth = 5000
+fieldHeight = 3000
+fieldX = random(fieldWidth) - w2
+fieldY = random(fieldHeight) - h2
+
+// еда
+NUM_FOOD = 350
+food = Array(4, NUM_FOOD)
+
+for i = 0, i < NUM_FOOD, i++ {
+    food[0][i] = random(fieldWidth)
+    food[1][i] = random(fieldHeight)
+    food[2][i] = 6 + random(2)
+    food[3][i] = random(#ffffff)
+}
+
+// игрок
+playerSize = 8
+playerColor = random(#ffffff)
+
+run = 1
+while run {
+    mouse = mouseHover()
+    angle = ml.atan2(mouse[1] - h2, mouse[0] - w2)
+    fieldX += ml.cos(angle) * 50/playerSize
+    fieldY += ml.sin(angle) * 50/playerSize
+    if (fieldX < -w2) fieldX = -w2
+    else if (fieldX > fieldWidth - w2 - 1) fieldX = fieldWidth - w2 - 1
+    if (fieldY < -h2) fieldY = -h2
+    else if (fieldY > fieldHeight - h2 - 1) fieldY = fieldHeight - h2 - 1
+
+    // очистка экрана
+    fill(#ffffff)
+    rect(0, 0, w, h)
+    // граница
+    fill(#333333)
+    lrect(-fieldX, -fieldY, fieldWidth, fieldHeight)
+
+    for i = 0, i < NUM_FOOD, i++ {
+        dx = food[0][i] - fieldX - w2
+        dy = food[1][i] - fieldY - h2
+        rad = food[2][i] + playerSize
+        if ( (dx*dx + dy*dy) < (rad*rad) ) {
+            // есть столкновение
+            playerSize++
+            food[0][i] = random(w)
+            food[1][i] = random(h)
+            food[2][i] = 6 + random(2)
+            food[3][i] = random(#ffffff)
+        }
+        // отрисовка еды
+        fill(food[3][i])
+        circle(food[0][i] - fieldX, food[1][i] - fieldY, food[2][i])
+    }
+
+    // отрисовка игрока
+    fill(playerColor)
+    circle(w2, h2, playerSize)
+    fill(0)
+    text(playerSize, w2-7, h2+4)
+
+    Redraw()
+    time.sleep(20)
+}
+
+
+func circle(cx, cy, rad) {
+    ellipse(cx-rad, cy-rad, 2*rad, 2*rad)
+} (Sun May 12 18:32:29 MSK 2024)
+
+UnknownFunctionException : Unknown function test in test()
+
+macro test(){
+    print("HGello")
+}
+ (Sat May 18 11:44:57 MSK 2024)
+
+UnknownFunctionException : Unknown function test in test()
+
+func test(){
+    print("HGello")
+}
+ (Sat May 18 11:45:07 MSK 2024)
+
+UnknownFunctionException : Unknown function test in 
+test()
+
+func test(){
+    print("HGello")
+}
+
+ (Sat May 18 11:48:55 MSK 2024)
+
+UnknownFunctionException : Unknown function test in 
+test()
+
+func test(){
+    print("HGello")
+}
+
+ (Sat May 18 11:49:17 MSK 2024)
+
+UnknownFunctionException : Unknown function test in 
+test()
+
+func test(){
+    print("HGello")
+}
+
+ (Sat May 18 11:51:07 MSK 2024)
+
+VariableDoesNotExistsException: Variableidoes not exists in func test(i){
+    if(i == 0) return
+    print(i-- + "")
+    test(i)
+}
+
+test(0)
+
+ (Mon May 20 16:28:26 MSK 2024)
+
+UnknownFunctionException : Unknown function Label in 
+chatHistory = Label("<html>ChatGPT<br>")
+messageField = TextField()
+sendButton = Button("Send")
+
+
+
+
+messagePanel = Panel()
+messagePanel.setLayout(boxLayout(messagePanel, BoxLayout.LINE_AXIS))
+messagePanel.add(messageField)
+messagePanel.add(sendButton)
+
+mainPanel = Panel(borderLayout(10, 10))
+mainPanel.setPreferredSize(400, 250)
+mainPanel.add(chatHistory, BorderLayout.CENTER)
+mainPanel.add(messagePanel, BorderLayout.SOUTH)
+
+window = Frame("ChatGPT")
+window.setMinimumSize(200, 220)
+window.setLocationByPlatform()
+window.add(mainPanel)
+window.pack()
+window.setVisible() (Mon May 20 16:42:56 MSK 2024)
+
+UnknownFunctionException : Unknown function Label in 
+chatHistory = Label()
+messageField = TextField()
+sendButton = Button("Send")
+
+
+messagePanel = Panel()
+messagePanel.setLayout(boxLayout(messagePanel, BoxLayout.LINE_AXIS))
+messagePanel.add(messageField)
+messagePanel.add(sendButton)
+
+mainPanel = Panel(borderLayout(10, 10))
+mainPanel.setPreferredSize(400, 250)
+mainPanel.add(chatHistory, BorderLayout.CENTER)
+mainPanel.add(messagePanel, BorderLayout.SOUTH)
+
+window = Frame("ChatGPT")
+window.setMinimumSize(200, 220)
+window.setLocationByPlatform()
+window.add(mainPanel)
+window.pack()
+window.setVisible() (Mon May 20 16:43:15 MSK 2024)
+
+UnknownFunctionException : Unknown function Label in 
+chatHistory = Label("ChatGPT")
+messageField = TextField()
+sendButton = Button("Send")
+
+messageField.onAction(::onSend)
+sendButton.onClick(::onSend)
+func onSend() {
+  text = messageField.getText()
+  if (length(text) == 0) return 0
+  messageField.setText("")
+  chatHistory.setText(chatHistory.getText() + "<br><b>you</b> > " + text)
+
+
+}
+
+messagePanel = newPanel()
+messagePanel.setLayout(boxLayout(messagePanel, BoxLayout.LINE_AXIS))
+messagePanel.add(messageField)
+messagePanel.add(sendButton)
+
+mainPanel = newPanel(borderLayout(10, 10))
+mainPanel.setPreferredSize(400, 250)
+mainPanel.add(chatHistory, BorderLayout.CENTER)
+mainPanel.add(messagePanel, BorderLayout.SOUTH)
+
+window = newWindow("ChatGPT")
+window.setMinimumSize(200, 220)
+window.setLocationByPlatform()
+window.add(mainPanel)
+window.pack()
+window.setVisible() (Mon May 20 16:48:17 MSK 2024)
+
+UnknownFunctionException : Unknown function onSend in using "gforms"
+chatHistory = Label("ChatGPT")
+messageField = TextField()
+sendButton = Button("Send")
+
+messageField.onAction(::onSend)
+sendButton.onClick(::onSend)
+func onSend() {
+  text = messageField.getText()
+  if (length(text) == 0) return 0
+  messageField.setText("")
+  chatHistory.setText(chatHistory.getText() + "<br><b>you</b> > " + text)
+
+
+}
+
+messagePanel = Panel()
+messagePanel.setLayout(boxLayout(messagePanel, BoxLayout.LINE_AXIS))
+messagePanel.add(messageField)
+messagePanel.add(sendButton)
+
+mainPanel = Panel(borderLayout(10, 10))
+mainPanel.setPreferredSize(400, 250)
+mainPanel.add(chatHistory, BorderLayout.CENTER)
+mainPanel.add(messagePanel, BorderLayout.SOUTH)
+
+window = Frame("ChatGPT")
+window.setMinimumSize(200, 220)
+window.setLocationByPlatform()
+window.add(mainPanel)
+window.pack()
+window.setVisible() (Mon May 20 16:48:53 MSK 2024)
+
+UnknownFunctionException : Unknown function test in use "graph"
+
+fun test(){
+    bring "Hello World"
+}
+
+test()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#define using use
+#define func fun
+#define println bring (Mon May 20 16:54:34 MSK 2024)
+
+UnknownFunctionException : Unknown function test in #define using use
+#define func fun
+#define println bring
+
+use "graph"
+
+fun test(){
+    bring "Hello World"
+}
+
+test()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ (Mon May 20 16:54:58 MSK 2024)
+
+UnknownFunctionException : Unknown function test in 
+#define func fun
+#define println bring
+
+
+fun test(){
+    bring "Hello World"
+}
+
+test()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ (Mon May 20 16:55:17 MSK 2024)
+
+UnknownFunctionException : Unknown function test in 
+#define func fun
+#define println bring
+
+
+fun test(){
+    bring("Hello World")
+}
+
+test()
+
+
+
+
+
+
+
+
+
+
+
+ (Mon May 20 16:55:35 MSK 2024)
+
+VariableDoesNotExistsException: VariableColordoes not exists in using "canvasfx"
+g = lgl.window("JavaFX Basic shapes", 300, 250)
+g.setFill(Color.GREEN)
+g.setStroke(Color.BLUE)
+g.setLineWidth(5)
+g.strokeLine(40, 10, 10, 40)
+g.fillOval(10, 60, 30, 30)
+g.strokeOval(60, 60, 30, 30)
+g.fillRoundRect(110, 60, 30, 30, 10, 10)
+g.strokeRoundRect(160, 60, 30, 30, 10, 10)
+g.fillArc(10, 110, 30, 30, 45, 240, ArcType.OPEN)
+g.fillArc(60, 110, 30, 30, 45, 240, ArcType.CHORD)
+g.fillArc(110, 110, 30, 30, 45, 240, ArcType.ROUND)
+g.strokeArc(10, 160, 30, 30, 45, 240, ArcType.OPEN)
+g.strokeArc(60, 160, 30, 30, 45, 240, ArcType.CHORD)
+g.strokeArc(110, 160, 30, 30, 45, 240, ArcType.ROUND)
+g.fillPolygon([10, 40, 10, 40], [210, 210, 240, 240], 4)
+g.strokePolygon([60, 90, 60, 90], [210, 210, 240, 240], 4)
+g.strokePolyline([110, 140, 110, 140], [210, 210, 240, 240], 4)
+repaint() (Mon May 27 18:48:39 MSK 2024)
+
+UnknownFunctionException : Unknown function onMouseMoved in using "canvasfx"
+w = 800   h = 600
+g = window("JavaFX Event handler example", w, h)
+
+addEventHandler(Events.MOUSE_MOVED, ::onMouseMoved)
+addEventHandler(Events.MOUSE_DRAGGED, ::onMouseMoved)
+addEventHandler(Events.KEY_PRESSED, def(e) {
+  if (e.code == KeyCode.C) clearRect(0, 0, w, h)
+})
+
+func onMouseMoved(e) {
+  g.setFill(Color.rgb(rand(255), rand(255), rand(255), rand()))
+  m = 1 + e.isPrimaryButtonDown + e.isSecondaryButtonDown
+  radius = m * rand(30, 50)
+  g.fillOval(e.x - radius/2, e.y - radius/2, radius, radius)
+} (Mon May 27 18:53:52 MSK 2024)
+
+UnknownFunctionException : Unknown function onMouseMoved in using "canvasfx"
+using "random"
+w = 800   h = 600
+g = window("JavaFX Event handler example", w, h)
+
+addEventHandler(Events.MOUSE_MOVED, ::onMouseMoved)
+addEventHandler(Events.MOUSE_DRAGGED, ::onMouseMoved)
+addEventHandler(Events.KEY_PRESSED, def(e) {
+  if (e.code == KeyCode.C) clearRect(0, 0, w, h)
+})
+
+func onMouseMoved(e) {
+  g.setFill(Color.rgb(rand(255), rand(255), rand(255), random()))
+  m = 1 + e.isPrimaryButtonDown + e.isSecondaryButtonDown
+  radius = m * rand(30, 50)
+  g.fillOval(e.x - radius/2, e.y - radius/2, radius, radius)
+} (Mon May 27 18:57:22 MSK 2024)
+
+UnknownFunctionException : Unknown function onMouseMoved in using "canvasfx"
+using "random"
+w = 800   h = 600
+g = window("JavaFX Event handler example", w, h)
+
+addEventHandler(Events.MOUSE_MOVED, ::onMouseMoved)
+addEventHandler(Events.MOUSE_DRAGGED, ::onMouseMoved)
+addEventHandler(Events.KEY_PRESSED, def(e) {
+  if (e.code == KeyCode.C) clearRect(0, 0, w, h)
+})
+
+func onMouseMoved(e) {
+  g.setFill(Color.rgb(rand(255), rand(255), rand(255), random()))
+  m = 1 + e.isPrimaryButtonDown + e.isSecondaryButtonDown
+  radius = m * random(30, 50)
+  g.fillOval(e.x - radius/2, e.y - radius/2, radius, radius)
+} (Mon May 27 18:57:30 MSK 2024)
+
+VariableDoesNotExistsException: Variableedoes not exists in using "canvasfx"
+using "random"
+
+func onMouseMoved(e) {
+  g.setFill(Color.rgb(rand(255), rand(255), rand(255), random()))
+  m = 1 + e.isPrimaryButtonDown + e.isSecondaryButtonDown
+  radius = m * random(30, 50)
+  g.fillOval(e.x - radius/2, e.y - radius/2, radius, radius)
+}
+
+w = 800   h = 600
+g = window("JavaFX Event handler example", w, h)
+
+addEventHandler(Events.MOUSE_MOVED, ::onMouseMoved)
+addEventHandler(Events.MOUSE_DRAGGED, ::onMouseMoved)
+addEventHandler(Events.KEY_PRESSED, def(e) {
+  if (e.code == KeyCode.C) clearRect(0, 0, w, h)
+})
+
+ (Mon May 27 18:57:50 MSK 2024)
+
+UnknownFunctionException : Unknown function Glow in using "canvasfx"
+g = window("JavaFX Image negation demo", 400, 400)
+
+
+g.setEffect(Glow())
+
+player = loadImage("https://purepng.com/public/uploads/large/purepng.com-mariomariofictional-charactervideo-gamefranchisenintendodesigner-1701528634653vywuz.png")
+
+g.drawImage(player,0,0) (Mon May 27 19:55:58 MSK 2024)
+
+UnknownFunctionException : Unknown function loadImage in using "canvasfx"
+g = window("JavaFX Image negation demo", 400, 400)
+
+
+g.setEffect(GlowEffect())
+
+player = loadImage("https://purepng.com/public/uploads/large/purepng.com-mariomariofictional-charactervideo-gamefranchisenintendodesigner-1701528634653vywuz.png")
+
+g.drawImage(player,0,0) (Mon May 27 19:56:16 MSK 2024)
+
+UnknownFunctionException : Unknown function LFrame in using "lgl"
+g = LFrame("JavaFX Image negation demo", 300, 450)
+
+
+
+
+player = createImage("https://purepng.com/public/uploads/large/purepng.com-mariomariofictional-charactervideo-gamefranchisenintendodesigner-1701528634653vywuz.png")
+
+g.setEffect(BloomEffect())
+g.drawImage(player,0,0,200,200)
+
+g.setEffect(GlowEffect())
+g.image(player,0,200,200,200) (Mon May 27 20:04:03 MSK 2024)
+
+UnknownFunctionException : Unknown function LFrame in using "lgl"
+g = LFrame("JavaFX Image negation demo", 300, 450)
+
+
+
+
+player = createImage("https://purepng.com/public/uploads/large/purepng.com-mariomariofictional-charactervideo-gamefranchisenintendodesigner-1701528634653vywuz.png")
+
+g.setEffect(BloomEffect())
+g.drawImage(player,0,0,200,200)
+
+g.setEffect(GlowEffect())
+g.drawImage(player,0,200,200,200) (Mon May 27 20:04:10 MSK 2024)
+
+UnknownFunctionException : Unknown function BloomEffect in using "lgl"
+g = window("JavaFX Image negation demo", 300, 450)
+
+
+
+
+player = createImage("https://purepng.com/public/uploads/large/purepng.com-mariomariofictional-charactervideo-gamefranchisenintendodesigner-1701528634653vywuz.png")
+
+g.setEffect(BloomEffect())
+g.drawImage(player,0,0,200,200)
+
+g.setEffect(GlowEffect())
+g.drawImage(player,0,200,200,200) (Mon May 27 20:04:22 MSK 2024)
+
+VariableDoesNotExistsException: Variableinputdoes not exists in using "lgl"
+using "ML"
+using "std"
+width = 675
+height = 500
+context = LFrame("Koch Snowflake", width, height)
+
+GO = 0
+TURN = 1
+
+func Fractal(startStep = 0) {
+  result = {}
+  result.fract = startStep ? [[GO, startStep]] : []
+  result.next = func(fract) {
+    fractal = Fractal()
+    def translate(input) = input[0] == GO ? [input[0], input[1] / 3] : input
+    fractlist = map(fract, ::translate)
+    fractal.fract = fractlist
+    fractal.fract ::= [TURN, -PI / 3]
+    fractal.fract <<= fractlist
+    fractal.fract ::= [TURN, 2*PI / 3]
+    fractal.fract <<= fractlist
+    fractal.fract ::= [TURN, -PI / 3]
+    fractal.fract <<= fractlist
+    return fractal
+  }
+  result.toDraw = func(fract) {
+    res = Fractal()
+    res.fract = fract
+    res.fract ::= [TURN, 2*PI / 3]
+    res.fract <<= fract
+    res.fract ::= [TURN, 2*PI / 3]
+    res.fract <<= fract
+    return res
+  }
+  return result
+}
+
+func draw(fractal) {
+  x = 200
+  y = height - 100 / sqrt(3)
+  angle = -PI / 2
+  context.setFill(Color.BLACK)
+  context.fillRect(0, 0, width, height)
+  context.setStroke(Color.GREEN)
+  context.beginPath()
+  context.moveTo(x, y)
+  for action : fractal.fract {
+    match action[0] {
+      case GO: {
+        x += action[1] * cos(angle)
+        y += action[1] * sin(angle)
+        context.lineTo(x, y)
+      }
+      case TURN: angle += action[1]
+    }
+  }
+  context.closePath()
+  context.stroke()
+}
+
+fractal = Fractal(400.0)
+draw(fractal.toDraw(fractal.fract))
+addEventHandler(Events.KEY_PRESSED, func(e) {
+  if (e.code == KeyCode.SPACE) {
+    fractal = fractal.next(fractal.fract)
+    draw(fractal.toDraw(fractal.fract))
+  }
+})
+ (Mon May 27 20:39:33 MSK 2024)
+
+Type: Array or string required in 'using' statement, got string an in using "an"
+print(HAPPY) (Mon May 27 20:45:15 MSK 2024)
+
