@@ -1,8 +1,10 @@
-package com.kingmang.lazurite.libraries.lgl.value;
+package com.kingmang.lazurite.libraries.lgl.value.graphics;
 
 import com.kingmang.lazurite.core.Arguments;
 import com.kingmang.lazurite.core.Types;
 import com.kingmang.lazurite.exceptions.LZRException;
+import com.kingmang.lazurite.libraries.lgl.value.ColorValue;
+import com.kingmang.lazurite.libraries.lgl.value.ImageValue;
 import com.kingmang.lazurite.runtime.LzrValue;
 import com.kingmang.lazurite.runtime.Types.LzrArray;
 import com.kingmang.lazurite.runtime.Types.LzrMap;

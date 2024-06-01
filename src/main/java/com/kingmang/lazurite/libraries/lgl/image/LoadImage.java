@@ -5,6 +5,7 @@ import com.kingmang.lazurite.core.Function;
 import com.kingmang.lazurite.libraries.lgl.value.ImageValue;
 import com.kingmang.lazurite.runtime.LzrValue;
 import com.kingmang.lazurite.runtime.Types.LzrArray;
+import javafx.scene.image.Image;
 import javafx.scene.image.PixelWriter;
 import javafx.scene.image.WritableImage;
 import javafx.scene.image.WritablePixelFormat;
@@ -16,12 +17,9 @@ public class LoadImage implements Function {
         @Override
         public LzrValue execute(LzrValue[] args) {
             Arguments.checkAtLeast(1, args.length);
-            final javafx.scene.image.Image result = switch (args.length) {
-                // createImage(url)
-                case 1 -> new javafx.scene.image.Image(args[0].asString());
-                // createImage(width, height)
+            final Image result = switch (args.length) {
+                case 1 -> new Image(args[0].asString());
                 default -> new WritableImage(args[0].asInt(), args[1].asInt());
-                // createImage(w, h, pixels)
                 case 3 -> {
                     final int w = args[0].asInt();
                     final int h = args[1].asInt();

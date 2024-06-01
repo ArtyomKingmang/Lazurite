@@ -47,7 +47,6 @@ public class ColorValue implements LzrValue {
         }
         
 
-        
         @Override
         public String toString() {
             return "Color " + color;

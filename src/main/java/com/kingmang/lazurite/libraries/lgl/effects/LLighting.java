@@ -6,9 +6,10 @@ import com.kingmang.lazurite.runtime.LzrValue;
 import com.kingmang.lazurite.runtime.Types.LzrArray;
 import javafx.scene.effect.Effect;
 import javafx.scene.effect.Light;
+import javafx.scene.effect.Lighting;
 import javafx.scene.paint.Color;
 
-public class Lighting implements Function {
+public class LLighting implements Function {
         @Override
         public LzrValue execute(LzrValue[] args) {
             Light light;
@@ -22,7 +23,7 @@ public class Lighting implements Function {
                         l.get(3).asNumber(), (Color) l.get(4).raw());
                 default -> null;
             };
-            javafx.scene.effect.Lighting effect = new javafx.scene.effect.Lighting(light);
+            Lighting effect = new Lighting(light);
             if (args.length >= 2) {
                 effect.setSurfaceScale(args[1].asNumber());
             }

@@ -14,25 +14,25 @@ import com.kingmang.lazurite.libraries.lgl.color.Hsb;
 import com.kingmang.lazurite.libraries.lgl.color.NewColor;
 import com.kingmang.lazurite.libraries.lgl.color.Rgb;
 import com.kingmang.lazurite.libraries.lgl.color.Web;
-import com.kingmang.lazurite.libraries.lgl.effects.Blend;
-import com.kingmang.lazurite.libraries.lgl.effects.Bloom;
-import com.kingmang.lazurite.libraries.lgl.effects.BoxBlur;
-import com.kingmang.lazurite.libraries.lgl.effects.ColorAdjust;
-import com.kingmang.lazurite.libraries.lgl.effects.ColorInput;
-import com.kingmang.lazurite.libraries.lgl.effects.DropShadow;
-import com.kingmang.lazurite.libraries.lgl.effects.GaussianBlur;
-import com.kingmang.lazurite.libraries.lgl.effects.Glow;
-import com.kingmang.lazurite.libraries.lgl.effects.InnerShadow;
-import com.kingmang.lazurite.libraries.lgl.effects.Lighting;
-import com.kingmang.lazurite.libraries.lgl.effects.MotionBlur;
-import com.kingmang.lazurite.libraries.lgl.effects.PerspectiveTransform;
-import com.kingmang.lazurite.libraries.lgl.effects.Reflection;
-import com.kingmang.lazurite.libraries.lgl.effects.SepiaTone;
-import com.kingmang.lazurite.libraries.lgl.effects.Shadow;
+import com.kingmang.lazurite.libraries.lgl.effects.LBlend;
+import com.kingmang.lazurite.libraries.lgl.effects.LBloom;
+import com.kingmang.lazurite.libraries.lgl.effects.LBoxBlur;
+import com.kingmang.lazurite.libraries.lgl.effects.LColorAdjust;
+import com.kingmang.lazurite.libraries.lgl.effects.LColorInput;
+import com.kingmang.lazurite.libraries.lgl.effects.LDropShadow;
+import com.kingmang.lazurite.libraries.lgl.effects.LGaussianBlur;
+import com.kingmang.lazurite.libraries.lgl.effects.LGlow;
+import com.kingmang.lazurite.libraries.lgl.effects.LInnerShadow;
+import com.kingmang.lazurite.libraries.lgl.effects.LLighting;
+import com.kingmang.lazurite.libraries.lgl.effects.LMotionBlur;
+import com.kingmang.lazurite.libraries.lgl.effects.LPerspectiveTransform;
+import com.kingmang.lazurite.libraries.lgl.effects.LReflection;
+import com.kingmang.lazurite.libraries.lgl.effects.LSepiaTone;
+import com.kingmang.lazurite.libraries.lgl.effects.LShadow;
 import com.kingmang.lazurite.libraries.lgl.event.Events;
 import com.kingmang.lazurite.libraries.lgl.image.LoadImage;
 import com.kingmang.lazurite.libraries.lgl.value.ColorValue;
-import com.kingmang.lazurite.libraries.lgl.value.GraphicsValue;
+import com.kingmang.lazurite.libraries.lgl.value.graphics.GraphicsValue;
 import com.kingmang.lazurite.runtime.LzrValue;
 import com.kingmang.lazurite.runtime.Types.*;
 import com.kingmang.lazurite.runtime.Variables;
@@ -66,25 +66,27 @@ public final class lgl implements Library {
 
     @Override
     public void init() {
-        Keyword.put("LFrame", new LFrame());
-        Keyword.put("Redraw", new Redraw());
+        final LzrMap lgl = new LzrMap(2);
+        lgl.set("createFrame", new LFrame());
+        lgl.set("redraw", new Redraw());
 
+        Variables.define("lgl", lgl);
         LzrMap effect = new LzrMap(14);
-        effect.set("Blend", new Blend());
-        effect.set("Bloom", new Bloom());
-        effect.set("BoxBlur", new BoxBlur());
-        effect.set("ColorAdjust", new ColorAdjust());
-        effect.set("ColorInput", new ColorInput());
-        effect.set("DropShadow", new DropShadow());
-        effect.set("GaussianBlur", new GaussianBlur());
-        effect.set("Glow", new Glow());
-        effect.set("InnerShadow", new InnerShadow());
-        effect.set("Lighting", new Lighting());
-        effect.set("MotionBlur", new MotionBlur());
-        effect.set("PerspectiveTransform", new PerspectiveTransform());
-        effect.set("Reflection", new Reflection());
-        effect.set("SepiaTone", new SepiaTone());
-        effect.set("Shadow", new Shadow());
+        effect.set("Blend", new LBlend());
+        effect.set("Bloom", new LBloom());
+        effect.set("BoxBlur", new LBoxBlur());
+        effect.set("ColorAdjust", new LColorAdjust());
+        effect.set("ColorInput", new LColorInput());
+        effect.set("DropShadow", new LDropShadow());
+        effect.set("GaussianBlur", new LGaussianBlur());
+        effect.set("Glow", new LGlow());
+        effect.set("InnerShadow", new LInnerShadow());
+        effect.set("Lighting", new LLighting());
+        effect.set("MotionBlur", new LMotionBlur());
+        effect.set("PerspectiveTransform", new LPerspectiveTransform());
+        effect.set("Reflection", new LReflection());
+        effect.set("SepiaTone", new LSepiaTone());
+        effect.set("Shadow", new LShadow());
 
         Keyword.put("loadImage", new LoadImage());
 
@@ -203,7 +205,7 @@ public final class lgl implements Library {
             frame.add(panel);
             frame.pack();
             frame.setVisible(true);
-            
+
             Platform.runLater(() -> {
                 Group root = new Group();
                 Scene scene = new Scene(root, Color.WHITE);

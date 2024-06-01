@@ -3,19 +3,22 @@ package com.kingmang.lazurite.libraries.lgl.effects;
 import com.kingmang.lazurite.core.Function;
 import com.kingmang.lazurite.libraries.lgl.value.EffectValue;
 import com.kingmang.lazurite.runtime.LzrValue;
+import javafx.scene.effect.BlendMode;
 import javafx.scene.effect.Effect;
 
-public class BoxBlur implements Function {
+public class LBlend implements Function {
         @Override
         public LzrValue execute(LzrValue[] args) {
-            javafx.scene.effect.BoxBlur effect = new javafx.scene.effect.BoxBlur();
+            javafx.scene.effect.Blend effect = new javafx.scene.effect.Blend();
+            if (args.length >= 1) {
+                effect.setMode(BlendMode.values()[args[0].asInt()]);
+            }
             if (args.length >= 3) {
-                effect.setWidth(args[0].asNumber());
-                effect.setHeight(args[1].asNumber());
-                effect.setIterations(args[2].asInt());
+                effect.setBottomInput((Effect)args[1].raw());
+                effect.setTopInput((Effect)args[2].raw());
             }
             if (args.length >= 4) {
-                effect.setInput((Effect)args[3].raw());
+                effect.setOpacity(args[3].asNumber());
             }
             return new EffectValue(effect);
         }

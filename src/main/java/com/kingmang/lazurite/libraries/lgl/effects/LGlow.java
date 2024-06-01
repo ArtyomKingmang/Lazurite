@@ -4,11 +4,12 @@ import com.kingmang.lazurite.core.Function;
 import com.kingmang.lazurite.libraries.lgl.value.EffectValue;
 import com.kingmang.lazurite.runtime.LzrValue;
 import javafx.scene.effect.Effect;
+import javafx.scene.effect.Glow;
 
-public class SepiaTone implements Function {
+public class LGlow implements Function {
         @Override
         public LzrValue execute(LzrValue[] args) {
-            javafx.scene.effect.SepiaTone effect = new javafx.scene.effect.SepiaTone();
+            Glow effect = new Glow();
             if (args.length >= 1) {
                 effect.setLevel(args[0].asNumber());
             }
