@@ -1,6 +1,6 @@
 package com.kingmang.lazurite.parser.AST;
 
-import com.kingmang.lazurite.exceptions.LZRException;
+import com.kingmang.lazurite.exceptions.LzrException;
 import com.kingmang.lazurite.parser.AST.Expressions.Expression;
 import lombok.Getter;
 import org.jetbrains.annotations.NotNull;
@@ -20,7 +20,7 @@ public final class Arguments implements Iterable<Argument> {
         requiredArgumentsCount = 0;
     }
     public static void check(int expected, int got) {
-        if (got != expected) throw new LZRException("ArgumentException ",String.format(
+        if (got != expected) throw new LzrException("ArgumentException ",String.format(
                 "%d %s expected, got %d", expected, pluralize(expected), got));
     }
 

@@ -3,7 +3,7 @@ package com.kingmang.lazurite.libraries.robot;
 import com.kingmang.lazurite.core.Arguments;
 import com.kingmang.lazurite.core.Function;
 import com.kingmang.lazurite.core.Types;
-import com.kingmang.lazurite.exceptions.LZRException;
+import com.kingmang.lazurite.exceptions.LzrException;
 import com.kingmang.lazurite.libraries.Library;
 import com.kingmang.lazurite.runtime.Types.LzrArray;
 import com.kingmang.lazurite.runtime.Types.LzrMap;
@@ -140,7 +140,7 @@ public final class robot implements Library {
             lzrRobot = new Robot();
             return true;
         } catch (AWTException ex) {
-            throw new LZRException("RuntimeException ", "Unable to create robot instance" + ex);
+            throw new LzrException("RuntimeException ", "Unable to create robot instance" + ex);
         }
     }
 

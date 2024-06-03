@@ -1,6 +1,6 @@
 package com.kingmang.lazurite.runtime.Types;
 
-import com.kingmang.lazurite.exceptions.LZRException;
+import com.kingmang.lazurite.exceptions.LzrException;
 import com.kingmang.lazurite.core.*;
 import com.kingmang.lazurite.libraries.Keyword;
 import com.kingmang.lazurite.runtime.LzrValue;
@@ -63,7 +63,7 @@ public final class LzrString implements LzrValue {
                 }
                 break;
         }
-        throw new LZRException("UnknownPropertyException ",prop);
+        throw new LzrException("UnknownPropertyException ",prop);
     }
 
     public int length() {

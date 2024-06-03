@@ -2,7 +2,7 @@ package com.kingmang.lazurite.libraries.std;
 
 import com.kingmang.lazurite.core.Arguments;
 import com.kingmang.lazurite.core.Function;
-import com.kingmang.lazurite.exceptions.LZRException;
+import com.kingmang.lazurite.exceptions.LzrException;
 import com.kingmang.lazurite.libraries.Keyword;
 import com.kingmang.lazurite.core.Types;
 import com.kingmang.lazurite.libraries.Library;
@@ -158,7 +158,7 @@ public class std implements Library {
         public LzrValue execute(LzrValue... args) {
             Arguments.check(2, args.length);
             if (args[0].type() != Types.ARRAY) {
-                throw new LZRException("TypeExeption ", "Array expected in first argument");
+                throw new LzrException("TypeExeption ", "Array expected in first argument");
             }
             final Function mapper = ValueUtils.consumeFunction(args[1], 1);
             return flatMapArray((LzrArray) args[0], mapper);
@@ -170,7 +170,7 @@ public class std implements Library {
             for (int i = 0; i < size; i++) {
                 final LzrValue inner = mapper.execute(array.get(i));
                 if (inner.type() != Types.ARRAY) {
-                    throw new LZRException("TypeExeption ", "Array expected " + inner);
+                    throw new LzrException("TypeExeption ", "Array expected " + inner);
                 }
                 for (LzrValue value : (LzrArray) inner) {
                     values.add(value);
@@ -347,7 +347,7 @@ public class std implements Library {
                 if (args[0].type() == Types.MAP) {
                     map.putAll(((LzrMap) args[0]).getMap());
                 } else {
-                    throw new LZRException("TypeException ","Map expected in first argument");
+                    throw new LzrException("TypeException ","Map expected in first argument");
                 }
             }
             return new LzrMap(map);
@@ -373,12 +373,12 @@ public class std implements Library {
                         final Function comparator = ValueUtils.consumeFunction(args[0], 0);
                         map = comparatorToMapFunction.apply((o1, o2) -> comparator.execute(o1, o2).asInt());
                     } else {
-                        throw new LZRException("TypeException ","Map or comparator function expected in first argument");
+                        throw new LzrException("TypeException ","Map or comparator function expected in first argument");
                     }
                     break;
                 case 2: // treeMap(map, comparator)
                     if (args[0].type() != Types.MAP) {
-                        throw new LZRException("TypeException ", "Map expected in first argument");
+                        throw new LzrException("TypeException ", "Map expected in first argument");
                     }
                     final Function comparator = ValueUtils.consumeFunction(args[1], 1);
                     map = comparatorToMapFunction.apply((o1, o2) -> comparator.execute(o1, o2).asInt());

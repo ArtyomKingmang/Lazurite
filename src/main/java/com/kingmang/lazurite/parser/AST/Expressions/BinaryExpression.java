@@ -1,6 +1,6 @@
 package com.kingmang.lazurite.parser.AST.Expressions;
 
-import com.kingmang.lazurite.exceptions.LZRException;
+import com.kingmang.lazurite.exceptions.LzrException;
 import com.kingmang.lazurite.exceptions.OperationIsNotSupportedException;
 import com.kingmang.lazurite.patterns.visitor.ResultVisitor;
 import com.kingmang.lazurite.patterns.visitor.Visitor;
@@ -90,7 +90,7 @@ public final class BinaryExpression implements Expression {
             case Types.ARRAY -> LzrArray.add((LzrArray) value1, value2);
             case Types.MAP -> {
                 if (value2.type() != Types.MAP)
-                    throw new LZRException("TypeException", "Cannot merge non map value to map");
+                    throw new LzrException("TypeException", "Cannot merge non map value to map");
                 yield LzrMap.merge((LzrMap) value1, (LzrMap) value2);
             } /* TODO: combining functions */
             default ->
@@ -394,7 +394,7 @@ public final class BinaryExpression implements Expression {
 
     private LzrValue lshift(LzrArray value1, LzrValue value2) {
         if (value2.type() != Types.ARRAY)
-            throw new LZRException("TypeException", "Cannot merge non array value to array");
+            throw new LzrException("TypeException", "Cannot merge non array value to array");
         return LzrArray.merge(value1, (LzrArray) value2);
     }
     

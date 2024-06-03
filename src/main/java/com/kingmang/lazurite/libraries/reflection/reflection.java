@@ -1,7 +1,7 @@
 package com.kingmang.lazurite.libraries.reflection;
 
 import com.kingmang.lazurite.core.*;
-import com.kingmang.lazurite.exceptions.LZRException;
+import com.kingmang.lazurite.exceptions.LzrException;
 import com.kingmang.lazurite.libraries.Keyword;
 import com.kingmang.lazurite.libraries.Library;
 import com.kingmang.lazurite.runtime.*;
@@ -74,7 +74,7 @@ public final class reflection implements Library {
             Library module = (Library) Class.forName(addressLib + ".invoker", true, child).newInstance();
             module.init();
         } catch (MalformedURLException | ClassNotFoundException | InstantiationException | IllegalAccessException e) {
-            throw new LZRException(e.getLocalizedMessage(), e.getMessage());
+            throw new LzrException(e.getLocalizedMessage(), e.getMessage());
         }
 
         return LzrNumber.MINUS_ONE;

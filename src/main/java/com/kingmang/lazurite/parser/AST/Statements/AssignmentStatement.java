@@ -1,6 +1,6 @@
 package com.kingmang.lazurite.parser.AST.Statements;
 
-import com.kingmang.lazurite.exceptions.LZRException;
+import com.kingmang.lazurite.exceptions.LzrException;
 import com.kingmang.lazurite.parser.AST.Expressions.Expression;
 import com.kingmang.lazurite.patterns.visitor.ResultVisitor;
 import com.kingmang.lazurite.patterns.visitor.Visitor;
@@ -60,7 +60,7 @@ public final class AssignmentStatement implements Statement {
                     Variables.set(variable, new LzrString(Variables.get(variable).toString() + result.toString()));
                 }
                 else{
-                    throw new LZRException("TypeError", "non-applicable operation to string");
+                    throw new LzrException("TypeError", "non-applicable operation to string");
                 }
             }
         }

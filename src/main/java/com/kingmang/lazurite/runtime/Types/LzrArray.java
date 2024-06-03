@@ -1,6 +1,6 @@
 package com.kingmang.lazurite.runtime.Types;
 
-import com.kingmang.lazurite.exceptions.LZRException;
+import com.kingmang.lazurite.exceptions.LzrException;
 import com.kingmang.lazurite.core.*;
 import com.kingmang.lazurite.runtime.LzrValue;
 
@@ -122,12 +122,12 @@ public class LzrArray implements LzrValue, Iterable<LzrValue> {
 
     @Override
     public int asInt() {
-        throw new LZRException("TypeExeption","Cannot cast array to integer");
+        throw new LzrException("TypeExeption","Cannot cast array to integer");
     }
 
     @Override
     public double asNumber() {
-        throw new LZRException("TypeExeption","Cannot cast array to number");
+        throw new LzrException("TypeExeption","Cannot cast array to number");
     }
 
     @Override

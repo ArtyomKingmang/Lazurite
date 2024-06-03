@@ -1,6 +1,6 @@
 package com.kingmang.lazurite.runtime;
 
-import com.kingmang.lazurite.exceptions.LZRException;
+import com.kingmang.lazurite.exceptions.LzrException;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.jetbrains.annotations.NotNull;
@@ -14,12 +14,12 @@ public class Reference implements LzrValue, Serializable {
     private Object ref;
     @Override
     public int asInt() {
-        throw new LZRException("BadArithmetic", "Cannot cast REFERENCE to a NUMBER");
+        throw new LzrException("BadArithmetic", "Cannot cast REFERENCE to a NUMBER");
     }
 
     @Override
     public double asNumber() {
-        throw new LZRException("BadArithmetic", "Cannot cast REFERENCE to a NUMBER");
+        throw new LzrException("BadArithmetic", "Cannot cast REFERENCE to a NUMBER");
     }
 
     @Override

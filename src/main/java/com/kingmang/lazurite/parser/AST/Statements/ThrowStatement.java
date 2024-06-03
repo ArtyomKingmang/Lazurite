@@ -1,6 +1,6 @@
 package com.kingmang.lazurite.parser.AST.Statements;
 
-import com.kingmang.lazurite.exceptions.LZRException;
+import com.kingmang.lazurite.exceptions.LzrException;
 import com.kingmang.lazurite.parser.AST.Expressions.Expression;
 import com.kingmang.lazurite.patterns.visitor.ResultVisitor;
 import com.kingmang.lazurite.patterns.visitor.Visitor;
@@ -18,7 +18,7 @@ public class ThrowStatement implements Statement {
 
     @Override
     public void execute() {
-        throw new LZRException(type, expr.eval().toString());
+        throw new LzrException(type, expr.eval().toString());
     }
 
     @Override

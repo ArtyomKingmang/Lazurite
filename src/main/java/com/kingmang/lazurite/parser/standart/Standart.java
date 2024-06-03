@@ -1,6 +1,6 @@
 package com.kingmang.lazurite.parser.standart;
 
-import com.kingmang.lazurite.exceptions.LZRException;
+import com.kingmang.lazurite.exceptions.LzrException;
 import com.kingmang.lazurite.core.Arguments;
 import com.kingmang.lazurite.core.Function;
 import com.kingmang.lazurite.core.Types;
@@ -51,7 +51,7 @@ public class Standart {
             Function result = null;
             for (LzrValue arg : args) {
                 if (arg.type() != Types.FUNCTION) {
-                    throw new LZRException("TypeException ", arg + " is not a function");
+                    throw new LzrException("TypeException ", arg + " is not a function");
                 }
                 final Function current = result;
                 final Function next = ((LzrFunction) arg).getValue();
@@ -245,7 +245,7 @@ public class Standart {
                     return map;
 
                 default:
-                    throw new LZRException("TypeExeption ","Cannot iterate " + Types.typeToString(container.type()));
+                    throw new LzrException("TypeExeption ","Cannot iterate " + Types.typeToString(container.type()));
             }
         }
     }
@@ -272,7 +272,7 @@ public class Standart {
                 return filterMap((LzrMap) container, predicate, takeWhile);
             }
 
-            throw new LZRException("TypeExeption", "Invalid first argument. Array or map expected");
+            throw new LzrException("TypeExeption", "Invalid first argument. Array or map expected");
         }
 
         private LzrValue filterArray(LzrArray array, Function predicate, boolean takeWhile) {
@@ -554,7 +554,7 @@ public class Standart {
                 }
                 return result;
             }
-            throw new LZRException("TypeExeption", "Invalid first argument. Array or map expected");
+            throw new LzrException("TypeExeption", "Invalid first argument. Array or map expected");
         }
     }
 
@@ -603,7 +603,7 @@ public class Standart {
                 return mapMap((LzrMap) container, keyMapper, valueMapper);
             }
 
-            throw new LZRException("TypeException ","Invalid first argument. Array or map expected");
+            throw new LzrException("TypeException ","Invalid first argument. Array or map expected");
         }
 
         static LzrArray mapArray(LzrArray array, Function mapper) {

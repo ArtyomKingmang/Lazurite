@@ -1,6 +1,6 @@
 package com.kingmang.lazurite.parser.parse.classes;
 
-import com.kingmang.lazurite.exceptions.LZRException;
+import com.kingmang.lazurite.exceptions.LzrException;
 import com.kingmang.lazurite.libraries.Keyword;
 import com.kingmang.lazurite.core.Types;
 
@@ -309,8 +309,8 @@ public final class LexerImplementation implements Lexer {
         tokens.add(new Token(type, text, row, col));
     }
     
-    private LZRException error(String text) {
-        return new LZRException("Lexer exeption","Lexer error");
+    private LzrException error(String text) {
+        return new LzrException("Lexer exeption","Lexer error");
     }
 
     //добавление ключевых слов из массива keywords в Map KEYWORDS

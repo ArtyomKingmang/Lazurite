@@ -1,6 +1,6 @@
 package com.kingmang.lazurite.parser.AST.Expressions;
 
-import com.kingmang.lazurite.exceptions.LZRException;
+import com.kingmang.lazurite.exceptions.LzrException;
 import com.kingmang.lazurite.core.*;
 import com.kingmang.lazurite.parser.AST.Accessible;
 import com.kingmang.lazurite.patterns.visitor.ResultVisitor;
@@ -48,7 +48,7 @@ public final class ContainerAccessExpression implements Expression, Accessible {
             case Types.STRING -> ((LzrString) container).access(lastIndex);
             case Types.CLASS -> ((ClassInstanceValue) container).access(lastIndex);
             default ->
-                    throw new LZRException("TypeException", "Array or map expected. Got " + Types.typeToString(container.type()));
+                    throw new LzrException("TypeException", "Array or map expected. Got " + Types.typeToString(container.type()));
         };
     }
 
@@ -71,7 +71,7 @@ public final class ContainerAccessExpression implements Expression, Accessible {
                 return value;
                 
             default:
-                throw new LZRException("TypeException","Array or map expected. Got " + container.type());
+                throw new LzrException("TypeException","Array or map expected. Got " + container.type());
         }
     }
     
@@ -86,7 +86,7 @@ public final class ContainerAccessExpression implements Expression, Accessible {
                     yield ((LzrArray) container).get(arrayIndex);
                 }
                 case Types.MAP -> ((LzrMap) container).get(index);
-                default -> throw new LZRException("TypeException", "Array or map expected");
+                default -> throw new LzrException("TypeException", "Array or map expected");
             };
         }
         return container;
@@ -102,7 +102,7 @@ public final class ContainerAccessExpression implements Expression, Accessible {
     
     public LzrMap consumeMap(LzrValue value) {
         if (value.type() != Types.MAP) {
-            throw new LZRException("TypeException","Map expected");
+            throw new LzrException("TypeException","Map expected");
         }
         return (LzrMap) value;
     }

@@ -2,7 +2,7 @@ package com.kingmang.lazurite.libraries.lgl.value.graphics;
 
 import com.kingmang.lazurite.core.Arguments;
 import com.kingmang.lazurite.core.Types;
-import com.kingmang.lazurite.exceptions.LZRException;
+import com.kingmang.lazurite.exceptions.LzrException;
 import com.kingmang.lazurite.libraries.lgl.value.ColorValue;
 import com.kingmang.lazurite.libraries.lgl.value.ImageValue;
 import com.kingmang.lazurite.runtime.LzrValue;
@@ -102,7 +102,7 @@ public class GraphicsValue extends LzrMap {
 
         private LzrValue applyEffect(LzrValue[] args) {
             if (args[0].type() != FX_EFFECT_TYPE) {
-                throw new LZRException("TypeException: ", "Effect expected, found " + Types.typeToString(args[0].type()));
+                throw new LzrException("TypeException: ", "Effect expected, found " + Types.typeToString(args[0].type()));
             }
             graphics.applyEffect((Effect) args[0].raw());
             return LzrNumber.ZERO;
@@ -137,7 +137,7 @@ public class GraphicsValue extends LzrMap {
         private LzrValue lzrimage(LzrValue[] args) {
             Arguments.checkAtLeast(3, args.length);
             if (!(args[0] instanceof ImageValue)) {
-                throw new LZRException("TypeException: ", "ImageFX expected");
+                throw new LzrException("TypeException: ", "ImageFX expected");
             }
             final Image image = ((ImageValue) args[0]).image;
 
@@ -221,7 +221,7 @@ public class GraphicsValue extends LzrMap {
 
         private LzrValue setEffect(LzrValue[] args) {
             if (args[0].type() != FX_EFFECT_TYPE) {
-                throw new LZRException("TypeException: ", "Effect expected, found " + Types.typeToString(args[0].type()));
+                throw new LzrException("TypeException: ", "Effect expected, found " + Types.typeToString(args[0].type()));
             }
             graphics.setEffect((Effect) args[0].raw());
             return LzrNumber.ZERO;

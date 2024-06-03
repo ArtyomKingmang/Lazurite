@@ -1,7 +1,7 @@
 package com.kingmang.lazurite.libraries.LFS;
 
 
-import com.kingmang.lazurite.exceptions.LZRException;
+import com.kingmang.lazurite.exceptions.LzrException;
 import com.kingmang.lazurite.core.*;
 import com.kingmang.lazurite.libraries.Library;
 import com.kingmang.lazurite.runtime.*;
@@ -120,7 +120,7 @@ public final class LFS implements Library {
         
         @Override
         public LzrValue execute(LzrValue... args) {
-            if (args.length < 1) throw new LZRException("ArgumentsMismatchException ","File descriptor expected");
+            if (args.length < 1) throw new LzrException("ArgumentsMismatchException ","File descriptor expected");
             final int key = args[0].asInt();
             try {
                 return execute(files.get(key), args);

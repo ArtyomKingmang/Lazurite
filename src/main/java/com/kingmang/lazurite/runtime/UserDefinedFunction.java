@@ -1,6 +1,6 @@
 package com.kingmang.lazurite.runtime;
 
-import com.kingmang.lazurite.exceptions.LZRException;
+import com.kingmang.lazurite.exceptions.LzrException;
 import com.kingmang.lazurite.core.Function;
 import com.kingmang.lazurite.parser.AST.Argument;
 import com.kingmang.lazurite.parser.AST.Arguments;
@@ -8,8 +8,6 @@ import com.kingmang.lazurite.parser.AST.Statements.ReturnStatement;
 import com.kingmang.lazurite.parser.AST.Statements.Statement;
 import com.kingmang.lazurite.runtime.Types.LzrNumber;
 import lombok.AllArgsConstructor;
-
-import java.util.List;
 
 @AllArgsConstructor
 public class UserDefinedFunction implements Function {
@@ -31,12 +29,12 @@ public class UserDefinedFunction implements Function {
         final int size = values.length;
         final int requiredArgsCount = arguments.getRequiredArgumentsCount();
         if (size < requiredArgsCount) {
-            throw new LZRException("ArgumentsMismatchException ",String.format(
+            throw new LzrException("ArgumentsMismatchException ",String.format(
                     "Arguments count mismatch. Required %d, got %d", requiredArgsCount, size));
         }
         final int totalArgsCount = getArgsCount();
         if (size > totalArgsCount) {
-            throw new LZRException("ArgumentsMismatchException ",String.format(
+            throw new LzrException("ArgumentsMismatchException ",String.format(
                     "Arguments count mismatch. Total %d, got %d", totalArgsCount, size));
         }
 

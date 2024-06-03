@@ -1,6 +1,6 @@
 package com.kingmang.lazurite.libraries.lgl.value;
 
-import com.kingmang.lazurite.exceptions.LZRException;
+import com.kingmang.lazurite.exceptions.LzrException;
 import com.kingmang.lazurite.runtime.LzrValue;
 import javafx.scene.effect.Effect;
 import org.jetbrains.annotations.NotNull;
@@ -20,12 +20,12 @@ public class EffectValue implements LzrValue {
         
         @Override
         public int asInt() {
-            throw new LZRException("TypeException: ", "Cannot cast JavaFX Effect to integer");
+            throw new LzrException("TypeException: ", "Cannot cast JavaFX Effect to integer");
         }
         
         @Override
         public double asNumber() {
-            throw new LZRException("TypeException: ", "Cannot cast JavaFX Effect to number");
+            throw new LzrException("TypeException: ", "Cannot cast JavaFX Effect to number");
         }
         
         @Override

@@ -1,6 +1,6 @@
 package com.kingmang.lazurite.core;
 
-import com.kingmang.lazurite.exceptions.LZRException;
+import com.kingmang.lazurite.exceptions.LzrException;
 import com.kingmang.lazurite.runtime.ClassInstanceValue;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -26,7 +26,7 @@ public final class Classes {
     }
     
     public static ClassInstanceValue get(String key) {
-        if (!isExists(key)) throw new LZRException("UnknownClassException ", "Unknown class " + key);
+        if (!isExists(key)) throw new LzrException("UnknownClassException ", "Unknown class " + key);
         return classes.get(key);
     }
     

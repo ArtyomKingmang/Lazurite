@@ -1,6 +1,6 @@
 package com.kingmang.lazurite.parser.AST.Expressions;
 
-import com.kingmang.lazurite.exceptions.LZRException;
+import com.kingmang.lazurite.exceptions.LzrException;
 import com.kingmang.lazurite.core.*;
 import com.kingmang.lazurite.parser.AST.Statements.ClassDeclarationStatement;
 import com.kingmang.lazurite.parser.AST.Statements.FunctionDefineStatement;
@@ -33,7 +33,7 @@ public final class ObjectCreationExpression implements Expression {
                     return ((Instantiable) variable).newInstance(ctorArgs());
                 }
             }
-            throw new LZRException("UnknownClassException ","Unknown class " + className);
+            throw new LzrException("UnknownClassException ","Unknown class " + className);
         }
         
 

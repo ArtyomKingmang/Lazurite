@@ -1,6 +1,6 @@
 package com.kingmang.lazurite.runtime;
 
-import com.kingmang.lazurite.exceptions.LZRException;
+import com.kingmang.lazurite.exceptions.LzrException;
 import com.kingmang.lazurite.core.Types;
 import com.kingmang.lazurite.runtime.Types.LzrMap;
 import lombok.Getter;
@@ -52,7 +52,7 @@ public class ClassInstanceValue implements LzrValue {
     public void set(LzrValue key, LzrValue value) {
         final LzrValue v = thisMap.get(key);
         if (v == null) {
-            throw new LZRException("RuntimeException ", "Unable to add new field "
+            throw new LzrException("RuntimeException ", "Unable to add new field "
                     + key.asString() + " to class " + className);
         }
         thisMap.set(key, value);
@@ -65,12 +65,12 @@ public class ClassInstanceValue implements LzrValue {
 
     @Override
     public int asInt() {
-        throw new LZRException("TypeExeption","Cannot cast class to integer");
+        throw new LzrException("TypeExeption","Cannot cast class to integer");
     }
 
     @Override
     public double asNumber() {
-        throw new LZRException("TypeExeption","Cannot cast class to integer");
+        throw new LzrException("TypeExeption","Cannot cast class to integer");
     }
 
     @Override

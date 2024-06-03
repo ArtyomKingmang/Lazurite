@@ -1,6 +1,6 @@
 package com.kingmang.lazurite.parser.AST.Statements;
 
-import com.kingmang.lazurite.exceptions.LZRException;
+import com.kingmang.lazurite.exceptions.LzrException;
 import com.kingmang.lazurite.core.*;
 import com.kingmang.lazurite.parser.AST.Expressions.Expression;
 import com.kingmang.lazurite.parser.AST.InterruptableNode;
@@ -39,7 +39,7 @@ public final class ForeachAStatement extends InterruptableNode implements Statem
                 iterateMap((LzrMap) containerValue);
                 break;
             default:
-                throw new LZRException("TypeExeption","Cannot iterate " + Types.typeToString(containerValue.type()));
+                throw new LzrException("TypeExeption","Cannot iterate " + Types.typeToString(containerValue.type()));
         }
 
         // Restore variables

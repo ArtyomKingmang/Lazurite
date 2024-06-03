@@ -1,6 +1,6 @@
 package com.kingmang.lazurite.parser.parse.classes;
 
-import com.kingmang.lazurite.exceptions.LZRException;
+import com.kingmang.lazurite.exceptions.LzrException;
 import com.kingmang.lazurite.exceptions.parser.ParseErrors;
 import com.kingmang.lazurite.parser.AST.Accessible;
 import com.kingmang.lazurite.parser.AST.Arguments;
@@ -43,7 +43,7 @@ public final class ParserImplementation {
         final ParserImplementation parser = new ParserImplementation(tokens);
         final Statement program = parser.parse();
         if (parser.getParseErrors().hasErrors()) {
-            throw new LZRException("ParseException ", "");
+            throw new LzrException("ParseException ", "");
         }
         return program;
     }
@@ -220,7 +220,7 @@ public final class ParserImplementation {
     }
 
     private Statement throwSt() {
-        String type = consume(TokenType.WORD).getText();
+        String type = "LzrException";
         Expression expr = expression();
         return new ThrowStatement(type, expr);
     }
@@ -230,7 +230,7 @@ public final class ParserImplementation {
         if (expression instanceof Statement) {
             return (Statement) expression;
         }
-        throw new LZRException("ParseException ","Unknown statement: " + get(0));
+        throw new LzrException("ParseException ","Unknown statement: " + get(0));
     }
 
     private Statement ifElse() {
@@ -340,7 +340,7 @@ public final class ParserImplementation {
             } else if (!startsOptionalArgs) {
                 arguments.addRequired(name);
             } else {
-                throw new LZRException("ParseException ","Required argument cannot be after optional");
+                throw new LzrException("ParseException ","Required argument cannot be after optional");
             }
             match(TokenType.COMMA);
         }
@@ -462,7 +462,7 @@ public final class ParserImplementation {
             }
 
             if (pattern == null) {
-                throw new LZRException("ParseException ","Wrong pattern in match expression: " + current);
+                throw new LzrException("ParseException ","Wrong pattern in match expression: " + current);
             }
             if (match(TokenType.IF)) {
 
@@ -494,7 +494,7 @@ public final class ParserImplementation {
                 if (fieldDeclaration != null) {
                     classDeclaration.addField(fieldDeclaration);
                 } else {
-                    throw new LZRException("ParseException ","Class can contain only assignments and function declarations");
+                    throw new LzrException("ParseException ","Class can contain only assignments and function declarations");
                 }
             }
         } while (!match(TokenType.RBRACE));
@@ -907,7 +907,7 @@ public final class ParserImplementation {
             }
             return strExpr;
         }
-        throw new LZRException("ParseException ","Unknown expression: " + current);
+        throw new LzrException("ParseException ","Unknown expression: " + current);
     }
 
     private Number createNumber(String text, int radix) {
@@ -926,7 +926,7 @@ public final class ParserImplementation {
     private Token consume(TokenType type) {
         final Token current = get(0);
         if (type != current.getType()) {
-            throw new LZRException("ParseException ","Token " + current + " doesn't match " + type);
+            throw new LzrException("ParseException ","Token " + current + " doesn't match " + type);
         }
         pos++;
         return current;

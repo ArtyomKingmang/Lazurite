@@ -1,6 +1,6 @@
 package com.kingmang.lazurite.parser.AST.Statements;
 
-import com.kingmang.lazurite.exceptions.LZRException;
+import com.kingmang.lazurite.exceptions.LzrException;
 
 import com.kingmang.lazurite.parser.AST.Expressions.Expression;
 import com.kingmang.lazurite.parser.AST.InterruptableNode;
@@ -27,7 +27,7 @@ public final class UsingStatement extends InterruptableNode implements Statement
         try {
             loadModule(value.asString());
         }catch (Exception e){
-            throw new LZRException("Type","Array or string required in 'using' statement, " +
+            throw new LzrException("Type","Array or string required in 'using' statement, " +
                     "got " + Types.typeToString(value.type()) + " " + value);
         }
     }
@@ -37,7 +37,7 @@ public final class UsingStatement extends InterruptableNode implements Statement
             final Library module = (Library) Class.forName(String.format(PACKAGE, name, name)).newInstance();
             module.init();
         } catch (Exception ex) {
-            throw new LZRException("RuntimeException", "Unable to load module " + name + "\n" + ex);
+            throw new LzrException("RuntimeException", "Unable to load module " + name + "\n" + ex);
         }
     }
     @Override

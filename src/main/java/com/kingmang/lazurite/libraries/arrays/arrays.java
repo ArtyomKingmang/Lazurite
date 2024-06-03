@@ -1,5 +1,5 @@
 package com.kingmang.lazurite.libraries.arrays;
-import com.kingmang.lazurite.exceptions.LZRException;
+import com.kingmang.lazurite.exceptions.LzrException;
 import com.kingmang.lazurite.core.*;
 
 import com.kingmang.lazurite.libraries.Library;
@@ -20,7 +20,7 @@ public final class arrays implements Library {
             public LzrValue execute(LzrValue... args) {
                 Arguments.checkRange(1, 4, args.length);
                 if (args[0].type() != Types.ARRAY) {
-                    throw new LZRException("TypeExeption ","Array expected in first argument");
+                    throw new LzrException("TypeExeption ","Array expected in first argument");
                 }
 
                 final LzrArray array = (LzrArray) args[0];
@@ -29,7 +29,7 @@ public final class arrays implements Library {
                     case 2 -> LzrArray.joinToString(array, args[1].asString(), "", "");
                     case 3 -> LzrArray.joinToString(array, args[1].asString(), args[2].asString(), args[2].asString());
                     case 4 -> LzrArray.joinToString(array, args[1].asString(), args[2].asString(), args[3].asString());
-                    default -> throw new LZRException("ArgumentsMismatchException ", "Wrong number of arguments");
+                    default -> throw new LzrException("ArgumentsMismatchException ", "Wrong number of arguments");
                 };
             }
         });
@@ -38,7 +38,7 @@ public final class arrays implements Library {
             public LzrValue execute(LzrValue... args) {
                 Arguments.checkAtLeast(1, args.length);
                 if (args[0].type() != Types.ARRAY) {
-                    throw new LZRException("TypeExeption ","Array expected in first argument");
+                    throw new LzrException("TypeExeption ","Array expected in first argument");
                 }
                 final LzrValue[] elements = ((LzrArray) args[0]).getCopyElements();
 
@@ -51,7 +51,7 @@ public final class arrays implements Library {
                         java.util.Arrays.sort(elements, (o1, o2) -> comparator.execute(o1, o2).asInt());
                         break;
                     default:
-                        throw new LZRException("ArgumentsMismatchException ","Wrong number of arguments");
+                        throw new LzrException("ArgumentsMismatchException ","Wrong number of arguments");
                 }
 
                 return new LzrArray(elements);
@@ -63,10 +63,10 @@ public final class arrays implements Library {
             public LzrValue execute(LzrValue... args) {
                 Arguments.check(2, args.length);
                 if (args[0].type() != Types.ARRAY) {
-                    throw new LZRException("TypeException","Array expected in first argument");
+                    throw new LzrException("TypeException","Array expected in first argument");
                 }
                 if (args[1].type() != Types.ARRAY) {
-                    throw new LZRException("TypeException", "Array expected in second argument");
+                    throw new LzrException("TypeException", "Array expected in second argument");
                 }
 
                 final LzrArray keys = ((LzrArray) args[0]);
@@ -86,7 +86,7 @@ public final class arrays implements Library {
             public LzrValue execute(LzrValue... args) {
                 Arguments.check(2, args.length);
                 if (args[1].type() != Types.MAP) {
-                    throw new LZRException("TypeException","Map expected in second argument");
+                    throw new LzrException("TypeException","Map expected in second argument");
                 }
                 final LzrMap map = ((LzrMap) args[1]);
                 return LzrNumber.fromBoolean(map.containsKey(args[0]));

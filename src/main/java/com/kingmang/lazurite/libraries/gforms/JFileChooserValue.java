@@ -1,6 +1,6 @@
 package com.kingmang.lazurite.libraries.gforms;
 
-import com.kingmang.lazurite.exceptions.LZRException;
+import com.kingmang.lazurite.exceptions.LzrException;
 import com.kingmang.lazurite.runtime.Types.LzrFunction;
 import com.kingmang.lazurite.runtime.Types.LzrNumber;
 import com.kingmang.lazurite.runtime.Types.LzrString;
@@ -46,7 +46,7 @@ public class JFileChooserValue extends JComponentValue {
             String fileContent = new String(Files.readAllBytes(selectedFile.toPath()));
             return new LzrString(fileContent);
         } catch (IOException ex) {
-            throw new LZRException("IOException", "");
+            throw new LzrException("IOException", "");
         }
     }
 

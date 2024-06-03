@@ -5,7 +5,7 @@ import java.awt.Toolkit;
 import java.awt.datatransfer.*;
 
 import com.kingmang.lazurite.libraries.Library;
-import com.kingmang.lazurite.exceptions.LZRException;
+import com.kingmang.lazurite.exceptions.LzrException;
 import com.kingmang.lazurite.runtime.Types.*;
 import com.kingmang.lazurite.runtime.LzrValue;
 import com.kingmang.lazurite.runtime.Variables;
@@ -33,9 +33,9 @@ public class clipboard implements Library {
 			try {
 				text = (String) clipboard.getData(flavor);
 			} catch (UnsupportedFlavorException e) {
-				throw new LZRException("RuntimeException: ", "UnsupportedFlavorException");
+				throw new LzrException("RuntimeException: ", "UnsupportedFlavorException");
 			} catch (IOException e) {
-				throw new LZRException("RuntimeException: ", "IOException");
+				throw new LzrException("RuntimeException: ", "IOException");
 			}
 			return new LzrString(text);
 		}
@@ -85,7 +85,7 @@ public class clipboard implements Library {
 			Arguments.check(1, args.length);
 			LzrValue text = clipboard.get();
 			if (text == LzrNumber.ZERO) {
-				throw new LZRException("ClipboardException: ", "Failed to read clipboard");
+				throw new LzrException("ClipboardException: ", "Failed to read clipboard");
 			}
 			clipboard.set(text.asString() + args[0].asString());
 			return LzrNumber.ZERO;

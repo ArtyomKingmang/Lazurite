@@ -1,6 +1,6 @@
 package com.kingmang.lazurite.exceptions;
 
-public class parenErrorCheckOptimize {
+public class ParenErrorCheckOptimize {
     /*String stringForCheck;
     String[] openParens = {"(", "[", "{"};
     String[] closeParens = {")", "]", "}"};

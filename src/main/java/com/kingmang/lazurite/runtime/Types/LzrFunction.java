@@ -1,6 +1,6 @@
 package com.kingmang.lazurite.runtime.Types;
 
-import com.kingmang.lazurite.exceptions.LZRException;
+import com.kingmang.lazurite.exceptions.LzrException;
 import com.kingmang.lazurite.core.Function;
 import com.kingmang.lazurite.core.Types;
 import com.kingmang.lazurite.runtime.LzrValue;
@@ -30,12 +30,12 @@ public class LzrFunction implements LzrValue {
     
     @Override
     public int asInt() {
-        throw new LZRException("TypeExeption","Cannot cast function to integer");
+        throw new LzrException("TypeExeption","Cannot cast function to integer");
     }
     
     @Override
     public double asNumber() {
-        throw new LZRException("TypeExeption","Cannot cast function to number");
+        throw new LzrException("TypeExeption","Cannot cast function to number");
     }
 
     @Override

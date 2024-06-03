@@ -1,6 +1,6 @@
 package com.kingmang.lazurite.runtime.Types;
 
-import com.kingmang.lazurite.exceptions.LZRException;
+import com.kingmang.lazurite.exceptions.LzrException;
 import com.kingmang.lazurite.core.*;
 import com.kingmang.lazurite.runtime.LzrValue;
 import lombok.Getter;
@@ -93,12 +93,12 @@ public class LzrMap implements LzrValue, Iterable<Map.Entry<LzrValue, LzrValue>>
     
     @Override
     public int asInt() {
-        throw new LZRException("TypeExeprion","Cannot cast map to integer");
+        throw new LzrException("TypeExeprion","Cannot cast map to integer");
     }
 
     @Override
     public double asNumber() {
-        throw new LZRException("TypeExeprtion","Cannot cast map to number");
+        throw new LzrException("TypeExeprtion","Cannot cast map to number");
     }
 
     @Override

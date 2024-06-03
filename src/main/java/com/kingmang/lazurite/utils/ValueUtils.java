@@ -8,7 +8,7 @@ import java.util.Map;
 
 import com.kingmang.lazurite.core.Function;
 import com.kingmang.lazurite.core.Types;
-import com.kingmang.lazurite.exceptions.LZRException;
+import com.kingmang.lazurite.exceptions.LzrException;
 import com.kingmang.lazurite.runtime.*;
 import com.kingmang.lazurite.runtime.Types.*;
 import lombok.NoArgsConstructor;
@@ -119,7 +119,7 @@ public final class ValueUtils {
     public static Function consumeFunction(LzrValue value, String errorMessage) {
         final int type = value.type();
         if (type != Types.FUNCTION) {
-            throw new LZRException("TypeExeption ", "Function expected" + errorMessage
+            throw new LzrException("TypeExeption ", "Function expected" + errorMessage
                     + ", but found " + Types.typeToString(type));
         }
         return ((LzrFunction) value).getValue();
