@@ -1,4 +1,4 @@
-package com.kingmang.lazurite.runtime;
+package com.kingmang.lazurite.runtime.values;
 
 public interface LzrValue extends Comparable<LzrValue> {
     

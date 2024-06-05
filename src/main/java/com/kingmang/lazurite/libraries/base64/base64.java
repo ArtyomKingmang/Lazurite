@@ -3,9 +3,9 @@ package com.kingmang.lazurite.libraries.base64;
 import com.kingmang.lazurite.core.Arguments;
 import com.kingmang.lazurite.utils.ValueUtils;
 import com.kingmang.lazurite.libraries.Library;
-import com.kingmang.lazurite.runtime.Types.LzrArray;
-import com.kingmang.lazurite.runtime.Types.LzrMap;
-import com.kingmang.lazurite.runtime.LzrValue;
+import com.kingmang.lazurite.runtime.values.LzrArray;
+import com.kingmang.lazurite.runtime.values.LzrMap;
+import com.kingmang.lazurite.runtime.values.LzrValue;
 import com.kingmang.lazurite.runtime.Variables;
 
 import java.nio.charset.StandardCharsets;

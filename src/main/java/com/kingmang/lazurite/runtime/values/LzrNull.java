@@ -1,6 +1,4 @@
-package com.kingmang.lazurite.runtime.Types;
-
-import com.kingmang.lazurite.runtime.LzrValue;
+package com.kingmang.lazurite.runtime.values;
 
 public class LzrNull implements LzrValue {
 

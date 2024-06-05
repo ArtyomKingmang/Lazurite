@@ -14,9 +14,9 @@ import com.kingmang.lazurite.parser.parse.Lexer;
 import com.kingmang.lazurite.parser.parse.Token;
 import com.kingmang.lazurite.parser.parse.TokenType;
 import com.kingmang.lazurite.parser.standart.Standart;
-import com.kingmang.lazurite.runtime.Types.LzrMap;
-import com.kingmang.lazurite.runtime.Types.LzrNumber;
-import com.kingmang.lazurite.runtime.Types.LzrString;
+import com.kingmang.lazurite.runtime.values.LzrMap;
+import com.kingmang.lazurite.runtime.values.LzrNumber;
+import com.kingmang.lazurite.runtime.values.LzrString;
 import com.kingmang.lazurite.runtime.Variables;
 
 public final class LexerImplementation implements Lexer {

@@ -1,6 +1,6 @@
 package com.kingmang.lazurite.libraries.lgl.value;
 
-import com.kingmang.lazurite.runtime.LzrValue;
+import com.kingmang.lazurite.runtime.values.LzrValue;
 import javafx.scene.paint.Color;
 import org.jetbrains.annotations.NotNull;
 

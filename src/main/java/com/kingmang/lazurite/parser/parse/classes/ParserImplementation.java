@@ -23,8 +23,9 @@ import com.kingmang.lazurite.parser.AST.Statements.*;
 import com.kingmang.lazurite.parser.parse.Token;
 import com.kingmang.lazurite.parser.parse.TokenType;
 import com.kingmang.lazurite.runtime.*;
-import com.kingmang.lazurite.runtime.Types.LzrNumber;
-import com.kingmang.lazurite.runtime.Types.LzrString;
+import com.kingmang.lazurite.runtime.values.LzrEnum;
+import com.kingmang.lazurite.runtime.values.LzrNumber;
+import com.kingmang.lazurite.runtime.values.LzrString;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -261,7 +262,7 @@ public final class ParserImplementation {
             match(TokenType.COMMA);
             enums.put(en, new LzrString(en));
         }
-        return new AssignmentStatement(name, new ValueExpression(new EnumValue(enums)));
+        return new AssignmentStatement(name, new ValueExpression(new LzrEnum(enums)));
     }
 
     private Statement forStatement() {

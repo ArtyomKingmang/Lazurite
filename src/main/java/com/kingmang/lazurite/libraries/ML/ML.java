@@ -1,9 +1,9 @@
 package com.kingmang.lazurite.libraries.ML;
 import com.kingmang.lazurite.core.*;
 import com.kingmang.lazurite.libraries.Library;
-import com.kingmang.lazurite.runtime.Types.LzrMap;
-import com.kingmang.lazurite.runtime.Types.LzrNumber;
-import com.kingmang.lazurite.runtime.LzrValue;
+import com.kingmang.lazurite.runtime.values.LzrMap;
+import com.kingmang.lazurite.runtime.values.LzrNumber;
+import com.kingmang.lazurite.runtime.values.LzrValue;
 import com.kingmang.lazurite.runtime.Variables;
 
 import java.util.function.DoubleBinaryOperator;

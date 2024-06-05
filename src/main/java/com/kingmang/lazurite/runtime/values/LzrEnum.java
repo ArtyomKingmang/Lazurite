@@ -1,15 +1,14 @@
-package com.kingmang.lazurite.runtime;
+package com.kingmang.lazurite.runtime.values;
 
-import com.kingmang.lazurite.runtime.Types.LzrString;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Map;
 
-public class EnumValue implements LzrValue {
+public class LzrEnum implements LzrValue {
 
     private Map<String, LzrString> enums;
 
-    public EnumValue(Map<String, LzrString> enums) {
+    public LzrEnum(Map<String, LzrString> enums) {
         this.enums = enums;
     }
 

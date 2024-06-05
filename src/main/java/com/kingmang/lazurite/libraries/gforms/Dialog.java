@@ -1,8 +1,8 @@
 package com.kingmang.lazurite.libraries.gforms;
 
 import com.kingmang.lazurite.core.Function;
-import com.kingmang.lazurite.runtime.Types.LzrString;
-import com.kingmang.lazurite.runtime.LzrValue;
+import com.kingmang.lazurite.runtime.values.LzrString;
+import com.kingmang.lazurite.runtime.values.LzrValue;
 
 import javax.swing.*;
 

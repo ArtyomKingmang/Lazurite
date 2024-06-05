@@ -1,9 +1,8 @@
-package com.kingmang.lazurite.runtime.Types;
+package com.kingmang.lazurite.runtime.values;
 
 import com.kingmang.lazurite.exceptions.LzrException;
 import com.kingmang.lazurite.core.*;
 import com.kingmang.lazurite.libraries.Keyword;
-import com.kingmang.lazurite.runtime.LzrValue;
 import lombok.AllArgsConstructor;
 
 import java.util.Objects;

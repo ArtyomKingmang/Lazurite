@@ -1,8 +1,8 @@
 package com.kingmang.lazurite.core;
 
-import com.kingmang.lazurite.runtime.Types.LzrFunction;
-import com.kingmang.lazurite.runtime.Types.LzrNumber;
-import com.kingmang.lazurite.runtime.Types.LzrString;
+import com.kingmang.lazurite.runtime.values.LzrFunction;
+import com.kingmang.lazurite.runtime.values.LzrNumber;
+import com.kingmang.lazurite.runtime.values.LzrString;
 import com.kingmang.lazurite.utils.ValueUtils;
 
 import java.util.function.Predicate;

@@ -1,8 +1,7 @@
-package com.kingmang.lazurite.runtime.Types;
+package com.kingmang.lazurite.runtime.values;
 
 
 import com.kingmang.lazurite.core.Types;
-import com.kingmang.lazurite.runtime.LzrValue;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor

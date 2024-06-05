@@ -6,8 +6,8 @@ import java.awt.datatransfer.*;
 
 import com.kingmang.lazurite.libraries.Library;
 import com.kingmang.lazurite.exceptions.LzrException;
-import com.kingmang.lazurite.runtime.Types.*;
-import com.kingmang.lazurite.runtime.LzrValue;
+import com.kingmang.lazurite.runtime.values.*;
+import com.kingmang.lazurite.runtime.values.LzrValue;
 import com.kingmang.lazurite.runtime.Variables;
 import com.kingmang.lazurite.core.Function;
 import com.kingmang.lazurite.core.Arguments;

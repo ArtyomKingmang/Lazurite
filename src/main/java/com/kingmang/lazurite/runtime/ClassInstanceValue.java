@@ -2,7 +2,8 @@ package com.kingmang.lazurite.runtime;
 
 import com.kingmang.lazurite.exceptions.LzrException;
 import com.kingmang.lazurite.core.Types;
-import com.kingmang.lazurite.runtime.Types.LzrMap;
+import com.kingmang.lazurite.runtime.values.LzrMap;
+import com.kingmang.lazurite.runtime.values.LzrValue;
 import lombok.Getter;
 
 import java.util.Objects;

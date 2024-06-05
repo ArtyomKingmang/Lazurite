@@ -4,9 +4,10 @@ package com.kingmang.lazurite.libraries.colors;
 import com.kingmang.lazurite.core.Function;
 import com.kingmang.lazurite.libraries.Library;
 import com.kingmang.lazurite.runtime.*;
-import com.kingmang.lazurite.runtime.Types.LzrMap;
-import com.kingmang.lazurite.runtime.Types.LzrNumber;
-import com.kingmang.lazurite.runtime.Types.LzrString;
+import com.kingmang.lazurite.runtime.values.LzrMap;
+import com.kingmang.lazurite.runtime.values.LzrNumber;
+import com.kingmang.lazurite.runtime.values.LzrString;
+import com.kingmang.lazurite.runtime.values.LzrValue;
 
 
 public class colors implements Library {

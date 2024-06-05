@@ -2,7 +2,7 @@ package com.kingmang.lazurite.libraries.lgl.color;
 
 import com.kingmang.lazurite.core.Function;
 import com.kingmang.lazurite.libraries.lgl.value.ColorValue;
-import com.kingmang.lazurite.runtime.LzrValue;
+import com.kingmang.lazurite.runtime.values.LzrValue;
 import javafx.scene.paint.Color;
 
 public class NewColor implements Function {

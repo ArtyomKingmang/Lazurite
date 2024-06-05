@@ -7,8 +7,8 @@ import com.kingmang.lazurite.libraries.Keyword;
 import com.kingmang.lazurite.core.Types;
 import com.kingmang.lazurite.libraries.Library;
 import com.kingmang.lazurite.console.Console;
-import com.kingmang.lazurite.runtime.Types.*;
-import com.kingmang.lazurite.runtime.LzrValue;
+import com.kingmang.lazurite.runtime.values.*;
+import com.kingmang.lazurite.runtime.values.LzrValue;
 import com.kingmang.lazurite.runtime.Variables;
 import com.kingmang.lazurite.utils.ValueUtils;
 

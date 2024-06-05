@@ -1,7 +1,7 @@
 package com.kingmang.lazurite.libraries.gforms;
 
 import com.kingmang.lazurite.core.Arguments;
-import com.kingmang.lazurite.runtime.LzrValue;
+import com.kingmang.lazurite.runtime.values.LzrValue;
 
 import java.awt.BorderLayout;
 import java.awt.CardLayout;

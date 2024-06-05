@@ -6,10 +6,7 @@ import com.kingmang.lazurite.core.*;
 import com.kingmang.lazurite.libraries.Library;
 import com.kingmang.lazurite.runtime.*;
 import com.kingmang.lazurite.console.Console;
-import com.kingmang.lazurite.runtime.Types.LzrArray;
-import com.kingmang.lazurite.runtime.Types.LzrMap;
-import com.kingmang.lazurite.runtime.Types.LzrNumber;
-import com.kingmang.lazurite.runtime.Types.LzrString;
+import com.kingmang.lazurite.runtime.values.*;
 
 import java.io.*;
 

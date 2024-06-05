@@ -1,6 +1,7 @@
 package com.kingmang.lazurite.runtime;
 
 import com.kingmang.lazurite.exceptions.LzrException;
+import com.kingmang.lazurite.runtime.values.LzrValue;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.jetbrains.annotations.NotNull;

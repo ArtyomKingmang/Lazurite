@@ -18,7 +18,7 @@ import com.kingmang.lazurite.parser.AST.Expressions.ValueExpression;
 import com.kingmang.lazurite.parser.AST.Expressions.VariableExpression;
 import com.kingmang.lazurite.parser.AST.Statements.*;
 import com.kingmang.lazurite.console.Console;
-import com.kingmang.lazurite.runtime.Types.LzrFunction;
+import com.kingmang.lazurite.runtime.values.LzrFunction;
 import com.kingmang.lazurite.core.Types;
 import com.kingmang.lazurite.runtime.UserDefinedFunction;
 

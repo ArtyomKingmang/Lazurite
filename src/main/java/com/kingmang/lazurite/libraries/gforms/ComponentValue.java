@@ -2,8 +2,7 @@ package com.kingmang.lazurite.libraries.gforms;
 
 
 import com.kingmang.lazurite.core.*;
-import com.kingmang.lazurite.runtime.*;
-import com.kingmang.lazurite.runtime.Types.*;
+import com.kingmang.lazurite.runtime.values.*;
 import com.kingmang.lazurite.utils.ValueUtils;
 
 import java.awt.*;

@@ -6,9 +6,9 @@ import com.kingmang.lazurite.core.Function;
 import com.kingmang.lazurite.core.Types;
 import com.kingmang.lazurite.utils.ValueUtils;
 import com.kingmang.lazurite.console.Console;
-import com.kingmang.lazurite.runtime.Types.*;
+import com.kingmang.lazurite.runtime.values.*;
 import com.kingmang.lazurite.runtime.UserDefinedFunction;
-import com.kingmang.lazurite.runtime.LzrValue;
+import com.kingmang.lazurite.runtime.values.LzrValue;
 
 import java.io.UnsupportedEncodingException;
 import java.util.*;

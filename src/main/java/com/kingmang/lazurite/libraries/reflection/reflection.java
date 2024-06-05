@@ -5,7 +5,7 @@ import com.kingmang.lazurite.exceptions.LzrException;
 import com.kingmang.lazurite.libraries.Keyword;
 import com.kingmang.lazurite.libraries.Library;
 import com.kingmang.lazurite.runtime.*;
-import com.kingmang.lazurite.runtime.Types.*;
+import com.kingmang.lazurite.runtime.values.*;
 
 import java.lang.reflect.Array;
 import java.lang.reflect.Constructor;

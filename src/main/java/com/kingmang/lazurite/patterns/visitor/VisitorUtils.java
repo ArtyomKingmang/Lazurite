@@ -1,8 +1,8 @@
 package com.kingmang.lazurite.patterns.visitor;
 
-import com.kingmang.lazurite.runtime.Types.LzrNumber;
+import com.kingmang.lazurite.runtime.values.LzrNumber;
 import com.kingmang.lazurite.core.Types;
-import com.kingmang.lazurite.runtime.LzrValue;
+import com.kingmang.lazurite.runtime.values.LzrValue;
 import com.kingmang.lazurite.parser.AST.Expressions.BinaryExpression;
 import com.kingmang.lazurite.parser.AST.Expressions.ConditionalExpression;
 import com.kingmang.lazurite.parser.AST.Statements.IncludeStatement;

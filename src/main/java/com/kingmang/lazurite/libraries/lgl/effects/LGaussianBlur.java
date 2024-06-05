@@ -2,7 +2,7 @@ package com.kingmang.lazurite.libraries.lgl.effects;
 
 import com.kingmang.lazurite.core.Function;
 import com.kingmang.lazurite.libraries.lgl.value.EffectValue;
-import com.kingmang.lazurite.runtime.LzrValue;
+import com.kingmang.lazurite.runtime.values.LzrValue;
 import javafx.scene.effect.Effect;
 import javafx.scene.effect.GaussianBlur;
 

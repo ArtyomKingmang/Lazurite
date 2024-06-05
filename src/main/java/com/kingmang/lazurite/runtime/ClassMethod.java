@@ -2,6 +2,7 @@ package com.kingmang.lazurite.runtime;
 
 import com.kingmang.lazurite.parser.AST.Arguments;
 import com.kingmang.lazurite.parser.AST.Statements.Statement;
+import com.kingmang.lazurite.runtime.values.LzrValue;
 
 public class ClassMethod extends UserDefinedFunction {
     

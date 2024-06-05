@@ -1,6 +1,6 @@
 package com.kingmang.lazurite.patterns;
 
-import com.kingmang.lazurite.runtime.LzrValue;
+import com.kingmang.lazurite.runtime.values.LzrValue;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 

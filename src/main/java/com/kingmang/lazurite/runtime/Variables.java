@@ -1,6 +1,7 @@
 package com.kingmang.lazurite.runtime;
 
-import com.kingmang.lazurite.runtime.Types.LzrNumber;
+import com.kingmang.lazurite.runtime.values.LzrNumber;
+import com.kingmang.lazurite.runtime.values.LzrValue;
 import lombok.NoArgsConstructor;
 
 import java.util.Map;

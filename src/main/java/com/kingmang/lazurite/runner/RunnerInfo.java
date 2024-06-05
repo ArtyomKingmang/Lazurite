@@ -1,13 +1,13 @@
 package com.kingmang.lazurite.runner;
 
+import lombok.Getter;
 import org.fusesource.jansi.Ansi;
 import org.fusesource.jansi.AnsiConsole;
 
 public class RunnerInfo {
-    private static final String VERSION = "2.7.4";
-    public static String getVersion() {
-        return VERSION;
-    }
+    @Getter
+    private static final String Version = "2.7.4";
+
 
     public static void Console () {
         AnsiConsole.systemInstall();
