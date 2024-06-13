@@ -8,7 +8,7 @@ import java.io.ByteArrayInputStream;
 
 public class LzrByteArrayInputStream {
 
-    private static ByteArrayInputStream byteArrayInputStream;
+    protected static ByteArrayInputStream byteArrayInputStream;
 
     static class newByteArrayInputStream implements Function {
         @Override
