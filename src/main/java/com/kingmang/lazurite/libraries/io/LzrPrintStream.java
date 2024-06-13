@@ -10,7 +10,7 @@ import java.io.PrintStream;
 
 public class LzrPrintStream {
 
-    static PrintStream printStream;
+    private static PrintStream printStream;
 
     static class newPrintStream implements Function {
         @Override
@@ -36,3 +36,5 @@ public class LzrPrintStream {
 
     }
 }
+
+

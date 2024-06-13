@@ -42,25 +42,19 @@ public class system implements Library {
             return LzrNumber.MINUS_ONE;
         });
 
-        system.set("getScreenResolution", new Function() {
-            @Override
-            public LzrValue execute(LzrValue... args) {
-                Toolkit toolkit = Toolkit.getDefaultToolkit();
-                Dimension dim = toolkit.getScreenSize();
-                LzrMap map = new LzrMap(2);
-                map.set("width", new LzrNumber(dim.getWidth()));
-                map.set("height", new LzrNumber(dim.getHeight()));
-                return map;
-            }
+        system.set("getScreenResolution", args -> {
+            Toolkit toolkit = Toolkit.getDefaultToolkit();
+            Dimension dim = toolkit.getScreenSize();
+            LzrMap map = new LzrMap(2);
+            map.set("width", new LzrNumber(dim.getWidth()));
+            map.set("height", new LzrNumber(dim.getHeight()));
+            return map;
         });
 
-        system.set("exec", new Function() {
-            @Override
-            public LzrValue execute(LzrValue... args) {
-                Arguments.check(1, args.length);
-                Handler.handle(args[0].toString(), "exec()", true, false);
-                return LzrNumber.MINUS_ONE;
-            }
+        system.set("exec", args -> {
+            Arguments.check(1, args.length);
+            Handler.handle(args[0].toString(), "exec()", true, false);
+            return LzrNumber.MINUS_ONE;
         });
         system.set("getProperty", (LzrValue...args) -> {
             if(Objects.equals(args[0].asString(), "lzr.version")){
@@ -70,40 +64,15 @@ public class system implements Library {
 
         });
 
-        system.set("getUsedMemory", new Function() {
-            @Override
-            public LzrValue execute(LzrValue... args){
-                return new LzrNumber((Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory()));
-            }
-        });
+        system.set("getUsedMemory", args -> new LzrNumber((Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory())));
 
-        system.set("getTotalMemory", new Function() {
-            @Override
-            public LzrValue execute(LzrValue... args){
-                return new LzrNumber((Runtime.getRuntime().totalMemory()));
-            }
-        });
+        system.set("getTotalMemory", args -> new LzrNumber((Runtime.getRuntime().totalMemory())));
 
-        system.set("getMaxMemory", new Function() {
-            @Override
-            public LzrValue execute(LzrValue... args){
-                return new LzrNumber((Runtime.getRuntime().maxMemory()));
-            }
-        });
+        system.set("getMaxMemory", args -> new LzrNumber((Runtime.getRuntime().maxMemory())));
 
-        system.set("getFreeMemory", new Function() {
-            @Override
-            public LzrValue execute(LzrValue... args){
-                return new LzrNumber((Runtime.getRuntime().freeMemory()));
-            }
-        });
+        system.set("getFreeMemory", args -> new LzrNumber((Runtime.getRuntime().freeMemory())));
 
-        system.set("availableProcessors", new Function() {
-            @Override
-            public LzrValue execute(LzrValue... args){
-                return new LzrNumber((Runtime.getRuntime().availableProcessors()));
-            }
-        });
+        system.set("availableProcessors", args -> new LzrNumber((Runtime.getRuntime().availableProcessors())));
 
         Variables.define("system",system);
     }

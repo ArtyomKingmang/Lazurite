@@ -179,7 +179,7 @@ public class std implements Library {
             return new LzrArray(values);
         }
     }
-    public final class thread implements Function {
+    public static final class thread implements Function {
 
         @Override
         public LzrValue execute(LzrValue... args) {
