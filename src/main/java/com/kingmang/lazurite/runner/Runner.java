@@ -31,7 +31,8 @@ public class Runner {
             case "help", "-h" -> RunnerInfo.Command();
             case "editor", "-e" -> Editor.openEditor();
             case "version", "-v" -> versionCMD();
-            case "run", "-r" -> runCMD(cmd);
+            case "run", "-r" -> runCMD(cmd, false);
+            case "preprocess", "-pr" -> runCMD(cmd, true);
             case "new", "-n" -> newCMD(cmd);
             default -> System.out.println("Command not found!");
         }
@@ -52,7 +53,8 @@ public class Runner {
                 case "help", "-h" -> RunnerInfo.Console();
                 case "editor", "-e" -> Editor.openEditor();
                 case "version", "-v" -> versionCMD();
-                case "run", "-r" -> runCMD(cmd);
+                case "run", "-r" -> runCMD(cmd, false);
+                case "preprocess", "-pr" -> runCMD(cmd, true);
                 case "new", "-n" -> newCMD(cmd);
                 case "cls" -> {
                     System.out.print("\033[H\033[2J");
@@ -70,7 +72,7 @@ public class Runner {
         System.out.println("---------------------------------");
     }
 
-    private static void runCMD(String[] cmd) throws IOException {
+    private static void runCMD(String[] cmd, boolean preprocess) throws IOException {
         if (cmd.length > 1) {
 
             // Checking path is project or file
@@ -83,7 +85,8 @@ public class Runner {
                     File run_path = new File(dir, run_file);
                     if (run_path.exists()) {
                         try {
-                            Handler.Run(run_path.getPath(), false);
+                            if(preprocess)Handler.Run(run_path.getPath(), false);
+                            if(!preprocess)Handler.Run(run_path.getPath());
                         } catch (ArrayIndexOutOfBoundsException e) {
                             System.out.println("Correct entry form: r <file>");
                         } catch (FileNotFoundException ex) {
@@ -97,7 +100,9 @@ public class Runner {
                 }
             } else {
                 try {
-                    Handler.Run(cmd[1], false);
+
+                    if(preprocess)Handler.Run(cmd[1], false);
+                    if(!preprocess)Handler.Run(cmd[1]);
                 } catch (ArrayIndexOutOfBoundsException e) {
                     System.out.println("Correct entry form: r <file>");
                 } catch (FileNotFoundException ex) {
@@ -112,7 +117,8 @@ public class Runner {
                 File run_path = new File(dir, run_file);
                 if (run_path.exists()) {
                     try {
-                        Handler.Run(run_path.getPath(), false);
+                        if(preprocess)Handler.Run(run_path.getPath(), false);
+                        if(!preprocess)Handler.Run(run_path.getPath());
                     } catch (ArrayIndexOutOfBoundsException e) {
                         System.out.println("Correct entry form: r <file>");
                     } catch (FileNotFoundException ex) {

@@ -13,7 +13,7 @@ public class TestRunner {
         String filename = "test.lzr";
         builder.append(filename);
 
-        Handler.Run(builder.toString(), false);
+        Handler.Run(builder.toString());
 
     }
 }

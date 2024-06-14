@@ -1,1 +1,6 @@
+print(dec())
 
+
+macro dec(){
+    return "work"
+}

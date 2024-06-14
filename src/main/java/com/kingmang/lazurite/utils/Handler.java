@@ -1,13 +1,16 @@
 package com.kingmang.lazurite.utils;
 
+import com.kingmang.lazurite.console.Console;
 import com.kingmang.lazurite.exceptions.LzrException;
 import com.kingmang.lazurite.core.CallStack;
 import com.kingmang.lazurite.parser.AST.Statements.BlockStatement;
 import com.kingmang.lazurite.parser.AST.Expressions.Expression;
+import com.kingmang.lazurite.parser.AST.Statements.Statement;
 import com.kingmang.lazurite.parser.parse.classes.LexerImplementation;
 import com.kingmang.lazurite.parser.parse.classes.ParserImplementation;
 import com.kingmang.lazurite.parser.parse.Token;
 import com.kingmang.lazurite.parser.preprocessor.Preprocessor;
+import com.kingmang.lazurite.patterns.visitor.FunctionAdder;
 import com.kingmang.lazurite.runtime.values.LzrNumber;
 import com.kingmang.lazurite.runtime.values.LzrValue;
 import com.kingmang.lazurite.runtime.Variables;
@@ -18,8 +21,32 @@ import java.util.List;
 
 public class Handler {
 
+    public static void Run(String path) throws IOException {
+        Handler.RunProgram(Loader.readSource(path));
+    }
+
     public static void Run(String path, boolean showTokens) throws IOException {
         Handler.handle(Loader.readSource(path), Loader.readSource(path), true, showTokens);
+    }
+
+    public static void RunProgram (String input) throws IOException {
+        final List<Token> tokens = new LexerImplementation(input).tokenize();
+        final ParserImplementation parser = new ParserImplementation(tokens);
+        final Statement parsedProgram = parser.parse();
+        if (parser.getParseErrors().hasErrors()) {
+            System.out.println(parser.getParseErrors());
+            return;
+        }
+        final Statement program;
+        program = parsedProgram;
+        program.accept(new FunctionAdder());
+
+        try {
+            program.execute();
+        } catch (Exception ex) {
+            Console.handleException(Thread.currentThread(), ex);
+        }
+
     }
 
     public static void handle(String input, String pathToScript, boolean isExec, boolean showTokens) {
