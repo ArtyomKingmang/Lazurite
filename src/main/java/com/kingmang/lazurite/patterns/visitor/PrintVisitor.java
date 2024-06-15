@@ -35,6 +35,8 @@ public class PrintVisitor implements ResultVisitor<StringBuilder, StringBuilder>
         indent = -2;
     }
 
+
+
     @Override
     public StringBuilder visit(ArrayExpression s, StringBuilder t) {
         t.append('[');
@@ -305,7 +307,11 @@ public class PrintVisitor implements ResultVisitor<StringBuilder, StringBuilder>
         t.append("}");
         return t;
     }
-    
+
+    @Override
+    public StringBuilder visit(TryCatchStatement s, StringBuilder stringBuilder) {
+        return null;
+    }
     @Override
     public StringBuilder visit(ObjectCreationExpression s, StringBuilder t) {
         t.append("new ").append(s.className);

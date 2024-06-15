@@ -5,6 +5,8 @@ public enum TokenType {
     //KEYWORDS
     ENUM,
     MACRO,
+    TRY,
+    CATCH,
     THROW,
     PRINT,
     PRINTLN,

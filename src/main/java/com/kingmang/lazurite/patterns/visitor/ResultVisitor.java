@@ -18,7 +18,8 @@ import com.kingmang.lazurite.parser.AST.Expressions.ObjectCreationExpression;
 import com.kingmang.lazurite.parser.AST.Statements.*;
 
 public interface ResultVisitor<R, T> {
-    
+
+    R visit(TryCatchStatement s, T t);
     R visit(ArrayExpression s, T t);
     R visit(AssignmentExpression s, T t);
     R visit(BinaryExpression s, T t);

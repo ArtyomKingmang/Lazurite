@@ -30,6 +30,8 @@ public final class LexerImplementation implements Lexer {
     private static final String[] keywords = {
             "enum",
             "macro",
+            "try",
+            "catch",
             "throw",
             "print",
             "println",
@@ -355,7 +357,6 @@ public final class LexerImplementation implements Lexer {
 
     private static void standart(){
         Keyword.put("charAt", new Standart.charAt());
-        Keyword.put("try", new Standart.tryCatch());
         Keyword.put("equals", new Standart.equal());
         Keyword.put("combine", new Standart.combine());
         Keyword.put("reduce", new Standart.reduce());

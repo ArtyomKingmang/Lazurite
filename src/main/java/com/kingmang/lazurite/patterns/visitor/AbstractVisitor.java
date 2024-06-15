@@ -15,24 +15,7 @@ import com.kingmang.lazurite.parser.AST.Expressions.TernaryExpression;
 import com.kingmang.lazurite.parser.AST.Expressions.UnaryExpression;
 import com.kingmang.lazurite.parser.AST.Expressions.ValueExpression;
 import com.kingmang.lazurite.parser.AST.Expressions.VariableExpression;
-import com.kingmang.lazurite.parser.AST.Statements.BreakStatement;
-import com.kingmang.lazurite.parser.AST.Statements.ClassDeclarationStatement;
-import com.kingmang.lazurite.parser.AST.Statements.ContinueStatement;
-import com.kingmang.lazurite.parser.AST.Statements.DestructuringAssignmentStatement;
-import com.kingmang.lazurite.parser.AST.Statements.ExprStatement;
-import com.kingmang.lazurite.parser.AST.Statements.ForStatement;
-import com.kingmang.lazurite.parser.AST.Statements.ForeachAStatement;
-import com.kingmang.lazurite.parser.AST.Statements.ForeachMStatement;
-import com.kingmang.lazurite.parser.AST.Statements.FunctionDefineStatement;
-import com.kingmang.lazurite.parser.AST.Statements.IfStatement;
-import com.kingmang.lazurite.parser.AST.Statements.IncludeStatement;
-import com.kingmang.lazurite.parser.AST.Statements.BlockStatement;
-import com.kingmang.lazurite.parser.AST.Statements.PrintStatement;
-import com.kingmang.lazurite.parser.AST.Statements.PrintlnStatement;
-import com.kingmang.lazurite.parser.AST.Statements.ReturnStatement;
-import com.kingmang.lazurite.parser.AST.Statements.Statement;
-import com.kingmang.lazurite.parser.AST.Statements.UsingStatement;
-import com.kingmang.lazurite.parser.AST.Statements.WhileStatement;
+import com.kingmang.lazurite.parser.AST.Statements.*;
 
 import java.util.Map;
 
@@ -84,6 +67,11 @@ public abstract class AbstractVisitor implements Visitor {
         for (Expression index : s.indices) {
             index.accept(this);
         }
+    }
+
+    @Override
+    public void visit(TryCatchStatement s){
+
     }
 
     @Override

@@ -199,7 +199,22 @@ public final class ParserImplementation {
        else if (match(TokenType.THROW)){
             return throwSt();
        }
+       else if(match(TokenType.TRY)){
+           return tryCatch();
+       }
         return assignmentStatement();
+    }
+
+    private Statement tryCatch() {
+        final Statement tryStatement = statementOrBlock();
+        final Statement catchStatement;
+        if(match(TokenType.CATCH)){
+            catchStatement = statementOrBlock();
+        }
+        else{
+            throw new LzrException("CatchBlockError", "the catch block was not found");
+        }
+        return new TryCatchStatement(tryStatement, catchStatement);
     }
 
     private Statement macro() {
