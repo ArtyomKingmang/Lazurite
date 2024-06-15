@@ -14,6 +14,7 @@ import com.kingmang.lazurite.patterns.visitor.FunctionAdder;
 import com.kingmang.lazurite.runtime.values.LzrNumber;
 import com.kingmang.lazurite.runtime.values.LzrValue;
 import com.kingmang.lazurite.runtime.Variables;
+import org.fusesource.jansi.Ansi;
 
 import java.io.IOException;
 import java.util.Date;
@@ -43,8 +44,9 @@ public class Handler {
 
         try {
             program.execute();
-        } catch (Exception ex) {
-            Console.handleException(Thread.currentThread(), ex);
+        } catch (LzrException ex) {
+            System.out.println(String.format("%s: %s in: \n" + Ansi.ansi().fg(Ansi.Color.GREEN).a("%s").reset(), ex.getType(), ex.getText(), input));
+            //Console.handleException(Thread.currentThread(), ex);
         }
 
     }

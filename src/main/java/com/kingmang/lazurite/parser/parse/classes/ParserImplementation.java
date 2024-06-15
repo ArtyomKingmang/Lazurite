@@ -236,7 +236,7 @@ public final class ParserImplementation {
     }
 
     private Statement throwSt() {
-        String type = "LzrException";
+        String type = consume(TokenType.WORD).getText();
         Expression expr = expression();
         return new ThrowStatement(type, expr);
     }
