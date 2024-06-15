@@ -8,7 +8,7 @@ public final class VariableDoesNotExistsException extends LzrException {
     private final String variable;
 
     public VariableDoesNotExistsException(String variable) {
-        super("VariableDoesNotExistsException", "Variable " + variable + " does not exists");
+        super("VariableDoesNotExistsException", "Variable: \"" + variable + "\" does not exists");
         this.variable = variable;
     }
 
