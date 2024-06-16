@@ -1,124 +1,30 @@
 # Библиотеки
-* [graph - графическая библиотека](#graph)
+* [lgl - графическая библиотека](#lgl)
 * [http - работа с сетью](#http)
-* [lsoup - работа с HTML ](#lsoup)
 * [reflection - внедрение java пакетов](#reflection)
 * [gforms - графическая библиотека (виджеты)](#gforms)
 * [robot - автоматизация](#robot)
+* [lsoup - работа с HTML ](#lsoup)
 * [async](#async)
 * [std](#std)
-* [jloader - загрузка jar файлов](#jloader)
 * [arrays - работа с массивами](#arrays)
+* [graph - графическая библиотека](#graph)
 * [artify](#artify)
 * [base64](#base64)
 * [clipboard](#clipboard)
 * [LFS - работа с файлами](#LFS)
 * [system](#system)
+* [io](#io)
 * [ML](#ML)
+* [jloader - загрузка jar файлов](#jloader)
 * [random](#random)
 * [time](#time)
 * [colors](#colors)
 * [json](#json)
 
-# graph
-
-## Библиотека для работы с графикой.
-
-### Окно
-`Frame(arg[0], arg[1], arg[2])` - создает окно с заголовком arg[0] и размерами arg[1], arg[2].
-Все аргументы опциональны и указывать их необязательно, ведь в таком случае будут выбраны заранее заготовленные аргументы. 
-
-````java
-using "graph"
-width = 640
-height = 400
-Frame("test",width,height)
-````
-Функции окна:
-````
-background(r,g,b) - установка цвета фона
-Redraw() - обновление экрана
-````
-### Примитивы
-`ellipse(x,y,w,h)` - создает закрашенный эллипс в координатах x, y с размерами w, h
-
-`lellipse(x,y,w,h)` - создает эллипс в координатах x, y с размерами w, h
-
-`rect(x,y,w,h)` - создает закрашенный прямоугольник в координатах x, y с размерами w, h
-
-`lrect(x,y,w,h)` - создает прямоугольник в координатах x, y с размерами w, h
-
-`fill(rgb)` - закрашивает все фигуры, идущие после него 
-
-````java
-using "graph"
-Frame()
-
-fill(100,100,200)
-rect(10,10,200,100)
-
-fill(100,200,100)
-lrect(100,100,100,100)
-````
+# lgl
 
 
-### Текст
-`text("text", x, y)` - создает текст в координатах x, y
-````java
-using "graph"
-Frame(500,500)
-fill(0)
-text("Hello",100,100)
-````
-`font("Arial", size)` - устанавливает шрифт с определенным размером
-````java
-using "graph"
-Frame(500,500)
-
-font("Arial",30)
-
-fill(0)
-text("Hello",100,100)
-````
-### Обработка нажатий
-`keyPressed()`
-````java
-using "graph"
-Frame(500,500)
-
-while(1){
-    key = keyPressed()
-    if(key == KEY.LEFT){
-        println("left")
-    }else if(key == KEY.A){
-        println("a")
-    }
-}
-````
-`mouseHover()`
-````java
-using "graph"
-
-Frame()
-mouse = mouseHover()
-
-while(1){
-    background(100,100,200)
-    fill(255,255,255)
-    ellipse(mouse[0], mouse[1], 50,50)
-    Redraw()
-}
-````
-        
-        
-
-### Другие функции
-````
-translate(arg[0], arg[1])
-dispose()
-rotate(arg[0]) || rotate(arg[0], arg[1], arg[2])
-scale(arg[0], arg[1])
-````
 # http
 `http.download()` - загружает файл из downloadUrl в filePath
 ````java
@@ -169,19 +75,7 @@ http.request("https://github.com/ArtyomKingmang/Lazurite/blob/main/docs/RU.md", 
 
 `url.encode(str)` - преобразует строку в URL-формат
 
-# lsoup
-`lsoup.parse(url)` - загружает HTML-код веб-страницы по указанному URL.
 
-`lsoup.select("tag")` - выполняет поиск элементов с тегом "tag" в загруженном HTML-коде.
-
-````java
-using "lsoup"
-
-lsoup.parse("https://artyomkingmang.github.io/lazurite-pages/")
-result = lsoup.select("title")
-
-print(result)
-````
 
 # reflection
 Работа с пакетами java и конвертацией java в lazurite (и наоборот) 
@@ -447,67 +341,19 @@ robot.keyPress(KEY.A)
 
 `robot.typeText(text)` - Последовательно нажимает клавиши для ввода указанного текста
 
-# jloader
-Библиотека позволяет загружать jar-файлы, не добавляя их в сам lazurite
+# lsoup
+`lsoup.parse(url)` - загружает HTML-код веб-страницы по указанному URL.
 
-Пример:
-````java
-using "jloader"
-
-
-jloader.invoke("examples/jloader/printer.java", "com.monsler.printer.Printer", "print", "Hello from java!", 1)
-/*  
-Аргументы:
-1 - путь к jar;
-2 - класс;
-3 - метод;
-4 - аргумент ( используйте Object[] как аргумент );
-5 - статичность метода (0 - нет; 1 - да)
-*/
-````
-# arrays
-`arrays.combine(keys, values)` — создает массив, используя один массив для ключей, а другой — для его значений
-
-Пример:
-````java
-using "arrays"
-
-colors = ["green", "red", "yellow"]
-fruits = ["avocado", "apple", "banana"]
-
-out = arrays.combine(colors, fruits)
-print(out)
-````
-
-`arrays.keyExists(key, map)` - Проверяет, существует ли в массиве заданный ключ или индекс. Если существует, возвращает 1, иначе 0.
-
-Пример:
-````java
-using "arrays"
-map = {
-    "apple" : "red"
-    "banana" : "yellow"
-}
-print(arrays.keyExists("apple",map))
-````
-
-`arrays.join(array, "delimiter", "prefix", "suffix")` — объединяет массив в строку с разделителем, префиксом и суффиксом.
-
-Пример:
+`lsoup.select("tag")` - выполняет поиск элементов с тегом "tag" в загруженном HTML-коде.
 
 ````java
-using "arrays"
-array = ["banana", "apple", "pie"]
+using "lsoup"
 
-out_array = arrays.join(array, "--")
-print(out_array)
+lsoup.parse("https://artyomkingmang.github.io/lazurite-pages/")
+result = lsoup.select("title")
 
-//Вывод: banana--apple--pie
+print(result)
 ````
-
-`arrays.sort(array)` — сортирует массив.
-
-
 
 # async
 `async.supply(function)` - асинхронный способ получения или предоставления информации, когда данные поступают или отправляются не сразу, а по мере их доступности. Это означает, что вы можете запросить какие-то данные и продолжать выполнять другие задачи, пока данные еще не готовы. Когда данные станут доступны, они будут переданы вам для использования. Это помогает сделать программы более отзывчивыми и эффективными, так как они не блокируются в ожидании данных.
@@ -630,6 +476,155 @@ arrayDeque.toArray()
 `treeMap(fromMap = {}, comparator = func(a, b) = 0)` — создаёт новый TreeMap из значений fromMap и компаратора comparator
 
 `concurrentSkipListMap(fromMap = {}, comparator = func(a, b) = 0)` — создаёт новый ConcurrentSkipListMap из значений fromMap и компаратора comparator
+
+
+# arrays
+`arrays.combine(keys, values)` — создает массив, используя один массив для ключей, а другой — для его значений
+
+Пример:
+````java
+using "arrays"
+
+colors = ["green", "red", "yellow"]
+fruits = ["avocado", "apple", "banana"]
+
+out = arrays.combine(colors, fruits)
+print(out)
+````
+
+`arrays.keyExists(key, map)` - Проверяет, существует ли в массиве заданный ключ или индекс. Если существует, возвращает 1, иначе 0.
+
+Пример:
+````java
+using "arrays"
+map = {
+    "apple" : "red"
+    "banana" : "yellow"
+}
+print(arrays.keyExists("apple",map))
+````
+
+`arrays.join(array, "delimiter", "prefix", "suffix")` — объединяет массив в строку с разделителем, префиксом и суффиксом.
+
+Пример:
+
+````java
+using "arrays"
+array = ["banana", "apple", "pie"]
+
+out_array = arrays.join(array, "--")
+print(out_array)
+
+//Вывод: banana--apple--pie
+````
+
+`arrays.sort(array)` — сортирует массив.
+
+
+
+
+# graph
+
+### Упрощенная библиотека для работы с графикой.
+
+### Окно
+`Frame(arg[0], arg[1], arg[2])` - создает окно с заголовком arg[0] и размерами arg[1], arg[2].
+Все аргументы опциональны и указывать их необязательно, ведь в таком случае будут выбраны заранее заготовленные аргументы.
+
+````java
+using "graph"
+width = 640
+height = 400
+Frame("test",width,height)
+````
+Функции окна:
+````
+background(r,g,b) - установка цвета фона
+Redraw() - обновление экрана
+````
+### Примитивы
+`ellipse(x,y,w,h)` - создает закрашенный эллипс в координатах x, y с размерами w, h
+
+`lellipse(x,y,w,h)` - создает эллипс в координатах x, y с размерами w, h
+
+`rect(x,y,w,h)` - создает закрашенный прямоугольник в координатах x, y с размерами w, h
+
+`lrect(x,y,w,h)` - создает прямоугольник в координатах x, y с размерами w, h
+
+`fill(rgb)` - закрашивает все фигуры, идущие после него
+
+````java
+using "graph"
+Frame()
+
+fill(100,100,200)
+rect(10,10,200,100)
+
+fill(100,200,100)
+lrect(100,100,100,100)
+````
+
+
+### Текст
+`text("text", x, y)` - создает текст в координатах x, y
+````java
+using "graph"
+Frame(500,500)
+fill(0)
+text("Hello",100,100)
+````
+`font("Arial", size)` - устанавливает шрифт с определенным размером
+````java
+using "graph"
+Frame(500,500)
+
+font("Arial",30)
+
+fill(0)
+text("Hello",100,100)
+````
+### Обработка нажатий
+`keyPressed()`
+````java
+using "graph"
+Frame(500,500)
+
+while(1){
+    key = keyPressed()
+    if(key == KEY.LEFT){
+        println("left")
+    }else if(key == KEY.A){
+        println("a")
+    }
+}
+````
+`mouseHover()`
+````java
+using "graph"
+
+Frame()
+mouse = mouseHover()
+
+while(1){
+    background(100,100,200)
+    fill(255,255,255)
+    ellipse(mouse[0], mouse[1], 50,50)
+    Redraw()
+}
+````
+
+
+
+### Другие функции
+````
+translate(arg[0], arg[1])
+dispose()
+rotate(arg[0]) || rotate(arg[0], arg[1], arg[2])
+scale(arg[0], arg[1])
+````
+
+
+
 # artify
 Библиотека для преобразования текста в ASCII арт.
 
@@ -813,6 +808,25 @@ println(system.getProperty("file.separator"))
 `ml.toDegrees(x)` — перевод радиан в градусы
 
 `ml.toRadians(x)` — перевод градусов в радианы
+
+# jloader
+Библиотека позволяет загружать jar-файлы, не добавляя их в сам lazurite
+
+Пример:
+````java
+using "jloader"
+
+
+jloader.invoke("examples/jloader/printer.java", "com.monsler.printer.Printer", "print", "Hello from java!", 1)
+/*  
+Аргументы:
+1 - путь к jar;
+2 - класс;
+3 - метод;
+4 - аргумент ( используйте Object[] как аргумент );
+5 - статичность метода (0 - нет; 1 - да)
+*/
+````
 
 # random
 `random(from = 0, to = 10)` — возвращает псевдослучайное число.
