@@ -1,100 +1,84 @@
-package com.kingmang.lazurite.libraries.arrays;
-import com.kingmang.lazurite.exceptions.LzrException;
-import com.kingmang.lazurite.core.*;
+package com.kingmang.lazurite.libraries.arrays
 
-import com.kingmang.lazurite.libraries.Library;
-import com.kingmang.lazurite.runtime.values.LzrArray;
-import com.kingmang.lazurite.runtime.values.LzrMap;
-import com.kingmang.lazurite.runtime.values.LzrNumber;
-import com.kingmang.lazurite.runtime.values.LzrValue;
-import com.kingmang.lazurite.runtime.Variables;
-import com.kingmang.lazurite.utils.ValueUtils;
+import com.kingmang.lazurite.core.Arguments
+import com.kingmang.lazurite.core.Function
+import com.kingmang.lazurite.core.Types
+import com.kingmang.lazurite.exceptions.LzrException
+import com.kingmang.lazurite.libraries.Library
+import com.kingmang.lazurite.runtime.Variables
+import com.kingmang.lazurite.runtime.values.LzrArray
+import com.kingmang.lazurite.runtime.values.LzrMap
+import com.kingmang.lazurite.runtime.values.LzrNumber
+import com.kingmang.lazurite.runtime.values.LzrValue
+import com.kingmang.lazurite.utils.ValueUtils
+import java.util.*
+import kotlin.math.min
 
-
-public final class arrays implements Library {
-    @Override
-    public void init() {
-        LzrMap array = new LzrMap(4);
-        array.set("join", new Function() {
-            @Override
-            public LzrValue execute(LzrValue... args) {
-                Arguments.checkRange(1, 4, args.length);
-                if (args[0].type() != Types.ARRAY) {
-                    throw new LzrException("TypeExeption ","Array expected in first argument");
-                }
-
-                final LzrArray array = (LzrArray) args[0];
-                return switch (args.length) {
-                    case 1 -> LzrArray.joinToString(array, "", "", "");
-                    case 2 -> LzrArray.joinToString(array, args[1].asString(), "", "");
-                    case 3 -> LzrArray.joinToString(array, args[1].asString(), args[2].asString(), args[2].asString());
-                    case 4 -> LzrArray.joinToString(array, args[1].asString(), args[2].asString(), args[3].asString());
-                    default -> throw new LzrException("ArgumentsMismatchException ", "Wrong number of arguments");
-                };
-            }
-        });
-        array.set("sort", new Function() {
-            @Override
-            public LzrValue execute(LzrValue... args) {
-                Arguments.checkAtLeast(1, args.length);
-                if (args[0].type() != Types.ARRAY) {
-                    throw new LzrException("TypeExeption ","Array expected in first argument");
-                }
-                final LzrValue[] elements = ((LzrArray) args[0]).getCopyElements();
-
-                switch (args.length) {
-                    case 1:
-                        java.util.Arrays.sort(elements);
-                        break;
-                    case 2:
-                        final Function comparator = ValueUtils.consumeFunction(args[1], 1);
-                        java.util.Arrays.sort(elements, (o1, o2) -> comparator.execute(o1, o2).asInt());
-                        break;
-                    default:
-                        throw new LzrException("ArgumentsMismatchException ","Wrong number of arguments");
-                }
-
-                return new LzrArray(elements);
+class arrays : Library {
+    override fun init() {
+        val array = LzrMap(4)
+        array["join"] = Function { args ->
+            Arguments.checkRange(1, 4, args.size)
+            if (args[0].type() != Types.ARRAY) {
+                throw LzrException("TypeExeption ", "Array expected in first argument")
             }
 
-        });
-        array.set("combine", new Function() {
-            @Override
-            public LzrValue execute(LzrValue... args) {
-                Arguments.check(2, args.length);
-                if (args[0].type() != Types.ARRAY) {
-                    throw new LzrException("TypeException","Array expected in first argument");
-                }
-                if (args[1].type() != Types.ARRAY) {
-                    throw new LzrException("TypeException", "Array expected in second argument");
+            val array = args[0] as LzrArray
+            when (args.size) {
+                1 -> LzrArray.joinToString(array, "", "", "")
+                2 -> LzrArray.joinToString(array, args[1].asString(), "", "")
+                3 -> LzrArray.joinToString(array, args[1].asString(), args[2].asString(), args[2].asString())
+                4 -> LzrArray.joinToString(array, args[1].asString(), args[2].asString(), args[3].asString())
+                else -> throw LzrException("ArgumentsMismatchException ", "Wrong number of arguments")
+            }
+        }
+        array["sort"] = Function { args ->
+            Arguments.checkAtLeast(1, args.size)
+            if (args[0].type() != Types.ARRAY) {
+                throw LzrException("TypeExeption ", "Array expected in first argument")
+            }
+            val elements = (args[0] as LzrArray).copyElements
+
+            when (args.size) {
+                1 -> Arrays.sort(elements)
+                2 -> {
+                    val comparator = ValueUtils.consumeFunction(args[1], 1)
+                    Arrays.sort(
+                        elements
+                    ) { o1: LzrValue?, o2: LzrValue? -> comparator.execute(o1, o2).asInt() }
                 }
 
-                final LzrArray keys = ((LzrArray) args[0]);
-                final LzrArray values = ((LzrArray) args[1]);
-                final int length = Math.min(keys.size(), values.size());
-
-                final LzrMap result = new LzrMap(length);
-                for (int i = 0; i < length; i++) {
-                    result.set(keys.get(i), values.get(i));
-                }
-                return result;
+                else -> throw LzrException("ArgumentsMismatchException ", "Wrong number of arguments")
+            }
+            LzrArray(elements)
+        }
+        array["combine"] = Function { args ->
+            Arguments.check(2, args.size)
+            if (args[0].type() != Types.ARRAY) {
+                throw LzrException("TypeException", "Array expected in first argument")
+            }
+            if (args[1].type() != Types.ARRAY) {
+                throw LzrException("TypeException", "Array expected in second argument")
             }
 
-        });
-        array.set("keyExists", new Function() {
-            @Override
-            public LzrValue execute(LzrValue... args) {
-                Arguments.check(2, args.length);
-                if (args[1].type() != Types.MAP) {
-                    throw new LzrException("TypeException","Map expected in second argument");
-                }
-                final LzrMap map = ((LzrMap) args[1]);
-                return LzrNumber.fromBoolean(map.containsKey(args[0]));
-            }
-        });
-        Variables.define("arrays", array);
+            val keys = (args[0] as LzrArray)
+            val values = (args[1] as LzrArray)
+            val length = min(keys.size().toDouble(), values.size().toDouble()).toInt()
 
+            val result = LzrMap(length)
+            for (i in 0 until length) {
+                result[keys[i]] = values[i]
+            }
+            result
+        }
+        array["keyExists"] = Function { args ->
+            Arguments.check(2, args.size)
+            if (args[1].type() != Types.MAP) {
+                throw LzrException("TypeException", "Map expected in second argument")
+            }
+            val map = (args[1] as LzrMap)
+            LzrNumber.fromBoolean(map.containsKey(args[0]))
+        }
+        Variables.define("arrays", array)
     }
-
-
 }

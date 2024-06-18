@@ -496,7 +496,7 @@ public final class ParserImplementation {
 
         return new MatchExpression(expression, patterns);
     }
-    
+
     private Statement classDeclaration() {
 
         final String name = consume(TokenType.WORD).getText();
@@ -770,7 +770,7 @@ public final class ParserImplementation {
 
         return result;
     }
-    
+
     private Expression objectCreation() {
        if (match(TokenType.NEW)) {
             final String className = consume(TokenType.WORD).getText();
@@ -782,7 +782,7 @@ public final class ParserImplementation {
             }
             return new ObjectCreationExpression(className, args);
         }
-        
+
         return unary();
     }
 

@@ -22,8 +22,7 @@ public class Standart {
 
             final String input = args[0].asString();
             final int index = args[1].asInt();
-            String out = String.valueOf(input.charAt(index));
-            return new LzrString(out);
+            return LzrNumber.of((short)input.charAt(index));
         }
     }
 

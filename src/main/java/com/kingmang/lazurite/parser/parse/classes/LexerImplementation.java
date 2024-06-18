@@ -1,5 +1,7 @@
 package com.kingmang.lazurite.parser.parse.classes;
 
+import com.kingmang.lazurite.core.Arguments;
+import com.kingmang.lazurite.core.Function;
 import com.kingmang.lazurite.exceptions.LzrException;
 import com.kingmang.lazurite.libraries.Keyword;
 import com.kingmang.lazurite.core.Types;
@@ -18,6 +20,7 @@ import com.kingmang.lazurite.runtime.values.LzrMap;
 import com.kingmang.lazurite.runtime.values.LzrNumber;
 import com.kingmang.lazurite.runtime.values.LzrString;
 import com.kingmang.lazurite.runtime.Variables;
+import com.kingmang.lazurite.runtime.values.LzrValue;
 
 public final class LexerImplementation implements Lexer {
 
@@ -73,7 +76,7 @@ public final class LexerImplementation implements Lexer {
     public LexerImplementation(String input) {
         this.input = input;
         length = input.length();
-        
+
         tokens = new ArrayList<>();
         buffer = new StringBuilder();
         row = col = 1;
@@ -99,7 +102,7 @@ public final class LexerImplementation implements Lexer {
         }
         return tokens;
     }
-    
+
     private void tokenizeNumber() {
         clearBuffer();
         char current = peek(0);
@@ -141,7 +144,7 @@ public final class LexerImplementation implements Lexer {
                 || ('a' <= current && current <= 'f')
                 || ('A' <= current && current <= 'F');
     }
-    
+
     private void tokenizeOperator() {
         char current = peek(0);
         if (current == '/') {
@@ -168,7 +171,7 @@ public final class LexerImplementation implements Lexer {
             current = next();
         }
     }
-    
+
     private void tokenizeWord() {
         clearBuffer();
         buffer.append(peek(0));
@@ -180,7 +183,7 @@ public final class LexerImplementation implements Lexer {
             buffer.append(current);
             current = next();
         }
-        
+
         final String word = buffer.toString();
         if (KEYWORDS.containsKey(word)) {
             addToken(KEYWORDS.get(word));
@@ -203,7 +206,7 @@ public final class LexerImplementation implements Lexer {
         next(); // skip closing `
         addToken(TokenType.WORD, buffer.toString());
     }
-    
+
     private void tokenizeText() {
         next();// skip "
         clearBuffer();
@@ -249,19 +252,19 @@ public final class LexerImplementation implements Lexer {
             current = next();
         }
         next(); // skip closing "
-        
+
         addToken(TokenType.TEXT, buffer.toString());
     }
 
 
-    
+
     private void tokenizeComment() {
         char current = peek(0);
         while ("\r\n\0".indexOf(current) == -1) {
             current = next();
         }
      }
-    
+
     private void tokenizeMultilineComment() {
         char current = peek(0);
         while (true) {
@@ -282,11 +285,11 @@ public final class LexerImplementation implements Lexer {
     }
 
 
-    
+
     private void clearBuffer() {
         buffer.setLength(0);
     }
-    
+
     private char next() {
         pos++;
         final char result = peek(0);
@@ -296,21 +299,21 @@ public final class LexerImplementation implements Lexer {
         } else col++;
         return result;
     }
-    
+
     private char peek(int relativePosition) {
         final int position = pos + relativePosition;
         if (position >= length) return '\0';
         return input.charAt(position);
     }
-    
+
     private void addToken(TokenType type) {
         addToken(type, "");
     }
-    
+
     private void addToken(TokenType type, String text) {
         tokens.add(new Token(type, text, row, col));
     }
-    
+
     private LzrException error(String text) {
         return new LzrException("Lexer exeption","Lexer error");
     }
@@ -346,6 +349,7 @@ public final class LexerImplementation implements Lexer {
 
     public static void convertTypes(){
         Keyword.put("str", args -> new LzrString(args[0].asString()));
+        Keyword.put("char", args -> new LzrString(String.valueOf((char) args[0].asInt())));
         Keyword.put("num", args -> LzrNumber.of(args[0].asNumber()));
         Keyword.put("byte", args -> LzrNumber.of((byte)args[0].asInt()));
         Keyword.put("short", args -> LzrNumber.of((short)args[0].asInt()));
@@ -372,7 +376,9 @@ public final class LexerImplementation implements Lexer {
         Keyword.put("foreach", new Standart.foreach());
         Keyword.put("split", new Standart.split());
         Keyword.put("filter", new Standart.filter(false));
+
     }
+
     static {
         OPERATORS = new HashMap<>();
 

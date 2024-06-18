@@ -1,0 +1,8 @@
+using "async"
+using "std"
+func hel(arg){
+    println(arg)
+}
+for(i = 0, i < 10, i ++)
+std.thread(::hel, "Hello, " + i)
+async.supply(hel("Hello, " + i))

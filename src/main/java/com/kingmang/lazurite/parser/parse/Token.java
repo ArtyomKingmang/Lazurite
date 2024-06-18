@@ -8,11 +8,11 @@ import lombok.Getter;
 public final class Token {
 
     @Getter
-    private final TokenType type;
+    public final TokenType type;
     @Getter
-    private final String text;
+    public final String text;
     @Getter
-    private final int row, col;
+    public final int row, col;
     
     public String position() {
         return "[" + row + " " + col + "]";

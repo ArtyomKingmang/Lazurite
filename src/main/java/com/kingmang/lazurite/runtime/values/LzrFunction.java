@@ -14,7 +14,7 @@ public class LzrFunction implements LzrValue {
     public static final LzrFunction EMPTY = new LzrFunction(args -> LzrNumber.ZERO);
 
     @Getter
-    private final Function value;
+    public final Function value;
 
     
     @Override
