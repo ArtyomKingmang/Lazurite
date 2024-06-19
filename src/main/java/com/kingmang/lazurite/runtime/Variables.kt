@@ -1,115 +1,113 @@
-package com.kingmang.lazurite.runtime;
+package com.kingmang.lazurite.runtime
 
-import com.kingmang.lazurite.runtime.values.LzrNumber;
-import com.kingmang.lazurite.runtime.values.LzrValue;
-import lombok.NoArgsConstructor;
-
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
+import com.kingmang.lazurite.runtime.values.LzrNumber
+import com.kingmang.lazurite.runtime.values.LzrValue
+import lombok.NoArgsConstructor
+import java.util.concurrent.ConcurrentHashMap
+import kotlin.concurrent.Volatile
 
 @NoArgsConstructor
-public final class Variables {
+object Variables {
+    private val lock = Any()
 
-    private static final Object lock = new Object();
+    @Volatile
+    private var scope: Scope? = null
 
-    private static class Scope {
-        final Scope parent;
-        final Map<String, LzrValue> variables;
-
-        Scope() {
-            this(null);
-        }
-
-        Scope(Scope parent) {
-            this.parent = parent;
-            variables = new ConcurrentHashMap<>();
-        }
+    init {
+        clear()
     }
 
-    private static class ScopeFindData {
-        boolean isFound;
-        Scope scope;
+    fun variables(): Map<String, LzrValue> {
+        return scope!!.variables
     }
 
-    private static volatile Scope scope;
-    static {
-        Variables.clear();
+    @JvmStatic
+    fun clear() {
+        scope = Scope()
+        scope!!.variables.clear()
+        scope!!.variables["true"] = LzrNumber.ONE
+        scope!!.variables["false"] = LzrNumber.ZERO
     }
 
-    public static Map<String, LzrValue> variables() {
-        return scope.variables;
-    }
-
-    public static void clear() {
-        scope = new Scope();
-        scope.variables.clear();
-        scope.variables.put("true", LzrNumber.ONE);
-        scope.variables.put("false", LzrNumber.ZERO);
-    }
-    
-    public static void push() {
-        synchronized (lock) {
-            scope = new Scope(scope);
+    @JvmStatic
+    fun push() {
+        synchronized(lock) {
+            scope = Scope(scope)
         }
     }
-    
-    public static void pop() {
-        synchronized (lock) {
-            if (scope.parent != null) {
-                scope = scope.parent;
+
+    @JvmStatic
+    fun pop() {
+        synchronized(lock) {
+            if (scope!!.parent != null) {
+                scope = scope!!.parent
             }
         }
     }
-    
-    public static boolean isExists(String key) {
-        synchronized (lock) {
-            return findScope(key).isFound;
+
+    @JvmStatic
+    fun isExists(key: String): Boolean {
+        synchronized(lock) {
+            return findScope(key).isFound
         }
     }
-    
-    public static LzrValue get(String key) {
-        synchronized (lock) {
-            final ScopeFindData scopeData = findScope(key);
+
+    @JvmStatic
+    fun get(key: String): LzrValue? {
+        synchronized(lock) {
+            val scopeData = findScope(key)
             if (scopeData.isFound) {
-                return scopeData.scope.variables.get(key);
+                return scopeData.scope!!.variables[key]
             }
         }
-        return LzrNumber.ZERO;
+        return LzrNumber.ZERO
     }
-    
-    public static void set(String key, LzrValue value) {
-        synchronized (lock) {
-            findScope(key).scope.variables.put(key, value);
-        }
-    }
-    
-    public static void define(String key, LzrValue value) {
-        synchronized (lock) {
-            scope.variables.put(key, value);
+
+    @JvmStatic
+    fun set(key: String, value: LzrValue) {
+        synchronized(lock) {
+            findScope(key).scope!!.variables.put(key, value)
         }
     }
 
-    public static void remove(String key) {
-        synchronized (lock) {
-            findScope(key).scope.variables.remove(key);
+    @JvmStatic
+    fun define(key: String, value: LzrValue) {
+        synchronized(lock) {
+            scope!!.variables.put(key, value)
+        }
+    }
+
+    @JvmStatic
+    fun remove(key: String) {
+        synchronized(lock) {
+            findScope(key).scope!!.variables.remove(key)
         }
     }
 
 
-    private static ScopeFindData findScope(String variable) {
-        final ScopeFindData result = new ScopeFindData();
+    private fun findScope(variable: String): ScopeFindData {
+        val result = ScopeFindData()
 
-        Scope current = scope;
+        var current = scope
         do {
-            if (current.variables.containsKey(variable)) {
-                result.isFound = true;
-                result.scope = current;
-                return result;
+            if (current!!.variables.containsKey(variable)) {
+                result.isFound = true
+                result.scope = current
+                return result
             }
-        } while ((current = current.parent) != null);
-        
-        result.isFound = false;
-        result.scope = scope;
-        return result;
+        } while ((current!!.parent.also { current = it }) != null)
+
+        result.isFound = false
+        result.scope = scope
+        return result
+    }
+
+    private class Scope @JvmOverloads constructor(val parent: Scope? = null) {
+        val variables: MutableMap<String, LzrValue> = ConcurrentHashMap()
+    }
+
+    private class ScopeFindData {
+        var isFound: Boolean = false
+        var scope: Scope? = null
     }
 }

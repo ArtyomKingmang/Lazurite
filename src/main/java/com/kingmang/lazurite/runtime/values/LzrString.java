@@ -7,13 +7,15 @@ import lombok.AllArgsConstructor;
 
 import java.util.Objects;
 
-@AllArgsConstructor
 public final class LzrString implements LzrValue {
-    
+
     public static final LzrString EMPTY = new LzrString("");
-    
+
     private final String value;
 
+    public LzrString(String value){
+        this.value = value;
+    }
 
     public LzrValue access(LzrValue propertyValue) {
         final String prop = propertyValue.asString();
@@ -68,7 +70,7 @@ public final class LzrString implements LzrValue {
     public int length() {
         return value.length();
     }
-    
+
     @Override
     public int type() {
         return Types.STRING;
@@ -78,12 +80,12 @@ public final class LzrString implements LzrValue {
     public Object raw() {
         return value;
     }
-    
+
     @Override
     public int asInt() {
         return Integer.parseInt(value);
     }
-    
+
     @Override
     public double asNumber() {
         return Double.parseDouble(value);
@@ -116,7 +118,7 @@ public final class LzrString implements LzrValue {
         final LzrString other = (LzrString) obj;
         return Objects.equals(this.value, other.value);
     }
-    
+
     @Override
     public int compareTo(LzrValue o) {
         if (o.type() == Types.STRING) {
@@ -124,7 +126,7 @@ public final class LzrString implements LzrValue {
         }
         return asString().compareTo(o.asString());
     }
-    
+
     @Override
     public String toString() {
         return asString();

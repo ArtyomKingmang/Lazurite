@@ -1,25 +1,19 @@
-package com.kingmang.lazurite.parser.parse;
+package com.kingmang.lazurite.parser.parse
+
+import lombok.Getter
 
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-
-@AllArgsConstructor
-public final class Token {
-
-    @Getter
-    public final TokenType type;
-    @Getter
-    public final String text;
-    @Getter
-    public final int row, col;
-    
-    public String position() {
-        return "[" + row + " " + col + "]";
+class Token(
+    @field:Getter val type: TokenType,
+    @field:Getter val text: String,
+    @field:Getter val row: Int,
+    @field:Getter val col: Int
+) {
+    fun position(): String {
+        return "[$row $col]"
     }
 
-    @Override
-    public String toString() {
-        return type.name() + " " + position() + " " + text;
+    override fun toString(): String {
+        return type.name + " " + position() + " " + text
     }
 }
