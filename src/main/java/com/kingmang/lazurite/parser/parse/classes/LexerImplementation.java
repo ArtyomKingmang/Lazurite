@@ -118,10 +118,28 @@ public final class LexerImplementation implements Lexer {
             } else if (!Character.isDigit(current)) {
                 break;
             }
+
             buffer.append(current);
             current = next();
         }
-        addToken(TokenType.NUMBER, buffer.toString());
+        if (current == 'f') {
+            next();
+            addToken(TokenType.FLOAT_NUM, buffer.toString());
+
+        }else if (current == 'l') {
+            next();
+            addToken(TokenType.LONG_NUM, buffer.toString());
+
+        }else if (current == 'i') {
+            next();
+            addToken(TokenType.INT_NUM, buffer.toString());
+
+        }else if (current == 'd') {
+            next();
+            addToken(TokenType.DOUBLE_NUM, buffer.toString());
+
+        }else
+            addToken(TokenType.NUMBER, buffer.toString());
     }
     private void tokenizeHexNumber(int skipped) {
         clearBuffer();

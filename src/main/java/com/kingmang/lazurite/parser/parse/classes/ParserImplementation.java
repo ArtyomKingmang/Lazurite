@@ -29,11 +29,7 @@ import com.kingmang.lazurite.runtime.values.LzrString;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.EnumMap;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 import java.util.Map;
 
 
@@ -69,7 +65,14 @@ public final class ParserImplementation {
         ASSIGN_OPERATORS.put(TokenType.EQ, null);
         ASSIGN_OPERATORS.put(TokenType.ATEQ, BinaryExpression.Operator.AT);
     }
-
+    private static final EnumSet<TokenType> NUMBER_TOKEN_TYPES = EnumSet.of(
+            TokenType.NUMBER,
+            TokenType.LONG_NUM,
+            TokenType.DOUBLE_NUM,
+            TokenType.INT_NUM,
+            TokenType.FLOAT_NUM,
+            TokenType.HEX_NUMBER
+    );
     private final List<Token> tokens;
     private final int size;
 
@@ -436,10 +439,10 @@ public final class ParserImplementation {
             consume(TokenType.CASE);
             MatchExpression.Pattern pattern = null;
             final Token current = get(0);
-            if (match(TokenType.NUMBER)) {
-                // case 0.5:
+            if (isNumberToken(current.getType())) {
+                // case 20: / case 0.5: / case #FF:
                 pattern = new MatchExpression.ConstantPattern(
-                        LzrNumber.of(createNumber(current.getText(), 10))
+                        LzrNumber.of(getAsNumber(current))
                 );
             } else if (match(TokenType.HEX_NUMBER)) {
                 // case #FF:
@@ -898,11 +901,8 @@ public final class ParserImplementation {
 
     private Expression value() {
         final Token current = get(0);
-        if (match(TokenType.NUMBER)) {
-            return new ValueExpression(createNumber(current.getText(), 10));
-        }
-        if (match(TokenType.HEX_NUMBER)) {
-            return new ValueExpression(createNumber(current.getText(), 16));
+        if (isNumberToken(current.getType())) {
+            return new ValueExpression(getAsNumber(current));
         }
         if (match(TokenType.TEXT)) {
             final ValueExpression strExpr = new ValueExpression(current.getText());
@@ -926,6 +926,33 @@ public final class ParserImplementation {
         throw new LzrException("ParseException ","Unknown expression: " + current);
     }
 
+    private boolean isNumberToken(TokenType type) {
+        return NUMBER_TOKEN_TYPES.contains(type);
+    }
+
+    private Number getAsNumber(Token current) {
+        if (match(TokenType.NUMBER)) {
+            return createNumber(current.getText(), 10);
+        }
+        if (match(TokenType.INT_NUM)) {
+            return createIntegerNumber(current.getText(), 10);
+        }
+        if (match(TokenType.FLOAT_NUM)) {
+            return createIntegerNumber(current.getText(), 10);
+        }
+        if (match(TokenType.DOUBLE_NUM)) {
+            return createIntegerNumber(current.getText(), 10);
+        }
+        if (match(TokenType.LONG_NUM)) {
+            return createLongNumber(current.getText(), 10);
+        }
+        if (match(TokenType.HEX_NUMBER)) {
+            return createNumber(current.getText(), 16);
+        }
+
+        throw new LzrException("error: ", "Unknown number expression: " + current);
+    }
+
     private Number createNumber(String text, int radix) {
         // Double
         if (text.contains(".")) {
@@ -939,6 +966,18 @@ public final class ParserImplementation {
         }
     }
 
+    private Number createLongNumber(String text, int radix) {
+        return Long.parseLong(text, radix);
+    }
+    private Number createIntegerNumber(String text, int radix) {
+        return Integer.parseInt(text, radix);
+    }
+    private Number createFloatNumber(String text) {
+        return Float.parseFloat(text);
+    }
+    private Number createDoubleNumber(String text) {
+        return Double.parseDouble(text);
+    }
     private Token consume(TokenType type) {
         final Token current = get(0);
         if (type != current.getType()) {

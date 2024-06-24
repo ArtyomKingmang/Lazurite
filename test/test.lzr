@@ -1,0 +1,5 @@
+a = 100l // Long
+b = 200i // Integer
+c = 300d // Double
+d = 400f // Float
+print(a + b + c + d)

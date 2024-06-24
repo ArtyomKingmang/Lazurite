@@ -25,6 +25,11 @@ public enum TokenType {
     CLASS,
     NEW,
 
+    LONG_NUM,
+    INT_NUM,
+    DOUBLE_NUM,
+    FLOAT_NUM,
+
     NUMBER,
     HEX_NUMBER,
     WORD,
