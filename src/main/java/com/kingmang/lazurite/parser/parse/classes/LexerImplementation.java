@@ -16,11 +16,8 @@ import com.kingmang.lazurite.parser.parse.Lexer;
 import com.kingmang.lazurite.parser.parse.Token;
 import com.kingmang.lazurite.parser.parse.TokenType;
 import com.kingmang.lazurite.parser.standart.Standart;
-import com.kingmang.lazurite.runtime.values.LzrMap;
-import com.kingmang.lazurite.runtime.values.LzrNumber;
-import com.kingmang.lazurite.runtime.values.LzrString;
+import com.kingmang.lazurite.runtime.values.*;
 import com.kingmang.lazurite.runtime.Variables;
-import com.kingmang.lazurite.runtime.values.LzrValue;
 
 public final class LexerImplementation implements Lexer {
 
@@ -385,6 +382,7 @@ public final class LexerImplementation implements Lexer {
     }
 
     private static void standart(){
+        Variables.define("null", new LzrNull());
         Keyword.put("charAt", new Standart.charAt());
         Keyword.put("equals", new Standart.equal());
         Keyword.put("combine", new Standart.combine());

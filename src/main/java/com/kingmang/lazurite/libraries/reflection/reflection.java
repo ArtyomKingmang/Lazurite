@@ -24,7 +24,7 @@ import java.util.Objects;
 public final class reflection implements Library {
     @Override
     public void init() {
-        Variables.define("null", new LzrNull());
+
         Variables.define("boolean.class", new JavaClassValue(boolean.class));
         Variables.define("boolean[].class", new JavaClassValue(boolean[].class));
         Variables.define("boolean[][].class", new JavaClassValue(boolean[][].class));
