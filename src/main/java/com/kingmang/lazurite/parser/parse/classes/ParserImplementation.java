@@ -71,6 +71,8 @@ public final class ParserImplementation {
             TokenType.DOUBLE_NUM,
             TokenType.INT_NUM,
             TokenType.FLOAT_NUM,
+            TokenType.BYTE_NUM,
+            TokenType.SHORT_NUM,
             TokenType.HEX_NUMBER
     );
     private final List<Token> tokens;
@@ -934,14 +936,20 @@ public final class ParserImplementation {
         if (match(TokenType.NUMBER)) {
             return createNumber(current.getText(), 10);
         }
+        if(match(TokenType.FLOAT_NUM)){
+            return createFloatNumber(current.getText());
+        }
+        if(match(TokenType.DOUBLE_NUM)){
+            return createDoubleNumber(current.getText());
+        }
         if (match(TokenType.INT_NUM)) {
             return createIntegerNumber(current.getText(), 10);
         }
-        if (match(TokenType.FLOAT_NUM)) {
-            return createIntegerNumber(current.getText(), 10);
+        if (match(TokenType.BYTE_NUM)) {
+            return createByteNumber(current.getText(), 10);
         }
-        if (match(TokenType.DOUBLE_NUM)) {
-            return createIntegerNumber(current.getText(), 10);
+        if (match(TokenType.SHORT_NUM)) {
+            return createShortNumber(current.getText(), 10);
         }
         if (match(TokenType.LONG_NUM)) {
             return createLongNumber(current.getText(), 10);
@@ -954,20 +962,21 @@ public final class ParserImplementation {
     }
 
     private Number createNumber(String text, int radix) {
-        // Double
-        if (text.contains(".")) {
-            return Double.parseDouble(text);
-        }
-        // Integer
         try {
-            return Integer.parseInt(text, radix);
+            return createIntegerNumber(text, radix);
         } catch (NumberFormatException nfe) {
-            return Long.parseLong(text, radix);
+            return createDoubleNumber(text);
         }
     }
 
     private Number createLongNumber(String text, int radix) {
         return Long.parseLong(text, radix);
+    }
+    private Number createShortNumber(String text, int radix) {
+        return Short.parseShort(text, radix);
+    }
+    private Number createByteNumber(String text, int radix) {
+        return Byte.parseByte(text, radix);
     }
     private Number createIntegerNumber(String text, int radix) {
         return Integer.parseInt(text, radix);

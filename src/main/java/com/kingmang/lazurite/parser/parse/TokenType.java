@@ -29,6 +29,8 @@ public enum TokenType {
     INT_NUM,
     DOUBLE_NUM,
     FLOAT_NUM,
+    BYTE_NUM,
+    SHORT_NUM,
 
     NUMBER,
     HEX_NUMBER,

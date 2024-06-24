@@ -126,6 +126,10 @@ public final class LexerImplementation implements Lexer {
             next();
             addToken(TokenType.FLOAT_NUM, buffer.toString());
 
+        }else if (current == 'b') {
+            next();
+            addToken(TokenType.BYTE_NUM, buffer.toString());
+
         }else if (current == 'l') {
             next();
             addToken(TokenType.LONG_NUM, buffer.toString());
@@ -137,6 +141,9 @@ public final class LexerImplementation implements Lexer {
         }else if (current == 'd') {
             next();
             addToken(TokenType.DOUBLE_NUM, buffer.toString());
+        }else if (current == 's') {
+            next();
+            addToken(TokenType.SHORT_NUM, buffer.toString());
 
         }else
             addToken(TokenType.NUMBER, buffer.toString());
@@ -336,7 +343,7 @@ public final class LexerImplementation implements Lexer {
         return new LzrException("Lexer exeption","Lexer error");
     }
 
-    //добавление ключевых слов из массива keywords в Map KEYWORDS
+    //adding keywords from the keywords array to map KEYWORDS
     static {
         KEYWORDS = new HashMap<>();
         for (int i = 0; i < keywords.length; i++) {
