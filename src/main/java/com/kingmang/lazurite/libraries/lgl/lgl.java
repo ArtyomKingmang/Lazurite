@@ -87,6 +87,7 @@ public final class lgl implements Library {
         effect.set("Reflection", new LReflection());
         effect.set("SepiaTone", new LSepiaTone());
         effect.set("Shadow", new LShadow());
+        Variables.define("effect", effect);
 
         Keyword.put("loadImage", new LoadImage());
 

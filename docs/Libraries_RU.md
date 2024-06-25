@@ -26,6 +26,240 @@
 ### (добавлено с 2.7.4)
 
 
+`frame = lgl.createFrame("Title", width, height)` - Создать фрейм. все параметры необязательны.<BR>
+
+`lgl.redraw()` - Перерисовать текущий фрейм. <br>
+
+`frame.rect(x, y, width, height)` - Отрисовка прямоугольника с заданной позицией и размерами.<BR>
+
+`frame.setFill(Color)` - Установка цвета заливки.<BR>
+
+`frame.text(textString, x, y)` - Нарисовать текст в позиции x, y<BR>
+
+`frame.roundRect(x, y, width, height, roundX, roundY)` - Заливка закруглённого прямоугольника. <BR>
+
+`frame.line(x, y, width, height)` - Нарисовать линию <br>
+
+`frame.rotate(degree)` - Повернуть последующие объекты на degree градусов. <br>
+
+`frame.setLineCap(value)` - Установить ограничение линии <br>
+
+`frame.setLineJoin(value) `- Установить соединение линии <br>
+
+`frame.setStroke(Color)` - Установить цвет обводки <br>
+
+`frame.getFill()` - Возвращает установленный цвет заливки <br>
+
+`frame.getStroke()` - Возвращает цвет обводки<br>
+
+`frame.ellipse(v, v1, v2, v3)` - Отрисовка круга <br>
+
+`frame.lineTo(x, y)` - Проложить линию в (x, y) <br>
+
+`frame.getGlobalAlpha()` - Получить глобальный коэффицент прозрачности <br>
+
+`frame.clip()` - Обрезка отрисовки в фрейме
+
+Пример 1:
+
+```python
+using "lgl"
+
+frame = lgl.createFrame("Hello, Lazurite!", 500, 400)
+frame.rect(10, 10, 30, 30)
+```
+
+`img = loadImage("file: path")` - загружает
+изображение в переменную img. Если указать в строке
+`file:` следом идет путь к файлу. Если не указывать file,
+то аргумент будет являться ссылка на изображение.
+
+`frame.image(img, x, y, width, height)` - рисует изображение
+img в позиции x; y с размерами width; height.
+
+Пример 2:
+
+````python
+using "lgl"
+
+frame = lgl.createFrame(500,500)
+
+img = loadImage("https://cs8.pikabu.ru/post_img/2016/02/17/10/145572598117693502.png")
+frame.image(img, 100, 100, 100, 100)
+````
+
+### Остальные методы
+
+`frame.setFillRule()`
+
+`frame.save()`
+
+`frame.arc()`
+
+`frame.moveTo()`
+
+`frame.beginPath()`
+
+`frame.endPath()`
+
+`frame.quadraticCurveTo()`
+
+
+
+### Служебные компоненты
+#### Color - Цвета
++ Сolor.rgb(r, g, b)
++ Color.hsb(h, s, b)
++ Color.new()
++ Color.web()
+
+
+Пример 3:
+````python
+using "lgl"
+
+frame = lgl.createFrame(500,500)
+
+frame.setFill(Color.rgb(100,100,200))
+frame.rect(100,100,100,100)
+````
+#### Effects - эффекты
++ Blend()
+
++ Bloom()
+
++ BoxBlur()
+
++ ColorAdjust()
+
++ ColorInput()
+
++ DropShadow()
+
++ GaussianBlur()
+
++ Glow()
+
++ InnerShadow()
+
++ Lighting()
+
++ MotionBlur()
+
++ PerspectiveTransform()
+
++ Reflection()
+
++ SepiaTone()
+
++ Shadow()
+
+Пример 4:
+
+````python
+using "lgl"
+
+window = lgl.createFrame("Test Frame", 500, 500)
+
+window.setEffect(effect.BoxBlur())
+window.setFill(Color.BLUE)
+window.rect(100,100,100,100)
+````
+
+### Обработка нажатий
+
+#### Event
+Функции:
+````
+Handler()
+
+Filter()
+````
+Константы:
+````
+DRAG_DETECTED=0,
+MOUSE_CLICKED=1,
+MOUSE_DRAGGED=2,
+MOUSE_ENTERED=3,
+MOUSE_ENTERED_TARGET=4,
+MOUSE_EXITED=5,
+MOUSE_EXITED_TARGET=6,
+MOUSE_MOVED=7,
+MOUSE_PRESSED=8,
+MOUSE_RELEASED=9,
+KEY_PRESSED=10,
+KEY_RELEASED=11,
+KEY_TYPED=12,
+SWIPE_DOWN=13,
+SWIPE_LEFT=14,
+SWIPE_RIGHT=15,
+SWIPE_UP=16
+````
+Пример 5:
+````python
+using "lgl"
+
+window = lgl.createFrame("Test Frame", 500, 500)
+
+Event.Handler(Event.KEY_PRESSED, func(e) {
+  if (e.code == KeyCode.X){
+    println("Click X")
+  }
+})
+````
+
+Ивенты для работы с мышью:
+````
+button
+clickCount
+sceneX
+sceneY
+screenX
+screenY
+mouseX
+mouseY
+mouseZ
+isAltDown
+isConsumed
+isControlDown
+isDragDetect
+isMetaDown
+isMiddleButtonDown
+isPopupTrigger
+isPrimaryButtonDown
+isSecondaryButtonDown
+isShiftDown
+isShortcutDown
+isStillSincePress
+isSynthesized
+````
+Пример 6:
+````python
+using "lgl"
+
+window = lgl.createFrame("Test Frame", 500, 500)
+
+Event.Handler(Event.MOUSE_MOVED, func(e) {
+  window.ellipse(e.mouseX-50, e.mouseY-50, 100,100)
+  lgl.redraw()
+})
+````
+Ивенты для работы с клавиатурой:
+````
+code
+character
+text
+isAltDown
+isConsumed
+isControlDown
+isMetaDown
+isShiftDown
+isShortcutDown
+````
+(смотреть пример 5)
+
+
+
 # http
 `http.download()` - загружает файл из downloadUrl в filePath
 ````java
