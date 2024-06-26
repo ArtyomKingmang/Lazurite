@@ -3,7 +3,7 @@
 </div>
 
 ## More About Languge
->To work you need to install jdk 19
+>To work you need to install jdk 17
 
 This language takes advantage of Java and simplifies it. This makes Lazurite quite simple. Basically, the language is used to create games and applications, because it has powerful libraries for this. But on it you can make bots for social networks, work with files, and much more.
 
