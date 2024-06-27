@@ -22,6 +22,7 @@ public class RunnerInfo {
                         "help / -h - show help commands\n" +
                         "editor / -e - open code editor\n" +
                         "new / -n - creates new project\n" +
+                        "preprocess / -pr\n" +
                         "cls - -clears the command line\n"
         );
     }

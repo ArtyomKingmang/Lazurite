@@ -56,6 +56,7 @@ public class system implements Library {
             Handler.handle(args[0].toString(), "exec()", true, false);
             return LzrNumber.MINUS_ONE;
         });
+
         system.set("getProperty", (LzrValue...args) -> {
             if(Objects.equals(args[0].asString(), "lzr.version")){
                 return new LzrString(RunnerInfo.getVersion());

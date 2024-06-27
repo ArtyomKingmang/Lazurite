@@ -11,6 +11,10 @@ import com.kingmang.lazurite.runtime.values.LzrValue;
 import com.kingmang.lazurite.libraries.Library;
 import lombok.RequiredArgsConstructor;
 
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLClassLoader;
+
 
 @RequiredArgsConstructor
 public final class UsingStatement extends InterruptableNode implements Statement {
@@ -18,7 +22,7 @@ public final class UsingStatement extends InterruptableNode implements Statement
     private static final String PACKAGE = "com.kingmang.lazurite.libraries.%s.%s";
 
     
-    public final Expression expression;
+    public final Expression expression, expression2;
 
     @Override
     public void execute() {
@@ -27,8 +31,17 @@ public final class UsingStatement extends InterruptableNode implements Statement
         try {
             loadModule(value.asString());
         }catch (Exception e){
-            throw new LzrException("Type","Array or string required in 'using' statement, " +
-                    "got " + Types.typeToString(value.type()) + " " + value);
+            final LzrValue value1 = expression2.eval();
+            try {
+                URLClassLoader child = new URLClassLoader(
+                        new URL[] { new URL("file:" + value) },
+                        this.getClass().getClassLoader()
+                );
+                Library module = (Library) Class.forName(value1 + ".invoker", true, child).newInstance();
+                module.init();
+            } catch (MalformedURLException | ClassNotFoundException | InstantiationException | IllegalAccessException ex) {
+                throw new LzrException(ex.getLocalizedMessage(), ex.getMessage());
+            }
         }
     }
 
