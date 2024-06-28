@@ -177,7 +177,7 @@ public final class ParserImplementation {
             return enums();
        }
        if (match(TokenType.USING)) {
-            return new UsingStatement(expression(), expression());
+            return new UsingStatement(expression());
        }
        if (match(TokenType.INCLUDE)) {
             return new IncludeStatement(expression());

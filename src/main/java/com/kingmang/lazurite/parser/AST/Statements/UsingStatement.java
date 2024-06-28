@@ -7,6 +7,7 @@ import com.kingmang.lazurite.parser.AST.InterruptableNode;
 import com.kingmang.lazurite.patterns.visitor.ResultVisitor;
 import com.kingmang.lazurite.patterns.visitor.Visitor;
 import com.kingmang.lazurite.core.Types;
+import com.kingmang.lazurite.runtime.values.LzrString;
 import com.kingmang.lazurite.runtime.values.LzrValue;
 import com.kingmang.lazurite.libraries.Library;
 import lombok.RequiredArgsConstructor;
@@ -22,7 +23,8 @@ public final class UsingStatement extends InterruptableNode implements Statement
     private static final String PACKAGE = "com.kingmang.lazurite.libraries.%s.%s";
 
     
-    public final Expression expression, expression2;
+    public final Expression expression;
+    //public final Expression expression2;
 
     @Override
     public void execute() {
@@ -31,16 +33,24 @@ public final class UsingStatement extends InterruptableNode implements Statement
         try {
             loadModule(value.asString());
         }catch (Exception e){
-            final LzrValue value1 = expression2.eval();
+            String[] parts = value.asString().split("::");
+            String path = parts[0] + ".jar";
+            String addressLib = parts[1];
+            //final LzrValue value1 = expression2.eval();
             try {
                 URLClassLoader child = new URLClassLoader(
-                        new URL[] { new URL("file:" + value) },
+                        new URL[] { new URL("file:" + path) },
                         this.getClass().getClassLoader()
                 );
-                Library module = (Library) Class.forName(value1 + ".invoker", true, child).newInstance();
+                Library module;
+                try {
+                    module = (Library) Class.forName(addressLib, true, child).newInstance();
+                } catch (ClassNotFoundException ex) {
+                    module = (Library) Class.forName(addressLib + ".invoker", true, child).newInstance();
+                }
                 module.init();
-            } catch (MalformedURLException | ClassNotFoundException | InstantiationException | IllegalAccessException ex) {
-                throw new LzrException(ex.getLocalizedMessage(), ex.getMessage());
+            } catch (MalformedURLException | InstantiationException | IllegalAccessException | ClassNotFoundException ex) {
+                throw new LzrException(ex.toString(), ex.getMessage());
             }
         }
     }
