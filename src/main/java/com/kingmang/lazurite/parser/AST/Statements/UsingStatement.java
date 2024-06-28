@@ -7,6 +7,8 @@ import com.kingmang.lazurite.parser.AST.InterruptableNode;
 import com.kingmang.lazurite.patterns.visitor.ResultVisitor;
 import com.kingmang.lazurite.patterns.visitor.Visitor;
 import com.kingmang.lazurite.core.Types;
+import com.kingmang.lazurite.runner.Runner;
+import com.kingmang.lazurite.runner.RunnerInfo;
 import com.kingmang.lazurite.runtime.values.LzrString;
 import com.kingmang.lazurite.runtime.values.LzrValue;
 import com.kingmang.lazurite.libraries.Library;
@@ -37,7 +39,7 @@ public final class UsingStatement extends InterruptableNode implements Statement
             String pathToLib = parts[1];
             try {
                 URLClassLoader child = new URLClassLoader(
-                        new URL[] { new URL("file:" + nameOfLib) },
+                        new URL[] { new URL("file:" + RunnerInfo.getPathToLzrLibs() + nameOfLib) },
                         this.getClass().getClassLoader()
                 );
                 Library module;

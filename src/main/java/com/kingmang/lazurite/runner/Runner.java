@@ -5,6 +5,8 @@ import com.kingmang.lazurite.utils.Handler;
 import com.kingmang.lazurite.editors.Editor;
 import com.moandjiezana.toml.Toml;
 import com.moandjiezana.toml.TomlWriter;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.io.*;
 
@@ -16,6 +18,8 @@ import java.util.Map;
 
 
 public class Runner {
+
+
 
     public static void main(String[] args) throws IOException {
 
@@ -164,10 +168,11 @@ public class Runner {
                 }
             }
             Files.createDirectory(new File(String.format("%s/src", path)).toPath());
+            Files.createDirectory(new File(RunnerInfo.getPathToLzrLibs()).toPath());
         } else {
             Files.createDirectory(path);
             Files.createDirectory(new File(String.format("%s/src", path)).toPath());
-        }
+        }   Files.createDirectory(new File(RunnerInfo.getPathToLzrLibs()).toPath());
 
         if (is_lib) {
             try {
@@ -191,6 +196,7 @@ public class Runner {
                 put("package", new HashMap<>() {{
                     put("name", name);
                     put("version", "0.1.0");
+                    //put("lzr_libraries", RunnerInfo.getPathToLzrLibs());
                     if (is_lib) {
                         put("lib_file", "/src/lib.lzr");
                     } else {

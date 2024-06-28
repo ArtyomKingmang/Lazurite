@@ -1,13 +1,17 @@
 package com.kingmang.lazurite.runner;
 
 import lombok.Getter;
+import lombok.Setter;
 import org.fusesource.jansi.Ansi;
 import org.fusesource.jansi.AnsiConsole;
 
 public class RunnerInfo {
     @Getter
-    private static final String Version = "2.7.4";
+    private static final String Version = "2.7.5";
 
+    @Setter
+    @Getter
+    private static String pathToLzrLibs = "lzrlibs/";
 
     public static void Console () {
         AnsiConsole.systemInstall();
