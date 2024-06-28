@@ -1,4 +1,4 @@
-using "lzrlgl.jar" "com.monsler.lzrlgl"
+using "lzrlgl::com.monsler.lzrlgl"
 
 // GLFW initialization
 if (!glfw.init()) {

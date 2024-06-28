@@ -24,7 +24,6 @@ public final class UsingStatement extends InterruptableNode implements Statement
 
     
     public final Expression expression;
-    //public final Expression expression2;
 
     @Override
     public void execute() {
@@ -34,19 +33,18 @@ public final class UsingStatement extends InterruptableNode implements Statement
             loadModule(value.asString());
         }catch (Exception e){
             String[] parts = value.asString().split("::");
-            String path = parts[0] + ".jar";
-            String addressLib = parts[1];
-            //final LzrValue value1 = expression2.eval();
+            String nameOfLib = parts[0] + ".jar";
+            String pathToLib = parts[1];
             try {
                 URLClassLoader child = new URLClassLoader(
-                        new URL[] { new URL("file:" + path) },
+                        new URL[] { new URL("file:" + nameOfLib) },
                         this.getClass().getClassLoader()
                 );
                 Library module;
                 try {
-                    module = (Library) Class.forName(addressLib, true, child).newInstance();
+                    module = (Library) Class.forName(pathToLib, true, child).newInstance();
                 } catch (ClassNotFoundException ex) {
-                    module = (Library) Class.forName(addressLib + ".invoker", true, child).newInstance();
+                    module = (Library) Class.forName(pathToLib + ".invoker", true, child).newInstance();
                 }
                 module.init();
             } catch (MalformedURLException | InstantiationException | IllegalAccessException | ClassNotFoundException ex) {
