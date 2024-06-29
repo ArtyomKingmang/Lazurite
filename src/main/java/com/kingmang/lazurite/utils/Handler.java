@@ -6,6 +6,8 @@ import com.kingmang.lazurite.core.CallStack;
 import com.kingmang.lazurite.parser.AST.Statements.BlockStatement;
 import com.kingmang.lazurite.parser.AST.Expressions.Expression;
 import com.kingmang.lazurite.parser.AST.Statements.Statement;
+import com.kingmang.lazurite.parser.parse.Lexer;
+import com.kingmang.lazurite.parser.parse.Parser;
 import com.kingmang.lazurite.parser.parse.classes.LexerImplementation;
 import com.kingmang.lazurite.parser.parse.classes.ParserImplementation;
 import com.kingmang.lazurite.parser.parse.Token;
@@ -31,8 +33,9 @@ public class Handler {
     }
 
     public static void RunProgram (String input) throws IOException {
-        final List<Token> tokens = new LexerImplementation(input).tokenize();
-        final ParserImplementation parser = new ParserImplementation(tokens);
+        Lexer lexer = new LexerImplementation(input);
+        final List<Token> tokens = lexer.tokenize();
+        final Parser parser = new ParserImplementation(tokens);
         final Statement parsedProgram = parser.parse();
         if (parser.getParseErrors().hasErrors()) {
             System.out.println(parser.getParseErrors());

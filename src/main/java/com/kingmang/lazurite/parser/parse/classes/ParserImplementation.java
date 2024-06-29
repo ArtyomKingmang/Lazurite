@@ -20,6 +20,7 @@ import com.kingmang.lazurite.parser.AST.Expressions.UnaryExpression;
 import com.kingmang.lazurite.parser.AST.Expressions.ValueExpression;
 import com.kingmang.lazurite.parser.AST.Expressions.VariableExpression;
 import com.kingmang.lazurite.parser.AST.Statements.*;
+import com.kingmang.lazurite.parser.parse.Parser;
 import com.kingmang.lazurite.parser.parse.Token;
 import com.kingmang.lazurite.parser.parse.TokenType;
 import com.kingmang.lazurite.runtime.*;
@@ -33,7 +34,7 @@ import java.util.*;
 import java.util.Map;
 
 
-public final class ParserImplementation {
+public final class ParserImplementation implements Parser {
 
 
     public Statement parse(List<Token> tokens) {
@@ -78,6 +79,7 @@ public final class ParserImplementation {
     private final List<Token> tokens;
     private final int size;
 
+    //The getter is overridden by the Parser interface
     @Getter
     private final ParseErrors parseErrors;
 
@@ -94,6 +96,7 @@ public final class ParserImplementation {
         parseErrors = new ParseErrors();
     }
 
+    @Override
     public Statement parse() {
         parseErrors.clear();
         final BlockStatement result = new BlockStatement();

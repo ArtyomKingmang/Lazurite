@@ -53,7 +53,6 @@ public final class LexerImplementation implements Lexer {
 
     private final String input;
     private final int length;
-
     private final List<Token> tokens;
     private final StringBuilder buffer;
 
