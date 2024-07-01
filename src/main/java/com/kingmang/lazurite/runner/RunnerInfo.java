@@ -4,9 +4,10 @@ import lombok.Getter;
 import lombok.Setter;
 import org.fusesource.jansi.Ansi;
 import org.fusesource.jansi.AnsiConsole;
+import org.jetbrains.annotations.NotNull;
 
 public class RunnerInfo {
-    @Getter
+
     private static final String Version = "2.7.5";
 
     @Setter
@@ -45,4 +46,9 @@ public class RunnerInfo {
                         "cls - clears the command line\n"
         );
     }
+    public static String getVersion(){
+        return Version;
+    }
+
+
 }

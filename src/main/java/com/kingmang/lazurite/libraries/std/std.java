@@ -21,9 +21,10 @@ public class std implements Library {
     @Override
     public void init(){
         LzrMap std = new LzrMap(3);
+        LzrMap characterFunctions = new LzrMap(3);
         LzrMap integerFunctions = new LzrMap(8);
         LzrMap stringBuilder = new LzrMap(3);
-        LzrMap stringBuffer = new LzrMap(3);
+        final LzrMap stringBuffer = new LzrMap(5);
         LzrMap doubleFunctions = new LzrMap(5);
         LzrMap stringFunctions = new LzrMap(3);
         LzrMap arrayDeque = new LzrMap(4);
@@ -45,6 +46,11 @@ public class std implements Library {
         stringBuilder.set("deleteCharAt", StringBuilderAndBuffer::deleteCharAtBuilder);
         Variables.define("stringBuilder", stringBuilder);
 
+
+        characterFunctions.set("isAlphabetic", CharacterClass::isAlphabeticc);
+        characterFunctions.set("isDigit", CharacterClass::isDigitt);
+        characterFunctions.set("isLetter", CharacterClass::isLetterr);
+        characterFunctions.set("isLetterOrDigit", CharacterClass::isLetterOrDigitt);
 
         integerFunctions.set("bitCount", IntegerClass::bitCount);
         integerFunctions.set("max", IntegerClass::max);
@@ -78,6 +84,7 @@ public class std implements Library {
         Variables.define("arrayDeque", arrayDeque);
         Variables.define("Double", doubleFunctions);
         Variables.define("String", stringFunctions);
+        Variables.define("Character", characterFunctions);
         Variables.define("Integer", integerFunctions);
         Variables.define("std", std);
 
@@ -98,6 +105,7 @@ public class std implements Library {
         //------------------stringBuilder-----------------------
 
         public static LzrValue newBuilder(LzrValue[] args) {
+            Arguments.check(0,  args.length);
             stringBuffer = new StringBuffer();
             return LzrNumber.ZERO;
         }
@@ -230,6 +238,52 @@ public class std implements Library {
             Arguments.check(1,  args.length);
             return new LzrNumber(queue.size());
         }
+
+
+
+    }
+    public static final class CharacterClass {
+
+        public static LzrValue isAlphabeticc(LzrValue[] args) {
+            Arguments.check(1, args.length);
+            char current = (char) args[0].asInt();
+            boolean result = Character.isAlphabetic(current);
+            if(result)
+                return LzrNumber.ZERO;
+            else
+                return LzrNumber.MINUS_ONE;
+        }
+
+        public static LzrValue isDigitt(LzrValue[] args) {
+            Arguments.check(1, args.length);
+            char current = (char) args[0].asInt();
+            boolean result = Character.isDigit(current);
+            if(result)
+                return LzrNumber.ZERO;
+            else
+                return LzrNumber.MINUS_ONE;
+        }
+
+        public static LzrValue isLetterOrDigitt(LzrValue[] args) {
+            Arguments.check(1, args.length);
+            char current = (char) args[0].asInt();
+            boolean result = Character.isLetterOrDigit(current);
+            if(result)
+                return LzrNumber.ZERO;
+            else
+                return LzrNumber.MINUS_ONE;
+        }
+
+        public static LzrValue isLetterr(LzrValue[] args) {
+            Arguments.check(1, args.length);
+            char current = (char) args[0].asInt();
+            boolean result = Character.isLetter(current);
+            if(result)
+                return LzrNumber.ZERO;
+            else
+                return LzrNumber.MINUS_ONE;
+        }
+
 
 
 

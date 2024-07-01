@@ -10,6 +10,7 @@ public interface LzrValue extends Comparable<LzrValue> {
 
     String asString();
 
+
     int[] asArray();
 
     int type();
