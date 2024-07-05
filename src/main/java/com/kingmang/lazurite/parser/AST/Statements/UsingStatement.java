@@ -22,7 +22,7 @@ import java.net.URLClassLoader;
 @RequiredArgsConstructor
 public final class UsingStatement extends InterruptableNode implements Statement {
 
-    private static final String PACKAGE = "com.kingmang.lazurite.libraries.%s.%s";
+    private static final String PACKAGE = "com.kingmang.lazurite.libraries.%s.%s.%s.%s";
 
     
     public final Expression expression;
@@ -31,8 +31,20 @@ public final class UsingStatement extends InterruptableNode implements Statement
     public void execute() {
         super.interruptionCheck();
         final LzrValue value = expression.eval();
+        //load Lzr libs
         try {
-            loadModule(value.asString());
+            String[] parts = value.asString().split("::");
+            try {
+                String libPackage = parts[0];
+                String libName = parts[1];
+                loadModule(libPackage, libName);
+            }catch (Exception libEx){
+                String libPackage = parts[0];
+                String libChild = parts[1];
+                String libName = parts[2];
+                loadModule(libPackage, libChild, libName);
+            }
+        //load .jar libs
         }catch (Exception e){
             String[] parts = value.asString().split("::");
             String nameOfLib = parts[0] + ".jar";
@@ -55,13 +67,30 @@ public final class UsingStatement extends InterruptableNode implements Statement
         }
     }
 
-    private void loadModule(String name) {
+    private void loadModule(String libPackage, String libChild, String name) {
         try {
-            final Library module = (Library) Class.forName(String.format(PACKAGE, name, name)).newInstance();
+            final Library module = (Library) Class.forName(String.format(PACKAGE, libPackage, libChild,name, name)).newInstance();
             module.init();
         } catch (Exception ex) {
-            throw new LzrException("RuntimeException", "Unable to load module " + name + "\n" + ex);
+            final Library module;
+            try {
+                module = (Library) Class.forName(String.format("com.kingmang.lazurite.libraries.%s.%s.%s", libPackage,name, name)).newInstance();
+                module.init();
+            } catch (Exception e) {
+                throw new LzrException("RuntimeException", "Unable to load module " + name + "\n" + ex);
+            }
+
+
         }
+    }
+    private void loadModule(String libPackage, String name) {
+            final Library module;
+            try {
+                module = (Library) Class.forName(String.format("com.kingmang.lazurite.libraries.%s.%s.%s", libPackage,name, name)).newInstance();
+                module.init();
+            } catch (Exception e) {
+                throw new LzrException("RuntimeException", "Unable to load module " + name + "\n" + e);
+            }
     }
     @Override
     public void accept(Visitor visitor) {
