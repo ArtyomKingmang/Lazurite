@@ -23,29 +23,12 @@ public class std implements Library {
         LzrMap std = new LzrMap(3);
         LzrMap characterFunctions = new LzrMap(3);
         LzrMap integerFunctions = new LzrMap(8);
-        LzrMap stringBuilder = new LzrMap(3);
-        final LzrMap stringBuffer = new LzrMap(5);
         LzrMap doubleFunctions = new LzrMap(5);
         LzrMap stringFunctions = new LzrMap(3);
         LzrMap arrayDeque = new LzrMap(4);
 
         std.set("flatmap", new flatmap());
         std.set("thread", new thread());
-
-        stringBuffer.set("append", StringBuilderAndBuffer::addToBuffer);
-        stringBuffer.set("newBuffer", StringBuilderAndBuffer::newBuffer);
-        stringBuffer.set("delete", StringBuilderAndBuffer::deleteBuffer);
-        stringBuffer.set("toStr", StringBuilderAndBuffer::toStrBuffer);
-        stringBuffer.set("deleteCharAt", StringBuilderAndBuffer::deleteCharAtBuffer);
-        Variables.define("stringBuffer", stringBuffer);
-
-        stringBuilder.set("append", StringBuilderAndBuffer::addToBuilder);
-        stringBuilder.set("newBuilder", StringBuilderAndBuffer::newBuilder);
-        stringBuilder.set("delete", StringBuilderAndBuffer::deleteBuilder);
-        stringBuilder.set("toStr", StringBuilderAndBuffer::toStrBuilder);
-        stringBuilder.set("deleteCharAt", StringBuilderAndBuffer::deleteCharAtBuilder);
-        Variables.define("stringBuilder", stringBuilder);
-
 
         characterFunctions.set("isAlphabetic", CharacterClass::isAlphabeticc);
         characterFunctions.set("isDigit", CharacterClass::isDigitt);
@@ -97,68 +80,6 @@ public class std implements Library {
 
     }
 
-    public final static class StringBuilderAndBuffer {
-
-        static StringBuilder stringBuilder;
-        static StringBuffer stringBuffer;
-
-        //------------------stringBuilder-----------------------
-
-        public static LzrValue newBuilder(LzrValue[] args) {
-            Arguments.check(0,  args.length);
-            stringBuffer = new StringBuffer();
-            return LzrNumber.ZERO;
-        }
-
-        public static LzrValue addToBuilder(LzrValue[] args) {
-            Arguments.check(1,  args.length);
-            stringBuilder.append(args[0]);
-            return LzrNumber.ZERO;
-        }
-        public static LzrValue deleteBuilder(LzrValue[] args) {
-            Arguments.check(1,  args.length);
-            stringBuilder.delete(args[0].asInt(), args[1].asInt());
-            return LzrNumber.ZERO;
-        }
-
-        public static LzrValue deleteCharAtBuilder(LzrValue[] args) {
-            Arguments.check(1,  args.length);
-            stringBuilder.deleteCharAt(args[0].asInt());
-            return LzrNumber.ZERO;
-        }
-        public static LzrValue toStrBuilder(LzrValue[] args) {
-            return new LzrString(stringBuilder.toString());
-        }
-
-
-        //------------------stringBuffer-----------------------
-        public static LzrValue newBuffer(LzrValue[] args) {
-            stringBuffer = new StringBuffer();
-            return LzrNumber.ZERO;
-        }
-
-        public static LzrValue addToBuffer(LzrValue[] args) {
-            Arguments.check(1,  args.length);
-            stringBuffer.append(args[0]);
-            return LzrNumber.ZERO;
-        }
-
-        public static LzrValue toStrBuffer(LzrValue[] args) {
-            return new LzrString(stringBuffer.toString());
-        }
-
-        public static LzrValue deleteBuffer(LzrValue[] args) {
-            Arguments.check(1,  args.length);
-            stringBuffer.delete(args[0].asInt(), args[1].asInt());
-            return LzrNumber.ZERO;
-        }
-
-        public static LzrValue deleteCharAtBuffer(LzrValue[] args) {
-            Arguments.check(1,  args.length);
-            stringBuffer.deleteCharAt(args[0].asInt());
-            return LzrNumber.ZERO;
-        }
-    }
 
     public final static class flatmap implements Function {
 
