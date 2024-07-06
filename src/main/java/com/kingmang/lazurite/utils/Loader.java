@@ -1,11 +1,9 @@
 package com.kingmang.lazurite.utils;
 
+import com.kingmang.lazurite.console.Console;
 import lombok.NoArgsConstructor;
 
-import java.io.ByteArrayOutputStream;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 
 @NoArgsConstructor
 public final class Loader {
@@ -28,5 +26,23 @@ public final class Loader {
         }
         is.close();
         return result.toString("UTF-8");
+    }
+    public String loadProgram(String packageName) {
+        StringBuilder content = new StringBuilder();
+        InputStream inputStream = getClass().getResourceAsStream("/" + packageName + ".txt");
+
+        if (inputStream == null) {
+            Console.println("File not found in package: " + packageName);
+        } else {
+            try (BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream))) {
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    content.append(line).append("\n");
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return content.toString();
     }
 }
