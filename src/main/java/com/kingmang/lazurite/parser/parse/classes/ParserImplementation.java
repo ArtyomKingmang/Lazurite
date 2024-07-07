@@ -182,9 +182,6 @@ public final class ParserImplementation implements Parser {
        if (match(TokenType.USING)) {
             return new UsingStatement(expression());
        }
-       if (match(TokenType.INCLUDE)) {
-            return new IncludeStatement(expression());
-       }
        if (match(TokenType.FOR)) {
             return forStatement();
        }

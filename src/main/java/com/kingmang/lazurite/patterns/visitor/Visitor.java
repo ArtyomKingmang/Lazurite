@@ -39,7 +39,6 @@ public interface Visitor {
     void visit(ExprStatement s);
     void visit(FunctionalExpression s);
     void visit(IfStatement s);
-    void visit(IncludeStatement s);
     void visit(MapExpression s);
     void visit(MatchExpression s);
     void visit(ObjectCreationExpression s);

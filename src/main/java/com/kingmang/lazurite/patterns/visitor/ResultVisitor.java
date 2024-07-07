@@ -39,7 +39,6 @@ public interface ResultVisitor<R, T> {
     R visit(ExprStatement s, T t);
     R visit(FunctionalExpression s, T t);
     R visit(IfStatement s, T t);
-    R visit(IncludeStatement s, T t);
     R visit(MapExpression s, T t);
     R visit(MatchExpression s, T t);
     R visit(ObjectCreationExpression s, T t);

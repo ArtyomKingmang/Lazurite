@@ -256,12 +256,6 @@ public class PrintVisitor implements ResultVisitor<StringBuilder, StringBuilder>
         return t;
     }
 
-    @Override
-    public StringBuilder visit(IncludeStatement s, StringBuilder t) {
-        t.append("include ");
-        s.expression.accept(this, t);
-        return t;
-    }
 
     @Override
     public StringBuilder visit(MapExpression s, StringBuilder t) {

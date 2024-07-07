@@ -21,7 +21,6 @@ public enum TokenType {
     USING,
     SWITCH,
     CASE,
-    INCLUDE,
     CLASS,
     NEW,
 
@@ -100,7 +99,7 @@ public enum TokenType {
     COMMA, // ,
     DOT, // .
 
-    EOF // конец парсинга
+    EOF // end of file
 
 
 }

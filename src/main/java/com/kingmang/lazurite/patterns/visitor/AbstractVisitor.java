@@ -136,11 +136,7 @@ public abstract class AbstractVisitor implements Visitor {
             s.elseStatement.accept(this);
         }
     }
-    
-    @Override
-    public void visit(IncludeStatement s) {
-        s.expression.accept(this);
-    }
+
     
     @Override
     public void visit(MapExpression s) {

@@ -26,7 +26,6 @@ public final class LexerImplementation implements Lexer {
     private static final Map<String, TokenType> KEYWORDS;
     private static final TokenType[] tokenTypes = TokenType.values();
 
-    //ключевые слова
     private static final String[] keywords = {
             "enum",
             "macro",
@@ -46,7 +45,6 @@ public final class LexerImplementation implements Lexer {
             "using",
             "match",
             "case",
-            "include",
             "class",
             "new"
     };

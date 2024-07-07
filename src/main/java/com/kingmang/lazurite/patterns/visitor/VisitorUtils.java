@@ -5,7 +5,6 @@ import com.kingmang.lazurite.core.Types;
 import com.kingmang.lazurite.runtime.values.LzrValue;
 import com.kingmang.lazurite.parser.AST.Expressions.BinaryExpression;
 import com.kingmang.lazurite.parser.AST.Expressions.ConditionalExpression;
-import com.kingmang.lazurite.parser.AST.Statements.IncludeStatement;
 import com.kingmang.lazurite.parser.AST.Node;
 import com.kingmang.lazurite.parser.AST.Statements.Statement;
 import com.kingmang.lazurite.parser.AST.Expressions.UnaryExpression;
@@ -28,14 +27,6 @@ public final class VisitorUtils {
         return (node instanceof VariableExpression);
     }
 
-    public static Statement includeProgram(IncludeStatement s) {
-        if (!isValue(s)) return null;
-        try {
-            return s.loadProgram(s.expression.eval().asString());
-        } catch (IOException ex) {
-            return null;
-        }
-    }
 
     public static boolean isIntegerValue(Node node, int valueToCheck) {
         if (!isValue(node)) return false;
