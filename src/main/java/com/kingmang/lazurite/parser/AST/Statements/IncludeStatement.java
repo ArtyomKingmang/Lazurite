@@ -28,7 +28,7 @@ public final class IncludeStatement extends InterruptableNode implements Stateme
             program.accept(new FunctionAdder());
             program.execute();
         } catch (Exception ex) {
-            throw new RuntimeException(ex);
+            throw new LzrException(ex.toString(), ex.getMessage());
         }
     }
 

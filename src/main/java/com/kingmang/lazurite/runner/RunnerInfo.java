@@ -8,6 +8,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class RunnerInfo {
 
+    @Getter
     private static final String Version = "2.7.5";
 
     @Setter
@@ -22,13 +23,14 @@ public class RunnerInfo {
                 "\t-------------------").reset());
         AnsiConsole.out().println("------------------------------------------------------------");
         AnsiConsole.out().println(
-                        "run / -r - asks for the path to the file and runs it\n" +
-                        "version / -v - returns the version of Lazurite\n" +
-                        "help / -h - show help commands\n" +
-                        "editor / -e - open code editor\n" +
-                        "new / -n - creates new project\n" +
-                        "preprocess / -pr\n" +
-                        "cls - -clears the command line\n"
+                """
+                        run / -r - asks for the path to the file and runs it
+                        version / -v - returns the version of Lazurite
+                        help / -h - show help commands
+                        editor / -e - open code editor
+                        new / -n - creates new project
+                        cls - -clears the command line
+                        """
         );
     }
 
@@ -38,16 +40,15 @@ public class RunnerInfo {
                 "\t-----------------");
         System.out.println("------------------------------------------------------------");
         System.out.println(
-                "--run / -r - asks for the path to the file and runs it\n" +
-                        "--version / -v - returns the version of Lazurite\n" +
-                        "--help / -h - show help commands\n" +
-                        "--editor / -e - open code editor\n" +
-                        "--new / -n - creates new project\n" +
-                        "cls - clears the command line\n"
+                """
+                        --run / -r - asks for the path to the file and runs it
+                        --version / -v - returns the version of Lazurite
+                        --help / -h - show help commands
+                        --editor / -e - open code editor
+                        --new / -n - creates new project
+                        cls - clears the command line
+                        """
         );
-    }
-    public static String getVersion(){
-        return Version;
     }
 
 

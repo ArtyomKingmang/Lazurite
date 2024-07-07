@@ -32,7 +32,8 @@ public class Handler {
         Handler.handle(Loader.readSource(path), Loader.readSource(path), true, showTokens);
     }
 
-    public static void RunProgram (String input) throws IOException {
+    public static void RunProgram (String code) throws IOException {
+        String input = Preprocessor.preprocess(code);
         Lexer lexer = new LexerImplementation(input);
         final List<Token> tokens = lexer.tokenize();
         final Parser parser = new ParserImplementation(tokens);
