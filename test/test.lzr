@@ -1,0 +1,3 @@
+using "lzr.lang.Integer"
+
+println(Integer.MAX_VALUE)
