@@ -1,4 +1,4 @@
-package com.kingmang.lazurite.libraries.lzr.time;
+package com.kingmang.lazurite.libraries.lzr.utils.time;
 
 
 import com.kingmang.lazurite.core.Arguments;

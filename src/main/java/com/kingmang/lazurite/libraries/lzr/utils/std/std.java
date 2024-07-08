@@ -21,18 +21,10 @@ public class std implements Library {
     @Override
     public void init(){
         final LzrMap std = new LzrMap(2);
-        final LzrMap arrayDeque = new LzrMap(4);
+
 
         std.set("flatmap", new flatmap());
         std.set("thread", new thread());
-
-
-        arrayDeque.set("add", LzrArrayDeque::addToQueue);
-        arrayDeque.set("remove", LzrArrayDeque::remove);
-        arrayDeque.set("size", LzrArrayDeque::sizeQueue);
-        arrayDeque.set("toArray", LzrArrayDeque::toArray);
-
-        Variables.define("arrayDeque", arrayDeque);
         Variables.define("std", std);
 
         Keyword.put("hashMap", mapFunction(HashMap::new));
@@ -96,36 +88,7 @@ public class std implements Library {
         }
     }
 
-    public static final class LzrArrayDeque {
-        static Deque<LzrValue> queue = new ArrayDeque<>();
 
-        public static LzrValue addToQueue(LzrValue[] args) {
-            Arguments.check(1,  args.length);
-            queue.add(args[0]);
-            return LzrNumber.ZERO;
-
-        }
-
-        public static LzrValue toArray(LzrValue[] args) {
-            List<LzrValue> array_list = new ArrayList<>(queue);
-            return new LzrArray(array_list);
-
-        }
-
-        public static LzrValue remove(LzrValue[] args) {
-            Arguments.check(1,  args.length);
-            queue.remove(args[0]);
-            return LzrNumber.ZERO;
-        }
-
-        public static LzrValue sizeQueue(LzrValue[] args) {
-            Arguments.check(1,  args.length);
-            return new LzrNumber(queue.size());
-        }
-
-
-
-    }
 
 
     private Function mapFunction(final Supplier<Map<LzrValue, LzrValue>> mapSupplier) {
