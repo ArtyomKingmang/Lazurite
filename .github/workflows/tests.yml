@@ -33,5 +33,27 @@ jobs:
       - name: Install dependencies
         run: mvn clean install
 
-      - name: Run tests
-        run: mvn test
+      - name: Run tests with coverage
+        run: mvn test jacoco:report
+
+      - name: Archive test reports
+        if: always() # Always run this step to archive test reports
+        uses: actions/upload-artifact@v3
+        with:
+          name: surefire-reports
+          path: target/surefire-reports/*.xml
+
+      - name: Archive coverage report
+        if: always() # Always run this step to archive coverage reports
+        uses: actions/upload-artifact@v3
+        with:
+          name: jacoco-report
+          path: target/site/jacoco/jacoco.xml
+
+      - name: Report test results
+        if: always()
+        uses: dorny/test-reporter@v1
+        with:
+          name: Test Results
+          path: target/surefire-reports/TEST-*.xml
+          reporter: junit
