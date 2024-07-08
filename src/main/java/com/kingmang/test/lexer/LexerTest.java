@@ -17,6 +17,21 @@ import static org.junit.Assert.assertEquals;
 public class LexerTest {
 
     @Test
+    public void testLexerStringTemplate() {
+        String input = """
+                a = 2
+                print ("a = $a = $a")
+                """;
+        List<Token> expList = list(
+                WORD, EQ, NUMBER,
+                PRINT, LPAREN, TEXT, PLUS, WORD, PLUS, TEXT, PLUS, WORD, RPAREN
+        );
+        List<Token> result = LexerImplementation.tokenize(input);
+        System.out.println(result);
+        assertTokens(expList, result);
+    }
+
+    @Test
     public void testLexer() {
         String input = """
                 print  ("Hello")

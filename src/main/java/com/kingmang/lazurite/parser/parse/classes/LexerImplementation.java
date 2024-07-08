@@ -11,6 +11,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import com.kingmang.lazurite.parser.parse.Lexer;
 import com.kingmang.lazurite.parser.parse.Token;
@@ -18,6 +20,7 @@ import com.kingmang.lazurite.parser.parse.TokenType;
 import com.kingmang.lazurite.parser.standart.Standart;
 import com.kingmang.lazurite.runtime.values.*;
 import com.kingmang.lazurite.runtime.Variables;
+import org.jetbrains.annotations.NotNull;
 
 public final class LexerImplementation implements Lexer {
 
@@ -25,6 +28,8 @@ public final class LexerImplementation implements Lexer {
     private static final Map<String, TokenType> OPERATORS;
     private static final Map<String, TokenType> KEYWORDS;
     private static final TokenType[] tokenTypes = TokenType.values();
+
+    private static final Pattern STR_TEMPLATE_STANDART_PATTERN = Pattern.compile("(?<!\\\\)\\$[a-zA-Z]+");
 
     private static final String[] keywords = {
             "enum",
@@ -158,6 +163,7 @@ public final class LexerImplementation implements Lexer {
         }
     }
 
+
     private static boolean isHexNumber(char current) {
         return Character.isDigit(current)
                 || ('a' <= current && current <= 'f')
@@ -272,9 +278,63 @@ public final class LexerImplementation implements Lexer {
         }
         next(); // skip closing "
 
-        addToken(TokenType.TEXT, buffer.toString());
+        processStringTemplate(buffer.toString());
+//        addToken(TokenType.TEXT, buffer.toString());
     }
 
+    /**
+     * Обрабатывает входную строку и проводит над ней шаблонизацию, добавляя необходимые токены.
+     *
+     * <p>Данный метод принимает строку, содержащую текст и шаблоны, обозначенные символом
+     * '$'. Он разделяет строку на части, сохраняя текст и заменяя шаблоны на
+     * соответствующие переменные, формируя результат в виде конкатенации строк.</p>
+     *
+     * <p>Например, для входной строки "a b c $d" метод вернет "a b c " + d.</p>
+     * <pre>{@code
+     * String input = "a b c $d";
+     * processStringTemplate(input);
+     * // Результат (в токенах): [TEXT a b c , PLUS, WORD d]
+     * }</pre>
+     *
+     * @param in входная строка, содержащая текст и шаблоны для замены
+     */
+    private void processStringTemplate(@NotNull String in)
+    {
+        if(in.isEmpty())
+        {
+            addToken(TokenType.TEXT, in);
+            return;
+        }
+
+        Matcher matcher = STR_TEMPLATE_STANDART_PATTERN.matcher(in);
+        int lastEndIndex = 0;
+        int matcherCount = 0;
+
+        while (matcher.find()) {
+            int start = matcher.start();
+            int end = matcher.end();
+
+            String text = in.substring(lastEndIndex, start);
+            String word = in.substring(start+1, end);
+
+            if(matcherCount > 0)
+                addToken(TokenType.PLUS);
+
+            if(!text.isEmpty())
+            {
+                addToken(TokenType.TEXT, text);
+                addToken(TokenType.PLUS);
+            }
+
+            addToken(TokenType.WORD, word);
+
+            lastEndIndex = end;
+            matcherCount++;
+        }
+
+        if(matcherCount == 0)
+            addToken(TokenType.TEXT, in);
+    }
 
 
     private void tokenizeComment() {
