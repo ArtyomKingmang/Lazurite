@@ -279,7 +279,6 @@ public final class LexerImplementation implements Lexer {
         next(); // skip closing "
 
         processStringTemplate(buffer.toString());
-//        addToken(TokenType.TEXT, buffer.toString());
     }
 
     /**
