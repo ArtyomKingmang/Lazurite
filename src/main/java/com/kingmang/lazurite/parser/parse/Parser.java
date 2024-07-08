@@ -5,5 +5,6 @@ import com.kingmang.lazurite.parser.AST.Statements.Statement;
 
 public interface Parser {
     Statement parse();
+
     ParseErrors getParseErrors();
 }
