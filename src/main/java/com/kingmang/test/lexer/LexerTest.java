@@ -27,7 +27,6 @@ public class LexerTest {
                 PRINT, LPAREN, TEXT, PLUS, WORD, PLUS, TEXT, PLUS, WORD, RPAREN
         );
         List<Token> result = LexerImplementation.tokenize(input);
-        System.out.println(result);
         assertTokens(expList, result);
     }
 
