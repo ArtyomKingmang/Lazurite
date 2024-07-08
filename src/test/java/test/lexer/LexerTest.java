@@ -1,7 +1,6 @@
-package com.kingmang.test.lexer;
+package test.lexer;
 
 import com.kingmang.lazurite.parser.parse.Token;
-import com.kingmang.lazurite.parser.parse.TokenType;
 import com.kingmang.lazurite.parser.parse.classes.LexerImplementation;
 import org.junit.Test;
 
@@ -9,8 +8,8 @@ import org.junit.Test;
 import java.util.List;
 
 import static com.kingmang.lazurite.parser.parse.TokenType.*;
-import static com.kingmang.test.lexer.Helper.assertTokens;
-import static com.kingmang.test.lexer.Helper.list;
+import static test.lexer.Helper.assertTokens;
+import static test.lexer.Helper.list;
 import static org.junit.Assert.assertEquals;
 
 
@@ -27,6 +26,22 @@ public class LexerTest {
                 PRINT, LPAREN, TEXT, PLUS, WORD, PLUS, TEXT, PLUS, WORD, RPAREN
         );
         List<Token> result = LexerImplementation.tokenize(input);
+        assertTokens(expList, result);
+
+        input = """
+                a = 14
+                b = 88
+                c = "ab = $a$b"
+                print("$c = Procc")
+                """;
+
+        expList = list(
+                WORD, EQ, NUMBER,
+                WORD, EQ, NUMBER,
+                WORD, EQ, TEXT, PLUS, WORD, PLUS, WORD,
+                PRINT, LPAREN, WORD, PLUS, TEXT, RPAREN
+        );
+        result = LexerImplementation.tokenize(input);
         assertTokens(expList, result);
     }
 
