@@ -1,22 +1,23 @@
 package com.kingmang.lazurite.utils;
 
-import com.kingmang.lazurite.console.Console;
-import com.kingmang.lazurite.exceptions.LzrException;
 import com.kingmang.lazurite.core.CallStack;
-import com.kingmang.lazurite.parser.AST.Statements.BlockStatement;
+import com.kingmang.lazurite.exceptions.LzrException;
 import com.kingmang.lazurite.parser.AST.Expressions.Expression;
+import com.kingmang.lazurite.parser.AST.Statements.BlockStatement;
 import com.kingmang.lazurite.parser.AST.Statements.Statement;
 import com.kingmang.lazurite.parser.parse.Lexer;
 import com.kingmang.lazurite.parser.parse.Parser;
+import com.kingmang.lazurite.parser.parse.Token;
 import com.kingmang.lazurite.parser.parse.classes.LexerImplementation;
 import com.kingmang.lazurite.parser.parse.classes.ParserImplementation;
-import com.kingmang.lazurite.parser.parse.Token;
 import com.kingmang.lazurite.parser.preprocessor.Preprocessor;
 import com.kingmang.lazurite.patterns.visitor.FunctionAdder;
+import com.kingmang.lazurite.runtime.Libraries;
+import com.kingmang.lazurite.runtime.Variables;
 import com.kingmang.lazurite.runtime.values.LzrNumber;
 import com.kingmang.lazurite.runtime.values.LzrValue;
-import com.kingmang.lazurite.runtime.Variables;
 import org.fusesource.jansi.Ansi;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 import java.util.Date;
@@ -25,14 +26,15 @@ import java.util.List;
 public class Handler {
 
     public static void Run(String path) throws IOException {
-        Handler.RunProgram(Loader.readSource(path));
+        Libraries.add(path);
+        Handler.runProgram(Loader.readSource(path));
     }
 
-    public static void Run(String path, boolean showTokens) throws IOException {
+    public static void run(@NotNull String path, boolean showTokens) throws IOException {
         Handler.handle(Loader.readSource(path), Loader.readSource(path), true, showTokens);
     }
 
-    public static void RunProgram (String code) throws IOException {
+    public static void runProgram(String code) throws IOException {
         String input = Preprocessor.preprocess(code);
         Lexer lexer = new LexerImplementation(input);
         final List<Token> tokens = lexer.tokenize();

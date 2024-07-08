@@ -1,7 +1,7 @@
 package com.kingmang.lazurite.parser.AST.Statements;
 
 import com.kingmang.lazurite.exceptions.LzrException;
-
+import com.kingmang.lazurite.libraries.Library;
 import com.kingmang.lazurite.parser.AST.Expressions.Expression;
 import com.kingmang.lazurite.parser.AST.InterruptableNode;
 import com.kingmang.lazurite.parser.parse.Parser;
@@ -11,14 +11,10 @@ import com.kingmang.lazurite.parser.parse.classes.ParserImplementation;
 import com.kingmang.lazurite.patterns.visitor.FunctionAdder;
 import com.kingmang.lazurite.patterns.visitor.ResultVisitor;
 import com.kingmang.lazurite.patterns.visitor.Visitor;
-import com.kingmang.lazurite.core.Types;
-import com.kingmang.lazurite.runner.Runner;
 import com.kingmang.lazurite.runner.RunnerInfo;
-import com.kingmang.lazurite.runtime.values.LzrString;
+import com.kingmang.lazurite.runtime.Libraries;
 import com.kingmang.lazurite.runtime.values.LzrValue;
-import com.kingmang.lazurite.libraries.Library;
 import com.kingmang.lazurite.utils.Loader;
-import lombok.RequiredArgsConstructor;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -26,14 +22,15 @@ import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.List;
 
-
-@RequiredArgsConstructor
 public final class UsingStatement extends InterruptableNode implements Statement {
 
     private static final String PACKAGE = "com.kingmang.lazurite.libraries.%s.%s.%s.%s";
 
-    
     public final Expression expression;
+
+    public UsingStatement(Expression expression) {
+        this.expression = expression;
+    }
 
     @Override
     public void execute() {
@@ -43,8 +40,13 @@ public final class UsingStatement extends InterruptableNode implements Statement
         //load Lzr file
         try {
             try {
-
-                final Statement program = loadLzrLibrary(value.asString());
+                final String file = value.asString();
+                // Check
+                if (Libraries.isExists(file))
+                    return;
+                Libraries.add(file);
+                // Load & Run
+                final Statement program = loadLzrLibrary(file);
                 program.accept(new FunctionAdder());
                 program.execute();
             } catch (Exception ex) {
@@ -99,9 +101,9 @@ public final class UsingStatement extends InterruptableNode implements Statement
 
         }
     }
+
     public Statement loadLzrLibrary(String path) throws IOException {
         final String input = Loader.readSource(path);
-        //String input = "func danu(){print(111)}";
         final List<Token> tokens = LexerImplementation.tokenize(input);
         final Parser parser = new ParserImplementation(tokens);
         final Statement program = parser.parse();

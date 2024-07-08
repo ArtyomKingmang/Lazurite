@@ -1,0 +1,3 @@
+using "test/a.lzr"
+
+println("Code \"b.lzr\"")

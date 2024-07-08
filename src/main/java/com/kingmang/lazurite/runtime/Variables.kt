@@ -3,13 +3,10 @@ package com.kingmang.lazurite.runtime
 import com.kingmang.lazurite.runtime.values.LzrNumber
 import com.kingmang.lazurite.runtime.values.LzrValue
 import lombok.NoArgsConstructor
-import java.util.concurrent.ConcurrentHashMap
 import kotlin.concurrent.Volatile
 
 @NoArgsConstructor
 object Variables {
-    private val lock = Any()
-
     @Volatile
     private var scope: Scope? = null
 
@@ -22,66 +19,59 @@ object Variables {
     }
 
     @JvmStatic
+    @Synchronized
     fun clear() {
         scope = Scope()
-        scope!!.variables.clear()
         scope!!.variables["true"] = LzrNumber.ONE
         scope!!.variables["false"] = LzrNumber.ZERO
     }
 
     @JvmStatic
+    @Synchronized
     fun push() {
-        synchronized(lock) {
-            scope = Scope(scope)
-        }
+        scope = Scope(scope)
     }
 
     @JvmStatic
+    @Synchronized
     fun pop() {
-        synchronized(lock) {
-            if (scope!!.parent != null) {
-                scope = scope!!.parent
-            }
+        if (scope!!.parent != null) {
+            scope = scope!!.parent
         }
     }
 
     @JvmStatic
+    @Synchronized
     fun isExists(key: String): Boolean {
-        synchronized(lock) {
-            return findScope(key).isFound
-        }
+        return findScope(key).isFound
     }
 
     @JvmStatic
+    @Synchronized
     fun get(key: String): LzrValue? {
-        synchronized(lock) {
-            val scopeData = findScope(key)
-            if (scopeData.isFound) {
-                return scopeData.scope!!.variables[key]
-            }
+        val scopeData = findScope(key)
+        if (scopeData.isFound) {
+            return scopeData.scope!!.variables[key]
         }
         return LzrNumber.ZERO
     }
 
     @JvmStatic
+    @Synchronized
     fun set(key: String, value: LzrValue) {
-        synchronized(lock) {
-            findScope(key).scope!!.variables.put(key, value)
-        }
+        findScope(key).scope!!.variables[key] = value
     }
 
     @JvmStatic
+    @Synchronized
     fun define(key: String, value: LzrValue) {
-        synchronized(lock) {
-            scope!!.variables.put(key, value)
-        }
+        scope!!.variables[key] = value
     }
 
     @JvmStatic
+    @Synchronized
     fun remove(key: String) {
-        synchronized(lock) {
-            findScope(key).scope!!.variables.remove(key)
-        }
+        findScope(key).scope!!.variables.remove(key)
     }
 
 
@@ -103,7 +93,7 @@ object Variables {
     }
 
     private class Scope @JvmOverloads constructor(val parent: Scope? = null) {
-        val variables: MutableMap<String, LzrValue> = ConcurrentHashMap()
+        val variables: MutableMap<String, LzrValue> = HashMap()
     }
 
     private class ScopeFindData {

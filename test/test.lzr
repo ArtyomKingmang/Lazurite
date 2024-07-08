@@ -1,3 +1,3 @@
-#include "lzr.lang.Integer"
+using "test/a.lzr"
 
-println(Integer.MAX_VALUE)
+println("Code \"test.lzr\"")
