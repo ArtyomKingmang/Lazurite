@@ -1,4 +1,4 @@
-package com.kingmang.lazurite.libraries.lzr.artify
+package com.kingmang.lazurite.libraries.lzr.utils.artify
 
 import com.kingmang.lazurite.core.Arguments
 import com.kingmang.lazurite.core.Function

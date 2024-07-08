@@ -1,3 +1,0 @@
-#include "lzr.lang.Integer"
-
-println(Integer.MAX_VALUE)

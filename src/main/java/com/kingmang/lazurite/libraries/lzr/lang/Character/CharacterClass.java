@@ -11,9 +11,9 @@ public final class CharacterClass {
             char current = (char) args[0].asInt();
             boolean result = java.lang.Character.isAlphabetic(current);
             if(result)
-                return LzrNumber.ZERO;
+                return LzrNumber.ONE;
             else
-                return LzrNumber.MINUS_ONE;
+                return LzrNumber.ZERO;
         }
 
         public static LzrValue isDigitt(LzrValue[] args) {
@@ -21,9 +21,9 @@ public final class CharacterClass {
             char current = (char) args[0].asInt();
             boolean result = java.lang.Character.isDigit(current);
             if(result)
-                return LzrNumber.ZERO;
+                return LzrNumber.ONE;
             else
-                return LzrNumber.MINUS_ONE;
+                return LzrNumber.ZERO;
         }
 
         public static LzrValue isLetterOrDigitt(LzrValue[] args) {
@@ -31,9 +31,9 @@ public final class CharacterClass {
             char current = (char) args[0].asInt();
             boolean result = java.lang.Character.isLetterOrDigit(current);
             if(result)
-                return LzrNumber.ZERO;
+                return LzrNumber.ONE;
             else
-                return LzrNumber.MINUS_ONE;
+                return LzrNumber.ZERO;
         }
 
         public static LzrValue isLetterr(LzrValue[] args) {
@@ -41,9 +41,9 @@ public final class CharacterClass {
             char current = (char) args[0].asInt();
             boolean result = java.lang.Character.isLetter(current);
             if(result)
-                return LzrNumber.ZERO;
+                return LzrNumber.ONE;
             else
-                return LzrNumber.MINUS_ONE;
+                return LzrNumber.ZERO;
         }
 
 
