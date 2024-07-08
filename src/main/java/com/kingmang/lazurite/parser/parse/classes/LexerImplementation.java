@@ -29,7 +29,7 @@ public final class LexerImplementation implements Lexer {
     private static final Map<String, TokenType> KEYWORDS;
     private static final TokenType[] tokenTypes = TokenType.values();
 
-    private static final Pattern STR_TEMPLATE_STANDART_PATTERN = Pattern.compile("(?<!\\\\)\\$[a-zA-Z]+");
+    private static final Pattern STR_TEMPLATE_STANDART_PATTERN = Pattern.compile("(?<!\\\\)\\$\\{[a-zA-Z]+\\}|(?<!\\\\)\\$[a-zA-Z]+");
 
     private static final String[] keywords = {
             "enum",
@@ -314,13 +314,21 @@ public final class LexerImplementation implements Lexer {
             int end = matcher.end();
 
             String text = in.substring(lastEndIndex, start);
-            String word = in.substring(start+1, end);
+            String word;
 
-            if(matcherCount > 0)
+            if (in.charAt(start + 1) == '{') {
+                // Шаблон вида ${...}
+                word = in.substring(start + 2, end - 1);
+            } else {
+                // Шаблон вида $...
+                word = in.substring(start + 1, end);
+            }
+
+            if (matcherCount > 0) {
                 addToken(TokenType.PLUS);
+            }
 
-            if(!text.isEmpty())
-            {
+            if (!text.isEmpty()) {
                 addToken(TokenType.TEXT, text);
                 addToken(TokenType.PLUS);
             }
@@ -333,6 +341,13 @@ public final class LexerImplementation implements Lexer {
 
         if(matcherCount == 0)
             addToken(TokenType.TEXT, in);
+        else if (lastEndIndex < in.length()) {
+            if (matcherCount > 0) {
+                addToken(TokenType.PLUS);
+            }
+            String remainingText = in.substring(lastEndIndex);
+            addToken(TokenType.TEXT, remainingText);
+        }
     }
 
 
