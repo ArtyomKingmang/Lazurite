@@ -6,9 +6,8 @@ import java.io.StringWriter
 
 class StackTraceProcessor : ICrashProcessor {
 
-    override fun getName(): String {
-        return "stacktrace"
-    }
+    override val name: String
+        get() = "stacktrace"
 
     override fun proceed(throwable: Throwable): String {
         val sw = StringWriter()

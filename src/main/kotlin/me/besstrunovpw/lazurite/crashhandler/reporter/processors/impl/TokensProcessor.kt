@@ -7,9 +7,8 @@ class TokensProcessor (
     private var tokens: List<Token>
 ) : ICrashProcessor {
 
-    override fun getName(): String {
-        return "tokens"
-    }
+    override val name: String
+        get() = "tokens"
 
     override fun proceed(throwable: Throwable): String {
         return """
