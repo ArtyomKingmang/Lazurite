@@ -3,17 +3,13 @@ package com.kingmang.lazurite.parser.parse
 import lombok.Getter
 
 
-class Token(
-    @field:Getter val type: TokenType,
-    @field:Getter val text: String,
-    @field:Getter val row: Int,
-    @field:Getter val col: Int
+data class Token(
+    val type: TokenType,
+    val text: String,
+    val row: Int,
+    val col: Int
 ) {
-    fun position(): String {
-        return "[$row $col]"
-    }
-
     override fun toString(): String {
-        return type.name + " " + position() + " " + text
+        return "${type.name}[$row, $col]" + text.takeIf { it.isNotBlank() }?.let { " \"$it\"" }.orEmpty()
     }
 }
