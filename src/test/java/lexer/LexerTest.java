@@ -1,12 +1,12 @@
 package lexer;
 
-import com.kingmang.lazurite.parser.parse.Token;
-import com.kingmang.lazurite.parser.parse.impl.LexerImplementation;
+import com.kingmang.lazurite.parser.Token;
+import com.kingmang.lazurite.parser.impl.LexerImplementation;
 import org.junit.Test;
 
 import java.util.List;
 
-import static com.kingmang.lazurite.parser.parse.TokenType.*;
+import static com.kingmang.lazurite.parser.TokenType.*;
 import static lexer.Helper.assertTokens;
 import static lexer.Helper.list;
 import static org.junit.Assert.assertEquals;
@@ -18,13 +18,14 @@ public class LexerTest {
     public void testLexerStringTemplate() {
         String input = """
                 a = 2
-                print ("a = $a = $a")
+                print ("a = $a = ${a + 4}")
                 """;
         List<Token> expList = list(
                 WORD, EQ, NUMBER,
-                PRINT, LPAREN, TEXT, PLUS, WORD, PLUS, TEXT, PLUS, WORD, RPAREN
+                PRINT, LPAREN, TEXT, PLUS, WORD, PLUS, TEXT, PLUS, LPAREN, WORD, PLUS, NUMBER, RPAREN, RPAREN
         );
         List<Token> result = LexerImplementation.tokenize(input);
+        System.out.println(result);
         assertTokens(expList, result);
 
         input = """

@@ -10,7 +10,7 @@ public class TestRunner {
         String path = "test/";
 
         String filename = "test.lzr";
-        String builder = String.valueOf(path) +
+        String builder = path +
                 filename;
 
         Handler.Run(builder);
