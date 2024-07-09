@@ -67,7 +67,7 @@ public class Runner {
 
     private static void versionCMD() {
         System.out.println("---------------------------------");
-        System.out.println("Lazurite version: " + RunnerInfo.getVersion());
+        System.out.println("Lazurite version: " + RunnerInfo.VERSION);
         System.out.println("---------------------------------");
     }
 

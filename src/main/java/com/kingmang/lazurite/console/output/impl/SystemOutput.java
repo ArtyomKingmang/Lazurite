@@ -19,11 +19,6 @@ public class SystemOutput implements Output {
     }
 
     @Override
-    public void println(String value) {
-        out.println(value);
-    }
-
-    @Override
     public String getText() {
         return "";
     }

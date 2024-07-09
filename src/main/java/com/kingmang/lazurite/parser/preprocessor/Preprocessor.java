@@ -9,7 +9,7 @@ public class Preprocessor {
 
     public static String preprocess(String code) {
         Map<String, String> macros = new HashMap<>();
-        macros.put("lzrVersion", "\"" + RunnerInfo.getVersion() + "\"");
+        macros.put("lzrVersion", "\"" + RunnerInfo.VERSION + "\"");
 
         StringBuilder processedCode = new StringBuilder();
 

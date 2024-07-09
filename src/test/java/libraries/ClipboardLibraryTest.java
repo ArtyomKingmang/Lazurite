@@ -5,6 +5,7 @@ import com.kingmang.lazurite.utils.Handler;
 import org.junit.Test;
 
 import java.awt.*;
+import java.awt.datatransfer.Clipboard;
 
 import static org.junit.Assert.assertEquals;
 
@@ -13,6 +14,8 @@ public class ClipboardLibraryTest {
     @Test
     public void testSetClipboard() throws Exception {
         try {
+            Toolkit.getDefaultToolkit().getSystemClipboard();
+
             Long timestamp = System.currentTimeMillis();
             String code = """
                 using "lzr.clipboard"

@@ -16,7 +16,10 @@ public interface Output {
         println(newline());
     }
 
-    void println(String value);
+    default void println(String value) {
+        print(value);
+        println();
+    }
 
     default void println(Object value) {
         println(value.toString());
