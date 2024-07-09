@@ -34,7 +34,6 @@ public class std implements Library {
 
     }
 
-
     public final static class flatmap implements Function {
 
         @Override

@@ -8,6 +8,7 @@ import com.kingmang.lazurite.runtime.values.LzrMap
 import com.kingmang.lazurite.runtime.values.LzrString
 import java.util.*
 
+@Suppress("unused", "ClassName")
 class artify : Library {
     private val letters = arrayOf(
         arrayOf(

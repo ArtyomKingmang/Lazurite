@@ -1,18 +1,19 @@
-package com.kingmang.lazurite.libraries.lzr.utils.stringBuilder;
+package com.kingmang.lazurite.libraries.lzr.utils.stringBuilder
 
-import com.kingmang.lazurite.libraries.Library;
-import com.kingmang.lazurite.runtime.Variables;
-import com.kingmang.lazurite.runtime.values.LzrMap;
+import com.kingmang.lazurite.libraries.Library
+import com.kingmang.lazurite.runtime.Variables.define
+import com.kingmang.lazurite.runtime.values.LzrMap
+import com.kingmang.lazurite.runtime.values.LzrValue
 
-public class stringBuilder implements Library {
-    @Override
-    public void init() {
-        final LzrMap stringBuilder = new LzrMap(5);
-        stringBuilder.set("append", StringBuilderMethods::addToBuilder);
-        stringBuilder.set("new", StringBuilderMethods::newBuilder);
-        stringBuilder.set("delete", StringBuilderMethods::deleteBuilder);
-        stringBuilder.set("toStr", StringBuilderMethods::toStrBuilder);
-        stringBuilder.set("deleteCharAt", StringBuilderMethods::deleteCharAtBuilder);
-        Variables.define("stringBuilder", stringBuilder);
+@Suppress("unused", "ClassName")
+class stringBuilder : Library {
+    override fun init() {
+        val stringBuilder = LzrMap(5)
+        stringBuilder["append"] = { args: Array<LzrValue?>? -> StringBuilderMethods.addToBuilder(args) }
+        stringBuilder["new"] = { args: Array<LzrValue?>? -> StringBuilderMethods.newBuilder(args) }
+        stringBuilder["delete"] = { args: Array<LzrValue?>? -> StringBuilderMethods.deleteBuilder(args) }
+        stringBuilder["toStr"] = { args: Array<LzrValue?>? -> StringBuilderMethods.toStrBuilder(args) }
+        stringBuilder["deleteCharAt"] = { args: Array<LzrValue?>? -> StringBuilderMethods.deleteCharAtBuilder(args) }
+        define("stringBuilder", stringBuilder)
     }
 }

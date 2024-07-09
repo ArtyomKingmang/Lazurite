@@ -15,6 +15,7 @@ import java.nio.channels.FileChannel;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 
 public final class LFS implements Library {
@@ -134,7 +135,7 @@ public final class LFS implements Library {
     private static class listFiles extends FileFunction {
         @Override
         protected LzrValue execute(FileInfo fileInfo, LzrValue[] args) throws IOException {
-            return LzrArray.of(fileInfo.file.list());
+            return LzrArray.of(Objects.requireNonNull(fileInfo.file.list()));
         }
     }
 

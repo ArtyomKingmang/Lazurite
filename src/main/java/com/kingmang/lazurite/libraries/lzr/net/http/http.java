@@ -28,23 +28,8 @@ public final class http implements Library {
         LzrMap http = new LzrMap(3);
         LzrMap url = new LzrMap(1);
         initConstants();
-        url.set("encode", new URLEncode());
-        http.set("request", new Http());
-        http.set("getContentLength", this::HTTPGetContentLength);
-        http.set("download", this::HTTPDownload);
-        Variables.define("http", http);
-        Variables.define("url", url);
-    }
 
-    private LzrValue HTTPGetContentLength(LzrValue... args) {
-        Arguments.check(1, args.length);
-        return LzrNumber.of(getContentLength(args[0].asString()));
-    }
-
-    public final class URLEncode implements Function {
-
-        @Override
-        public LzrValue execute(LzrValue... args) {
+        url.set("encode", (args) -> {
             Arguments.checkOrOr(1, 2, args.length);
 
             String charset = "UTF-8";
@@ -58,8 +43,20 @@ public final class http implements Library {
             } catch (IOException ex) {
                 return args[0];
             }
-        }
+        });
+
+        http.set("request", new Http());
+        http.set("getContentLength", this::HTTPGetContentLength);
+        http.set("download", this::HTTPDownload);
+        Variables.define("http", http);
+        Variables.define("url", url);
     }
+
+    private LzrValue HTTPGetContentLength(LzrValue... args) {
+        Arguments.check(1, args.length);
+        return LzrNumber.of(getContentLength(args[0].asString()));
+    }
+
     private LzrValue HTTPDownload(LzrValue... args) {
         Arguments.checkRange(2, 4, args.length);
         final String downloadUrl = args[0].asString();
@@ -126,7 +123,7 @@ public final class http implements Library {
             }
         }
     }
-    public final class Http implements Function {
+    public static final class Http implements Function {
 
         private final LzrValue
                 HEADER_KEY = new LzrString("header"),

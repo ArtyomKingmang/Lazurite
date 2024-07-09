@@ -14,6 +14,7 @@ import com.kingmang.lazurite.utils.ValueUtils
 import java.util.*
 import kotlin.math.min
 
+@Suppress("unused", "ClassName")
 class arrays : Library {
     override fun init() {
         val array = LzrMap(4)

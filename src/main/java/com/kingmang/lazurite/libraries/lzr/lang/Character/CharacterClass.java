@@ -6,7 +6,7 @@ import com.kingmang.lazurite.runtime.values.LzrValue;
 
 public final class CharacterClass {
 
-        public static LzrValue isAlphabeticc(LzrValue[] args) {
+        public static LzrValue _isAlphabetic(LzrValue[] args) {
             Arguments.check(1, args.length);
             char current = (char) args[0].asInt();
             boolean result = java.lang.Character.isAlphabetic(current);
@@ -16,7 +16,7 @@ public final class CharacterClass {
                 return LzrNumber.ZERO;
         }
 
-        public static LzrValue isDigitt(LzrValue[] args) {
+        public static LzrValue _isDigit(LzrValue[] args) {
             Arguments.check(1, args.length);
             char current = (char) args[0].asInt();
             boolean result = java.lang.Character.isDigit(current);
@@ -26,7 +26,7 @@ public final class CharacterClass {
                 return LzrNumber.ZERO;
         }
 
-        public static LzrValue isLetterOrDigitt(LzrValue[] args) {
+        public static LzrValue _isLetterOrDigit(LzrValue[] args) {
             Arguments.check(1, args.length);
             char current = (char) args[0].asInt();
             boolean result = java.lang.Character.isLetterOrDigit(current);
@@ -36,7 +36,7 @@ public final class CharacterClass {
                 return LzrNumber.ZERO;
         }
 
-        public static LzrValue isLetterr(LzrValue[] args) {
+        public static LzrValue _isLetter(LzrValue[] args) {
             Arguments.check(1, args.length);
             char current = (char) args[0].asInt();
             boolean result = java.lang.Character.isLetter(current);
