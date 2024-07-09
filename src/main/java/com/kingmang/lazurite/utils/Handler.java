@@ -16,6 +16,10 @@ import com.kingmang.lazurite.runtime.Libraries;
 import com.kingmang.lazurite.runtime.Variables;
 import com.kingmang.lazurite.runtime.values.LzrNumber;
 import com.kingmang.lazurite.runtime.values.LzrValue;
+import me.besstrunovpw.lazurite.crashhandler.CrashHandler;
+import me.besstrunovpw.lazurite.crashhandler.reporter.ICrashReporter;
+import me.besstrunovpw.lazurite.crashhandler.reporter.impl.SimpleCrashReporter;
+import me.besstrunovpw.lazurite.crashhandler.reporter.processors.impl.TokensProcessor;
 import org.fusesource.jansi.Ansi;
 import org.jetbrains.annotations.NotNull;
 
@@ -35,24 +39,34 @@ public class Handler {
     }
 
     public static void runProgram(String code) throws IOException {
-        String input = Preprocessor.preprocess(code);
-        ILexer lexer = new LexerImplementation(input);
-        final List<Token> tokens = lexer.tokenize();
-        final IParser parser = new ParserImplementation(tokens);
-        final Statement parsedProgram = parser.parse();
-        if (parser.getParseErrors().hasErrors()) {
-            System.out.println(parser.getParseErrors());
-            return;
-        }
-        final Statement program;
-        program = parsedProgram;
-        program.accept(new FunctionAdder());
+        CrashHandler.INSTANCE.register(new SimpleCrashReporter());
 
         try {
-            program.execute();
-        } catch (LzrException ex) {
-            System.out.printf("%s: %s in: \n" + Ansi.ansi().fg(Ansi.Color.GREEN).a("%s").reset() + "%n", ex.getType(), ex.getText(), input);
-            //Console.handleException(Thread.currentThread(), ex);
+            String input = Preprocessor.preprocess(code);
+            ILexer lexer = new LexerImplementation(input);
+
+            final List<Token> tokens = lexer.tokenize();
+            CrashHandler.INSTANCE.getCrashReporter().addProcessor(new TokensProcessor(tokens));
+
+            final IParser parser = new ParserImplementation(tokens);
+            final Statement parsedProgram = parser.parse();
+            if (parser.getParseErrors().hasErrors()) {
+                System.out.println(parser.getParseErrors());
+                return;
+            }
+            final Statement program;
+            program = parsedProgram;
+            program.accept(new FunctionAdder());
+
+            try {
+                program.execute();
+            } catch (LzrException ex) {
+                System.out.printf("%s: %s in: \n" + Ansi.ansi().fg(Ansi.Color.GREEN).a("%s").reset() + "%n", ex.getType(), ex.getText(), input);
+                //Console.handleException(Thread.currentThread(), ex);
+            }
+        }
+        catch (Throwable throwable) {
+            CrashHandler.INSTANCE.proceed(throwable);
         }
 
     }

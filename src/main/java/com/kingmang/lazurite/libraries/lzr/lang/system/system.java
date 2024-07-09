@@ -57,7 +57,7 @@ public class system implements Library {
 
         system.set("getProperty", (LzrValue...args) -> {
             if(Objects.equals(args[0].asString(), "lzr.version")){
-                return new LzrString(RunnerInfo.getVersion());
+                return new LzrString(RunnerInfo.VERSION);
             }
             return new LzrString(System.getProperty(args[0].asString()));
 

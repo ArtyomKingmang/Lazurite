@@ -1,2 +1,4 @@
+using "aaa"
+
 a = 4
 println("a = ${a + 2}")

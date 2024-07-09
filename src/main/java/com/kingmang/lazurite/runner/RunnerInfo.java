@@ -7,8 +7,7 @@ import org.fusesource.jansi.AnsiConsole;
 
 public class RunnerInfo {
 
-    @Getter
-    private static final String Version = "2.7.5";
+    public static final String VERSION = "2.7.5";
 
     @Setter
     @Getter
@@ -17,7 +16,7 @@ public class RunnerInfo {
     public static void Console () {
         AnsiConsole.systemInstall();
 
-        System.out.println(Ansi.ansi().fg(Ansi.Color.CYAN).a("\n\t-------" + getVersion() + "-------\n" +
+        System.out.println(Ansi.ansi().fg(Ansi.Color.CYAN).a("\n\t-------" + VERSION + "-------\n" +
                 "\tLazurite Console" + "\n" +
                 "\t-------------------").reset());
         AnsiConsole.out().println("------------------------------------------------------------");
@@ -34,7 +33,7 @@ public class RunnerInfo {
     }
 
     public static void Command () {
-        System.out.println("\n\t-------" + getVersion() + "-------\n" +
+        System.out.println("\n\t-------" + VERSION + "-------\n" +
                 "\tLazurite Console" + "\n" +
                 "\t-----------------");
         System.out.println("------------------------------------------------------------");
@@ -49,6 +48,7 @@ public class RunnerInfo {
                         """
         );
     }
+
 
 
 }
