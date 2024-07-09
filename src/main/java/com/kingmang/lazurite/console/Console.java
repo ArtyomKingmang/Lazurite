@@ -1,7 +1,7 @@
 package com.kingmang.lazurite.console;
 
-import com.kingmang.lazurite.console.settings.ConsoleOutput;
-import com.kingmang.lazurite.console.settings.Output;
+import com.kingmang.lazurite.console.output.impl.ConsoleOutput;
+import com.kingmang.lazurite.console.output.Output;
 import com.kingmang.lazurite.core.CallStack;
 import lombok.NoArgsConstructor;
 

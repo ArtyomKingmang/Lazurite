@@ -1,22 +1,10 @@
-package com.kingmang.lazurite.console.settings;
+package com.kingmang.lazurite.console.output.impl;
 
-import lombok.AllArgsConstructor;
+import com.kingmang.lazurite.console.output.Output;
 
 import java.io.File;
 
-@AllArgsConstructor
-public class StringOutput implements Output {
-
-    private final StringBuffer out, err;
-
-    public StringOutput() {
-        this(new StringBuffer());
-    }
-
-    public StringOutput(StringBuffer out) {
-        this(out, out);
-    }
-
+public class ConsoleOutput implements Output {
 
     @Override
     public String newline() {
@@ -25,22 +13,23 @@ public class StringOutput implements Output {
 
     @Override
     public void print(String value) {
-        out.append(value);
+        System.out.print(value);
     }
 
     @Override
     public void print(Object value) {
-        out.append(value.toString());
+        print(value.toString());
     }
+
 
     @Override
     public void println() {
-        out.append(newline());
+        System.out.println();
     }
 
     @Override
     public void println(String value) {
-        out.append(value).append(newline());
+        System.out.println(value);
     }
 
     @Override
@@ -50,7 +39,7 @@ public class StringOutput implements Output {
 
     @Override
     public String getText() {
-        return out.toString();
+        return "";
     }
 
     @Override
@@ -60,7 +49,7 @@ public class StringOutput implements Output {
 
     @Override
     public void error(CharSequence value) {
-        err.append(value).append(newline());
+        System.err.println(value);
     }
 
     @Override

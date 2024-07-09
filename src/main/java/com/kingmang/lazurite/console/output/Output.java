@@ -1,4 +1,4 @@
-package com.kingmang.lazurite.console.settings;
+package com.kingmang.lazurite.console.output;
 
 import java.io.File;
 
