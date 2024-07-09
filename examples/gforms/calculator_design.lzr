@@ -1,4 +1,4 @@
-using "gforms"
+using "lzrx.gforms"
 
 operations = [
     "+",

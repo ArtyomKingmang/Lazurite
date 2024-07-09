@@ -1,4 +1,4 @@
-package com.kingmang.lazurite.libraries.lzr.system;
+package com.kingmang.lazurite.libraries.lzr.lang.system;
 
 import com.kingmang.lazurite.core.Arguments;
 import com.kingmang.lazurite.core.Function;

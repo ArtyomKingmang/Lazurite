@@ -1,4 +1,4 @@
-using "reflection"
+using "lzr.reflection"
 
 String = JClass("java.lang.String")
 

@@ -1,2 +1,2 @@
-using "artify"
+using "lzr.utils.artify"
 print(artify.build("HELLO WORLD"))

@@ -1,4 +1,4 @@
-using "ML"
+using "lzr.utils.math"
 x1 = 10
 y1 = 20
 x2 = 30

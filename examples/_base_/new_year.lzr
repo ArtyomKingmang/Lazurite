@@ -1,6 +1,6 @@
-using "colors"
-using "random"
-using "time"
+using "lzrx.colors"
+using "lzr.utils.random"
+using "lzr.utils.time"
 
 patterns = [
   "\u001b[10m",

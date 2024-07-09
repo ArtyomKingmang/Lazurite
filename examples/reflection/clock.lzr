@@ -1,5 +1,5 @@
-using "reflection"
-using "colors"
+using "lzr.reflection"
+using "lzrx.colors"
 time = JClass("java.time.LocalDateTime")
 
 

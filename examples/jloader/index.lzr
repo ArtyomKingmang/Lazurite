@@ -1,4 +1,4 @@
-using "jloader"
+using "lzr.jloader"
 
 
 jloader.invoke("examples/jloader/printer.java", "com.monsler.printer.Printer", "print", "Hello from java!", 1)

@@ -1,4 +1,4 @@
-using "lsoup"
+using "lzr.net.lsoup"
 
 lsoup.parse("https://artyomkingmang.github.io/lazurite-pages/")
 result = lsoup.select("title")

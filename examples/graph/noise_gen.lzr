@@ -1,5 +1,5 @@
-using "graph"
-using "random"
+using "lzrx.graph"
+using "lzr.utils.random"
 
 
 Frame(900,500)

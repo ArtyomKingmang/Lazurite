@@ -1,4 +1,4 @@
-using "lgl"
+using "lzrx.lgl"
 
 window = lgl.createFrame("Test Frame", 500, 500)
 

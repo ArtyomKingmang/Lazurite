@@ -1,4 +1,4 @@
-using "reflection"
+using "lzr.reflection"
 
 ServerSocket = JClass("java.net.ServerSocket")
 System = JClass("java.lang.System")

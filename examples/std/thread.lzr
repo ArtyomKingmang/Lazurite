@@ -1,4 +1,4 @@
-using "std"
+using "lzr.thread"
 func th(arg){
    println("My " + str(arg) + " Thread")
 }

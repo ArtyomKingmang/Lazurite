@@ -1,4 +1,4 @@
-using "arrays"
+using "lzr.utils.arrays"
 func printFibonacci(n) {
   fibonacci = Array(n)
   fibonacci[0] = 0;

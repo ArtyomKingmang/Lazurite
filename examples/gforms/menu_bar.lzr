@@ -1,4 +1,4 @@
-using "gforms"
+using "lzrx.gforms"
 
 wnd = Frame("text editor")
 wnd.setMinimumSize(500,500)

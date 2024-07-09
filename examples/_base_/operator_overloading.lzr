@@ -1,5 +1,5 @@
-using "ML"
+using "lzr.utils.math"
 
-func `**`(v1,v2) = ml.pow(v1, v2)
+func `**`(v1,v2) = math.pow(v1, v2)
 
 print(10 ** 2)

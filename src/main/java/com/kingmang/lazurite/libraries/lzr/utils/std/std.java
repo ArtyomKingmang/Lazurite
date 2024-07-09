@@ -20,11 +20,10 @@ import java.util.function.Supplier;
 public class std implements Library {
     @Override
     public void init(){
-        final LzrMap std = new LzrMap(2);
+        final LzrMap std = new LzrMap(1);
 
 
         std.set("flatmap", new flatmap());
-        std.set("thread", new thread());
         Variables.define("std", std);
 
         Keyword.put("hashMap", mapFunction(HashMap::new));
@@ -61,30 +60,6 @@ public class std implements Library {
                 }
             }
             return new LzrArray(values);
-        }
-    }
-    public static final class thread implements Function {
-
-        @Override
-        public LzrValue execute(LzrValue... args) {
-            Arguments.checkAtLeast(1, args.length);
-
-            Function body;
-            if (args[0].type() == Types.FUNCTION) {
-                body = ((LzrFunction) args[0]).getValue();
-            } else {
-                body = Keyword.get(args[0].asString());
-            }
-
-            final LzrValue[] params = new LzrValue[args.length - 1];
-            if (params.length > 0) {
-                System.arraycopy(args, 1, params, 0, params.length);
-            }
-
-            final Thread thread = new Thread(() -> body.execute(params));
-            thread.setUncaughtExceptionHandler(Console::handleException);
-            thread.start();
-            return LzrNumber.ZERO;
         }
     }
 
