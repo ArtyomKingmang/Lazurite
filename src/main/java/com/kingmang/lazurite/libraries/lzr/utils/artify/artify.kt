@@ -206,106 +206,57 @@ class artify : Library {
         map["build"] = Function { args ->
             Arguments.check(1, args.size)
             val raw = args[0].asString().lowercase(Locale.getDefault())
-            val lines = arrayOfNulls<StringBuilder>(4)
-            for (i in 0..3) {
-                lines[i] = StringBuilder()
+            val lines = Array(4) {
+                StringBuilder()
             }
-            for (i in 0 until raw.length) {
-                val c = raw[i]
-                if (c >= 'a' && c <= 'z') {
-                    val index = c.code - 'a'.code
-                    for (j in 0..3) {
-                        lines[j]!!.append(letters[j][index])
+            for (element in raw) {
+                when (element) {
+                    in 'a'..'z' -> {
+                        val index = element.code - 'a'.code
+                        lines.appendLetters(index)
                     }
-                } else if (c == '.') {
-                    for (j in 0..3) {
-                        lines[j]!!.append(letters[j][36])
-                    }
-                } else if (c == ',') {
-                    for (j in 0..3) {
-                        lines[j]!!.append(letters[j][37])
-                    }
-                } else if (c == ' ') {
-                    for (j in 0..3) {
-                        lines[j]!!.append("     ")
-                    }
-                } else if (c == '!') {
-                    for (j in 0..3) {
-                        lines[j]!!.append(letters[j][38])
-                    }
-                } else if (c == '/') {
-                    for (j in 0..3) {
-                        lines[j]!!.append(letters[j][39])
-                    }
-                } else if (c == '<') {
-                    for (j in 0..3) {
-                        lines[j]!!.append(letters[j][40])
-                    }
-                } else if (c == '>') {
-                    for (j in 0..3) {
-                        lines[j]!!.append(letters[j][41])
-                    }
-                } else if (c == '?') {
-                    for (j in 0..3) {
-                        lines[j]!!.append(letters[j][42])
-                    }
-                } else if (c == '\\') {
-                    for (j in 0..3) {
-                        lines[j]!!.append(letters[j][43])
-                    }
-                } else if (c == ':') {
-                    for (j in 0..3) {
-                        lines[j]!!.append(letters[j][44])
-                    }
-                } else if (c == '1') {
-                    for (j in 0..3) {
-                        lines[j]!!.append(letters[j][26])
-                    }
-                } else if (c == '2') {
-                    for (j in 0..3) {
-                        lines[j]!!.append(letters[j][27])
-                    }
-                } else if (c == '3') {
-                    for (j in 0..3) {
-                        lines[j]!!.append(letters[j][28])
-                    }
-                } else if (c == '4') {
-                    for (j in 0..3) {
-                        lines[j]!!.append(letters[j][29])
-                    }
-                } else if (c == '5') {
-                    for (j in 0..3) {
-                        lines[j]!!.append(letters[j][30])
-                    }
-                } else if (c == '6') {
-                    for (j in 0..3) {
-                        lines[j]!!.append(letters[j][31])
-                    }
-                } else if (c == '7') {
-                    for (j in 0..3) {
-                        lines[j]!!.append(letters[j][32])
-                    }
-                } else if (c == '8') {
-                    for (j in 0..3) {
-                        lines[j]!!.append(letters[j][33])
-                    }
-                } else if (c == '9') {
-                    for (j in 0..3) {
-                        lines[j]!!.append(letters[j][34])
-                    }
-                } else if (c == '0') {
-                    for (j in 0..3) {
-                        lines[j]!!.append(letters[j][35])
-                    }
+
+                    '.' -> lines.appendLetters(36)
+                    ',' -> lines.appendLetters(37)
+                    ' ' -> lines.appendString("     ")
+                    '!' -> lines.appendLetters(38)
+                    '/' -> lines.appendLetters(39)
+                    '<' -> lines.appendLetters(40)
+                    '>' -> lines.appendLetters(41)
+                    '?' -> lines.appendLetters(42)
+                    '\\' -> lines.appendLetters(43)
+                    ':' -> lines.appendLetters(44)
+                    '1' -> lines.appendLetters(26)
+                    '2' -> lines.appendLetters(27)
+                    '3' -> lines.appendLetters(28)
+                    '4' -> lines.appendLetters(29)
+                    '5' -> lines.appendLetters(30)
+                    '6' -> lines.appendLetters(31)
+                    '7' -> lines.appendLetters(32)
+                    '8' -> lines.appendLetters(33)
+                    '9' -> lines.appendLetters(34)
+                    '0' -> lines.appendLetters(35)
                 }
             }
-            val result = StringBuilder()
-            for (i in 0..3) {
-                result.append(lines[i]).append("\n")
+            val result = lines.fold(StringBuilder()) { acc, line ->
+                acc.append(line).append('\n')
+                acc
             }
             LzrString(result.toString())
         }
 
         Variables.define("artify", map)
+    }
+
+    private fun Array<StringBuilder>.appendLetters(index: Int) {
+        for (j in indices) {
+            get(j).append(letters[j][index])
+        }
+    }
+
+    private fun Array<StringBuilder>.appendString(value: String) {
+        for (j in indices) {
+            get(j).append(value)
+        }
     }
 }
