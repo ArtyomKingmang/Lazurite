@@ -68,7 +68,7 @@ public final class UsingStatement extends InterruptableNode implements Statement
                     loadModule(libPackage, libChild, libName);
                 }
             //load .jar libs
-            }catch (Exception libEx){
+            } catch (Exception libEx) {
                 String[] jarParts = value.asString().split("::");
                 String nameOfLib = jarParts[0] + ".jar";
                 String pathToLib = jarParts[1];
