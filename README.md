@@ -13,7 +13,7 @@ Hello World in Lazurite!:
 print("Hello World!")
 ```
 lsoup:
-```cpp
+```java
 using "lsoup"
 
 lsoup.parser("https://www.lipsum.com")
@@ -26,7 +26,7 @@ print(text)
 ```
 
 async example:
-```cpp
+```java
 using "async"
 func hel(arg){
     print(arg)
@@ -34,7 +34,7 @@ func hel(arg){
 async.supply(hel("Hello"))
 ```
 graph example:
-```cpp
+```java
 using "graph"
 Frame()
 
@@ -45,7 +45,7 @@ fill(100,200,100)
 lrect(100,100,100,100)
 ```
 thread example:
-```cpp
+```java
 using "std"
 func th(arg){
    println("My " + str(arg) + " Thread")
@@ -58,6 +58,16 @@ for(i=0, i<10, i++){
 ## Download
 
 Download jar and exe files of the language interpreter can be downloaded in the <a href = "https://github.com/ArtyomKingmang/Lazurite/releases">Releases</a> tab)
+
+## Contributions
+We will review and help with all reasonable pull requests as long as the guidelines below are met.
+
+- The license header must be applied to all java source code files.
+- IDE or system-related files should be added to the .gitignore, never committed in pull requests.
+- In general, check existing code to make sure your code matches relatively close to the code already in the project.
+- Favour readability over compactness.
+- If you need help, check out the [Google Java Style Guide](https://google.github.io/styleguide/javaguide.html) for a reference.
+
 
 ## Why Lazurite?
 Why should you choose Lazurite?:
