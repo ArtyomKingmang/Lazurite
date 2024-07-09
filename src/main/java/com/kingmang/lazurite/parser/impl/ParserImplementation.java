@@ -1,4 +1,4 @@
-package com.kingmang.lazurite.parser.parse.impl;
+package com.kingmang.lazurite.parser.impl;
 
 import com.kingmang.lazurite.exceptions.LzrException;
 import com.kingmang.lazurite.exceptions.parser.ParseErrors;
@@ -6,9 +6,9 @@ import com.kingmang.lazurite.parser.AST.Accessible;
 import com.kingmang.lazurite.parser.AST.Arguments;
 import com.kingmang.lazurite.parser.AST.Expressions.*;
 import com.kingmang.lazurite.parser.AST.Statements.*;
-import com.kingmang.lazurite.parser.parse.Parser;
-import com.kingmang.lazurite.parser.parse.Token;
-import com.kingmang.lazurite.parser.parse.TokenType;
+import com.kingmang.lazurite.parser.Parser;
+import com.kingmang.lazurite.parser.Token;
+import com.kingmang.lazurite.parser.TokenType;
 import com.kingmang.lazurite.runtime.UserDefinedFunction;
 import com.kingmang.lazurite.runtime.values.LzrEnum;
 import com.kingmang.lazurite.runtime.values.LzrNumber;

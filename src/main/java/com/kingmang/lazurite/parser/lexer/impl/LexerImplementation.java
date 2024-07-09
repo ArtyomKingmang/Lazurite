@@ -1,11 +1,11 @@
-package com.kingmang.lazurite.parser.parse.impl;
+package com.kingmang.lazurite.parser.lexer.impl;
 
 import com.kingmang.lazurite.core.Types;
 import com.kingmang.lazurite.exceptions.LzrException;
 import com.kingmang.lazurite.libraries.Keyword;
-import com.kingmang.lazurite.parser.parse.Lexer;
-import com.kingmang.lazurite.parser.parse.Token;
-import com.kingmang.lazurite.parser.parse.TokenType;
+import com.kingmang.lazurite.parser.lexer.ILexer;
+import com.kingmang.lazurite.parser.Token;
+import com.kingmang.lazurite.parser.TokenType;
 import com.kingmang.lazurite.parser.standart.Standart;
 import com.kingmang.lazurite.runtime.Variables;
 import com.kingmang.lazurite.runtime.values.LzrMap;
@@ -18,14 +18,14 @@ import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public final class LexerImplementation implements Lexer {
+public final class LexerImplementation implements ILexer {
 
     private static final String OPERATOR_CHARS = "+-*/%()[]{}=<>!&|.,^~?:";
     private static final Map<String, TokenType> OPERATORS;
     private static final Map<String, TokenType> KEYWORDS = new HashMap<>();
     private static final TokenType[] tokenTypes = TokenType.values();
 
-    private static final Pattern STR_TEMPLATE_STANDART_PATTERN = Pattern.compile("(?<!\\\\)\\$\\{[a-zA-Z]+\\}|(?<!\\\\)\\$[a-zA-Z]+");
+    private static final Pattern STR_TEMPLATE_STANDART_PATTERN = Pattern.compile("(?<!\\\\)\\$\\{.*?}|\\$(?!\\{.*?})[a-zA-Z]+");
 
     private static final String[] keywords = {
             "enum",
@@ -130,7 +130,7 @@ public final class LexerImplementation implements Lexer {
         } else if (current == 'd') {
             next();
             addToken(TokenType.DOUBLE_NUM, buffer.toString());
-        }else if (current == 's') {
+        } else if (current == 's') {
             next();
             addToken(TokenType.SHORT_NUM, buffer.toString());
         } else
@@ -197,6 +197,7 @@ public final class LexerImplementation implements Lexer {
         }
 
         final String word = buffer.toString();
+
         if (KEYWORDS.containsKey(word))
             addToken(KEYWORDS.get(word));
         else
@@ -295,6 +296,7 @@ public final class LexerImplementation implements Lexer {
         }
 
         Matcher matcher = STR_TEMPLATE_STANDART_PATTERN.matcher(in);
+        boolean codeInStringFlag = false;
         int lastEndIndex = 0;
         int matcherCount = 0;
 
@@ -308,6 +310,7 @@ public final class LexerImplementation implements Lexer {
             if (in.charAt(start + 1) == '{') {
                 // Шаблон вида ${...}
                 word = in.substring(start + 2, end - 1);
+                codeInStringFlag = true;
             } else {
                 // Шаблон вида $...
                 word = in.substring(start + 1, end);
@@ -322,7 +325,16 @@ public final class LexerImplementation implements Lexer {
                 addToken(TokenType.PLUS);
             }
 
-            addToken(TokenType.WORD, word);
+            if(!codeInStringFlag)
+                addToken(TokenType.WORD, word);
+            else {
+                addToken(TokenType.LPAREN);
+
+                List<Token> tokens = LexerImplementation.tokenize(word);
+                this.tokens.addAll(tokens);
+
+                addToken(TokenType.RPAREN);
+            }
 
             lastEndIndex = end;
             matcherCount++;
@@ -330,10 +342,11 @@ public final class LexerImplementation implements Lexer {
 
         if(matcherCount == 0)
             addToken(TokenType.TEXT, in);
+
         else if (lastEndIndex < in.length()) {
-            if (matcherCount > 0) {
+            if (matcherCount > 0)
                 addToken(TokenType.PLUS);
-            }
+
             String remainingText = in.substring(lastEndIndex);
             addToken(TokenType.TEXT, remainingText);
         }

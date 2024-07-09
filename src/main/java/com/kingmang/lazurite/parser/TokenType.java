@@ -1,4 +1,4 @@
-package com.kingmang.lazurite.parser.parse;
+package com.kingmang.lazurite.parser;
 
 
 public enum TokenType {
