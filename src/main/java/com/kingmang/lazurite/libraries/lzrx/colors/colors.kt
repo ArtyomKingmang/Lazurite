@@ -9,7 +9,8 @@ import com.kingmang.lazurite.runtime.values.LzrString
 
 
 class colors : Library {
-    fun initConstant() {
+
+    override fun init() {
         val col = LzrMap(9)
         col["reset"] = LzrString("\u001b[10m")
         col["red"] = LzrString("\u001b[31m")
@@ -28,7 +29,4 @@ class colors : Library {
         define("color", col)
     }
 
-    override fun init() {
-        initConstant()
-    }
 }
