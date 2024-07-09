@@ -4,10 +4,10 @@ import com.kingmang.lazurite.exceptions.LzrException;
 import com.kingmang.lazurite.libraries.Library;
 import com.kingmang.lazurite.parser.AST.Expressions.Expression;
 import com.kingmang.lazurite.parser.AST.InterruptableNode;
-import com.kingmang.lazurite.parser.Parser;
+import com.kingmang.lazurite.parser.parser.IParser;
 import com.kingmang.lazurite.parser.Token;
 import com.kingmang.lazurite.parser.lexer.impl.LexerImplementation;
-import com.kingmang.lazurite.parser.impl.ParserImplementation;
+import com.kingmang.lazurite.parser.parser.impl.ParserImplementation;
 import com.kingmang.lazurite.patterns.visitor.FunctionAdder;
 import com.kingmang.lazurite.patterns.visitor.ResultVisitor;
 import com.kingmang.lazurite.patterns.visitor.Visitor;
@@ -105,7 +105,7 @@ public final class UsingStatement extends InterruptableNode implements Statement
     public Statement loadLzrLibrary(String path) throws IOException {
         final String input = Loader.readSource(path);
         final List<Token> tokens = LexerImplementation.tokenize(input);
-        final Parser parser = new ParserImplementation(tokens);
+        final IParser parser = new ParserImplementation(tokens);
         final Statement program = parser.parse();
         if (parser.getParseErrors().hasErrors()) {
             throw new LzrException("ParseException ", parser.getParseErrors().toString());

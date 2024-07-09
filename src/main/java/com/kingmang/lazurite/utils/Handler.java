@@ -6,10 +6,10 @@ import com.kingmang.lazurite.parser.AST.Expressions.Expression;
 import com.kingmang.lazurite.parser.AST.Statements.BlockStatement;
 import com.kingmang.lazurite.parser.AST.Statements.Statement;
 import com.kingmang.lazurite.parser.lexer.ILexer;
-import com.kingmang.lazurite.parser.Parser;
+import com.kingmang.lazurite.parser.parser.IParser;
 import com.kingmang.lazurite.parser.Token;
 import com.kingmang.lazurite.parser.lexer.impl.LexerImplementation;
-import com.kingmang.lazurite.parser.impl.ParserImplementation;
+import com.kingmang.lazurite.parser.parser.impl.ParserImplementation;
 import com.kingmang.lazurite.parser.preprocessor.Preprocessor;
 import com.kingmang.lazurite.patterns.visitor.FunctionAdder;
 import com.kingmang.lazurite.runtime.Libraries;
@@ -38,7 +38,7 @@ public class Handler {
         String input = Preprocessor.preprocess(code);
         ILexer lexer = new LexerImplementation(input);
         final List<Token> tokens = lexer.tokenize();
-        final Parser parser = new ParserImplementation(tokens);
+        final IParser parser = new ParserImplementation(tokens);
         final Statement parsedProgram = parser.parse();
         if (parser.getParseErrors().hasErrors()) {
             System.out.println(parser.getParseErrors());
