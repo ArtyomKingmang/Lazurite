@@ -1,9 +1,9 @@
-package com.kingmang.lazurite.parser.lexer.impl;
+package com.kingmang.lazurite.parser.impl;
 
 import com.kingmang.lazurite.core.Types;
 import com.kingmang.lazurite.exceptions.LzrException;
 import com.kingmang.lazurite.libraries.Keyword;
-import com.kingmang.lazurite.parser.lexer.ILexer;
+import com.kingmang.lazurite.parser.ILexer;
 import com.kingmang.lazurite.parser.Token;
 import com.kingmang.lazurite.parser.TokenType;
 import com.kingmang.lazurite.parser.standart.Standart;
