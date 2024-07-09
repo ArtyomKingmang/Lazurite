@@ -2,11 +2,10 @@ package com.kingmang.lazurite.exceptions.parser;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+@Getter
 @AllArgsConstructor
 public final class ParseError {
-    @Getter
     private final int line;
-    @Getter
     private final Exception exception;
 
     @Override
