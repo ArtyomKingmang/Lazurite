@@ -18,7 +18,6 @@ public class StringOutput implements Output {
         this(out, out);
     }
 
-
     @Override
     public String newline() {
         return System.lineSeparator();
@@ -30,11 +29,6 @@ public class StringOutput implements Output {
     }
 
     @Override
-    public void print(Object value) {
-        out.append(value.toString());
-    }
-
-    @Override
     public void println() {
         out.append(newline());
     }
@@ -42,11 +36,6 @@ public class StringOutput implements Output {
     @Override
     public void println(String value) {
         out.append(value).append(newline());
-    }
-
-    @Override
-    public void println(Object value) {
-        println(value.toString());
     }
 
     @Override

@@ -8,17 +8,25 @@ public interface Output {
 
     void print(String value);
 
-    void print(Object value);
+    default void print(Object value) {
+        print(value.toString());
+    }
 
-    void println();
+    default void println() {
+        println(newline());
+    }
 
     void println(String value);
 
-    void println(Object value);
+    default void println(Object value) {
+        println(value.toString());
+    }
 
     String getText();
 
-    void error(Throwable throwable);
+    default void error(Throwable throwable) {
+        error(throwable.toString());
+    }
 
     void error(CharSequence value);
 

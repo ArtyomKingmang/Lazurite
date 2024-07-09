@@ -4,7 +4,9 @@ import com.kingmang.lazurite.console.output.Output;
 
 import java.io.File;
 
-public class ConsoleOutput implements Output {
+public class SystemOutput implements Output {
+
+    private final PrintStreamOutput out = new PrintStreamOutput(System.out, System.err);
 
     @Override
     public String newline() {
@@ -13,28 +15,12 @@ public class ConsoleOutput implements Output {
 
     @Override
     public void print(String value) {
-        System.out.print(value);
-    }
-
-    @Override
-    public void print(Object value) {
-        print(value.toString());
-    }
-
-
-    @Override
-    public void println() {
-        System.out.println();
+        out.print(value);
     }
 
     @Override
     public void println(String value) {
-        System.out.println(value);
-    }
-
-    @Override
-    public void println(Object value) {
-        println(value.toString());
+        out.println(value);
     }
 
     @Override
@@ -43,13 +29,8 @@ public class ConsoleOutput implements Output {
     }
 
     @Override
-    public void error(Throwable throwable) {
-        error(throwable.toString());
-    }
-
-    @Override
     public void error(CharSequence value) {
-        System.err.println(value);
+        out.error(value);
     }
 
     @Override

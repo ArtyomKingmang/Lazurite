@@ -1,6 +1,6 @@
 package com.kingmang.lazurite.console;
 
-import com.kingmang.lazurite.console.output.impl.ConsoleOutput;
+import com.kingmang.lazurite.console.output.impl.SystemOutput;
 import com.kingmang.lazurite.console.output.Output;
 import com.kingmang.lazurite.core.CallStack;
 import lombok.NoArgsConstructor;
@@ -14,13 +14,13 @@ import java.nio.charset.StandardCharsets;
 public class Console {
 
     
-    private static Output outputSettings = new ConsoleOutput();
+    private static Output outputSettings = new SystemOutput();
 
-    public static void useSettings(Output outputSettings) {
+    public static void useOutput(Output outputSettings) {
         Console.outputSettings = outputSettings;
     }
 
-    public static Output getSettings() {
+    public static Output getOutput() {
         return outputSettings;
     }
 
