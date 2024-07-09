@@ -22,9 +22,10 @@ public class LexerTest {
                 """;
         List<Token> expList = list(
                 WORD, EQ, NUMBER,
-                PRINT, LPAREN, TEXT, PLUS, WORD, PLUS, TEXT, PLUS, WORD, RPAREN
+                PRINT, LPAREN, TEXT, PLUS, WORD, PLUS, TEXT, PLUS, LPAREN, WORD, PLUS, NUMBER, RPAREN, RPAREN
         );
         List<Token> result = LexerImplementation.tokenize(input);
+        System.out.println(result);
         assertTokens(expList, result);
 
         input = """
