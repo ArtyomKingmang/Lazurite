@@ -1,4 +1,4 @@
-<a href="https://github.com/ArtyomKingmang/Lazurite/blob/main/README.MD">For English speakers</a>
+<a href="https://github.com/ArtyomKingmang/Lazurite/blob/main/README.md">For English speakers</a>
 
 <div align="center">
   <img src="icon.png" width="300">
