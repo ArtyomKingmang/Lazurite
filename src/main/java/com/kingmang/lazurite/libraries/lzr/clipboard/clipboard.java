@@ -19,22 +19,12 @@ import java.io.IOException;
 
 public class clipboard implements Library {
 
-	@Override
-	public void init() {
-		LzrMap clipboard = new LzrMap(5);
-		clipboard.set("get", new getText());
-		clipboard.set("has", new hasText());
-		clipboard.set("set", new setText());
-		clipboard.set("add", new addText());
-		clipboard.set("clear", new clear());
-		Variables.define("clipboard", clipboard);
-	}
-
 	public static LzrValue get() {
 		Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
 		DataFlavor flavor = DataFlavor.stringFlavor;
+
 		if (clipboard.isDataFlavorAvailable(flavor)) {
-			String text = null;
+			String text;
 			try {
 				text = (String) clipboard.getData(flavor);
 			} catch (UnsupportedFlavorException e) {
@@ -44,65 +34,56 @@ public class clipboard implements Library {
 			}
 			return new LzrString(text);
 		}
+
 		return LzrNumber.ZERO;
+	}
+
+	@Override
+	public void init() {
+		LzrMap clipboardMap = new LzrMap(5);
+
+		clipboardMap.set("get", (args) -> {
+			Arguments.check(0, args.length);
+			return clipboard.get();
+		});
+
+		clipboardMap.set("has", (args) -> {
+			Arguments.check(0, args.length);
+			LzrValue text = clipboard.get();
+
+			return text != LzrNumber.ZERO && text != LzrString.EMPTY
+					? LzrNumber.ONE : LzrNumber.ZERO;
+		});
+
+		clipboardMap.set("set", (args) -> {
+			Arguments.check(1, args.length);
+			clipboard.set(args[0].asString());
+			return LzrNumber.ZERO;
+		});
+
+		clipboardMap.set("add", (args) -> {
+			Arguments.check(1, args.length);
+			LzrValue text = clipboard.get();
+
+			if (text == LzrNumber.ZERO)
+				throw new LzrException("ClipboardException: ", "Failed to read clipboard");
+
+			clipboard.set(text.asString() + args[0].asString());
+			return LzrNumber.ZERO;
+		});
+
+		clipboardMap.set("clear", (args) -> {
+			Arguments.check(0, args.length);
+			clipboard.set("");
+			return LzrNumber.ZERO;
+		});
+
+		Variables.define("clipboard", clipboardMap);
 	}
 
 	public static void set(String text) {
 		Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
 		StringSelection stringSelection = new StringSelection(text);
 		clipboard.setContents(stringSelection, null);
-	}
-
-
-
-	private class getText implements Function {
-		@Override
-		public LzrValue execute(LzrValue... args) {
-			Arguments.check(0, args.length);
-			return clipboard.get();
-		}
-	}
-
-	private class hasText implements Function {
-		@Override
-		public LzrValue execute(LzrValue... args) {
-			Arguments.check(0, args.length);
-			LzrValue text = clipboard.get();
-			if (text != LzrNumber.ZERO && text != LzrString.EMPTY) {
-				return LzrNumber.ONE;
-			}
-			return LzrNumber.ZERO;
-		}
-	}
-
-	private class setText implements Function {
-		@Override
-		public LzrValue execute(LzrValue... args) {
-			Arguments.check(1, args.length);
-			clipboard.set(args[0].asString());
-			return LzrNumber.ZERO;
-		}
-	}
-	
-	private class addText implements Function {
-		@Override
-		public LzrValue execute(LzrValue... args) {
-			Arguments.check(1, args.length);
-			LzrValue text = clipboard.get();
-			if (text == LzrNumber.ZERO) {
-				throw new LzrException("ClipboardException: ", "Failed to read clipboard");
-			}
-			clipboard.set(text.asString() + args[0].asString());
-			return LzrNumber.ZERO;
-		}
-	}
-
-	private class clear implements Function {
-		@Override
-		public LzrValue execute(LzrValue... args) {
-			Arguments.check(0, args.length);
-			clipboard.set("");
-			return LzrNumber.ZERO;
-		}
 	}
 }

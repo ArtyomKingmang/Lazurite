@@ -17,6 +17,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
 import java.awt.image.BufferedImage;
 
+@SuppressWarnings({"unused", "ClassName"})
 public class graph implements Library {
 
     private static final LzrNumber MINUS_ONE = new LzrNumber(-1);

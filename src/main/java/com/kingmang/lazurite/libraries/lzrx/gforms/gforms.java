@@ -6,11 +6,13 @@ import com.kingmang.lazurite.runtime.Variables;
 import com.kingmang.lazurite.runtime.values.LzrMap;
 import com.kingmang.lazurite.runtime.values.LzrNumber;
 import com.kingmang.lazurite.runtime.values.LzrString;
+import kotlin.Suppress;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.WindowEvent;
 
+@SuppressWarnings({"unused", "ClassName"})
 public final class gforms implements Library {
 
     public static void initConstant() {

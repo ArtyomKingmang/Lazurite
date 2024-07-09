@@ -39,6 +39,7 @@ import java.util.Arrays;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+@SuppressWarnings({"unused", "ClassName"})
 public final class lgl implements Library {
 
     private static JFXPanel panel;

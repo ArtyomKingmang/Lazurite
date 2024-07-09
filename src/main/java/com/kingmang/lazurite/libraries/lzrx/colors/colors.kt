@@ -8,6 +8,7 @@ import com.kingmang.lazurite.runtime.values.LzrNumber
 import com.kingmang.lazurite.runtime.values.LzrString
 
 
+@Suppress("unused", "ClassName")
 class colors : Library {
 
     override fun init() {

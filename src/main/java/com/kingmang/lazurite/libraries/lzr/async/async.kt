@@ -9,6 +9,7 @@ import com.kingmang.lazurite.runtime.values.LzrMap
 import com.kingmang.lazurite.runtime.values.LzrNumber
 import java.util.concurrent.CompletableFuture
 
+@Suppress("unused", "ClassName")
 class async : Library {
     override fun init() {
         val async = LzrMap(1)
