@@ -1,3 +1,5 @@
+<a href="https://github.com/ArtyomKingmang/Lazurite/blob/main/README_RU.MD">Для русскоговорящих</a>
+
 <div align="center">
   <img src="icon.png" width="300">
 </div>
