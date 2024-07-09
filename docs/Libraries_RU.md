@@ -577,14 +577,14 @@ robot.keyPress(KEY.A)
 `robot.typeText(text)` - Последовательно нажимает клавиши для ввода указанного текста
 
 # lsoup
-`lsoup.parse(url)` - загружает HTML-код веб-страницы по указанному URL.
+`lsoup.parser(url)` - загружает HTML-код веб-страницы по указанному URL.
 
 `lsoup.select("tag")` - выполняет поиск элементов с тегом "tag" в загруженном HTML-коде.
 
 ````java
 using "lsoup"
 
-lsoup.parse("https://artyomkingmang.github.io/lazurite-pages/")
+lsoup.parser("https://artyomkingmang.github.io/lazurite-pages/")
 result = lsoup.select("title")
 
 print(result)

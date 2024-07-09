@@ -9,7 +9,7 @@
  
 # Реализация Lexer
 ## LexerImplementation
-Файл: parser/parse/classes/LexerImplementation.java. 
+Файл: parser/parser/classes/LexerImplementation.java. 
 
 Класс, реализующий метод `tokenize(input)`
 интерфейса Lexer
@@ -169,7 +169,7 @@ private void addToken(TokenType type, String text) {...}
 ```
 # TokenType
 
-Файл: parser/parse/TokenType.java Перечисление всех токенов в lzr.
+Файл: parser/parser/TokenType.java Перечисление всех токенов в lzr.
 
 ```java
 public enum TokenType {...}

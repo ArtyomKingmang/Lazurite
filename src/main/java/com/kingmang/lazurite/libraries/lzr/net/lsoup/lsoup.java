@@ -27,7 +27,7 @@ public class lsoup implements Library {
     @Override
     public void init() {
         LzrMap lsoup = new LzrMap(3);
-        lsoup.set("parse", new pars());
+        lsoup.set("parser", new pars());
         lsoup.set("select", new select());
         lsoup.set("body", new body());
         Variables.define("lsoup", lsoup);

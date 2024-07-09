@@ -16,7 +16,7 @@ lsoup:
 ```cpp
 using "lsoup"
 
-lsoup.parse("https://www.lipsum.com")
+lsoup.parser("https://www.lipsum.com")
 
 title = lsoup.select("title")
 text = lsoup.select("h3")

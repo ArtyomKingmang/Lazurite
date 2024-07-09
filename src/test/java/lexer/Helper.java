@@ -1,4 +1,4 @@
-package test.lexer;
+package lexer;
 
 import com.kingmang.lazurite.parser.parse.Token;
 import com.kingmang.lazurite.parser.parse.TokenType;

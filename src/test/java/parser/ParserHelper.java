@@ -1,4 +1,4 @@
-package test.parser;
+package parser;
 
 import com.kingmang.lazurite.parser.AST.Accessible;
 import com.kingmang.lazurite.parser.AST.Expressions.*;

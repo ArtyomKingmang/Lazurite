@@ -1,4 +1,4 @@
-package test.lexer;
+package lexer;
 
 import com.kingmang.lazurite.parser.parse.Token;
 import com.kingmang.lazurite.parser.parse.impl.LexerImplementation;
@@ -8,8 +8,8 @@ import org.junit.Test;
 import java.util.List;
 
 import static com.kingmang.lazurite.parser.parse.TokenType.*;
-import static test.lexer.Helper.assertTokens;
-import static test.lexer.Helper.list;
+import static lexer.Helper.assertTokens;
+import static lexer.Helper.list;
 import static org.junit.Assert.assertEquals;
 
 
