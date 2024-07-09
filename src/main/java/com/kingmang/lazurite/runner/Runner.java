@@ -1,15 +1,12 @@
 package com.kingmang.lazurite.runner;
 
 
-import com.kingmang.lazurite.utils.Handler;
 import com.kingmang.lazurite.editors.Editor;
+import com.kingmang.lazurite.utils.Handler;
 import com.moandjiezana.toml.Toml;
 import com.moandjiezana.toml.TomlWriter;
-import lombok.Getter;
-import lombok.Setter;
 
 import java.io.*;
-
 import java.nio.file.DirectoryStream;
 import java.nio.file.Files;
 import java.nio.file.Path;

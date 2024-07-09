@@ -3,12 +3,11 @@ package com.kingmang.lazurite.libraries.lzrx.graph;
 import com.kingmang.lazurite.core.Function;
 import com.kingmang.lazurite.libraries.Keyword;
 import com.kingmang.lazurite.libraries.Library;
+import com.kingmang.lazurite.runtime.Variables;
 import com.kingmang.lazurite.runtime.values.LzrArray;
 import com.kingmang.lazurite.runtime.values.LzrMap;
 import com.kingmang.lazurite.runtime.values.LzrNumber;
 import com.kingmang.lazurite.runtime.values.LzrValue;
-import com.kingmang.lazurite.runtime.Variables;
-
 
 import javax.swing.*;
 import java.awt.*;
@@ -16,7 +15,6 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
-
 import java.awt.image.BufferedImage;
 
 public class graph implements Library {

@@ -3,19 +3,18 @@ package com.kingmang.lazurite.libraries.lzr.net.lsoup;
 
 import com.kingmang.lazurite.core.Function;
 import com.kingmang.lazurite.libraries.Library;
+import com.kingmang.lazurite.runtime.Variables;
 import com.kingmang.lazurite.runtime.values.LzrMap;
 import com.kingmang.lazurite.runtime.values.LzrString;
 import com.kingmang.lazurite.runtime.values.LzrValue;
-import com.kingmang.lazurite.runtime.Variables;
-
 import org.jsoup.Jsoup;
-
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
 
 public class lsoup implements Library {
 
@@ -54,7 +53,7 @@ public class lsoup implements Library {
                 e.printStackTrace();
             }
             docs = doc.toString();
-            Variables.set("document", new LzrString((docs).getBytes(StandardCharsets.UTF_8).toString()));
+            Variables.set("document", new LzrString(Arrays.toString((docs).getBytes(StandardCharsets.UTF_8))));
             docum = doc;
             return new LzrString(docum.toString());
 

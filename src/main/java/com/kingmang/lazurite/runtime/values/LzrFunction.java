@@ -1,8 +1,8 @@
 package com.kingmang.lazurite.runtime.values;
 
-import com.kingmang.lazurite.exceptions.LzrException;
 import com.kingmang.lazurite.core.Function;
 import com.kingmang.lazurite.core.Types;
+import com.kingmang.lazurite.exceptions.LzrException;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 

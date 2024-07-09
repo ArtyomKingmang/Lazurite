@@ -1,7 +1,8 @@
 package com.kingmang.lazurite.runtime.values;
 
+import com.kingmang.lazurite.core.Converters;
+import com.kingmang.lazurite.core.Types;
 import com.kingmang.lazurite.exceptions.LzrException;
-import com.kingmang.lazurite.core.*;
 
 import java.util.Arrays;
 import java.util.Iterator;
@@ -49,7 +50,7 @@ public class LzrArray implements LzrValue, Iterable<LzrValue> {
     public static LzrString joinToString(LzrArray array, String delimiter, String prefix, String suffix) {
         final StringBuilder sb = new StringBuilder();
         for (LzrValue value : array) {
-            if (sb.length() > 0) sb.append(delimiter);
+            if (!sb.isEmpty()) sb.append(delimiter);
             else sb.append(prefix);
             sb.append(value.asString());
         }

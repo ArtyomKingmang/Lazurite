@@ -1,6 +1,6 @@
 package com.kingmang.lazurite.libraries.lzrx.gforms;
 
-import javax.swing.JPanel;
+import javax.swing.*;
 
 public class JPanelValue extends JComponentValue {
 

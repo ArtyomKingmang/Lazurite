@@ -1,14 +1,13 @@
 package com.kingmang.lazurite.parser.standart;
 
-import com.kingmang.lazurite.exceptions.LzrException;
+import com.kingmang.lazurite.console.Console;
 import com.kingmang.lazurite.core.Arguments;
 import com.kingmang.lazurite.core.Function;
 import com.kingmang.lazurite.core.Types;
-import com.kingmang.lazurite.utils.ValueUtils;
-import com.kingmang.lazurite.console.Console;
-import com.kingmang.lazurite.runtime.values.*;
+import com.kingmang.lazurite.exceptions.LzrException;
 import com.kingmang.lazurite.runtime.UserDefinedFunction;
-import com.kingmang.lazurite.runtime.values.LzrValue;
+import com.kingmang.lazurite.runtime.values.*;
+import com.kingmang.lazurite.utils.ValueUtils;
 
 import java.io.UnsupportedEncodingException;
 import java.util.*;
@@ -496,8 +495,7 @@ public class Standart {
                 final RangeValue other = (RangeValue) obj;
                 if (this.from != other.from) return false;
                 if (this.to != other.to) return false;
-                if (this.step != other.step) return false;
-                return true;
+                return this.step == other.step;
             }
 
             @Override
@@ -506,8 +504,7 @@ public class Standart {
                     final int lengthCompare = Integer.compare(size(), ((LzrArray) o).size());
                     if (lengthCompare != 0) return lengthCompare;
 
-                    if (o instanceof RangeValue) {
-                        final RangeValue o2 = ((RangeValue) o);
+                    if (o instanceof RangeValue o2) {
                         int compareResult;
                         compareResult = Long.compare(this.from, o2.from);
                         if (compareResult != 0) return compareResult;

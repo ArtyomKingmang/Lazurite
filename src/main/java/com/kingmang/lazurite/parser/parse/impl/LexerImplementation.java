@@ -1,24 +1,22 @@
 package com.kingmang.lazurite.parser.parse.impl;
 
+import com.kingmang.lazurite.core.Types;
 import com.kingmang.lazurite.exceptions.LzrException;
 import com.kingmang.lazurite.libraries.Keyword;
-import com.kingmang.lazurite.core.Types;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 import com.kingmang.lazurite.parser.parse.Lexer;
 import com.kingmang.lazurite.parser.parse.Token;
 import com.kingmang.lazurite.parser.parse.TokenType;
 import com.kingmang.lazurite.parser.standart.Standart;
-import com.kingmang.lazurite.runtime.values.*;
 import com.kingmang.lazurite.runtime.Variables;
+import com.kingmang.lazurite.runtime.values.LzrMap;
+import com.kingmang.lazurite.runtime.values.LzrNull;
+import com.kingmang.lazurite.runtime.values.LzrNumber;
+import com.kingmang.lazurite.runtime.values.LzrString;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public final class LexerImplementation implements Lexer {
 

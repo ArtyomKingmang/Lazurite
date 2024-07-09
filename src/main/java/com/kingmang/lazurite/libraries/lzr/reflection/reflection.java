@@ -1,17 +1,16 @@
 package com.kingmang.lazurite.libraries.lzr.reflection;
 
-import com.kingmang.lazurite.core.*;
+import com.kingmang.lazurite.core.Arguments;
+import com.kingmang.lazurite.core.Function;
+import com.kingmang.lazurite.core.Instantiable;
+import com.kingmang.lazurite.core.Types;
 import com.kingmang.lazurite.exceptions.LzrException;
 import com.kingmang.lazurite.libraries.Keyword;
 import com.kingmang.lazurite.libraries.Library;
-import com.kingmang.lazurite.runtime.*;
+import com.kingmang.lazurite.runtime.Variables;
 import com.kingmang.lazurite.runtime.values.*;
 
-import java.lang.reflect.Array;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
+import java.lang.reflect.*;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
@@ -274,7 +273,7 @@ public final class reflection implements Library {
     private static LzrValue findConstructorAndInstantiate(LzrValue[] args, Constructor<?>[] ctors) {
         for (Constructor<?> ctor : ctors) {
             if (ctor.getParameterCount() != args.length) continue;
-            if (!isMatch(args, ctor.getParameterTypes())) continue;
+            if (isNotMatch(args, ctor.getParameterTypes())) continue;
             try {
                 final Object result = ctor.newInstance(valuesToObjects(args));
                 return new ObjectValue(result);
@@ -291,7 +290,7 @@ public final class reflection implements Library {
         return (args) -> {
             for (Method method : methods) {
                 if (method.getParameterCount() != args.length) continue;
-                if (!isMatch(args, method.getParameterTypes())) continue;
+                if (isNotMatch(args, method.getParameterTypes())) continue;
                 try {
                     final Object result = method.invoke(object, valuesToObjects(args));
                     if (method.getReturnType() != void.class) {
@@ -308,7 +307,7 @@ public final class reflection implements Library {
         };
     }
 
-    private static boolean isMatch(LzrValue[] args, Class<?>[] types) {
+    private static boolean isNotMatch(LzrValue[] args, Class<?>[] types) {
         for (int i = 0; i < args.length; i++) {
             final LzrValue arg = args[i];
             final Class<?> clazz = types[i];
@@ -330,9 +329,9 @@ public final class reflection implements Library {
             }
             if (assignable) continue;
 
-            return false;
+            return true;
         }
-        return true;
+        return false;
     }
 
     private static Class<?> unboxed(Class<?> clazz) {

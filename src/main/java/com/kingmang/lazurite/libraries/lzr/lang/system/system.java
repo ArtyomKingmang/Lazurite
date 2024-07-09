@@ -1,16 +1,14 @@
 package com.kingmang.lazurite.libraries.lzr.lang.system;
 
 import com.kingmang.lazurite.core.Arguments;
-import com.kingmang.lazurite.core.Function;
 import com.kingmang.lazurite.libraries.Library;
 import com.kingmang.lazurite.runner.RunnerInfo;
-import com.kingmang.lazurite.runtime.*;
+import com.kingmang.lazurite.runtime.Variables;
 import com.kingmang.lazurite.runtime.values.LzrMap;
 import com.kingmang.lazurite.runtime.values.LzrNumber;
 import com.kingmang.lazurite.runtime.values.LzrString;
 import com.kingmang.lazurite.runtime.values.LzrValue;
 import com.kingmang.lazurite.utils.Handler;
-
 
 import java.awt.*;
 import java.util.Objects;

@@ -1,13 +1,13 @@
 package com.kingmang.lazurite.parser.AST.Expressions;
 
+import com.kingmang.lazurite.core.Types;
 import com.kingmang.lazurite.exceptions.LzrException;
-import com.kingmang.lazurite.parser.AST.Statements.Statement;
 import com.kingmang.lazurite.parser.AST.Accessible;
+import com.kingmang.lazurite.parser.AST.Statements.Statement;
 import com.kingmang.lazurite.patterns.visitor.ResultVisitor;
 import com.kingmang.lazurite.patterns.visitor.Visitor;
 import com.kingmang.lazurite.runtime.values.LzrNumber;
 import com.kingmang.lazurite.runtime.values.LzrString;
-import com.kingmang.lazurite.core.Types;
 import com.kingmang.lazurite.runtime.values.LzrValue;
 
 

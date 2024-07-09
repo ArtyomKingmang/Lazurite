@@ -1,7 +1,6 @@
 package com.kingmang.lazurite.exceptions.parser;
 
 import com.kingmang.lazurite.console.Console;
-import com.kingmang.lazurite.exceptions.parser.ParseError;
 
 import java.util.ArrayList;
 import java.util.Iterator;

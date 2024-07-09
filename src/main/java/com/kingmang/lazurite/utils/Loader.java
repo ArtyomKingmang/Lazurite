@@ -4,6 +4,7 @@ import com.kingmang.lazurite.console.Console;
 import lombok.NoArgsConstructor;
 
 import java.io.*;
+import java.nio.charset.StandardCharsets;
 
 @NoArgsConstructor
 public final class Loader {
@@ -25,7 +26,7 @@ public final class Loader {
             result.write(buffer, 0, read);
         }
         is.close();
-        return result.toString("UTF-8");
+        return result.toString(StandardCharsets.UTF_8);
     }
     public String loadProgram(String packageName) {
         StringBuilder content = new StringBuilder();

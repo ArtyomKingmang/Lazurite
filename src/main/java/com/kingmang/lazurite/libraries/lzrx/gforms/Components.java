@@ -4,8 +4,8 @@ import com.kingmang.lazurite.core.Arguments;
 import com.kingmang.lazurite.runtime.values.LzrValue;
 import lombok.NoArgsConstructor;
 
-import java.awt.Component;
 import javax.swing.*;
+import java.awt.*;
 
 @NoArgsConstructor
 public final class Components {

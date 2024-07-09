@@ -5,8 +5,8 @@ import com.kingmang.lazurite.parser.AST.Accessible;
 import com.kingmang.lazurite.parser.AST.InterruptableNode;
 import com.kingmang.lazurite.patterns.visitor.ResultVisitor;
 import com.kingmang.lazurite.patterns.visitor.Visitor;
-import com.kingmang.lazurite.runtime.values.LzrValue;
 import com.kingmang.lazurite.runtime.Variables;
+import com.kingmang.lazurite.runtime.values.LzrValue;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor

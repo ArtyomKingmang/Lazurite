@@ -1,6 +1,6 @@
 package com.kingmang.lazurite.libraries.lzrx.gforms;
 
-import javax.swing.JButton;
+import javax.swing.*;
 
 public class JButtonValue extends AbstractButtonValue {
 

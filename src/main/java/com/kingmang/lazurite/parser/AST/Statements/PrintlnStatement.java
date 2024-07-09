@@ -1,10 +1,10 @@
 package com.kingmang.lazurite.parser.AST.Statements;
 
+import com.kingmang.lazurite.console.Console;
 import com.kingmang.lazurite.parser.AST.Expressions.Expression;
 import com.kingmang.lazurite.parser.AST.InterruptableNode;
 import com.kingmang.lazurite.patterns.visitor.ResultVisitor;
 import com.kingmang.lazurite.patterns.visitor.Visitor;
-import com.kingmang.lazurite.console.Console;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor

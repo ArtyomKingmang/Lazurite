@@ -1,16 +1,18 @@
 package com.kingmang.lazurite.libraries.lzr.LFS;
 
 
-import com.kingmang.lazurite.exceptions.LzrException;
-import com.kingmang.lazurite.core.*;
-import com.kingmang.lazurite.libraries.Library;
-import com.kingmang.lazurite.runtime.*;
 import com.kingmang.lazurite.console.Console;
+import com.kingmang.lazurite.core.Arguments;
+import com.kingmang.lazurite.core.Function;
+import com.kingmang.lazurite.core.Types;
+import com.kingmang.lazurite.exceptions.LzrException;
+import com.kingmang.lazurite.libraries.Library;
+import com.kingmang.lazurite.runtime.Variables;
 import com.kingmang.lazurite.runtime.values.*;
 
 import java.io.*;
-
 import java.nio.channels.FileChannel;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -95,7 +97,7 @@ public final class LFS implements Library {
             if (mode.contains("rb")) {
                 dis = new DataInputStream(new FileInputStream(file));
             } else if (mode.contains("r")) {
-                reader = new BufferedReader(new InputStreamReader(new FileInputStream(file), "UTF-8"));
+                reader = new BufferedReader(new InputStreamReader(new FileInputStream(file), StandardCharsets.UTF_8));
             }
             
             DataOutputStream dos = null;
@@ -104,7 +106,7 @@ public final class LFS implements Library {
             if (mode.contains("wb")) {
                 dos = new DataOutputStream(new FileOutputStream(file, append));
             } else if (mode.contains("w")) {
-                writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file, append), "UTF-8"));
+                writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file, append), StandardCharsets.UTF_8));
             }
             
             final int key = files.size();

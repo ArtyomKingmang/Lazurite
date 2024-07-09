@@ -1,10 +1,12 @@
 package com.kingmang.lazurite.libraries.lzr.utils.math;
-import com.kingmang.lazurite.core.*;
+
+import com.kingmang.lazurite.core.Arguments;
+import com.kingmang.lazurite.core.Function;
 import com.kingmang.lazurite.libraries.Library;
+import com.kingmang.lazurite.runtime.Variables;
 import com.kingmang.lazurite.runtime.values.LzrMap;
 import com.kingmang.lazurite.runtime.values.LzrNumber;
 import com.kingmang.lazurite.runtime.values.LzrValue;
-import com.kingmang.lazurite.runtime.Variables;
 
 import java.util.function.DoubleBinaryOperator;
 import java.util.function.DoubleFunction;

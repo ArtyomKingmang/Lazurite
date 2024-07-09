@@ -1,27 +1,12 @@
 package com.kingmang.lazurite.patterns.visitor;
 
-import com.kingmang.lazurite.core.Function;
-import com.kingmang.lazurite.parser.AST.Expressions.ArrayExpression;
-import com.kingmang.lazurite.parser.AST.Expressions.AssignmentExpression;
-import com.kingmang.lazurite.parser.AST.Expressions.BinaryExpression;
-import com.kingmang.lazurite.parser.AST.Expressions.ConditionalExpression;
-import com.kingmang.lazurite.parser.AST.Expressions.ContainerAccessExpression;
-import com.kingmang.lazurite.parser.AST.Expressions.DPointExpression;
-import com.kingmang.lazurite.parser.AST.Expressions.Expression;
-import com.kingmang.lazurite.parser.AST.Expressions.FunctionalExpression;
-import com.kingmang.lazurite.parser.AST.Expressions.MapExpression;
-import com.kingmang.lazurite.parser.AST.Expressions.MatchExpression;
-import com.kingmang.lazurite.parser.AST.Expressions.ObjectCreationExpression;
-import com.kingmang.lazurite.parser.AST.Expressions.TernaryExpression;
-import com.kingmang.lazurite.parser.AST.Expressions.UnaryExpression;
-import com.kingmang.lazurite.parser.AST.Expressions.ValueExpression;
-import com.kingmang.lazurite.parser.AST.Expressions.VariableExpression;
-import com.kingmang.lazurite.parser.AST.Statements.*;
 import com.kingmang.lazurite.console.Console;
-import com.kingmang.lazurite.runtime.values.LzrFunction;
+import com.kingmang.lazurite.core.Function;
 import com.kingmang.lazurite.core.Types;
+import com.kingmang.lazurite.parser.AST.Expressions.*;
+import com.kingmang.lazurite.parser.AST.Statements.*;
 import com.kingmang.lazurite.runtime.UserDefinedFunction;
-
+import com.kingmang.lazurite.runtime.values.LzrFunction;
 
 import java.util.Iterator;
 import java.util.List;
@@ -377,8 +362,7 @@ public class PrintVisitor implements ResultVisitor<StringBuilder, StringBuilder>
                 break;
             case Types.FUNCTION:  {
                 final Function function = ((LzrFunction) s.value).getValue();
-                if (function instanceof UserDefinedFunction) {
-                    UserDefinedFunction f = (UserDefinedFunction) function;
+                if (function instanceof UserDefinedFunction f) {
                     t.append("def");
                     t.append(f.arguments);
                     return visitFunctionBody(f.body, t);

@@ -1,7 +1,5 @@
 package com.kingmang.lazurite.parser.parse
 
-import lombok.Getter
-
 
 data class Token(
     val type: TokenType,

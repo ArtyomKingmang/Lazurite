@@ -1,12 +1,13 @@
 package com.kingmang.lazurite.libraries.lzrx.gforms;
 
 
-import com.kingmang.lazurite.core.*;
+import com.kingmang.lazurite.core.Arguments;
+import com.kingmang.lazurite.core.Converters;
 import com.kingmang.lazurite.runtime.values.LzrFunction;
 import com.kingmang.lazurite.runtime.values.LzrNumber;
 import com.kingmang.lazurite.runtime.values.LzrValue;
 
-import javax.swing.JTextArea;
+import javax.swing.*;
 import javax.swing.text.BadLocationException;
 
 public class JTextAreaValue extends JTextComponentValue {

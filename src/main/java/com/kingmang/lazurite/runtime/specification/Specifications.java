@@ -5,7 +5,7 @@ import java.util.Map;
 
 public class Specifications {
 
-    private static Map<String, Specification> specs = new HashMap<>();
+    private static final Map<String, Specification> specs = new HashMap<>();
 
     public static void put(String name, Specification spec) {
         specs.put(name, spec);

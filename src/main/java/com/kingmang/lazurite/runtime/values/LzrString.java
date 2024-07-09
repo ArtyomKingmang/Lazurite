@@ -1,9 +1,11 @@
 package com.kingmang.lazurite.runtime.values;
 
+import com.kingmang.lazurite.core.Arguments;
+import com.kingmang.lazurite.core.Converters;
+import com.kingmang.lazurite.core.Function;
+import com.kingmang.lazurite.core.Types;
 import com.kingmang.lazurite.exceptions.LzrException;
-import com.kingmang.lazurite.core.*;
 import com.kingmang.lazurite.libraries.Keyword;
-import lombok.AllArgsConstructor;
 
 import java.util.Objects;
 
@@ -30,7 +32,7 @@ public final class LzrString implements LzrValue {
                 final LzrValue[] chars = new LzrValue[length()];
                 int i = 0;
                 for (char ch : value.toCharArray()) {
-                    chars[i++] = LzrNumber.of((int) ch);
+                    chars[i++] = LzrNumber.of(ch);
                 }
                 return new LzrArray(chars);
             }

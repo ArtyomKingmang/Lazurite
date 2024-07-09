@@ -2,7 +2,7 @@ package com.kingmang.lazurite.libraries.lzrx.gforms;
 
 import com.kingmang.lazurite.core.Converters;
 
-import javax.swing.JFrame;
+import javax.swing.*;
 
 public class JFrameValue extends FrameValue {
 

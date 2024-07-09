@@ -1,11 +1,5 @@
 package com.kingmang.lazurite.utils;
 
-import java.lang.reflect.Field;
-import java.lang.reflect.Modifier;
-import java.util.Iterator;
-import java.util.LinkedHashMap;
-import java.util.Map;
-
 import com.kingmang.lazurite.core.Function;
 import com.kingmang.lazurite.core.Types;
 import com.kingmang.lazurite.exceptions.LzrException;
@@ -14,6 +8,12 @@ import lombok.NoArgsConstructor;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 @NoArgsConstructor
 public final class ValueUtils {

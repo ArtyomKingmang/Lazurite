@@ -4,7 +4,6 @@ import com.kingmang.lazurite.parser.parse.Token;
 import com.kingmang.lazurite.parser.parse.impl.LexerImplementation;
 import org.junit.Test;
 
-
 import java.util.List;
 
 import static com.kingmang.lazurite.parser.parse.TokenType.*;

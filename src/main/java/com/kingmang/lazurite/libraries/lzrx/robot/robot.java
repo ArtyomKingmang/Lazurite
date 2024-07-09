@@ -5,12 +5,8 @@ import com.kingmang.lazurite.core.Function;
 import com.kingmang.lazurite.core.Types;
 import com.kingmang.lazurite.exceptions.LzrException;
 import com.kingmang.lazurite.libraries.Library;
-import com.kingmang.lazurite.runtime.values.LzrArray;
-import com.kingmang.lazurite.runtime.values.LzrMap;
-import com.kingmang.lazurite.runtime.values.LzrNumber;
-import com.kingmang.lazurite.runtime.values.LzrString;
-import com.kingmang.lazurite.runtime.values.LzrValue;
 import com.kingmang.lazurite.runtime.Variables;
+import com.kingmang.lazurite.runtime.values.*;
 
 import java.awt.*;
 import java.awt.datatransfer.DataFlavor;
@@ -179,16 +175,17 @@ class TypeText implements Function{
     @Override
     public LzrValue execute(LzrValue... args) {
         Arguments.check(1, args.length);
+
         try {
             typeText(args[0].asString());
-        } catch (IllegalArgumentException iae) { }
+        } catch (IllegalArgumentException ignored) {}
+
         return LzrNumber.ZERO;
-        };
+    }
 
     private static synchronized void typeText(String text) {
-        for (char ch : text.toCharArray()) {
+        for (char ch : text.toCharArray())
             typeSymbol(ch);
-        }
     }
 
     private static void typeSymbol(char ch) {
@@ -196,6 +193,7 @@ class TypeText implements Function{
 
         boolean isUpperCase = Character.isLetter(ch) && Character.isUpperCase(ch);
         boolean needPressShift = isUpperCase;
+
         if (!isUpperCase) {
             final int symbolIndex = "!@#$%^&*()".indexOf(ch);
             if (symbolIndex != -1) {
@@ -207,7 +205,8 @@ class TypeText implements Function{
             }
         }
 
-        if (code == KeyEvent.VK_UNDEFINED) return;
+        if (code == KeyEvent.VK_UNDEFINED)
+            return;
 
         if (needPressShift) {
             // press shift
@@ -276,23 +275,16 @@ final class Execute implements Function {
             final Process process;
             if (args.length > 1) {
                 process = Runtime.getRuntime().exec(toStringArray(args));
-            } else switch (args[0].type()) {
-                case Types.ARRAY:
-                    final LzrArray array = (LzrArray) args[0];
-                    process = Runtime.getRuntime().exec(toStringArray(array.getCopyElements()));
-                    break;
+            } else if (args[0].type() == Types.ARRAY) {
+                final LzrArray array = (LzrArray) args[0];
+                process = Runtime.getRuntime().exec(toStringArray(array.getCopyElements()));
+            } else
+                process = Runtime.getRuntime().exec(args[0].asString());
 
-                default:
-                    process = Runtime.getRuntime().exec(args[0].asString());
-            }
-
-            switch (mode) {
-                case EXEC_AND_WAIT:
-                    return LzrNumber.of(process.waitFor());
-                case EXEC:
-                default:
-                    return LzrNumber.ZERO;
-            }
+            return switch (mode) {
+                case EXEC_AND_WAIT -> LzrNumber.of(process.waitFor());
+                default -> LzrNumber.ZERO;
+            };
         } catch (Exception ex) {
             return LzrNumber.ZERO;
         }

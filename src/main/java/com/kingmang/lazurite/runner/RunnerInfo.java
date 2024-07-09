@@ -4,7 +4,6 @@ import lombok.Getter;
 import lombok.Setter;
 import org.fusesource.jansi.Ansi;
 import org.fusesource.jansi.AnsiConsole;
-import org.jetbrains.annotations.NotNull;
 
 public class RunnerInfo {
 

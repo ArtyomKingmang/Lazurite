@@ -2,7 +2,7 @@ package com.kingmang.lazurite.libraries.lzrx.gforms;
 
 import com.kingmang.lazurite.runtime.values.LzrMap;
 
-import java.awt.LayoutManager;
+import java.awt.*;
 
 public class LayoutManagerValue extends LzrMap {
 

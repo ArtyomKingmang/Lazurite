@@ -785,24 +785,24 @@ public final class ParserImplementation implements Parser {
     }
 
     private Expression unary() {
-        if (match(TokenType.PLUSPLUS)) {
+        if (match(TokenType.PLUSPLUS))
             return new UnaryExpression(UnaryExpression.Operator.INCREMENT_PREFIX, primary());
-        }
-        if (match(TokenType.MINUSMINUS)) {
+
+        if (match(TokenType.MINUSMINUS))
             return new UnaryExpression(UnaryExpression.Operator.DECREMENT_PREFIX, primary());
-        }
-        if (match(TokenType.MINUS)) {
+
+        if (match(TokenType.MINUS))
             return new UnaryExpression(UnaryExpression.Operator.NEGATE, primary());
-        }
-        if (match(TokenType.EXCL)) {
+
+        if (match(TokenType.EXCL))
             return new UnaryExpression(UnaryExpression.Operator.NOT, primary());
-        }
-        if (match(TokenType.TILDE)) {
+
+        if (match(TokenType.TILDE))
             return new UnaryExpression(UnaryExpression.Operator.COMPLEMENT, primary());
-        }
-        if (match(TokenType.PLUS)) {
+
+        if (match(TokenType.PLUS))
             return primary();
-        }
+
         return primary();
     }
 
@@ -814,51 +814,50 @@ public final class ParserImplementation implements Parser {
         }
 
         if (match(TokenType.COLONCOLON)) {
-
             final String functionName = consume(TokenType.WORD).getText();
             return new DPointExpression(functionName);
         }
+
         if (match(TokenType.SWITCH)) {
             return match();
         }
-        if (match(TokenType.FUNC)) {
 
+        if (match(TokenType.FUNC)) {
             final Arguments arguments = arguments();
             final Statement statement = statementBody();
             return new ValueExpression(new UserDefinedFunction(arguments, statement));
         }
+
         return variable();
     }
 
 
     private Expression variable() {
-
-        if (lookMatch(0, TokenType.WORD) && lookMatch(1, TokenType.LPAREN)) {
+        if (lookMatch(0, TokenType.WORD) && lookMatch(1, TokenType.LPAREN))
             return functionChain(new ValueExpression(consume(TokenType.WORD).getText()));
-        }
 
         final Expression qualifiedNameExpr = qualifiedName();
+
         if (qualifiedNameExpr != null) {
-
-            if (lookMatch(0, TokenType.LPAREN)) {
+            if (lookMatch(0, TokenType.LPAREN))
                 return functionChain(qualifiedNameExpr);
-            }
 
-            if (match(TokenType.PLUSPLUS)) {
+            if (match(TokenType.PLUSPLUS))
                 return new UnaryExpression(UnaryExpression.Operator.INCREMENT_POSTFIX, qualifiedNameExpr);
-            }
-            if (match(TokenType.MINUSMINUS)) {
+
+            if (match(TokenType.MINUSMINUS))
                 return new UnaryExpression(UnaryExpression.Operator.DECREMENT_POSTFIX, qualifiedNameExpr);
-            }
+
             return qualifiedNameExpr;
         }
 
-        if (lookMatch(0, TokenType.LBRACKET)) {
+        if (lookMatch(0, TokenType.LBRACKET))
             return array();
-        }
-        if (lookMatch(0, TokenType.LBRACE)) {
+
+        if (lookMatch(0, TokenType.LBRACE))
             return map();
-        }
+
+
         return value();
     }
 
@@ -868,17 +867,17 @@ public final class ParserImplementation implements Parser {
         if (!match(TokenType.WORD)) return null;
 
         final List<Expression> indices = variableSuffix();
-        if (indices == null || indices.isEmpty()) {
+        if (indices == null || indices.isEmpty())
             return new VariableExpression(current.getText());
-        }
+
         return new ContainerAccessExpression(current.getText(), indices);
     }
 
     private List<Expression> variableSuffix() {
         // .key1.arr1[expr1][expr2].key2
-        if (!lookMatch(0, TokenType.DOT) && !lookMatch(0, TokenType.LBRACKET)) {
+        if (!lookMatch(0, TokenType.DOT) && !lookMatch(0, TokenType.LBRACKET))
             return null;
-        }
+
         final List<Expression> indices = new ArrayList<>();
         while (lookMatch(0, TokenType.DOT) || lookMatch(0, TokenType.LBRACKET)) {
             if (match(TokenType.DOT)) {
@@ -886,19 +885,22 @@ public final class ParserImplementation implements Parser {
                 final Expression key = new ValueExpression(fieldName);
                 indices.add(key);
             }
+
             if (match(TokenType.LBRACKET)) {
                 indices.add(expression());
                 consume(TokenType.RBRACKET);
             }
         }
+
         return indices;
     }
 
     private Expression value() {
         final Token current = get(0);
-        if (isNumberToken(current.getType())) {
+
+        if (isNumberToken(current.getType()))
             return new ValueExpression(getAsNumber(current));
-        }
+
         if (match(TokenType.TEXT)) {
             final ValueExpression strExpr = new ValueExpression(current.getText());
 
@@ -910,14 +912,17 @@ public final class ParserImplementation implements Parser {
                                     new ValueExpression(consume(TokenType.WORD).getText())
                     )));
                 }
+
                 final List<Expression> indices = variableSuffix();
-                if (indices == null || indices.isEmpty()) {
+                if (indices == null || indices.isEmpty())
                     return strExpr;
-                }
+
                 return new ContainerAccessExpression(strExpr, indices);
             }
+
             return strExpr;
         }
+
         throw new LzrException("ParseException ","Unknown expression: " + current);
     }
 

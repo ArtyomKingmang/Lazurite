@@ -1,16 +1,21 @@
 package com.kingmang.lazurite.libraries.lzr.clipboard;
 
-import java.io.IOException;
-import java.awt.Toolkit;
-import java.awt.datatransfer.*;
-
-import com.kingmang.lazurite.libraries.Library;
-import com.kingmang.lazurite.exceptions.LzrException;
-import com.kingmang.lazurite.runtime.values.*;
-import com.kingmang.lazurite.runtime.values.LzrValue;
-import com.kingmang.lazurite.runtime.Variables;
-import com.kingmang.lazurite.core.Function;
 import com.kingmang.lazurite.core.Arguments;
+import com.kingmang.lazurite.core.Function;
+import com.kingmang.lazurite.exceptions.LzrException;
+import com.kingmang.lazurite.libraries.Library;
+import com.kingmang.lazurite.runtime.Variables;
+import com.kingmang.lazurite.runtime.values.LzrMap;
+import com.kingmang.lazurite.runtime.values.LzrNumber;
+import com.kingmang.lazurite.runtime.values.LzrString;
+import com.kingmang.lazurite.runtime.values.LzrValue;
+
+import java.awt.*;
+import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.DataFlavor;
+import java.awt.datatransfer.StringSelection;
+import java.awt.datatransfer.UnsupportedFlavorException;
+import java.io.IOException;
 
 public class clipboard implements Library {
 

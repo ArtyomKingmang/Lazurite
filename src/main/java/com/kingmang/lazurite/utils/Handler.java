@@ -51,7 +51,7 @@ public class Handler {
         try {
             program.execute();
         } catch (LzrException ex) {
-            System.out.println(String.format("%s: %s in: \n" + Ansi.ansi().fg(Ansi.Color.GREEN).a("%s").reset(), ex.getType(), ex.getText(), input));
+            System.out.printf("%s: %s in: \n" + Ansi.ansi().fg(Ansi.Color.GREEN).a("%s").reset() + "%n", ex.getType(), ex.getText(), input);
             //Console.handleException(Thread.currentThread(), ex);
         }
 
@@ -85,13 +85,13 @@ public class Handler {
                 Log.append(String.format("%s: %s in %s (%s)\n", ex.getType(), ex.getText(), pathToScript, new Date()));
             }
             catch (Exception ex2){}
-            System.out.println(String.format("%s: %s in %s", ex.getType(), ex.getText(), pathToScript));
+            System.out.printf("%s: %s in %s%n", ex.getType(), ex.getText(), pathToScript);
             if(!isExec) {
                 Variables.clear();
             }
             int count = CallStack.getCalls().size();
             if (count == 0) return;
-            System.out.println(String.format("\nCall stack was:"));
+            System.out.println("\nCall stack was:");
             for (CallStack.CallInfo info : CallStack.getCalls()) {
                 System.out.println("    " + count + ". " + info);
                 count--;
@@ -105,7 +105,7 @@ public class Handler {
             final Expression program = new ParserImplementation(tokens).parseExpr();
             return program.eval();
         } catch (LzrException ex) {
-            System.out.println(String.format("%s: %s in %s", ex.getType(), ex.getText(), pathToScript));
+            System.out.printf("%s: %s in %s%n", ex.getType(), ex.getText(), pathToScript);
             return LzrNumber.ZERO;
         }
     }

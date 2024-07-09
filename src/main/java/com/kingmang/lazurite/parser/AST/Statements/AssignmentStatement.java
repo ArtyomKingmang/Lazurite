@@ -4,10 +4,10 @@ import com.kingmang.lazurite.exceptions.LzrException;
 import com.kingmang.lazurite.parser.AST.Expressions.Expression;
 import com.kingmang.lazurite.patterns.visitor.ResultVisitor;
 import com.kingmang.lazurite.patterns.visitor.Visitor;
+import com.kingmang.lazurite.runtime.Variables;
 import com.kingmang.lazurite.runtime.values.LzrNumber;
 import com.kingmang.lazurite.runtime.values.LzrString;
 import com.kingmang.lazurite.runtime.values.LzrValue;
-import com.kingmang.lazurite.runtime.Variables;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 @AllArgsConstructor

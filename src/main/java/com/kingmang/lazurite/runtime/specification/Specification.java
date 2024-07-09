@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Specification {
 
-    private ArrayList<SpecificationType> types;
+    private final ArrayList<SpecificationType> types;
 
     public Specification(ArrayList<SpecificationType> types) {
         this.types = types;

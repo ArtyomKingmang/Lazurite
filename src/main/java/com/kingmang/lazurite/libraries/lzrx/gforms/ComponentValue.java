@@ -1,7 +1,9 @@
 package com.kingmang.lazurite.libraries.lzrx.gforms;
 
 
-import com.kingmang.lazurite.core.*;
+import com.kingmang.lazurite.core.Arguments;
+import com.kingmang.lazurite.core.Converters;
+import com.kingmang.lazurite.core.Function;
 import com.kingmang.lazurite.runtime.values.*;
 import com.kingmang.lazurite.utils.ValueUtils;
 
@@ -10,6 +12,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
+
 import static com.kingmang.lazurite.core.Converters.booleanOptToVoid;
 
 public abstract class ComponentValue extends LzrMap {

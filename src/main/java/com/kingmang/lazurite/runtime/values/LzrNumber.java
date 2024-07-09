@@ -124,9 +124,9 @@ public final class LzrNumber implements LzrValue {
             return Float.compare(value.floatValue(), other.floatValue()) == 0;
         }
         if (value instanceof Long || other instanceof Long) {
-            return Long.compare(value.longValue(), other.longValue()) == 0;
+            return value.longValue() == other.longValue();
         }
-        return Integer.compare(value.intValue(), other.intValue()) == 0;
+        return value.intValue() == other.intValue();
     }
     
     @Override

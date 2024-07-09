@@ -1,9 +1,9 @@
 package com.kingmang.lazurite.libraries.lzrx.lgl.value;
 
-import com.kingmang.lazurite.runtime.values.LzrValue;
 import com.kingmang.lazurite.runtime.values.LzrArray;
 import com.kingmang.lazurite.runtime.values.LzrMap;
 import com.kingmang.lazurite.runtime.values.LzrNumber;
+import com.kingmang.lazurite.runtime.values.LzrValue;
 import javafx.scene.image.Image;
 import javafx.scene.image.PixelReader;
 import javafx.scene.image.WritablePixelFormat;

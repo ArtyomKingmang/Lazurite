@@ -2,8 +2,8 @@ package com.kingmang.lazurite.libraries.lzrx.lgl.effects;
 
 import com.kingmang.lazurite.core.Function;
 import com.kingmang.lazurite.libraries.lzrx.lgl.value.EffectValue;
-import com.kingmang.lazurite.runtime.values.LzrValue;
 import com.kingmang.lazurite.runtime.values.LzrArray;
+import com.kingmang.lazurite.runtime.values.LzrValue;
 import javafx.scene.effect.Effect;
 import javafx.scene.effect.Light;
 import javafx.scene.effect.Lighting;

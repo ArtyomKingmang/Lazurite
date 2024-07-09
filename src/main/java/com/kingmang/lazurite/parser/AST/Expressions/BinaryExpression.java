@@ -1,16 +1,12 @@
 package com.kingmang.lazurite.parser.AST.Expressions;
 
+import com.kingmang.lazurite.core.Types;
 import com.kingmang.lazurite.exceptions.LzrException;
 import com.kingmang.lazurite.exceptions.OperationIsNotSupportedException;
+import com.kingmang.lazurite.libraries.Keyword;
 import com.kingmang.lazurite.patterns.visitor.ResultVisitor;
 import com.kingmang.lazurite.patterns.visitor.Visitor;
-import com.kingmang.lazurite.runtime.values.LzrArray;
-import com.kingmang.lazurite.libraries.Keyword;
-import com.kingmang.lazurite.runtime.values.LzrMap;
-import com.kingmang.lazurite.runtime.values.LzrNumber;
-import com.kingmang.lazurite.runtime.values.LzrString;
-import com.kingmang.lazurite.core.Types;
-import com.kingmang.lazurite.runtime.values.LzrValue;
+import com.kingmang.lazurite.runtime.values.*;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor

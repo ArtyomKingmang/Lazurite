@@ -3,11 +3,8 @@ package com.kingmang.lazurite.libraries.lzrx.gforms;
 import com.kingmang.lazurite.core.Arguments;
 import com.kingmang.lazurite.runtime.values.LzrValue;
 
-import java.awt.BorderLayout;
-import java.awt.CardLayout;
-import java.awt.FlowLayout;
-import java.awt.GridLayout;
-import javax.swing.BoxLayout;
+import javax.swing.*;
+import java.awt.*;
 
 /**
  * Functions for working with layout managers.

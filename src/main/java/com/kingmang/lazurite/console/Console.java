@@ -8,7 +8,6 @@ import lombok.NoArgsConstructor;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.PrintStream;
-import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
 
 @NoArgsConstructor

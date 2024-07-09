@@ -1,20 +1,7 @@
 package com.kingmang.lazurite.patterns.visitor;
 
 
-import com.kingmang.lazurite.parser.AST.Expressions.ArrayExpression;
-import com.kingmang.lazurite.parser.AST.Expressions.AssignmentExpression;
-import com.kingmang.lazurite.parser.AST.Expressions.BinaryExpression;
-import com.kingmang.lazurite.parser.AST.Expressions.ConditionalExpression;
-import com.kingmang.lazurite.parser.AST.Expressions.ContainerAccessExpression;
-import com.kingmang.lazurite.parser.AST.Expressions.DPointExpression;
-import com.kingmang.lazurite.parser.AST.Expressions.FunctionalExpression;
-import com.kingmang.lazurite.parser.AST.Expressions.MapExpression;
-import com.kingmang.lazurite.parser.AST.Expressions.MatchExpression;
-import com.kingmang.lazurite.parser.AST.Expressions.TernaryExpression;
-import com.kingmang.lazurite.parser.AST.Expressions.UnaryExpression;
-import com.kingmang.lazurite.parser.AST.Expressions.ValueExpression;
-import com.kingmang.lazurite.parser.AST.Expressions.VariableExpression;
-import com.kingmang.lazurite.parser.AST.Expressions.ObjectCreationExpression;
+import com.kingmang.lazurite.parser.AST.Expressions.*;
 import com.kingmang.lazurite.parser.AST.Statements.*;
 
 public interface Visitor {

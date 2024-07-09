@@ -1,7 +1,7 @@
 package com.kingmang.lazurite.runtime;
 
-import com.kingmang.lazurite.exceptions.LzrException;
 import com.kingmang.lazurite.core.Types;
+import com.kingmang.lazurite.exceptions.LzrException;
 import com.kingmang.lazurite.runtime.values.LzrMap;
 import com.kingmang.lazurite.runtime.values.LzrValue;
 import lombok.Getter;
@@ -77,7 +77,7 @@ public class ClassInstanceValue implements LzrValue {
     @Override
     public String asString() {
         if (toString != null) {
-            return toString.execute(new LzrValue[] {}).asString();
+            return toString.execute().asString();
         }
         return className + "@" + thisMap;
     }

@@ -6,10 +6,10 @@ import com.kingmang.lazurite.parser.AST.Statements.BlockStatement;
 import com.kingmang.lazurite.parser.AST.Statements.Statement;
 import com.kingmang.lazurite.parser.parse.impl.LexerImplementation;
 import com.kingmang.lazurite.parser.parse.impl.ParserImplementation;
-import com.kingmang.lazurite.runtime.values.LzrValue;
+import com.kingmang.lazurite.runtime.Variables;
 import com.kingmang.lazurite.runtime.values.LzrNumber;
 import com.kingmang.lazurite.runtime.values.LzrString;
-import com.kingmang.lazurite.runtime.Variables;
+import com.kingmang.lazurite.runtime.values.LzrValue;
 
 import static junit.framework.TestCase.assertEquals;
 

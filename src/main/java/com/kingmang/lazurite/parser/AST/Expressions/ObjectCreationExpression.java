@@ -1,17 +1,17 @@
 package com.kingmang.lazurite.parser.AST.Expressions;
 
+import com.kingmang.lazurite.core.ClassDeclarations;
+import com.kingmang.lazurite.core.Instantiable;
 import com.kingmang.lazurite.exceptions.LzrException;
-import com.kingmang.lazurite.core.*;
 import com.kingmang.lazurite.parser.AST.Statements.ClassDeclarationStatement;
 import com.kingmang.lazurite.parser.AST.Statements.FunctionDefineStatement;
 import com.kingmang.lazurite.patterns.visitor.ResultVisitor;
 import com.kingmang.lazurite.patterns.visitor.Visitor;
 import com.kingmang.lazurite.runtime.ClassInstanceValue;
 import com.kingmang.lazurite.runtime.ClassMethod;
-import com.kingmang.lazurite.runtime.values.LzrValue;
 import com.kingmang.lazurite.runtime.Variables;
+import com.kingmang.lazurite.runtime.values.LzrValue;
 import lombok.AllArgsConstructor;
-
 
 import java.util.Iterator;
 import java.util.List;

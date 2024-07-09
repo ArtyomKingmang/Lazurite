@@ -6,7 +6,7 @@ import java.util.Map;
 
 public class LzrEnum implements LzrValue {
 
-    private Map<String, LzrString> enums;
+    private final Map<String, LzrString> enums;
 
     public LzrEnum(Map<String, LzrString> enums) {
         this.enums = enums;

@@ -1,12 +1,6 @@
 package com.kingmang.lazurite.libraries.lzrx.lgl;
 
 
-import java.awt.Dimension;
-import java.lang.reflect.Modifier;
-import java.util.Arrays;
-import java.util.Map;
-import java.util.stream.Collectors;
-
 import com.kingmang.lazurite.core.Function;
 import com.kingmang.lazurite.libraries.Keyword;
 import com.kingmang.lazurite.libraries.Library;
@@ -14,28 +8,13 @@ import com.kingmang.lazurite.libraries.lzrx.lgl.color.Hsb;
 import com.kingmang.lazurite.libraries.lzrx.lgl.color.NewColor;
 import com.kingmang.lazurite.libraries.lzrx.lgl.color.Rgb;
 import com.kingmang.lazurite.libraries.lzrx.lgl.color.Web;
-import com.kingmang.lazurite.libraries.lzrx.lgl.effects.LBlend;
-import com.kingmang.lazurite.libraries.lzrx.lgl.effects.LBloom;
-import com.kingmang.lazurite.libraries.lzrx.lgl.effects.LBoxBlur;
-import com.kingmang.lazurite.libraries.lzrx.lgl.effects.LColorAdjust;
-import com.kingmang.lazurite.libraries.lzrx.lgl.effects.LColorInput;
-import com.kingmang.lazurite.libraries.lzrx.lgl.effects.LDropShadow;
-import com.kingmang.lazurite.libraries.lzrx.lgl.effects.LGaussianBlur;
-import com.kingmang.lazurite.libraries.lzrx.lgl.effects.LGlow;
-import com.kingmang.lazurite.libraries.lzrx.lgl.effects.LInnerShadow;
-import com.kingmang.lazurite.libraries.lzrx.lgl.effects.LLighting;
-import com.kingmang.lazurite.libraries.lzrx.lgl.effects.LMotionBlur;
-import com.kingmang.lazurite.libraries.lzrx.lgl.effects.LPerspectiveTransform;
-import com.kingmang.lazurite.libraries.lzrx.lgl.effects.LReflection;
-import com.kingmang.lazurite.libraries.lzrx.lgl.effects.LSepiaTone;
-import com.kingmang.lazurite.libraries.lzrx.lgl.effects.LShadow;
+import com.kingmang.lazurite.libraries.lzrx.lgl.effects.*;
 import com.kingmang.lazurite.libraries.lzrx.lgl.event.Events;
 import com.kingmang.lazurite.libraries.lzrx.lgl.image.LoadImage;
 import com.kingmang.lazurite.libraries.lzrx.lgl.value.ColorValue;
 import com.kingmang.lazurite.libraries.lzrx.lgl.value.graphics.GraphicsValue;
-import com.kingmang.lazurite.runtime.values.LzrValue;
-import com.kingmang.lazurite.runtime.values.*;
 import com.kingmang.lazurite.runtime.Variables;
+import com.kingmang.lazurite.runtime.values.*;
 import javafx.application.Platform;
 import javafx.embed.swing.JFXPanel;
 import javafx.event.Event;
@@ -44,12 +23,8 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.effect.*;
-import javafx.scene.input.DragEvent;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseButton;
-import javafx.scene.input.MouseEvent;
+import javafx.scene.effect.BlendMode;
+import javafx.scene.input.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.ArcType;
 import javafx.scene.shape.FillRule;
@@ -57,7 +32,12 @@ import javafx.scene.shape.StrokeLineCap;
 import javafx.scene.shape.StrokeLineJoin;
 import javafx.scene.text.TextAlignment;
 
-import javax.swing.JFrame;
+import javax.swing.*;
+import java.awt.*;
+import java.lang.reflect.Modifier;
+import java.util.Arrays;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 public final class lgl implements Library {
 

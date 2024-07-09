@@ -1,26 +1,20 @@
 package com.kingmang.lazurite.patterns.visitor;
 
-import com.kingmang.lazurite.runtime.values.LzrNumber;
 import com.kingmang.lazurite.core.Types;
-import com.kingmang.lazurite.runtime.values.LzrValue;
-import com.kingmang.lazurite.parser.AST.Expressions.BinaryExpression;
-import com.kingmang.lazurite.parser.AST.Expressions.ConditionalExpression;
+import com.kingmang.lazurite.parser.AST.Expressions.*;
 import com.kingmang.lazurite.parser.AST.Node;
-import com.kingmang.lazurite.parser.AST.Statements.Statement;
-import com.kingmang.lazurite.parser.AST.Expressions.UnaryExpression;
-import com.kingmang.lazurite.parser.AST.Expressions.ValueExpression;
-import com.kingmang.lazurite.parser.AST.Expressions.VariableExpression;
+import com.kingmang.lazurite.runtime.values.LzrNumber;
+import com.kingmang.lazurite.runtime.values.LzrValue;
 import lombok.NoArgsConstructor;
 
-import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
 
 @NoArgsConstructor
 public final class VisitorUtils {
 
-    public static boolean isValue(Node node) {
-        return (node instanceof ValueExpression);
+    public static boolean isNotValue(Node node) {
+        return (!(node instanceof ValueExpression));
     }
 
     public static boolean isVariable(Node node) {
@@ -29,7 +23,7 @@ public final class VisitorUtils {
 
 
     public static boolean isIntegerValue(Node node, int valueToCheck) {
-        if (!isValue(node)) return false;
+        if (isNotValue(node)) return false;
 
         final LzrValue value = ((ValueExpression) node).value;
         if (value.type() != Types.NUMBER) return false;
@@ -42,7 +36,7 @@ public final class VisitorUtils {
     }
 
     public static boolean isValueAsInt(Node node, int valueToCheck) {
-        if (!isValue(node)) return false;
+        if (isNotValue(node)) return false;
 
         final LzrValue value = ((ValueExpression) node).value;
         if (value.type() != Types.NUMBER) return false;
@@ -51,7 +45,7 @@ public final class VisitorUtils {
     }
 
     public static boolean isConstantValue(Node node) {
-        if (!isValue(node)) return false;
+        if (isNotValue(node)) return false;
 
         final int type = ((ValueExpression) node).value.type();
         return ( (type == Types.NUMBER) || (type == Types.STRING) );
