@@ -1,8 +1,6 @@
-package me.besstrunovpw.lazurite.crashhandler.reporter.processors;
+package me.besstrunovpw.lazurite.crashhandler.reporter.processors
 
-public interface ICrashProcessor {
-    
-    String getName();
-    String proceed(Throwable throwable);
-    
+interface ICrashProcessor {
+    val name: String?
+    fun proceed(throwable: Throwable?): String?
 }
