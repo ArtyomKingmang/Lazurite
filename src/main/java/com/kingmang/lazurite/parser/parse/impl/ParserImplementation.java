@@ -1,4 +1,4 @@
-package com.kingmang.lazurite.parser.parse.classes;
+package com.kingmang.lazurite.parser.parse.impl;
 
 import com.kingmang.lazurite.exceptions.LzrException;
 import com.kingmang.lazurite.exceptions.parser.ParseErrors;

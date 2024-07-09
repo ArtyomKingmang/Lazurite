@@ -1,7 +1,5 @@
-package com.kingmang.lazurite.parser.parse.classes;
+package com.kingmang.lazurite.parser.parse.impl;
 
-import com.kingmang.lazurite.core.Arguments;
-import com.kingmang.lazurite.core.Function;
 import com.kingmang.lazurite.exceptions.LzrException;
 import com.kingmang.lazurite.libraries.Keyword;
 import com.kingmang.lazurite.core.Types;
