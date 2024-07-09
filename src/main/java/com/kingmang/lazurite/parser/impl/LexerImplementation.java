@@ -409,7 +409,7 @@ public final class LexerImplementation implements ILexer {
     }
 
     private LzrException error(String text) {
-        return new LzrException("Lexer exeption","Lexer error");
+        return new LzrException("Lexer exception", text);
     }
 
     //adding keywords from the keywords array to map KEYWORDS
