@@ -1,33 +1,32 @@
 package com.kingmang.lazurite.runtime
 
-import lombok.NoArgsConstructor
+import com.kingmang.lazurite.runtime.scope.Scope
+import com.kingmang.lazurite.runtime.scope.findOrRoot
 
-@NoArgsConstructor
+private typealias LibraryList = MutableList<String>
+
 object Libraries {
-    @Volatile
-    private var scope: Scope? = null
 
-    init {
-        clear()
-    }
+    @Volatile
+    private var scope = createRootScope()
 
     @JvmStatic
     @Synchronized
     fun clear() {
-        scope = Scope()
+        scope = createRootScope()
     }
 
     @JvmStatic
     @Synchronized
     fun push() {
-        scope = Scope(scope)
+        scope = createChildScope(scope)
     }
 
     @JvmStatic
     @Synchronized
     fun pop() {
-        if (scope!!.parent != null) {
-            scope = scope!!.parent
+        scope.parent?.also { parent ->
+            scope = parent
         }
     }
 
@@ -40,38 +39,20 @@ object Libraries {
     @JvmStatic
     @Synchronized
     fun add(path: String) {
-        scope!!.libraries.add(path)
+        scope.data.add(path)
     }
 
     @JvmStatic
     @Synchronized
     fun remove(path: String) {
-        findScope(path).scope!!.libraries.remove(path)
+        findScope(path).scope.data.remove(path)
     }
 
-    private fun findScope(path: String): ScopeFindData {
-        val result = ScopeFindData()
-
-        var current = scope
-        do {
-            if (current!!.libraries.contains(path)) {
-                result.isFound = true
-                result.scope = current
-                return result
-            }
-        } while ((current!!.parent.also { current = it }) != null)
-
-        result.isFound = false
-        result.scope = scope
-        return result
+    private fun findScope(path: String) = scope.findOrRoot {
+        it.data.contains(path)
     }
 
-    private class Scope @JvmOverloads constructor(val parent: Scope? = null) {
-        val libraries: MutableList<String> = ArrayList()
-    }
+    private fun createRootScope() = Scope<LibraryList>(null, ArrayList())
 
-    private class ScopeFindData {
-        var isFound: Boolean = false
-        var scope: Scope? = null
-    }
+    private fun createChildScope(parent: Scope<LibraryList>) = Scope(parent, ArrayList())
 }

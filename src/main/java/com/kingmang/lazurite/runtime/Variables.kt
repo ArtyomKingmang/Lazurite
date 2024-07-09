@@ -1,42 +1,39 @@
 package com.kingmang.lazurite.runtime
 
+import com.kingmang.lazurite.runtime.scope.Scope
+import com.kingmang.lazurite.runtime.scope.findOrRoot
 import com.kingmang.lazurite.runtime.values.LzrNumber
 import com.kingmang.lazurite.runtime.values.LzrValue
-import lombok.NoArgsConstructor
 import kotlin.concurrent.Volatile
 
-@NoArgsConstructor
-object Variables {
-    @Volatile
-    private var scope: Scope? = null
+private typealias VariableMap = MutableMap<String, LzrValue>
 
-    init {
-        clear()
-    }
+object Variables {
+
+    @Volatile
+    private var scope = createRootScope()
 
     fun variables(): Map<String, LzrValue> {
-        return scope!!.variables
+        return scope.data
     }
 
     @JvmStatic
     @Synchronized
     fun clear() {
-        scope = Scope()
-        scope!!.variables["true"] = LzrNumber.ONE
-        scope!!.variables["false"] = LzrNumber.ZERO
+        scope = createRootScope()
     }
 
     @JvmStatic
     @Synchronized
     fun push() {
-        scope = Scope(scope)
+        scope = createChildScope(scope)
     }
 
     @JvmStatic
     @Synchronized
     fun pop() {
-        if (scope!!.parent != null) {
-            scope = scope!!.parent
+        scope.parent?.also { parent ->
+            scope = parent
         }
     }
 
@@ -51,7 +48,7 @@ object Variables {
     fun get(key: String): LzrValue? {
         val scopeData = findScope(key)
         if (scopeData.isFound) {
-            return scopeData.scope!!.variables[key]
+            return scopeData.scope.data[key]
         }
         return LzrNumber.ZERO
     }
@@ -59,45 +56,29 @@ object Variables {
     @JvmStatic
     @Synchronized
     fun set(key: String, value: LzrValue) {
-        findScope(key).scope!!.variables[key] = value
+        findScope(key).scope.data[key] = value
     }
 
     @JvmStatic
     @Synchronized
     fun define(key: String, value: LzrValue) {
-        scope!!.variables[key] = value
+        scope.data[key] = value
     }
 
     @JvmStatic
     @Synchronized
     fun remove(key: String) {
-        findScope(key).scope!!.variables.remove(key)
+        findScope(key).scope.data.remove(key)
     }
 
-
-    private fun findScope(variable: String): ScopeFindData {
-        val result = ScopeFindData()
-
-        var current = scope
-        do {
-            if (current!!.variables.containsKey(variable)) {
-                result.isFound = true
-                result.scope = current
-                return result
-            }
-        } while ((current!!.parent.also { current = it }) != null)
-
-        result.isFound = false
-        result.scope = scope
-        return result
+    private fun findScope(variable: String) = scope.findOrRoot {
+        it.data.containsKey(variable)
     }
 
-    private class Scope @JvmOverloads constructor(val parent: Scope? = null) {
-        val variables: MutableMap<String, LzrValue> = HashMap()
+    private fun createRootScope() = Scope<VariableMap>(null, HashMap()).apply {
+        data["true"] = LzrNumber.ONE
+        data["false"] = LzrNumber.ZERO
     }
 
-    private class ScopeFindData {
-        var isFound: Boolean = false
-        var scope: Scope? = null
-    }
+    private fun createChildScope(parent: Scope<VariableMap>) = Scope(parent, HashMap())
 }
