@@ -19,6 +19,8 @@ import com.kingmang.lazurite.runtime.values.LzrValue;
 import me.besstrunovpw.lazurite.crashhandler.CrashHandler;
 import me.besstrunovpw.lazurite.crashhandler.reporter.ICrashReporter;
 import me.besstrunovpw.lazurite.crashhandler.reporter.impl.SimpleCrashReporter;
+import me.besstrunovpw.lazurite.crashhandler.reporter.output.impl.ConsoleReportOutput;
+import me.besstrunovpw.lazurite.crashhandler.reporter.output.impl.FileReportOutput;
 import me.besstrunovpw.lazurite.crashhandler.reporter.processors.impl.SourceCodeProcessor;
 import me.besstrunovpw.lazurite.crashhandler.reporter.processors.impl.TokensProcessor;
 import org.fusesource.jansi.Ansi;
@@ -40,7 +42,12 @@ public class Handler {
     }
 
     public static void runProgram(String code) throws IOException {
-        CrashHandler.INSTANCE.register(new SimpleCrashReporter());
+        CrashHandler.INSTANCE.register(
+                new SimpleCrashReporter(),
+
+                new ConsoleReportOutput(),
+                new FileReportOutput()
+        );
 
         try {
             String input = Preprocessor.preprocess(code);
