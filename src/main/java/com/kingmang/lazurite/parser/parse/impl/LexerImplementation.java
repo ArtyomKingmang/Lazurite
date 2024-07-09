@@ -24,7 +24,7 @@ public final class LexerImplementation implements Lexer {
 
     private static final String OPERATOR_CHARS = "+-*/%()[]{}=<>!&|.,^~?:";
     private static final Map<String, TokenType> OPERATORS;
-    private static final Map<String, TokenType> KEYWORDS;
+    private static final Map<String, TokenType> KEYWORDS = new HashMap<>();
     private static final TokenType[] tokenTypes = TokenType.values();
 
     private static final Pattern STR_TEMPLATE_STANDART_PATTERN = Pattern.compile("(?<!\\\\)\\$\\{[a-zA-Z]+\\}|(?<!\\\\)\\$[a-zA-Z]+");
@@ -68,8 +68,6 @@ public final class LexerImplementation implements Lexer {
         return KEYWORDS.keySet();
     }
 
-
-
     public LexerImplementation(String input) {
         this.input = input;
         length = input.length();
@@ -88,7 +86,7 @@ public final class LexerImplementation implements Lexer {
             else if (current == '"') tokenizeText();
             else if (current == '#') {
                 next();
-                tokenizeHexNumber(1);
+                tokenizeHexNumber();
             }
             else if (OPERATOR_CHARS.indexOf(current) != -1) {
                 tokenizeOperator();
@@ -106,7 +104,7 @@ public final class LexerImplementation implements Lexer {
         if (current == '0' && (peek(1) == 'x' || (peek(1) == 'X'))) {
             next();
             next();
-            tokenizeHexNumber(2);
+            tokenizeHexNumber();
             return;
         }
         while (true) {
@@ -122,45 +120,38 @@ public final class LexerImplementation implements Lexer {
         if (current == 'f') {
             next();
             addToken(TokenType.FLOAT_NUM, buffer.toString());
-
-        }else if (current == 'b') {
+        } else if (current == 'b') {
             next();
             addToken(TokenType.BYTE_NUM, buffer.toString());
-
-        }else if (current == 'l') {
+        } else if (current == 'l') {
             next();
             addToken(TokenType.LONG_NUM, buffer.toString());
-
-        }else if (current == 'i') {
+        } else if (current == 'i') {
             next();
             addToken(TokenType.INT_NUM, buffer.toString());
-
-        }else if (current == 'd') {
+        } else if (current == 'd') {
             next();
             addToken(TokenType.DOUBLE_NUM, buffer.toString());
         }else if (current == 's') {
             next();
             addToken(TokenType.SHORT_NUM, buffer.toString());
-
-        }else
+        } else
             addToken(TokenType.NUMBER, buffer.toString());
     }
-    private void tokenizeHexNumber(int skipped) {
+    private void tokenizeHexNumber() {
         clearBuffer();
+
         char current = peek(0);
         while (isHexNumber(current) || (current == '_')) {
-            if (current != '_') {
-
+            if (current != '_')
                 buffer.append(current);
-            }
+
             current = next();
         }
-        final int length = buffer.length();
-        if (length > 0) {
-            addToken(TokenType.HEX_NUMBER, buffer.toString());
-        }
-    }
 
+        if (!buffer.isEmpty())
+            addToken(TokenType.HEX_NUMBER, buffer.toString());
+    }
 
     private static boolean isHexNumber(char current) {
         return Character.isDigit(current)
@@ -170,6 +161,7 @@ public final class LexerImplementation implements Lexer {
 
     private void tokenizeOperator() {
         char current = peek(0);
+
         if (current == '/') {
             if (peek(1) == '/') {
                 next();
@@ -183,6 +175,7 @@ public final class LexerImplementation implements Lexer {
                 return;
             }
         }
+
         clearBuffer();
         while (true) {
             final String text = buffer.toString();
@@ -199,33 +192,32 @@ public final class LexerImplementation implements Lexer {
         clearBuffer();
         buffer.append(peek(0));
         char current = next();
-        while (true) {
-            if (!isLZRIdentifierPart(current)) {
-                break;
-            }
+
+        while (isLZRIdentifierPart(current)) {
             buffer.append(current);
             current = next();
         }
 
         final String word = buffer.toString();
-        if (KEYWORDS.containsKey(word)) {
+        if (KEYWORDS.containsKey(word))
             addToken(KEYWORDS.get(word));
-        } else {
+        else
             addToken(TokenType.WORD, word);
-        }
+
     }
 
     private void tokenizeExtendedWord() {
         next();// skip `
         clearBuffer();
+
         char current = peek(0);
-        while (true) {
-            if (current == '`') break;
+        while (current != '`') {
             if (current == '\0') throw error("Reached end of file while parsing extended word.");
             if (current == '\n' || current == '\r') throw error("Reached end of line while parsing extended word.");
             buffer.append(current);
             current = next();
         }
+
         next(); // skip closing `
         addToken(TokenType.WORD, buffer.toString());
     }
@@ -234,6 +226,7 @@ public final class LexerImplementation implements Lexer {
         next();// skip "
         clearBuffer();
         char current = peek(0);
+
         while (true) {
             if (current == '\\') {
                 current = next();
@@ -274,8 +267,8 @@ public final class LexerImplementation implements Lexer {
             buffer.append(current);
             current = next();
         }
-        next(); // skip closing "
 
+        next(); // skip closing "
         processStringTemplate(buffer.toString());
     }
 
@@ -351,18 +344,19 @@ public final class LexerImplementation implements Lexer {
 
     private void tokenizeComment() {
         char current = peek(0);
-        while ("\r\n\0".indexOf(current) == -1) {
+
+        while ("\r\n\0".indexOf(current) == -1)
             current = next();
-        }
-     }
+    }
 
     private void tokenizeMultilineComment() {
         char current = peek(0);
-        while (true) {
-            if (current == '*' && peek(1) == '/') break;
+
+        while (current != '*' || peek(1) != '/') {
             if (current == '\0') throw error("Reached end of file while parsing multiline comment");
             current = next();
         }
+
         next(); // *
         next(); // /
     }
@@ -374,8 +368,6 @@ public final class LexerImplementation implements Lexer {
     private boolean isLZRIdentifier(char current) {
         return (Character.isLetter(current) || (current == '_') || (current == '$'));
     }
-
-
 
     private void clearBuffer() {
         buffer.setLength(0);
@@ -411,7 +403,6 @@ public final class LexerImplementation implements Lexer {
 
     //adding keywords from the keywords array to map KEYWORDS
     static {
-        KEYWORDS = new HashMap<>();
         for (int i = 0; i < keywords.length; i++) {
             if (i < tokenTypes.length) {
                 KEYWORDS.put(keywords[i], tokenTypes[i]);
@@ -420,6 +411,7 @@ public final class LexerImplementation implements Lexer {
                 break;
             }
         }
+
         types();
         convertTypes();
         standart();
