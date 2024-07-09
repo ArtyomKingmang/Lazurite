@@ -16,10 +16,6 @@ class PrintStreamOutput (
         out.print(value)
     }
 
-    override fun println(value: String?) {
-        out.println(value)
-    }
-
     override fun getText(): String {
         return ""
     }
