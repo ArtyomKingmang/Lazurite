@@ -19,6 +19,7 @@ import com.kingmang.lazurite.runtime.values.LzrValue;
 import me.besstrunovpw.lazurite.crashhandler.CrashHandler;
 import me.besstrunovpw.lazurite.crashhandler.reporter.ICrashReporter;
 import me.besstrunovpw.lazurite.crashhandler.reporter.impl.SimpleCrashReporter;
+import me.besstrunovpw.lazurite.crashhandler.reporter.processors.impl.SourceCodeProcessor;
 import me.besstrunovpw.lazurite.crashhandler.reporter.processors.impl.TokensProcessor;
 import org.fusesource.jansi.Ansi;
 import org.jetbrains.annotations.NotNull;
@@ -43,6 +44,8 @@ public class Handler {
 
         try {
             String input = Preprocessor.preprocess(code);
+            CrashHandler.INSTANCE.getCrashReporter().addProcessor(new SourceCodeProcessor(input));
+
             ILexer lexer = new LexerImplementation(input);
 
             final List<Token> tokens = lexer.tokenize();
@@ -63,6 +66,8 @@ public class Handler {
             } catch (LzrException ex) {
                 System.out.printf("%s: %s in: \n" + Ansi.ansi().fg(Ansi.Color.GREEN).a("%s").reset() + "%n", ex.getType(), ex.getText(), input);
                 //Console.handleException(Thread.currentThread(), ex);
+            } catch (Throwable throwable) {
+                CrashHandler.INSTANCE.proceed(throwable);
             }
         }
         catch (Throwable throwable) {
