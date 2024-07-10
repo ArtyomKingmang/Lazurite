@@ -11,6 +11,7 @@ import java.util.Objects;
 public class ClassInstanceValue implements LzrValue {
     @Getter
     private final String className;
+    @Getter
     private final LzrMap thisMap;
     private ClassMethod constructor;
     private UserDefinedFunction toString;
@@ -19,11 +20,6 @@ public class ClassInstanceValue implements LzrValue {
         this.className = name;
         thisMap = new LzrMap(10);
     }
-
-    public LzrMap getThisMap() {
-        return thisMap;
-    }
-
 
     public void addField(String name, LzrValue value) {
         thisMap.set(name, value);

@@ -6,7 +6,6 @@ import com.kingmang.lazurite.runtime.Variables;
 import com.kingmang.lazurite.runtime.values.LzrMap;
 import com.kingmang.lazurite.runtime.values.LzrNumber;
 import com.kingmang.lazurite.runtime.values.LzrString;
-import kotlin.Suppress;
 
 import javax.swing.*;
 import java.awt.*;

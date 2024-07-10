@@ -5,8 +5,8 @@ import java.io.File
 import java.io.PrintStream
 
 class PrintStreamOutput (
-    val out: PrintStream = System.out,
-    val err: PrintStream = System.err,
+    private val out: PrintStream = System.out,
+    private val err: PrintStream = System.err
 ) : Output {
     override fun newline(): String {
         return System.lineSeparator()

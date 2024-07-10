@@ -25,7 +25,7 @@ public class PrintVisitor implements ResultVisitor<StringBuilder, StringBuilder>
     @Override
     public StringBuilder visit(ArrayExpression s, StringBuilder t) {
         t.append('[');
-        final Iterator<Expression> it = s.elements.iterator();
+        final Iterator<Expression> it = s.elements().iterator();
         if (it.hasNext()) {
             it.next().accept(this, t);
             while (it.hasNext()) {
@@ -48,9 +48,9 @@ public class PrintVisitor implements ResultVisitor<StringBuilder, StringBuilder>
 
     @Override
     public StringBuilder visit(BinaryExpression s, StringBuilder t) {
-        s.expr1.accept(this, t);
-        t.append(' ').append(s.operation).append(' ');
-        s.expr2.accept(this, t);
+        s.expr1().accept(this, t);
+        t.append(' ').append(s.operation()).append(' ');
+        s.expr2().accept(this, t);
         return t;
     }
 
@@ -103,9 +103,9 @@ public class PrintVisitor implements ResultVisitor<StringBuilder, StringBuilder>
 
     @Override
     public StringBuilder visit(ConditionalExpression s, StringBuilder t) {
-        s.expr1.accept(this, t);
-        t.append(' ').append(s.operation.getName()).append(' ');
-        s.expr2.accept(this, t);
+        s.expr1().accept(this, t);
+        t.append(' ').append(s.operation().getName()).append(' ');
+        s.expr2().accept(this, t);
         return t;
     }
 
@@ -198,9 +198,9 @@ public class PrintVisitor implements ResultVisitor<StringBuilder, StringBuilder>
     @Override
     public StringBuilder visit(FunctionDefineStatement s, StringBuilder t) {
         t.append("func ");
-        visitVariable(s.name, t);
-        t.append(s.arguments);
-        return visitFunctionBody(s.body, t);
+        visitVariable(s.name(), t);
+        t.append(s.arguments());
+        return visitFunctionBody(s.body(), t);
     }
 
     @Override
@@ -244,14 +244,14 @@ public class PrintVisitor implements ResultVisitor<StringBuilder, StringBuilder>
 
     @Override
     public StringBuilder visit(MapExpression s, StringBuilder t) {
-        if (s.elements.isEmpty()) {
+        if (s.elements().isEmpty()) {
             t.append("{ }");
             return t;
         }
         t.append('{');
         increaseIndent();
         boolean firstElement = true;
-        for (Map.Entry<Expression, Expression> entry : s.elements.entrySet()) {
+        for (Map.Entry<Expression, Expression> entry : s.elements().entrySet()) {
             if (firstElement) firstElement = false;
             else t.append(",");
             newLine(t);
@@ -293,8 +293,8 @@ public class PrintVisitor implements ResultVisitor<StringBuilder, StringBuilder>
     }
     @Override
     public StringBuilder visit(ObjectCreationExpression s, StringBuilder t) {
-        t.append("new ").append(s.className);
-        printArgs(t, s.constructorArguments);
+        t.append("new ").append(s.className());
+        printArgs(t, s.constructorArguments());
         return t;
     }
 
@@ -321,11 +321,11 @@ public class PrintVisitor implements ResultVisitor<StringBuilder, StringBuilder>
 
     @Override
     public StringBuilder visit(TernaryExpression s, StringBuilder t) {
-        s.condition.accept(this, t);
+        s.condition().accept(this, t);
         t.append(" ? ");
-        s.trueExpr.accept(this, t);
+        s.trueExpr().accept(this, t);
         t.append(" : ");
-        s.falseExpr.accept(this, t);
+        s.falseExpr().accept(this, t);
         return t;
     }
 
@@ -361,7 +361,7 @@ public class PrintVisitor implements ResultVisitor<StringBuilder, StringBuilder>
                 t.append('"').append(str).append('"');
                 break;
             case Types.FUNCTION:  {
-                final Function function = ((LzrFunction) s.value).getValue();
+                final Function function = ((LzrFunction) s.value).value();
                 if (function instanceof UserDefinedFunction f) {
                     t.append("def");
                     t.append(f.arguments);
@@ -445,9 +445,7 @@ public class PrintVisitor implements ResultVisitor<StringBuilder, StringBuilder>
     }
 
     private void printIndent(StringBuilder sb) {
-        for (int i = 0; i < indent; i++) {
-            sb.append(' ');
-        }
+        sb.append(" ".repeat(Math.max(0, indent)));
     }
 
     private void increaseIndent() {

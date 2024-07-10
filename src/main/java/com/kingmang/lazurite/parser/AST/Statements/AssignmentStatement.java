@@ -10,14 +10,12 @@ import com.kingmang.lazurite.runtime.values.LzrString;
 import com.kingmang.lazurite.runtime.values.LzrValue;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+@Getter
 @AllArgsConstructor
 public final class AssignmentStatement implements Statement {
 
-    @Getter
     private final String variable;
-    @Getter
     private final Expression expression;
-    @Getter
     private final int mode;
 
     public AssignmentStatement(String variable, Expression expression) {

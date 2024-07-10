@@ -9,7 +9,7 @@ public abstract class AbstractVisitor implements Visitor {
 
     @Override
     public void visit(ArrayExpression s) {
-        for (Expression index : s.elements) {
+        for (Expression index : s.elements()) {
             index.accept(this);
         }
     }
@@ -21,8 +21,8 @@ public abstract class AbstractVisitor implements Visitor {
 
     @Override
     public void visit(BinaryExpression s) {
-        s.expr1.accept(this);
-        s.expr2.accept(this);
+        s.expr1().accept(this);
+        s.expr2().accept(this);
     }
 
     @Override
@@ -43,8 +43,8 @@ public abstract class AbstractVisitor implements Visitor {
 
     @Override
     public void visit(ConditionalExpression s) {
-        s.expr1.accept(this);
-        s.expr2.accept(this);
+        s.expr1().accept(this);
+        s.expr2().accept(this);
     }
     
     @Override
@@ -94,7 +94,7 @@ public abstract class AbstractVisitor implements Visitor {
 
     @Override
     public void visit(FunctionDefineStatement s) {
-        s.body.accept(this);
+        s.body().accept(this);
     }
 
     @Override
@@ -126,7 +126,7 @@ public abstract class AbstractVisitor implements Visitor {
     
     @Override
     public void visit(MapExpression s) {
-        for (Map.Entry<Expression, Expression> entry : s.elements.entrySet()) {
+        for (Map.Entry<Expression, Expression> entry : s.elements().entrySet()) {
             entry.getKey().accept(this);
             entry.getValue().accept(this);
         }
@@ -139,7 +139,7 @@ public abstract class AbstractVisitor implements Visitor {
     
     @Override
     public void visit(ObjectCreationExpression s) {
-        for (Expression argument : s.constructorArguments) {
+        for (Expression argument : s.constructorArguments()) {
             argument.accept(this);
         }
     }
@@ -161,9 +161,9 @@ public abstract class AbstractVisitor implements Visitor {
 
     @Override
     public void visit(TernaryExpression s) {
-        s.condition.accept(this);
-        s.trueExpr.accept(this);
-        s.falseExpr.accept(this);
+        s.condition().accept(this);
+        s.trueExpr().accept(this);
+        s.falseExpr().accept(this);
     }
     
     @Override

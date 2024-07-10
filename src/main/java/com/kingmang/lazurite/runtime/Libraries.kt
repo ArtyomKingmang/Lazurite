@@ -24,6 +24,7 @@ object Libraries {
 
     @JvmStatic
     @Synchronized
+    @Suppress("unused")
     fun pop() {
         scope.parent?.also { parent ->
             scope = parent

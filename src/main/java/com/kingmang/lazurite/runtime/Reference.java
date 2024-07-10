@@ -8,11 +8,11 @@ import org.jetbrains.annotations.NotNull;
 
 import java.io.Serializable;
 
+@Getter
 @AllArgsConstructor
 public class Reference implements LzrValue, Serializable {
-
-    @Getter
     private Object ref;
+
     @Override
     public int asInt() {
         throw new LzrException("BadArithmetic", "Cannot cast REFERENCE to a NUMBER");

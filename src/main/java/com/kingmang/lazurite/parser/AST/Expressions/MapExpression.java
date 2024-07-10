@@ -9,12 +9,8 @@ import lombok.AllArgsConstructor;
 import java.util.Iterator;
 import java.util.Map;
 
-@AllArgsConstructor
-public final class MapExpression implements Expression {
-    
-    public final Map<Expression, Expression> elements;
+public record MapExpression(Map<Expression, Expression> elements) implements Expression {
 
-    
     @Override
     public LzrValue eval() {
         final int size = elements.size();
@@ -24,7 +20,7 @@ public final class MapExpression implements Expression {
         }
         return map;
     }
-    
+
     @Override
     public void accept(Visitor visitor) {
         visitor.visit(this);

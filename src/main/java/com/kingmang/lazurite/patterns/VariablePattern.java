@@ -5,10 +5,10 @@ import lombok.Getter;
 
 import java.io.Serializable;
 
+@Getter
 @AllArgsConstructor
 public class VariablePattern extends Pattern implements Serializable {
 
-    @Getter
     private String variable;
 
     @Override

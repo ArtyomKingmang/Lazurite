@@ -52,7 +52,7 @@ public class Standart {
                     throw new LzrException("TypeException ", arg + " is not a function");
                 }
                 final Function current = result;
-                final Function next = ((LzrFunction) arg).getValue();
+                final Function next = ((LzrFunction) arg).value();
                 result = fArgs -> {
                     if (current == null) return next.execute(fArgs);
                     return next.execute(current.execute(fArgs));
@@ -137,7 +137,7 @@ public class Standart {
                     length = ((LzrString) val).length();
                     break;
                 case Types.FUNCTION:
-                    final Function func = ((LzrFunction) val).getValue();
+                    final Function func = ((LzrFunction) val).value();
                     if (func instanceof UserDefinedFunction) {
                         length = ((UserDefinedFunction) func).getArgsCount();
                     } else {
@@ -436,7 +436,7 @@ public class Standart {
                 if (isIntegerRange()) {
                     final int toInt = (int) to;
                     final int stepInt = (int) step;
-                    return new Iterator<LzrValue>() {
+                    return new Iterator<>() {
 
                         int value = (int) from;
 
@@ -456,7 +456,7 @@ public class Standart {
                         public void remove() { }
                     };
                 }
-                return new Iterator<LzrValue>() {
+                return new Iterator<>() {1
 
                     long value = from;
 
@@ -480,9 +480,9 @@ public class Standart {
             @Override
             public int hashCode() {
                 int hash = 5;
-                hash = 59 * hash + (int) (this.from ^ (this.from >>> 32));
-                hash = 59 * hash + (int) (this.to ^ (this.to >>> 32));
-                hash = 59 * hash + (int) (this.step ^ (this.step >>> 32));
+                hash = 59 * hash + Long.hashCode(this.from);
+                hash = 59 * hash + Long.hashCode(this.to);
+                hash = 59 * hash + Long.hashCode(this.step);
                 return hash;
             }
 

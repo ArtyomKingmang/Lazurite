@@ -143,9 +143,11 @@ public final class robot implements Library {
     private static Function convertFunction(IntConsumer consumer) {
         return args -> {
             Arguments.check(1, args.length);
+
             try {
                 consumer.accept(args[0].asInt());
-            } catch (IllegalArgumentException iae) { }
+            } catch (IllegalArgumentException ignored) {}
+
             return LzrNumber.ZERO;
         };
     }
@@ -162,10 +164,11 @@ class MouseMove implements Function {
     @Override
     public LzrValue execute(LzrValue... args) {
         Arguments.check(2, args.length);
+
         try {
             robot.lzrRobot.mouseMove(args[0].asInt(), args[1].asInt());
-        } catch (IllegalArgumentException iae) {
-        }
+        } catch (IllegalArgumentException ignored) {}
+
         return LzrNumber.ZERO;
     }
 

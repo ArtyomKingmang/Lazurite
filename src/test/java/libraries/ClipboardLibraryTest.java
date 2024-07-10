@@ -5,7 +5,6 @@ import com.kingmang.lazurite.utils.Handler;
 import org.junit.Test;
 
 import java.awt.*;
-import java.awt.datatransfer.Clipboard;
 
 import static org.junit.Assert.assertEquals;
 
@@ -18,21 +17,20 @@ public class ClipboardLibraryTest {
 
             Long timestamp = System.currentTimeMillis();
             String code = """
-                using "lzr.clipboard"
-                
-                name = "Antoganist%s"
-                toSet = "my name is $name, every morning i..."
-                
-                clipboard.set(toSet)
-                """.formatted(timestamp);
+                    using "lzr.clipboard"
+                                    
+                    name = "Antoganist%s"
+                    toSet = "my name is $name, every morning i..."
+                                    
+                    clipboard.set(toSet)
+                    """.formatted(timestamp);
 
             Handler.runProgram(code);
             assertEquals(
                     "my name is Antoganist%s, every morning i...".formatted(timestamp),
                     clipboard.get().asString()
             );
-        }
-        catch (HeadlessException e){
+        } catch (HeadlessException e) {
             System.out.println("No X11 DISPLAY variable was set,");
         }
     }

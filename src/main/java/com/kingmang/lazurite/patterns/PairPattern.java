@@ -5,10 +5,10 @@ import lombok.Getter;
 
 import java.io.Serializable;
 
+@Getter
 @AllArgsConstructor
 public class PairPattern extends Pattern implements Serializable {
 
-    @Getter
     private String left, right;
 
     @Override

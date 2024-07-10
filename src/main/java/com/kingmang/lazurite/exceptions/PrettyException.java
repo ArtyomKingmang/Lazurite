@@ -12,7 +12,7 @@ public class PrettyException {
             char[] chars = new char[name.length()];
             if(chars.length <= 12){
                 tabsCount = "\t\t\t\t";
-            }else if(chars.length > 12 && chars.length <= 22){
+            }else if(chars.length <= 22){
                 tabsCount = "\t\t\t";
             }else {
                 tabsCount = "\t";
@@ -23,7 +23,6 @@ public class PrettyException {
             Console.println(ansi().fg(Ansi.Color.RED).a(message).reset());
             Console.println("--------------------------------------------\n");
             //Console.println("----------------Java Exception------------------");
-            check = false;
         }
     }
 }

@@ -5,7 +5,9 @@ import javafx.event.EventType;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.SwipeEvent;
+import lombok.Getter;
 
+@Getter
 public enum Events {
         DRAG_DETECTED(MouseEvent.DRAG_DETECTED),
         MOUSE_CLICKED(MouseEvent.MOUSE_CLICKED),
@@ -33,7 +35,4 @@ public enum Events {
             this.handler = handler;
         }
 
-        public EventType<? extends Event> getHandler() {
-            return handler;
-        }
-    }
+}

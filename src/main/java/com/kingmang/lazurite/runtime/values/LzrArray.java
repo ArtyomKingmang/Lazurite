@@ -98,16 +98,11 @@ public class LzrArray implements LzrValue, Iterable<LzrValue> {
     }
 
     public LzrValue get(LzrValue index) {
-        final String prop = index.asString();
-        switch (prop) {
-            case "length":
-                return LzrNumber.of(size());
-
-            case "isEmpty":
-                return Converters.voidToBoolean(() -> size() == 0);
-            default:
-                return get(index.asInt());
-        }
+        return switch (index.asString()) {
+            case "length" -> LzrNumber.of(size());
+            case "isEmpty" -> Converters.voidToBoolean(() -> size() == 0);
+            default -> get(index.asInt());
+        };
     }
 
 

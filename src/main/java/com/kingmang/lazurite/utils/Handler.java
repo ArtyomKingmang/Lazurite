@@ -17,7 +17,6 @@ import com.kingmang.lazurite.runtime.Variables;
 import com.kingmang.lazurite.runtime.values.LzrNumber;
 import com.kingmang.lazurite.runtime.values.LzrValue;
 import me.besstrunovpw.lazurite.crashhandler.CrashHandler;
-import me.besstrunovpw.lazurite.crashhandler.reporter.ICrashReporter;
 import me.besstrunovpw.lazurite.crashhandler.reporter.impl.SimpleCrashReporter;
 import me.besstrunovpw.lazurite.crashhandler.reporter.output.impl.ConsoleReportOutput;
 import me.besstrunovpw.lazurite.crashhandler.reporter.output.impl.FileReportOutput;
@@ -107,10 +106,12 @@ public class Handler {
                 Variables.clear();
             }
         } catch (LzrException ex) {
-            try{
+
+            try {
                 Log.append(String.format("%s: %s in %s (%s)\n", ex.getType(), ex.getText(), pathToScript, new Date()));
             }
-            catch (Exception ex2){}
+            catch (Exception ignored) {}
+
             System.out.printf("%s: %s in %s%n", ex.getType(), ex.getText(), pathToScript);
             if(!isExec) {
                 Variables.clear();

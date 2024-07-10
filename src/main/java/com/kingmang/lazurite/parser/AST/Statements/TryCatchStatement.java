@@ -8,22 +8,13 @@ import com.kingmang.lazurite.runtime.values.LzrMap;
 import com.kingmang.lazurite.runtime.values.LzrString;
 import lombok.Getter;
 
-public final class TryCatchStatement implements Statement{
-
-    @Getter
-    private final Statement tryStatement, catchStatement;
-
-    public TryCatchStatement(Statement tryStatement, Statement catchStatement) {
-        this.tryStatement = tryStatement;
-        this.catchStatement = catchStatement;
-    }
+public record TryCatchStatement(Statement tryStatement, Statement catchStatement) implements Statement {
 
     @Override
     public void execute() {
-        try{
+        try {
             tryStatement.execute();
-        }
-        catch (LzrException ex){
+        } catch (LzrException ex) {
             final LzrMap exInfo = new LzrMap(2);
             exInfo.set("type", new LzrString(ex.getType()));
             exInfo.set("text", new LzrString(ex.getText()));

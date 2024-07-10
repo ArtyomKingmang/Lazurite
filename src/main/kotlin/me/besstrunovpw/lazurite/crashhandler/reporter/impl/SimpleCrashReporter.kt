@@ -12,7 +12,7 @@ class SimpleCrashReporter : ICrashReporter {
 
     private val processors: MutableList<ICrashProcessor> = mutableListOf(
         StackTraceProcessor(),
-    );
+    )
 
     private fun prepare(throwable: Throwable) {
         this.output = StringBuilder()

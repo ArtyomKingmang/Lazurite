@@ -38,12 +38,8 @@ public class JMenuBarValue extends JComponentValue {
 
     private LzrValue setAction(LzrValue... args){
         Function body;
-        body = ((LzrFunction) args[1]).getValue();
-        ActionListener enableActionListener = new ActionListener() {
-            public void actionPerformed(ActionEvent actionEvent) {
-                body.execute();
-            }
-        };
+        body = ((LzrFunction) args[1]).value();
+        ActionListener enableActionListener = actionEvent -> body.execute();
         items[args[0].asInt()].addActionListener(enableActionListener);
 
 

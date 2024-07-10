@@ -211,7 +211,7 @@ public final class lgl implements Library {
     private static class EventFilter implements Function {
         @Override
         public LzrValue execute(LzrValue[] args) {
-            final Function handler = ((LzrFunction) args[1]).getValue();
+            final Function handler = ((LzrFunction) args[1]).value();
             final Events event = Events.values()[args[0].asInt()];
             canvas.addEventFilter(event.getHandler(), e -> handleEvent(e, handler));
             return LzrNumber.ZERO;
@@ -221,7 +221,7 @@ public final class lgl implements Library {
     private static class EventHandler implements Function {
         @Override
         public LzrValue execute(LzrValue[] args) {
-            final Function handler = ((LzrFunction) args[1]).getValue();
+            final Function handler = ((LzrFunction) args[1]).value();
             final Events event = Events.values()[args[0].asInt()];
             canvas.addEventHandler(event.getHandler(), e -> handleEvent(e, handler));
             return LzrNumber.ZERO;

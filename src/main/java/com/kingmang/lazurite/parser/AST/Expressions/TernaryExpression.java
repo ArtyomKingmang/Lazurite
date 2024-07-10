@@ -5,11 +5,7 @@ import com.kingmang.lazurite.patterns.visitor.Visitor;
 import com.kingmang.lazurite.runtime.values.LzrValue;
 import lombok.AllArgsConstructor;
 
-@AllArgsConstructor
-public final class TernaryExpression implements Expression {
-    public final Expression condition;
-    public final Expression trueExpr, falseExpr;
-
+public record TernaryExpression(Expression condition, Expression trueExpr, Expression falseExpr) implements Expression {
     @Override
     public LzrValue eval() {
         if (condition.eval().asInt() != 0) {

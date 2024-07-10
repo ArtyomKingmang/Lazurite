@@ -2,10 +2,9 @@ package com.kingmang.lazurite.exceptions;
 
 import lombok.Getter;
 
+@Getter
 public class LzrException extends RuntimeException {
-    @Getter
     private final String type;
-    @Getter
     private final String text;
 
     public LzrException(String type, String text) {

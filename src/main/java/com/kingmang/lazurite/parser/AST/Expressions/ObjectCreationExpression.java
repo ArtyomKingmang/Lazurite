@@ -16,12 +16,8 @@ import lombok.AllArgsConstructor;
 import java.util.Iterator;
 import java.util.List;
 
-@AllArgsConstructor
-public final class ObjectCreationExpression implements Expression {
-    
-    public final String className;
-    public final List<Expression> constructorArguments;
-    
+public record ObjectCreationExpression(String className, List<Expression> constructorArguments) implements Expression {
+
     @Override
     public LzrValue eval() {
         final ClassDeclarationStatement cd = ClassDeclarations.get(className);
@@ -33,9 +29,9 @@ public final class ObjectCreationExpression implements Expression {
                     return ((Instantiable) variable).newInstance(ctorArgs());
                 }
             }
-            throw new LzrException("UnknownClassException ","Unknown class " + className);
+            throw new LzrException("UnknownClassException ", "Unknown class " + className);
         }
-        
+
 
         final ClassInstanceValue instance = new ClassInstanceValue(className);
         for (AssignmentExpression f : cd.fields) {
@@ -44,14 +40,14 @@ public final class ObjectCreationExpression implements Expression {
             instance.addField(fieldName, f.eval());
         }
         for (FunctionDefineStatement m : cd.methods) {
-            instance.addMethod(m.name, new ClassMethod(m.arguments, m.body, instance));
+            instance.addMethod(m.name(), new ClassMethod(m.arguments(), m.body(), instance));
         }
-        
+
 
         instance.callConstructor(ctorArgs());
         return instance;
     }
-    
+
     private LzrValue[] ctorArgs() {
         final int argsSize = constructorArguments.size();
         final LzrValue[] ctorArgs = new LzrValue[argsSize];
@@ -60,7 +56,7 @@ public final class ObjectCreationExpression implements Expression {
         }
         return ctorArgs;
     }
-    
+
     @Override
     public void accept(Visitor visitor) {
         visitor.visit(this);

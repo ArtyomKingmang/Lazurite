@@ -1,7 +1,10 @@
 package com.kingmang.lazurite.runtime.specification;
 
+import lombok.Getter;
+
 import java.util.ArrayList;
 
+@Getter
 public class Specification {
 
     private final ArrayList<SpecificationType> types;
@@ -12,10 +15,6 @@ public class Specification {
 
     public Specification() {
         this.types = new ArrayList<>();
-    }
-
-    public ArrayList<SpecificationType> getTypes() {
-        return types;
     }
 
     @Override

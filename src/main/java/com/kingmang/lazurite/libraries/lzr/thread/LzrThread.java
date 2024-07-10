@@ -17,7 +17,7 @@ public final class LzrThread implements Function {
 
         Function body;
         if (args[0].type() == Types.FUNCTION) {
-            body = ((LzrFunction) args[0]).getValue();
+            body = ((LzrFunction) args[0]).value();
         } else {
             body = Keyword.get(args[0].asString());
         }

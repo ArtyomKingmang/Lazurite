@@ -8,10 +8,7 @@ import lombok.AllArgsConstructor;
 
 import java.util.List;
 
-@AllArgsConstructor
-public final class ArrayExpression implements Expression {
-    
-    public final List<Expression> elements;
+public record ArrayExpression(List<Expression> elements) implements Expression {
 
     @Override
     public LzrValue eval() {
@@ -22,7 +19,7 @@ public final class ArrayExpression implements Expression {
         }
         return array;
     }
-    
+
     @Override
     public void accept(Visitor visitor) {
         visitor.visit(this);

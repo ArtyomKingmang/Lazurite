@@ -25,7 +25,7 @@ public class LibsDetector extends AbstractVisitor {
     @Override
     public void visit(UsingStatement st) {
         if (st.expression instanceof ArrayExpression ae) {
-            for (Expression expr : ae.elements) {
+            for (Expression expr : ae.elements()) {
                 modules.add(expr.eval().asString());
             }
         }

@@ -82,8 +82,6 @@ public final class UnaryExpression implements Expression, Statement {
             case NEGATE -> negate(value);
             case COMPLEMENT -> complement(value);
             case NOT -> not(value);
-            default ->
-                    throw new LzrException("OperationIsNotSupportedException ", "Operation " + operation + " is not supported");
         };
     }
     

@@ -1,7 +1,6 @@
 package com.kingmang.lazurite.libraries.lzr.clipboard;
 
 import com.kingmang.lazurite.core.Arguments;
-import com.kingmang.lazurite.core.Function;
 import com.kingmang.lazurite.exceptions.LzrException;
 import com.kingmang.lazurite.libraries.Library;
 import com.kingmang.lazurite.runtime.Variables;

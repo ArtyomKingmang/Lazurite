@@ -12,11 +12,11 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.function.Consumer;
 
+@Getter
 @RequiredArgsConstructor
 public class LzrMap implements LzrValue, Iterable<Map.Entry<LzrValue, LzrValue>> {
     
     public static final LzrMap EMPTY = new LzrMap(1);
-
 
     public static LzrMap merge(LzrMap map1, LzrMap map2) {
         final LzrMap result = new LzrMap(map1.size() + map2.size());
@@ -24,7 +24,6 @@ public class LzrMap implements LzrValue, Iterable<Map.Entry<LzrValue, LzrValue>>
         result.map.putAll(map2.map);
         return result;
     }
-    @Getter
     private final Map<LzrValue, LzrValue> map;
 
     public LzrMap(int size) {

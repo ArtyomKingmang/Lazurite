@@ -7,18 +7,13 @@ import com.kingmang.lazurite.patterns.visitor.Visitor;
 import com.kingmang.lazurite.runtime.UserDefinedFunction;
 import lombok.AllArgsConstructor;
 
-@AllArgsConstructor
-public final class FunctionDefineStatement implements Statement {
-    
-    public final String name;
-    public final Arguments arguments;
-    public final Statement body;
+public record FunctionDefineStatement(String name, Arguments arguments, Statement body) implements Statement {
 
     @Override
     public void execute() {
         Keyword.put(name, new UserDefinedFunction(arguments, body));
     }
-    
+
     @Override
     public void accept(Visitor visitor) {
         visitor.visit(this);
@@ -32,7 +27,7 @@ public final class FunctionDefineStatement implements Statement {
     @Override
     public String toString() {
         if (body instanceof ReturnStatement) {
-            return String.format("func %s%s = %s", name, arguments, ((ReturnStatement)body).expression);
+            return String.format("func %s%s = %s", name, arguments, ((ReturnStatement) body).expression);
         }
         return String.format("func %s%s %s", name, arguments, body);
     }

@@ -66,7 +66,7 @@ public class lsoup implements Library {
         @Override
         public LzrValue execute(LzrValue... args) {
             Elements divs = docum.select(args[0].toString());
-            Variables.set("elements", new LzrString((divs.toString()).getBytes(StandardCharsets.UTF_8).toString()));
+            Variables.set("elements", new LzrString(Arrays.toString((divs.toString()).getBytes(StandardCharsets.UTF_8))));
             element = divs;
             return new LzrString(element.toString());
         }

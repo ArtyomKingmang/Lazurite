@@ -6,10 +6,10 @@ import lombok.Getter;
 
 import java.io.Serializable;
 
+@Getter
 @AllArgsConstructor
 public class ConstantPattern extends Pattern implements Serializable {
 
-    @Getter
     private LzrValue constant;
 
     @Override

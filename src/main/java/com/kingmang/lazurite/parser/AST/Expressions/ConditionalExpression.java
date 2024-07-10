@@ -9,7 +9,9 @@ import com.kingmang.lazurite.runtime.values.LzrValue;
 import lombok.Getter;
 
 
-public final class ConditionalExpression implements Expression {
+public record ConditionalExpression(
+        com.kingmang.lazurite.parser.AST.Expressions.ConditionalExpression.Operator operation, Expression expr1,
+        Expression expr2) implements Expression {
 
     @Getter
     public enum Operator {
@@ -32,15 +34,6 @@ public final class ConditionalExpression implements Expression {
             this.name = name;
         }
 
-    }
-
-    public final Expression expr1, expr2;
-    public final Operator operation;
-
-    public ConditionalExpression(Operator operation, Expression expr1, Expression expr2) {
-        this.operation = operation;
-        this.expr1 = expr1;
-        this.expr2 = expr2;
     }
 
     @Override
