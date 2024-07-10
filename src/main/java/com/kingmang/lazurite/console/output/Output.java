@@ -13,7 +13,7 @@ public interface Output {
     }
 
     default void println() {
-        println(newline());
+        print(newline());
     }
 
     default void println(String value) {
