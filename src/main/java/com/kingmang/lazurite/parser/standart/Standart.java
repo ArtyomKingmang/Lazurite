@@ -456,7 +456,7 @@ public class Standart {
                         public void remove() { }
                     };
                 }
-                return new Iterator<>() {1
+                return new Iterator<>() {
 
                     long value = from;
 
