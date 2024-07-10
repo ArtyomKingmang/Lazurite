@@ -8,6 +8,7 @@ import com.kingmang.lazurite.exceptions.LzrException;
 import com.kingmang.lazurite.runtime.UserDefinedFunction;
 import com.kingmang.lazurite.runtime.values.*;
 import com.kingmang.lazurite.utils.ValueUtils;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.UnsupportedEncodingException;
 import java.util.*;
@@ -431,6 +432,7 @@ public class Standart {
                 return sb.toString();
             }
 
+            @NotNull
             @Override
             public Iterator<LzrValue> iterator() {
                 if (isIntegerRange()) {
@@ -456,6 +458,7 @@ public class Standart {
                         public void remove() { }
                     };
                 }
+
                 return new Iterator<>() {
 
                     long value = from;
