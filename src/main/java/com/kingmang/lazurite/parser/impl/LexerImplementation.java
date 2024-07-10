@@ -325,16 +325,15 @@ public final class LexerImplementation implements ILexer {
                 addToken(TokenType.PLUS);
             }
 
+            addToken(TokenType.WORD, "str");
+            addToken(TokenType.LPAREN);
             if(!codeInStringFlag)
                 addToken(TokenType.WORD, word);
             else {
-                addToken(TokenType.LPAREN);
-
                 List<Token> tokens = LexerImplementation.tokenize(word);
                 this.tokens.addAll(tokens);
-
-                addToken(TokenType.RPAREN);
             }
+            addToken(TokenType.RPAREN);
 
             lastEndIndex = end;
             matcherCount++;

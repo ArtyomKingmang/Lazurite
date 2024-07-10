@@ -22,12 +22,24 @@ public class ExampleProgramsTest {
     @Test
     public void printTest() throws IOException {
         String out = runProgram("""
+                a = 5
                 hello = "Hello"
                 world = "World"
                 print("$hello $world!")
                 """);
 
         assertEquals("Hello World!", out);
+    }
+
+    @Test
+    public void printTest2() throws IOException {
+        String out = runProgram("""
+                a = 5
+                b = 4
+                c = 5 - 4
+                print("$a - $b = (simple math) $a - $b == ${a - b}")
+                """);
+        assertEquals("5 - 4 = (simple math) 5 - 4 == 1", out);
     }
 
     @Test

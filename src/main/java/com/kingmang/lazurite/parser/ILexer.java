@@ -1,3 +1,7 @@
 package com.kingmang.lazurite.parser;
 
-public interface ILexer extends ITokenizer {}
+import java.util.List;
+
+public interface ILexer {
+    List<Token> tokenize();
+}
