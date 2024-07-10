@@ -8,7 +8,7 @@ import java.nio.file.Paths
 
 class FileReportOutput : IReportOutput {
 
-    override fun out(report: String?) {
+    override fun out(report: String) {
         try {
             val out: Path = Paths.get("internal_lazurite_error_${System.currentTimeMillis()}.txt")
             Files.writeString(out, report)
