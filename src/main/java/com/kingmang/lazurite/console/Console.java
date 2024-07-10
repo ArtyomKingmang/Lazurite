@@ -49,7 +49,7 @@ public class Console {
     }
 
     public static String text() {
-        return outputSettings.getText();
+        return outputSettings.toString();
     }
 
     public static void error(Throwable throwable) {

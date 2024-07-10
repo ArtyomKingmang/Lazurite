@@ -25,8 +25,6 @@ public interface Output {
         println(value.toString());
     }
 
-    String getText();
-
     default void error(Throwable throwable) {
         error(throwable.toString());
     }

@@ -16,10 +16,6 @@ class PrintStreamOutput (
         out.print(value)
     }
 
-    override fun getText(): String {
-        return ""
-    }
-
     override fun error(value: CharSequence?) {
         err.println(value)
     }

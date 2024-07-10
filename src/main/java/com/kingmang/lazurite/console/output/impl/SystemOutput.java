@@ -19,11 +19,6 @@ public class SystemOutput implements Output {
     }
 
     @Override
-    public String getText() {
-        return "";
-    }
-
-    @Override
     public void error(CharSequence value) {
         out.error(value);
     }

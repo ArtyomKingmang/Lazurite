@@ -39,7 +39,7 @@ public class StringOutput implements Output {
     }
 
     @Override
-    public String getText() {
+    public String toString() {
         return out.toString();
     }
 
