@@ -18,7 +18,8 @@ class artify : Library {
 
     private val styles: Array<IArtifyStyle> = arrayOf(
         StarwarsStyle(),
-        SwamplandStyle()
+        SwamplandStyle(),
+        GeorgiaStyle()
     )
 
     @Throws(LzrException::class)
