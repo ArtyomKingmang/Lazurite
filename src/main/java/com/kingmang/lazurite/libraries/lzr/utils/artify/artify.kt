@@ -14,29 +14,21 @@ import java.util.*
 @Suppress("unused", "ClassName")
 class artify : Library {
 
-    private val styles: Array<IArtifyStyle> = arrayOf(
-        StarwarsStyle(),
-        SwamplandStyle(),
-        GeorgiaStyle(),
-        SmallStyle(),
-        DoomStyle(),
-        BannerStyle(),
-        DohStyle(),
-        GothicStyle(),
-        SpeedStyle(),
-        SmkeyboardStyle()
-    )
+    companion object {
+        private val styles: Array<IArtifyStyle> = arrayOf(
+            StarwarsStyle(),
+            SwamplandStyle(),
+            GeorgiaStyle(),
+            SmallStyle(),
+            DoomStyle(),
+            BannerStyle(),
+            DohStyle(),
+            GothicStyle(),
+            SpeedStyle(),
+            SmkeyboardStyle()
+        )
 
-    @Throws(LzrException::class)
-    override fun init() {
-        val artifyMap = LzrMap(1)
-
-        artifyMap["build"] = Function { args ->
-            Arguments.checkRange(1, 2, args.size)
-
-            val raw = args[0].asString()
-            val styleName = args.getOrNull(1)?.asString() ?: "starwars"
-
+        fun proceed(raw: String, styleName: String): String {
             val style: IArtifyStyle = styles.find { it.styleName == styleName } ?: throw LzrException("IllegalArgumentException", "Style with name \"$styleName\" does not exist, please use one of ${styles.joinToString(", ") { it.styleName }}")
             val artMap = style.getArtMap()
 
@@ -64,7 +56,21 @@ class artify : Library {
                 artBuilder.append("\n")
             }
 
-            LzrString(artBuilder.toString())
+            return artBuilder.toString()
+        }
+    }
+
+    @Throws(LzrException::class)
+    override fun init() {
+        val artifyMap = LzrMap(1)
+
+        artifyMap["build"] = Function { args ->
+            Arguments.checkRange(1, 2, args.size)
+
+            val raw = args[0].asString()
+            val styleName = args.getOrNull(1)?.asString() ?: "starwars"
+
+            LzrString(proceed(raw, styleName))
         }
 
         Variables.define("artify", artifyMap)
