@@ -23,7 +23,8 @@ class artify : Library {
         BannerStyle(),
         DohStyle(),
         GothicStyle(),
-        SpeedStyle()
+        SpeedStyle(),
+        SmkeyboardStyle()
     )
 
     @Throws(LzrException::class)
