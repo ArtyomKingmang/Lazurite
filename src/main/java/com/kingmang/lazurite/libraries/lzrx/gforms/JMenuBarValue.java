@@ -1,12 +1,10 @@
 package com.kingmang.lazurite.libraries.lzrx.gforms;
 
 import com.kingmang.lazurite.core.Function;
-import com.kingmang.lazurite.runtime.values.LzrFunction;
 import com.kingmang.lazurite.runtime.values.LzrNumber;
 import com.kingmang.lazurite.runtime.values.LzrValue;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class JMenuBarValue extends JComponentValue {

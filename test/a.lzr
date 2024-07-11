@@ -1,3 +1,0 @@
-using "test/b.lzr"
-
-println("Code \"a.lzr\"")

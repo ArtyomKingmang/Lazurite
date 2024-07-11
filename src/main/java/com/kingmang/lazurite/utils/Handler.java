@@ -7,21 +7,21 @@ import com.kingmang.lazurite.parser.AST.Statements.BlockStatement;
 import com.kingmang.lazurite.parser.AST.Statements.Statement;
 import com.kingmang.lazurite.parser.ILexer;
 import com.kingmang.lazurite.parser.IParser;
-import com.kingmang.lazurite.parser.Token;
-import com.kingmang.lazurite.parser.impl.LexerImplementation;
-import com.kingmang.lazurite.parser.impl.ParserImplementation;
+import com.kingmang.lazurite.parser.tokens.Token;
+import com.kingmang.lazurite.parser.lexerImplementations.LexerImplementation;
+import com.kingmang.lazurite.parser.parserImplementations.ParserImplementation;
 import com.kingmang.lazurite.parser.preprocessor.Preprocessor;
 import com.kingmang.lazurite.patterns.visitor.FunctionAdder;
 import com.kingmang.lazurite.runtime.Libraries;
 import com.kingmang.lazurite.runtime.Variables;
 import com.kingmang.lazurite.runtime.values.LzrNumber;
 import com.kingmang.lazurite.runtime.values.LzrValue;
-import me.besstrunovpw.lazurite.crashhandler.CrashHandler;
-import me.besstrunovpw.lazurite.crashhandler.reporter.impl.SimpleCrashReporter;
-import me.besstrunovpw.lazurite.crashhandler.reporter.output.impl.ConsoleReportOutput;
-import me.besstrunovpw.lazurite.crashhandler.reporter.output.impl.FileReportOutput;
-import me.besstrunovpw.lazurite.crashhandler.reporter.processors.impl.SourceCodeProcessor;
-import me.besstrunovpw.lazurite.crashhandler.reporter.processors.impl.TokensProcessor;
+import com.kingmang.lazurite.crashHandler.CrashHandler;
+import com.kingmang.lazurite.crashHandler.reporter.crashReporterImplementation.SimpleCrashReporter;
+import com.kingmang.lazurite.crashHandler.reporter.output.impl.ConsoleReportOutput;
+import com.kingmang.lazurite.crashHandler.reporter.output.impl.FileReportOutput;
+import com.kingmang.lazurite.crashHandler.reporter.processors.impl.SourceCodeProcessor;
+import com.kingmang.lazurite.crashHandler.reporter.processors.impl.TokensProcessor;
 import org.fusesource.jansi.Ansi;
 import org.jetbrains.annotations.NotNull;
 
@@ -129,7 +129,7 @@ public class Handler {
     public static LzrValue returnHandle(String input, String pathToScript) {
         try {
             final List<Token> tokens = new LexerImplementation(input).tokenize();
-            final Expression program = new ParserImplementation(tokens).parseExpr();
+            final Expression program = new ParserImplementation(tokens).parseExpression();
             return program.eval();
         } catch (LzrException ex) {
             System.out.printf("%s: %s in %s%n", ex.getType(), ex.getText(), pathToScript);

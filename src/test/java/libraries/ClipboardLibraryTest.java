@@ -1,6 +1,6 @@
 package libraries;
 
-import com.kingmang.lazurite.libraries.lzr.clipboard.clipboard;
+import com.kingmang.lazurite.libraries.lzr.utils.clipboard.clipboard;
 import com.kingmang.lazurite.utils.Handler;
 import org.junit.Test;
 

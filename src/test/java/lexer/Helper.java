@@ -1,7 +1,7 @@
 package lexer;
 
-import com.kingmang.lazurite.parser.Token;
-import com.kingmang.lazurite.parser.TokenType;
+import com.kingmang.lazurite.parser.tokens.Token;
+import com.kingmang.lazurite.parser.tokens.TokenType;
 
 import java.util.ArrayList;
 import java.util.List;
