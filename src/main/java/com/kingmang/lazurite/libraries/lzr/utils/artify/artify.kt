@@ -6,6 +6,7 @@ import com.kingmang.lazurite.exceptions.LzrException
 import com.kingmang.lazurite.libraries.Library
 import com.kingmang.lazurite.libraries.lzr.utils.artify.styles.IArtifyStyle
 import com.kingmang.lazurite.libraries.lzr.utils.artify.styles.impl.GeorgiaStyle
+import com.kingmang.lazurite.libraries.lzr.utils.artify.styles.impl.SmallStyle
 import com.kingmang.lazurite.libraries.lzr.utils.artify.styles.impl.StarwarsStyle
 import com.kingmang.lazurite.libraries.lzr.utils.artify.styles.impl.SwamplandStyle
 import com.kingmang.lazurite.runtime.Variables
@@ -19,7 +20,8 @@ class artify : Library {
     private val styles: Array<IArtifyStyle> = arrayOf(
         StarwarsStyle(),
         SwamplandStyle(),
-        GeorgiaStyle()
+        GeorgiaStyle(),
+        SmallStyle()
     )
 
     @Throws(LzrException::class)
