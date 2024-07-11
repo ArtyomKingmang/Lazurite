@@ -2,7 +2,10 @@ package com.kingmang.lazurite.libraries.lzr.utils.artify
 
 import com.kingmang.lazurite.core.Arguments
 import com.kingmang.lazurite.core.Function
+import com.kingmang.lazurite.exceptions.LzrException
 import com.kingmang.lazurite.libraries.Library
+import com.kingmang.lazurite.libraries.lzr.utils.artify.styles.IArtifyStyle
+import com.kingmang.lazurite.libraries.lzr.utils.artify.styles.impl.*
 import com.kingmang.lazurite.runtime.Variables
 import com.kingmang.lazurite.runtime.values.LzrMap
 import com.kingmang.lazurite.runtime.values.LzrString
@@ -10,253 +13,68 @@ import java.util.*
 
 @Suppress("unused", "ClassName")
 class artify : Library {
-    private val letters = arrayOf(
-        arrayOf(
-            "    _   ",
-            "  ___ ",
-            "   ___ ",
-            "  ___  ",
-            "  ___ ",
-            "  ___ ",
-            "   ___ ",
-            "  _  _ ",
-            "  ___ ",
-            "     _ ",
-            "  _  __",
-            "  _    ",
-            "  __  __ ",
-            "  _  _ ",
-            "   ___  ",
-            "  ___ ",
-            "   ___  ",
-            "  ___ ",
-            "  ___ ",
-            "  _____ ",
-            "  _   _ ",
-            " __   __",
-            " __      __",
-            " __  __",
-            " __   __",
-            "  ____",
-            "  _ ",
-            "  ___ ",
-            "  ____",
-            "  _ _  ",
-            "  ___ ",
-            "   __ ",
-            "  ____ ",
-            "  ___ ",
-            "  ___ ",
-            "   __  ",
-            "    ",
-            "    ",
-            "  _ ",
-            "    __",
-            "   __",
-            " __  ",
-            "  ___ ",
-            " __   ",
-            "  _ "
-        ),
-        arrayOf(
-            "   /_\\  ",
-            " | _ )",
-            "  / __|",
-            " |   \\ ",
-            " | __|",
-            " | __|",
-            "  / __|",
-            " | || |",
-            " |_ _|",
-            "  _ | |",
-            " | |/ /",
-            " | |   ",
-            " |  \\/  |",
-            " | \\| |",
-            "  / _ \\ ",
-            " | _ \\",
-            "  / _ \\ ",
-            " | _ \\",
-            " / __|",
-            " |_   _|",
-            " | | | |",
-            " \\ \\ / /",
-            " \\ \\    / /",
-            " \\ \\/ /",
-            " \\ \\ / /",
-            " |_  /",
-            " / |",
-            " |_  )",
-            " |__ /",
-            " | | | ",
-            " | __|",
-            "  / / ",
-            " |__  |",
-            " ( _ )",
-            " / _ \\",
-            "  /  \\ ",
-            "    ",
-            "  _ ",
-            " | |",
-            "   / /",
-            "  / /",
-            " \\ \\ ",
-            " |__ \\",
-            " \\ \\  ",
-            " (_)"
-        ),
-        arrayOf(
-            "  / _ \\ ",
-            " | _ \\",
-            " | (__ ",
-            " | |) |",
-            " | _| ",
-            " | _| ",
-            " | (_ |",
-            " | __ |",
-            "  | | ",
-            " | || |",
-            " | ' < ",
-            " | |__ ",
-            " | |\\/| |",
-            " | .` |",
-            " | (_) |",
-            " |  _/",
-            " | (_) |",
-            " |   /",
-            " \\__ \\",
-            "   | |  ",
-            " | |_| |",
-            "  \\ V / ",
-            "  \\ \\/\\/ / ",
-            "  >  < ",
-            "  \\ V / ",
-            "  / / ",
-            " | |",
-            "  / / ",
-            "  |_ \\",
-            " |_  _|",
-            " |__ \\",
-            " / _ \\",
-            "   / / ",
-            " / _ \\",
-            " \\_, /",
-            " | () |",
-            "  _ ",
-            " ( )",
-            " |_|",
-            "  / / ",
-            " < < ",
-            "  > >",
-            "   /_/",
-            "  \\ \\ ",
-            "  _ "
-        ),
-        arrayOf(
-            " /_/ \\_\\",
-            " |___/",
-            "  \\___|",
-            " |___/ ",
-            " |___|",
-            " |_|  ",
-            "  \\___|",
-            " |_||_|",
-            " |___|",
-            "  \\__/ ",
-            " |_|\\_\\",
-            " |____|",
-            " |_|  |_|",
-            " |_|\\_|",
-            "  \\___/ ",
-            " |_|  ",
-            "  \\__\\_\\",
-            " |_|_\\",
-            " |___/",
-            "   |_|  ",
-            "  \\___/ ",
-            "   \\_/  ",
-            "   \\_/\\_/  ",
-            " /_/\\_\\",
-            "   |_|  ",
-            " /___|",
-            " |_|",
-            " /___|",
-            " |___/",
-            "   |_| ",
-            " |___/",
-            " \\___/",
-            "  /_/  ",
-            " \\___/",
-            "  /_/ ",
-            "  \\__/ ",
-            " (_)",
-            " |/ ",
-            " (_)",
-            " /_/  ",
-            "  \\_\\",
-            " /_/ ",
-            "  (_) ",
-            "   \\_\\",
-            " (_)"
+
+    companion object {
+        private val styles: Array<IArtifyStyle> = arrayOf(
+            StarwarsStyle(),
+            SwamplandStyle(),
+            GeorgiaStyle(),
+            SmallStyle(),
+            DoomStyle(),
+            BannerStyle(),
+            DohStyle(),
+            GothicStyle(),
+            SpeedStyle(),
+            SmkeyboardStyle()
         )
-    )
 
-    override fun init() {
-        val map = LzrMap(1)
-        map["build"] = Function { args ->
-            Arguments.check(1, args.size)
-            val raw = args[0].asString().lowercase(Locale.getDefault())
-            val lines = Array(4) {
-                StringBuilder()
+        fun proceed(raw: String, styleName: String): String {
+            val style: IArtifyStyle = styles.find { it.styleName == styleName } ?: throw LzrException("IllegalArgumentException", "Style with name \"$styleName\" does not exist, please use one of ${styles.joinToString(", ") { it.styleName }}")
+            val artMap = style.getArtMap()
+
+            fun splitIntoLines(s: String): List<String> = s.split("\n")
+
+            val artLinesList = mutableListOf<List<String>>()
+
+            for (char: Char in raw.toCharArray()) {
+                val artChar: String = artMap[char] ?: artMap[Character.toUpperCase(char)] ?: continue
+                artLinesList.add(splitIntoLines(artChar))
             }
-            for (element in raw) {
-                when (element) {
-                    in 'a'..'z' -> {
-                        val index = element.code - 'a'.code
-                        lines.appendLetters(index)
+
+            val maxLines = artLinesList.maxOfOrNull { it.size } ?: 0
+
+            val artBuilder = StringBuilder()
+
+            for (i in 0 until maxLines) {
+                for (artLines in artLinesList) {
+                    if (i < artLines.size) {
+                        artBuilder.append(artLines[i])
+                    } else {
+                        artBuilder.append(" ".repeat(artLines.firstOrNull()?.length ?: 0))
                     }
-
-                    '.' -> lines.appendLetters(36)
-                    ',' -> lines.appendLetters(37)
-                    ' ' -> lines.appendString("     ")
-                    '!' -> lines.appendLetters(38)
-                    '/' -> lines.appendLetters(39)
-                    '<' -> lines.appendLetters(40)
-                    '>' -> lines.appendLetters(41)
-                    '?' -> lines.appendLetters(42)
-                    '\\' -> lines.appendLetters(43)
-                    ':' -> lines.appendLetters(44)
-                    '1' -> lines.appendLetters(26)
-                    '2' -> lines.appendLetters(27)
-                    '3' -> lines.appendLetters(28)
-                    '4' -> lines.appendLetters(29)
-                    '5' -> lines.appendLetters(30)
-                    '6' -> lines.appendLetters(31)
-                    '7' -> lines.appendLetters(32)
-                    '8' -> lines.appendLetters(33)
-                    '9' -> lines.appendLetters(34)
-                    '0' -> lines.appendLetters(35)
                 }
+                artBuilder.append("\n")
             }
-            val result = lines.fold(StringBuilder()) { acc, line ->
-                acc.append(line).append('\n')
-                acc
-            }
-            LzrString(result.toString())
-        }
 
-        Variables.define("artify", map)
-    }
-
-    private fun Array<StringBuilder>.appendLetters(index: Int) {
-        for (j in indices) {
-            get(j).append(letters[j][index])
+            return artBuilder.toString()
         }
     }
 
-    private fun Array<StringBuilder>.appendString(value: String) {
-        for (j in indices) {
-            get(j).append(value)
+    @Throws(LzrException::class)
+    override fun init() {
+        val artifyMap = LzrMap(1)
+
+        artifyMap["build"] = Function { args ->
+            Arguments.checkRange(1, 2, args.size)
+
+            val raw = args[0].asString()
+            val styleName = args.getOrNull(1)?.asString() ?: "starwars"
+
+            LzrString(proceed(raw, styleName))
         }
+
+        Variables.define("artify", artifyMap)
     }
+
+    private fun splitIntoLines(s: String): List<String> = s.split("\n")
 }
