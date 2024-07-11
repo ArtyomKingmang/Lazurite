@@ -1,6 +1,7 @@
 package com.kingmang.lazurite.libraries.lzrx.gforms;
 
 import com.kingmang.lazurite.core.Function;
+import com.kingmang.lazurite.runtime.values.LzrFunction;
 import com.kingmang.lazurite.runtime.values.LzrNumber;
 import com.kingmang.lazurite.runtime.values.LzrValue;
 
@@ -36,7 +37,7 @@ public class JMenuBarValue extends JComponentValue {
 
     private LzrValue setAction(LzrValue... args){
         Function body;
-        body = ((LzrFunction) args[1]).value();
+        body = ((LzrFunction) args[1]).getValue();
         ActionListener enableActionListener = actionEvent -> body.execute();
         items[args[0].asInt()].addActionListener(enableActionListener);
 

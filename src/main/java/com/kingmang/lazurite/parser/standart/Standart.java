@@ -53,7 +53,7 @@ public class Standart {
                     throw new LzrException("TypeException ", arg + " is not a function");
                 }
                 final Function current = result;
-                final Function next = ((LzrFunction) arg).value();
+                final Function next = ((LzrFunction) arg).value;
                 result = fArgs -> {
                     if (current == null) return next.execute(fArgs);
                     return next.execute(current.execute(fArgs));
@@ -138,7 +138,7 @@ public class Standart {
                     length = ((LzrString) val).length();
                     break;
                 case Types.FUNCTION:
-                    final Function func = ((LzrFunction) val).value();
+                    final Function func = ((LzrFunction) val).getValue();
                     if (func instanceof UserDefinedFunction) {
                         length = ((UserDefinedFunction) func).getArgsCount();
                     } else {

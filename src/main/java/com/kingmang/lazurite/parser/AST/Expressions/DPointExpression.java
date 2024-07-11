@@ -4,6 +4,7 @@ import com.kingmang.lazurite.libraries.Keyword;
 import com.kingmang.lazurite.parser.AST.InterruptableNode;
 import com.kingmang.lazurite.patterns.visitor.ResultVisitor;
 import com.kingmang.lazurite.patterns.visitor.Visitor;
+import com.kingmang.lazurite.runtime.values.LzrFunction;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor

@@ -4,6 +4,7 @@ import com.kingmang.lazurite.core.Arguments
 import com.kingmang.lazurite.core.Function
 import com.kingmang.lazurite.libraries.Library
 import com.kingmang.lazurite.runtime.Variables
+import com.kingmang.lazurite.runtime.values.LzrFunction
 import com.kingmang.lazurite.runtime.values.LzrMap
 import com.kingmang.lazurite.runtime.values.LzrNumber
 import java.util.concurrent.CompletableFuture

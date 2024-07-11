@@ -11,6 +11,7 @@ import com.kingmang.lazurite.parser.AST.Statements.Statement;
 import com.kingmang.lazurite.patterns.visitor.ResultVisitor;
 import com.kingmang.lazurite.patterns.visitor.Visitor;
 import com.kingmang.lazurite.runtime.Variables;
+import com.kingmang.lazurite.runtime.values.LzrFunction;
 import com.kingmang.lazurite.runtime.values.LzrValue;
 import lombok.AllArgsConstructor;
 
@@ -61,7 +62,7 @@ public final class FunctionalExpression extends InterruptableNode implements Exp
         try {
             final LzrValue value = expr.eval();
             if (value.type() == Types.FUNCTION) {
-                return ((LzrFunction) value).value();
+                return ((LzrFunction) value).value;
             }
             return getFunction(value.asString());
         } catch (VariableDoesNotExistsException ex) {
@@ -76,7 +77,7 @@ public final class FunctionalExpression extends InterruptableNode implements Exp
         if (Variables.isExists(key)) {
             final LzrValue variable = Variables.get(key);
             if (variable.type() == Types.FUNCTION) {
-                return ((LzrFunction)variable).value();
+                return ((LzrFunction)variable).getValue();
             }
         }
         throw new LzrException("UnknownFunctionException ","Unknown function "+ key);

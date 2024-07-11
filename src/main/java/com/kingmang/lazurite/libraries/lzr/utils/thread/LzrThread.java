@@ -5,6 +5,7 @@ import com.kingmang.lazurite.core.Arguments;
 import com.kingmang.lazurite.core.Function;
 import com.kingmang.lazurite.core.Types;
 import com.kingmang.lazurite.libraries.Keyword;
+import com.kingmang.lazurite.runtime.values.LzrFunction;
 import com.kingmang.lazurite.runtime.values.LzrNumber;
 import com.kingmang.lazurite.runtime.values.LzrValue;
 
@@ -16,7 +17,7 @@ public final class LzrThread implements Function {
 
         Function body;
         if (args[0].type() == Types.FUNCTION) {
-            body = ((LzrFunction) args[0]).value();
+            body = ((LzrFunction) args[0]).getValue();
         } else {
             body = Keyword.get(args[0].asString());
         }

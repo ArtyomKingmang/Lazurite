@@ -64,7 +64,7 @@ public final class http implements Library {
         final Function progressCallback;
         final int contentLength;
         if ( (args.length >= 3) && (args[2].type() == Types.FUNCTION) ) {
-            progressCallback = ((LzrFunction) args[2]).value();
+            progressCallback = ((LzrFunction) args[2]).value;
             // For showing progress we need to get content length
             contentLength = getContentLength(downloadUrl);
         } else {
@@ -197,7 +197,7 @@ public final class http implements Library {
 
         private LzrValue process(String url, String methodStr, LzrValue requestParams, LzrMap options, LzrFunction function) {
             final String method = methodStr.toUpperCase();
-            final Function callback = function.value();
+            final Function callback = function.value;
             try {
                 final Request.Builder builder = new Request.Builder()
                         .url(url)

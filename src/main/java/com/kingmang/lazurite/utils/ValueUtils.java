@@ -121,7 +121,7 @@ public final class ValueUtils {
             throw new LzrException("TypeExeption ", "Function expected" + errorMessage
                     + ", but found " + Types.typeToString(type));
         }
-        return ((LzrFunction) value).value();
+        return ((LzrFunction) value).getValue();
     }
 
     public static <T extends Number> LzrMap collectNumberConstants(Class<?> clazz, Class<T> type) {
