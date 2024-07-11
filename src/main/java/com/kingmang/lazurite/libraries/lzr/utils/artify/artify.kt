@@ -21,7 +21,8 @@ class artify : Library {
         SmallStyle(),
         DoomStyle(),
         BannerStyle(),
-        DohStyle()
+        DohStyle(),
+        GothicStyle()
     )
 
     @Throws(LzrException::class)
