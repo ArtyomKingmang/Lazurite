@@ -20,7 +20,8 @@ class artify : Library {
         GeorgiaStyle(),
         SmallStyle(),
         DoomStyle(),
-        BannerStyle()
+        BannerStyle(),
+        DohStyle()
     )
 
     @Throws(LzrException::class)
