@@ -92,12 +92,12 @@ public class LzrMap implements LzrValue, Iterable<Map.Entry<LzrValue, LzrValue>>
     
     @Override
     public int asInt() {
-        throw new LzrException("TypeExeprion","Cannot cast map to integer");
+        throw new LzrException("TypeException","Cannot cast map to integer");
     }
 
     @Override
     public double asNumber() {
-        throw new LzrException("TypeExeprtion","Cannot cast map to number");
+        throw new LzrException("TypeException","Cannot cast map to number");
     }
 
     @Override

@@ -17,7 +17,7 @@ public class ClipboardLibraryTest {
 
             Long timestamp = System.currentTimeMillis();
             String code = """
-                    using "lzr.clipboard"
+                    using "lzr.utils.clipboard"
                                     
                     name = "Antoganist%s"
                     toSet = "my name is $name, every morning i..."
