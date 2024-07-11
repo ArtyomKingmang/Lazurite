@@ -22,7 +22,8 @@ class artify : Library {
         DoomStyle(),
         BannerStyle(),
         DohStyle(),
-        GothicStyle()
+        GothicStyle(),
+        SpeedStyle()
     )
 
     @Throws(LzrException::class)
