@@ -48,7 +48,7 @@ lrect(100,100,100,100)
 ```
 thread example:
 ```cpp
-using "lzr.thread"
+using "lzr.utils.thread"
 func th(arg){
    println("My " + str(arg) + " Thread")
 }

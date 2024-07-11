@@ -17,8 +17,8 @@ b = "Мир"
 print("$a ${b}!")
 ```
 lsoup:
-```java
-using "lsoup"
+```cpp
+using "lzr.net.lsoup"
 
 lsoup.parser("https://www.lipsum.com")
 
@@ -30,16 +30,16 @@ print(text)
 ```
 
 async example:
-```java
-using "async"
+```cpp
+using "lzr.async"
 func hel(arg){
     print(arg)
 }
 async.supply(hel("Hello"))
 ```
 graph example:
-```java
-using "graph"
+```cpp
+using "lzrx.graph"
 Frame()
 
 fill(100,100,200)
@@ -49,8 +49,8 @@ fill(100,200,100)
 lrect(100,100,100,100)
 ```
 thread example:
-```java
-using "std"
+```cpp
+using "lzr.utils.thread"
 func th(arg){
    println("My " + str(arg) + " Thread")
 }
