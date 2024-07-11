@@ -19,7 +19,8 @@ class artify : Library {
         SwamplandStyle(),
         GeorgiaStyle(),
         SmallStyle(),
-        DoomStyle()
+        DoomStyle(),
+        BannerStyle()
     )
 
     @Throws(LzrException::class)
