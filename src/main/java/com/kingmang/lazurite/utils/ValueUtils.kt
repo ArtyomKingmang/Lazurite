@@ -53,7 +53,13 @@ object ValueUtils {
 
     @JvmStatic
     fun consumeFunction(value: LzrValue, argumentNumber: Int): Function {
-        return consumeFunction(value, " at argument ${argumentNumber + 1}")
+        if (value.type() != Types.FUNCTION) {
+            throw LzrException(
+                "TypeException",
+                "Function expected at argument ${argumentNumber + 1}, but found ${Types.typeToString(value.type())}"
+            )
+        }
+        return (value as LzrFunction).value
     }
 
     fun <T : Number> collectNumberConstants(clazz: Class<*>, type: Class<T>): LzrMap {
@@ -100,15 +106,5 @@ object ValueUtils {
             result[i] = toValue(get(i))
         }
         return result
-    }
-
-    private fun consumeFunction(value: LzrValue, errorMessage: String): Function {
-        if (value.type() != Types.FUNCTION) {
-            throw LzrException(
-                "TypeException",
-                "Function expected$errorMessage, but found ${Types.typeToString(value.type())}"
-            )
-        }
-        return (value as LzrFunction).value
     }
 }
