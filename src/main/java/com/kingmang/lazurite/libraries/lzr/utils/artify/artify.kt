@@ -5,7 +5,9 @@ import com.kingmang.lazurite.core.Function
 import com.kingmang.lazurite.exceptions.LzrException
 import com.kingmang.lazurite.libraries.Library
 import com.kingmang.lazurite.libraries.lzr.utils.artify.styles.IArtifyStyle
+import com.kingmang.lazurite.libraries.lzr.utils.artify.styles.impl.GeorgiaStyle
 import com.kingmang.lazurite.libraries.lzr.utils.artify.styles.impl.StarwarsStyle
+import com.kingmang.lazurite.libraries.lzr.utils.artify.styles.impl.SwamplandStyle
 import com.kingmang.lazurite.runtime.Variables
 import com.kingmang.lazurite.runtime.values.LzrMap
 import com.kingmang.lazurite.runtime.values.LzrString
@@ -15,7 +17,8 @@ import java.util.*
 class artify : Library {
 
     private val styles: Array<IArtifyStyle> = arrayOf(
-        StarwarsStyle()
+        StarwarsStyle(),
+        SwamplandStyle()
     )
 
     @Throws(LzrException::class)
