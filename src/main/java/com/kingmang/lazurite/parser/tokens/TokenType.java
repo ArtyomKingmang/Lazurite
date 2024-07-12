@@ -3,6 +3,7 @@ package com.kingmang.lazurite.parser.tokens;
 
 public enum TokenType {
     //KEYWORDS
+    ASSERT,
     ENUM,
     MACRO,
     TRY,
