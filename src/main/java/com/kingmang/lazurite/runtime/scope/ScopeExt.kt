@@ -1,6 +1,6 @@
 package com.kingmang.lazurite.runtime.scope
 
-inline fun <T> Scope<T>.findOrRoot(condition: (Scope<T>) -> Boolean): ScopeFindData<T> {
+inline fun <T> Scope<T>.findOrCurrent(condition: (Scope<T>) -> Boolean): ScopeFindData<T> {
     var current = this
 
     do {

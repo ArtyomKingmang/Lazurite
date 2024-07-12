@@ -1,7 +1,7 @@
 package com.kingmang.lazurite.runtime
 
 import com.kingmang.lazurite.runtime.scope.Scope
-import com.kingmang.lazurite.runtime.scope.findOrRoot
+import com.kingmang.lazurite.runtime.scope.findOrCurrent
 import com.kingmang.lazurite.runtime.values.LzrNumber
 import com.kingmang.lazurite.runtime.values.LzrValue
 import kotlin.concurrent.Volatile
@@ -71,7 +71,7 @@ object Variables {
         findScope(key).scope.data.remove(key)
     }
 
-    private fun findScope(variable: String) = scope.findOrRoot {
+    private fun findScope(variable: String) = scope.findOrCurrent {
         it.data.containsKey(variable)
     }
 
