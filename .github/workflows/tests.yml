@@ -1,5 +1,11 @@
 name: Maven Build and Test
 
+permissions:
+  contents: read
+  actions: write
+  checks: write
+  statuses: write
+
 on:
   push:
     branches:
@@ -9,9 +15,8 @@ on:
       - '**'
 
 jobs:
-  build:
+  build-test:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -34,10 +39,6 @@ jobs:
         run: mvn clean install
         continue-on-error: true
 
-      - name: Run tests with coverage
-        run: mvn test jacoco:report
-        continue-on-error: true
-
       - name: Archive test reports
         if: always()
         uses: actions/upload-artifact@v4
@@ -45,18 +46,16 @@ jobs:
           name: surefire-reports
           path: target/surefire-reports/*.xml
 
-      - name: Archive coverage report
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: jacoco-report
-          path: target/site/jacoco/jacoco.xml
+  report:
+    runs-on: ubuntu-latest
+    needs: [build-test]
 
+    steps:
       - name: Report test results
         if: always()
         uses: dorny/test-reporter@v1
         with:
+          artifact: surefire-reports
           name: Test Results
-          path: target/surefire-reports/*.xml
+          path: '*.xml'
           reporter: java-junit
-          fail-on-error: false
