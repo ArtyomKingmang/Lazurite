@@ -16,10 +16,7 @@ import java.util.Map;
 
 public class Runner {
 
-
-
     public static void main(String[] args) throws IOException {
-
         if (args.length < 1) {
             console();
         } else {
