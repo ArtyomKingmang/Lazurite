@@ -20,8 +20,6 @@ public class PrintVisitor implements ResultVisitor<StringBuilder, StringBuilder>
         indent = -2;
     }
 
-
-
     @Override
     public StringBuilder visit(ArrayExpression s, StringBuilder t) {
         t.append('[');
@@ -295,6 +293,14 @@ public class PrintVisitor implements ResultVisitor<StringBuilder, StringBuilder>
     public StringBuilder visit(ObjectCreationExpression s, StringBuilder t) {
         t.append("new ").append(s.className());
         printArgs(t, s.constructorArguments());
+        return t;
+    }
+
+
+    @Override
+    public StringBuilder visit(AssertStatement s, StringBuilder t) {
+        t.append("assert ");
+        s.expression.accept(this, t);
         return t;
     }
 

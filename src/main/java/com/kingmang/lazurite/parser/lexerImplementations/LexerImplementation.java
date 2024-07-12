@@ -28,6 +28,7 @@ public final class LexerImplementation implements ILexer {
     private static final Pattern STR_TEMPLATE_STANDART_PATTERN = Pattern.compile("(?<!\\\\)\\$\\{.*?}|\\$(?!\\{.*?})[a-zA-Z]+");
 
     private static final String[] keywords = {
+            "assert",
             "enum",
             "macro",
             "try",

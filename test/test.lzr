@@ -1,2 +1,4 @@
-func test(arg1, arg2) = "result: ${arg1 + arg2}"
-print test(1,5)
+for(i = 0, i < 10, i++){
+    println("i = $i")
+    assert(i < 5)
+}

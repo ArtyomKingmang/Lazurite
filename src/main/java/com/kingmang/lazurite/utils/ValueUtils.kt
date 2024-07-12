@@ -2,7 +2,8 @@ package com.kingmang.lazurite.utils
 
 import com.kingmang.lazurite.core.Function
 import com.kingmang.lazurite.core.Types
-import com.kingmang.lazurite.exceptions.LzrException
+import com.kingmang.lazurite.core.asLzrFunction
+import com.kingmang.lazurite.core.asLzrNumberOrNull
 import com.kingmang.lazurite.runtime.values.*
 import org.json.JSONArray
 import org.json.JSONException
@@ -34,14 +35,12 @@ object ValueUtils {
 
     @JvmStatic
     fun getNumber(value: LzrValue): Number {
-        if (value.type() == Types.NUMBER) return (value as LzrNumber).raw()
-        return value.asInt()
+        return value.asLzrNumberOrNull()?.raw() ?: value.asInt()
     }
 
     @JvmStatic
     fun getFloatNumber(value: LzrValue): Float {
-        if (value.type() == Types.NUMBER) return (value as LzrNumber).raw().toFloat()
-        return value.asNumber().toFloat()
+        return value.asLzrNumberOrNull()?.raw()?.toFloat() ?: value.asNumber().toFloat()
     }
 
     @JvmStatic
@@ -53,13 +52,9 @@ object ValueUtils {
 
     @JvmStatic
     fun consumeFunction(value: LzrValue, argumentNumber: Int): Function {
-        if (value.type() != Types.FUNCTION) {
-            throw LzrException(
-                "TypeException",
-                "Function expected at argument ${argumentNumber + 1}, but found ${Types.typeToString(value.type())}"
-            )
-        }
-        return (value as LzrFunction).value
+        return value.asLzrFunction {
+            "Function expected at argument ${argumentNumber + 1}, but found ${Types.typeToString(value.type())}"
+        }.value
     }
 
     fun <T : Number> collectNumberConstants(clazz: Class<*>, type: Class<T>): LzrMap {

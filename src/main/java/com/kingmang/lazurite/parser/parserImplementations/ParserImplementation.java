@@ -147,6 +147,9 @@ public final class ParserImplementation implements IParser {
        if (match(TokenType.PRINT))
             return new PrintStatement(expression());
 
+       if(match(TokenType.ASSERT))
+           return new AssertStatement(expression());
+
        if (match(TokenType.PRINTLN))
             return new PrintlnStatement(expression());
 

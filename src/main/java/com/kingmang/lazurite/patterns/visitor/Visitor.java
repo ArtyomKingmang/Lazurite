@@ -6,6 +6,7 @@ import com.kingmang.lazurite.parser.AST.Statements.*;
 
 public interface Visitor {
 
+    void visit(AssertStatement s);
     void visit(TryCatchStatement s);
     void visit(ArrayExpression s);
     void visit(AssignmentExpression s);

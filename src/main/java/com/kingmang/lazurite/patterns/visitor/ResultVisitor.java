@@ -6,6 +6,7 @@ import com.kingmang.lazurite.parser.AST.Statements.*;
 
 public interface ResultVisitor<R, T> {
 
+    R visit(AssertStatement s, T t);
     R visit(TryCatchStatement s, T t);
     R visit(ArrayExpression s, T t);
     R visit(AssignmentExpression s, T t);

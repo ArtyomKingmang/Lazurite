@@ -37,6 +37,10 @@ public abstract class AbstractVisitor implements Visitor {
     }
 
     @Override
+    public void visit(AssertStatement s) {
+    }
+
+    @Override
     public void visit(ClassDeclarationStatement s) {
         
     }

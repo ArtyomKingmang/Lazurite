@@ -1,7 +1,7 @@
 package com.kingmang.lazurite.runtime
 
 import com.kingmang.lazurite.runtime.scope.Scope
-import com.kingmang.lazurite.runtime.scope.findOrRoot
+import com.kingmang.lazurite.runtime.scope.findOrCurrent
 
 private typealias LibraryList = MutableList<String>
 
@@ -49,7 +49,7 @@ object Libraries {
         findScope(path).scope.data.remove(path)
     }
 
-    private fun findScope(path: String) = scope.findOrRoot {
+    private fun findScope(path: String) = scope.findOrCurrent {
         it.data.contains(path)
     }
 
