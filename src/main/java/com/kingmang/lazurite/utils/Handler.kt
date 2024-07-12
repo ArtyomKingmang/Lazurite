@@ -20,17 +20,21 @@ import com.kingmang.lazurite.runtime.Variables
 import com.kingmang.lazurite.runtime.values.LzrNumber
 import com.kingmang.lazurite.runtime.values.LzrValue
 import org.fusesource.jansi.Ansi
+import java.io.IOException
 import java.util.*
+import kotlin.jvm.Throws
 
 object Handler {
 
     @JvmStatic
+    @Throws(IOException::class)
     fun Run(path: String) {
         Libraries.add(path)
         runProgram(Loader.readSource(path))
     }
 
     @JvmStatic
+    @Throws(IOException::class)
     fun run(path: String, showTokens: Boolean) {
         val source = Loader.readSource(path)
         handle(source, source, true, showTokens)
