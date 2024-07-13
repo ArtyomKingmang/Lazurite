@@ -1,10 +1,21 @@
 package parser;
 
 import com.kingmang.lazurite.parser.AST.Expressions.BinaryExpression;
+import com.kingmang.lazurite.parser.AST.Statements.BlockStatement;
 import org.junit.Test;
 
+import static org.junit.Assert.assertEquals;
+
 public class ParserTest {
-    
+
+
+    private static void testStatement(BlockStatement expected, BlockStatement actual) {
+        final int size = expected.statements.size();
+        for (int i = 0; i < size; i++) {
+            assertEquals(expected.statements.get(i).getClass(), actual.statements.get(i).getClass());
+        }
+    }
+
     @Test
     public void testParsePrimary() {
         ParserHelper.assertEval(ParserHelper.number(2), "2", ParserHelper.value(2));
