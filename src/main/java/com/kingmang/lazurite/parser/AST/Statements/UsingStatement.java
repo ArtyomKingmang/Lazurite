@@ -74,7 +74,7 @@ public final class UsingStatement extends InterruptableNode implements Statement
                 String pathToLib = jarParts[1];
                 try {
                     URLClassLoader child = new URLClassLoader(
-                            new URL[] { new URL("file:" + RunnerInfo.getPathToLzrLibs() + nameOfLib) },
+                            new URL[] { new URL("file:" + RunnerInfo.LZR_LIBS_PATH + nameOfLib) },
                             this.getClass().getClassLoader()
                     );
                     Library module;
