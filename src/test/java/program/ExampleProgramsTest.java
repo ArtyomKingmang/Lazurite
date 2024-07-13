@@ -1,6 +1,7 @@
 package program;
 
 import com.kingmang.lazurite.console.Console;
+import com.kingmang.lazurite.console.output.impl.StringOutput;
 import com.kingmang.lazurite.console.output.impl.SystemOutput;
 import com.kingmang.lazurite.utils.Handler;
 import org.junit.Test;
@@ -12,7 +13,7 @@ import static org.junit.Assert.assertEquals;
 public class ExampleProgramsTest {
 
     private String runProgram(String code) throws IOException {
-        SystemOutput so = new SystemOutput();
+        StringOutput so = new StringOutput();
         Console.useOutput(so);
 
         Handler.runProgram(code);
