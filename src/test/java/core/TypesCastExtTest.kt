@@ -1,7 +1,7 @@
 package core
 
 import com.kingmang.lazurite.core.*
-import com.kingmang.lazurite.runtime.ClassInstanceValue
+import com.kingmang.lazurite.runtime.ClassInstanceBuilder
 import com.kingmang.lazurite.runtime.values.*
 import org.junit.Test
 import testutils.assertLzrTypeCastFails
@@ -16,7 +16,7 @@ class TypesCastExtTest {
         LzrArray(emptyList()) to Types.ARRAY,
         LzrMap(emptyMap()) to Types.MAP,
         LzrFunction.EMPTY to Types.FUNCTION,
-        ClassInstanceValue("Test") to Types.CLASS
+        ClassInstanceBuilder("Test").build(arrayOf()) to Types.CLASS
     )
 
     private val testMessage = "Test message"
