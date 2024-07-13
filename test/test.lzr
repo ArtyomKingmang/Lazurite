@@ -1,4 +1,6 @@
-for(i = 0, i < 10, i++){
-    println("i = $i")
-    assert(i < 5)
-}
+a = 1_000_000
+b = 200_000
+println("a + b = ${a + b}")
+
+//output: a + b = 1200000
+

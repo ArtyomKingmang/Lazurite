@@ -45,6 +45,16 @@ public class LexerTest {
     }
 
     @Test
+    public void testNums() {
+        String input = """
+                print  (1_000_000)
+                """;
+        List<Token> expList = list(PRINT, LPAREN, NUMBER, RPAREN);
+        List<Token> result = LexerImplementation.tokenize(input);
+        assertTokens(expList, result);
+    }
+
+    @Test
     public void testLexer() {
         String input = """
                 print  ("Hello")

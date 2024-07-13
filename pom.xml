@@ -6,7 +6,7 @@
 
     <groupId>com.kingmang</groupId>
     <artifactId>Lazurite</artifactId>
-    <version>2.7.3-BETA</version>
+    <version>2.7.5</version>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>

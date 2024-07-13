@@ -107,14 +107,18 @@ public final class LexerImplementation implements ILexer {
             return;
         }
         while (true) {
+            if (current == '_') {
+                current = next();
+                continue;
+            }
             if (current == '.') {
                 if (buffer.indexOf(".") != -1) throw error("Invalid float number");
             } else if (!Character.isDigit(current)) {
                 break;
             }
-
             buffer.append(current);
             current = next();
+
         }
         if (current == 'f') {
             next();
