@@ -1,7 +1,7 @@
-using "lzr.thread"
+using "lzr.utils.thread"
 func th(arg){
    println("My " + str(arg) + " Thread")
 }
 for(i=0, i<10, i++){
-    std.thread("th", i)
+    thread("th", i)
 }
