@@ -25,6 +25,15 @@ public class Preprocessor {
                 if (parts.length == 2) {
                     processedCode.append("using ").append(parts[1]).append("\n");
                 }
+            } else if (line.trim().startsWith("#jInclude")) {
+                String[] parts = line.trim().split("\\s+", 2);
+                if (parts.length == 2) {
+                    String[] partsOfPkg = parts[1].split("\\.");
+                    final String template = "%s = JClass(%s)";
+                    processedCode.append("using \"lzr.reflection\"; ");
+                    processedCode.append(String.format(template, partsOfPkg[2].replaceAll("\"", ""), parts[1]));
+                    processedCode.append("\n");
+                }
             } else {
                 for (Map.Entry<String, String> entry : macros.entrySet()) {
                     line = line.replace(entry.getKey(), entry.getValue());
