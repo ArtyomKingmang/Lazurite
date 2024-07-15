@@ -26,8 +26,8 @@ class arrays : Library {
 
             val array = args[0] as LzrArray
             when (args.size) {
-                1 -> LzrArray.joinToString(array, "", "", "")
-                2 -> LzrArray.joinToString(array, args[1].asString(), "", "")
+                1 -> LzrArray.joinToString(array)
+                2 -> LzrArray.joinToString(array, args[1].asString())
                 3 -> LzrArray.joinToString(array, args[1].asString(), args[2].asString(), args[2].asString())
                 4 -> LzrArray.joinToString(array, args[1].asString(), args[2].asString(), args[3].asString())
                 else -> throw LzrException("ArgumentsMismatchException ", "Wrong number of arguments")

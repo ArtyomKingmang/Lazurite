@@ -87,20 +87,16 @@ public class Standart {
             return createArray(args, 0);
         }
 
-        private LzrArray createArray(LzrValue[] args, int index) {
+        @NotNull
+        private LzrArray createArray(@NotNull LzrValue[] args, int index) {
             final int size = args[index].asInt();
             final int last = args.length - 1;
-            LzrArray array = new LzrArray(size);
             if (index == last) {
-                for (int i = 0; i < size; i++) {
-                    array.set(i, LzrNumber.ZERO);
-                }
+                return new LzrArray(size, unused -> LzrNumber.ZERO);
             } else if (index < last) {
-                for (int i = 0; i < size; i++) {
-                    array.set(i, createArray(args, index + 1));
-                }
+                return new LzrArray(size, unused -> createArray(args, index + 1));
             }
-            return array;
+            throw new IllegalStateException(String.format("Can't create array %d, %d, %d", size, index, last));
         }
     }
     public static final class string {
@@ -371,6 +367,7 @@ public class Standart {
                 this.size = (int) (base / absStep + (base % absStep == 0 ? 0 : 1));
             }
 
+            @NotNull
             @Override
             public LzrValue[] getCopyElements() {
                 final LzrValue[] result = new LzrValue[size];
@@ -401,6 +398,7 @@ public class Standart {
                 return size;
             }
 
+            @NotNull
             @Override
             public LzrValue get(int index) {
                 if (isIntegerRange()) {
@@ -410,7 +408,7 @@ public class Standart {
             }
 
             @Override
-            public void set(int index, LzrValue value) {
+            public void set(int index, @NotNull LzrValue value) {
                 // not implemented
             }
 
@@ -504,12 +502,12 @@ public class Standart {
             }
 
             @Override
-            public int compareTo(@NotNull LzrValue o) {
-                if (o.type() == Types.ARRAY) {
-                    final int lengthCompare = Integer.compare(size(), ((LzrArray) o).size());
+            public int compareTo(@NotNull LzrValue other) {
+                if (other.type() == Types.ARRAY) {
+                    final int lengthCompare = Integer.compare(size(), ((LzrArray) other).size());
                     if (lengthCompare != 0) return lengthCompare;
 
-                    if (o instanceof RangeValue o2) {
+                    if (other instanceof RangeValue o2) {
                         int compareResult;
                         compareResult = Long.compare(this.from, o2.from);
                         if (compareResult != 0) return compareResult;
@@ -517,9 +515,10 @@ public class Standart {
                         if (compareResult != 0) return compareResult;
                     }
                 }
-                return asString().compareTo(o.asString());
+                return asString().compareTo(other.asString());
             }
 
+            @NotNull
             @Override
             public String toString() {
                 if (step == 1) {
@@ -580,13 +579,10 @@ public class Standart {
             throw new LzrException("TypeException ","Invalid first argument. Array or map expected");
         }
 
-        static LzrArray mapArray(LzrArray array, Function mapper) {
+        @NotNull
+        static LzrArray mapArray(@NotNull LzrArray array, @NotNull Function mapper) {
             final int size = array.size();
-            final LzrArray result = new LzrArray(size);
-            for (int i = 0; i < size; i++) {
-                result.set(i, mapper.execute(array.get(i)));
-            }
-            return result;
+            return new LzrArray(size, index -> mapper.execute(array.get(index)));
         }
 
         static LzrMap mapMap(LzrMap map, Function keyMapper, Function valueMapper) {
