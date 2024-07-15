@@ -5,10 +5,11 @@ import com.kingmang.lazurite.libraries.lzrx.lgl.value.EffectValue;
 import com.kingmang.lazurite.runtime.values.LzrValue;
 import javafx.scene.effect.Effect;
 import javafx.scene.effect.MotionBlur;
+import org.jetbrains.annotations.NotNull;
 
 public class LMotionBlur implements Function {
         @Override
-        public LzrValue execute(LzrValue[] args) {
+        public @NotNull LzrValue execute(@NotNull LzrValue... args) {
             MotionBlur effect = new MotionBlur();
             if (args.length >= 2) {
                 effect.setAngle(args[0].asNumber());

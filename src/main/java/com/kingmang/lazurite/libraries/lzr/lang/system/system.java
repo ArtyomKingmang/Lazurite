@@ -9,6 +9,7 @@ import com.kingmang.lazurite.runtime.values.LzrNumber;
 import com.kingmang.lazurite.runtime.values.LzrString;
 import com.kingmang.lazurite.runtime.values.LzrValue;
 import com.kingmang.lazurite.utils.Handler;
+import org.jetbrains.annotations.NotNull;
 
 import java.awt.*;
 import java.util.Objects;
@@ -19,18 +20,18 @@ public class system implements Library {
         LzrMap system = new LzrMap(7);
 
         //functions
-        system.set("currentTimeMillis", (LzrValue...args) ->{
+        system.set("currentTimeMillis", (@NotNull LzrValue... args) ->{
             Arguments.check(0, args.length);
             return LzrNumber.of(System.currentTimeMillis());
         });
 
 
-        system.set("nanoTime", (LzrValue...args) ->{
+        system.set("nanoTime", (@NotNull LzrValue... args) ->{
             Arguments.check(0, args.length);
             return LzrNumber.of(System.nanoTime());
         });
 
-        system.set("exit", (LzrValue... args) -> {
+        system.set("exit", (@NotNull LzrValue... args) -> {
             Arguments.check(1, args.length);
             try {
                 System.exit((int) args[0].asNumber());
@@ -55,7 +56,7 @@ public class system implements Library {
             return LzrNumber.MINUS_ONE;
         });
 
-        system.set("getProperty", (LzrValue...args) -> {
+        system.set("getProperty", (@NotNull LzrValue... args) -> {
             if(Objects.equals(args[0].asString(), "lzr.version")){
                 return new LzrString(RunnerInfo.VERSION);
             }

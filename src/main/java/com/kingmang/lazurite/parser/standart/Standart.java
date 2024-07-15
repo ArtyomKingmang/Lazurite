@@ -17,7 +17,7 @@ public class Standart {
 
     public static final class charAt implements Function {
         @Override
-        public LzrValue execute(LzrValue[] args) {
+        public @NotNull LzrValue execute(@NotNull LzrValue... args) {
             Arguments.check(2, args.length);
 
             final String input = args[0].asString();
@@ -29,7 +29,7 @@ public class Standart {
     public static final class echo implements Function {
 
         @Override
-        public LzrValue execute(LzrValue... args) {
+        public @NotNull LzrValue execute(@NotNull LzrValue... args) {
             final StringBuilder sb = new StringBuilder();
             for (LzrValue arg : args) {
                 sb.append(arg.asString());
@@ -45,7 +45,7 @@ public class Standart {
     public static class combine implements Function {
 
         @Override
-        public LzrValue execute(LzrValue[] args) {
+        public @NotNull LzrValue execute(@NotNull LzrValue... args) {
             Arguments.checkAtLeast(1, args.length);
             Function result = null;
             for (LzrValue arg : args) {
@@ -60,14 +60,14 @@ public class Standart {
                 };
             }
 
-            return new LzrFunction(result);
+            return new LzrFunction(Objects.requireNonNull(result, "Not found any function in arguments"));
         }
 
     }
 
     public static final class input implements Function {
         @Override
-        public LzrValue execute(LzrValue... args) {
+        public @NotNull LzrValue execute(@NotNull LzrValue... args) {
             Scanner sc = new Scanner(System.in);
             return new LzrString(sc.nextLine());
         }
@@ -75,7 +75,7 @@ public class Standart {
 
     public static final class equal implements Function {
         @Override
-        public LzrValue execute(LzrValue... args) {
+        public @NotNull LzrValue execute(@NotNull LzrValue... args) {
            boolean check = args[0].equals(args[1]);
            return LzrNumber.fromBoolean(check);
         }
@@ -83,7 +83,7 @@ public class Standart {
     public static final class Array implements Function {
 
         @Override
-        public LzrValue execute(LzrValue... args) {
+        public @NotNull LzrValue execute(@NotNull LzrValue... args) {
             return createArray(args, 0);
         }
 
@@ -122,7 +122,7 @@ public class Standart {
     public static final class length implements Function {
 
         @Override
-        public LzrValue execute(LzrValue... args) {
+        public @NotNull LzrValue execute(@NotNull LzrValue... args) {
             Arguments.check(1, args.length);
 
             final LzrValue val = args[0];
@@ -156,7 +156,7 @@ public class Standart {
     public static final class sprintf implements Function {
 
         @Override
-        public LzrValue execute(LzrValue... args) {
+        public @NotNull LzrValue execute(@NotNull LzrValue... args) {
             Arguments.checkAtLeast(1, args.length);
 
             final String format = args[0].asString();
@@ -173,7 +173,7 @@ public class Standart {
     public static final class substr implements Function {
 
         @Override
-        public LzrValue execute(LzrValue... args) {
+        public @NotNull LzrValue execute(@NotNull LzrValue... args) {
             Arguments.checkOrOr(2, 3, args.length);
 
             final String input = args[0].asString();
@@ -197,7 +197,7 @@ public class Standart {
         private static final int UNKNOWN = -1;
 
         @Override
-        public LzrValue execute(LzrValue... args) {
+        public @NotNull LzrValue execute(@NotNull LzrValue... args) {
             Arguments.check(2, args.length);
             final LzrValue container = args[0];
             final Function consumer = ValueUtils.consumeFunction(args[1], 1);
@@ -259,7 +259,7 @@ public class Standart {
         }
 
         @Override
-        public LzrValue execute(LzrValue... args) {
+        public @NotNull LzrValue execute(@NotNull LzrValue... args) {
             Arguments.check(2, args.length);
             final LzrValue container = args[0];
             final Function predicate = ValueUtils.consumeFunction(args[1], 1);
@@ -300,7 +300,7 @@ public class Standart {
     public static final class split implements Function {
 
         @Override
-        public LzrValue execute(LzrValue... args) {
+        public @NotNull LzrValue execute(@NotNull LzrValue... args) {
             Arguments.checkOrOr(2, 3, args.length);
 
             final String input = args[0].asString();
@@ -315,7 +315,7 @@ public class Standart {
     public static final class range implements Function {
 
         @Override
-        public LzrValue execute(LzrValue... args) {
+        public @NotNull LzrValue execute(@NotNull LzrValue... args) {
             Arguments.checkRange(1, 3, args.length);
 
             final long from, to, step;
@@ -414,11 +414,13 @@ public class Standart {
                 // not implemented
             }
 
+            @NotNull
             @Override
-            public Object raw() {
+            public LzrValue[] raw() {
                 return getCopyElements();
             }
 
+            @NotNull
             @Override
             public String asString() {
                 if (size == 0) return "[]";
@@ -502,7 +504,7 @@ public class Standart {
             }
 
             @Override
-            public int compareTo(LzrValue o) {
+            public int compareTo(@NotNull LzrValue o) {
                 if (o.type() == Types.ARRAY) {
                     final int lengthCompare = Integer.compare(size(), ((LzrArray) o).size());
                     if (lengthCompare != 0) return lengthCompare;
@@ -531,7 +533,7 @@ public class Standart {
     public static final class reduce implements Function {
 
         @Override
-        public LzrValue execute(LzrValue... args) {
+        public @NotNull LzrValue execute(@NotNull LzrValue... args) {
             Arguments.check(3, args.length);
 
             final LzrValue container = args[0];
@@ -560,7 +562,7 @@ public class Standart {
     public static final class map implements Function {
 
         @Override
-        public LzrValue execute(LzrValue[] args) {
+        public @NotNull LzrValue execute(@NotNull LzrValue... args) {
             Arguments.checkOrOr(2, 3, args.length);
 
             final LzrValue container = args[0];

@@ -6,10 +6,11 @@ import com.kingmang.lazurite.runtime.values.LzrValue;
 import javafx.scene.effect.BlurType;
 import javafx.scene.effect.InnerShadow;
 import javafx.scene.paint.Color;
+import org.jetbrains.annotations.NotNull;
 
 public class LInnerShadow implements Function {
         @Override
-        public LzrValue execute(LzrValue[] args) {
+        public @NotNull LzrValue execute(@NotNull LzrValue... args) {
             InnerShadow effect = switch (args.length) {
                 case 2 -> new InnerShadow(args[0].asNumber(), (Color) args[1].raw());
                 case 4 -> new InnerShadow(args[0].asNumber(), args[1].asInt(), args[2].asInt(),

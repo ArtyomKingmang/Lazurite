@@ -5,10 +5,11 @@ import com.kingmang.lazurite.libraries.lzrx.lgl.value.EffectValue;
 import com.kingmang.lazurite.runtime.values.LzrValue;
 import javafx.scene.effect.BlendMode;
 import javafx.scene.effect.Effect;
+import org.jetbrains.annotations.NotNull;
 
 public class LBlend implements Function {
         @Override
-        public LzrValue execute(LzrValue[] args) {
+        public @NotNull LzrValue execute(@NotNull LzrValue... args) {
             javafx.scene.effect.Blend effect = new javafx.scene.effect.Blend();
             if (args.length >= 1) {
                 effect.setMode(BlendMode.values()[args[0].asInt()]);

@@ -7,6 +7,7 @@ import com.kingmang.lazurite.runtime.Variables;
 import com.kingmang.lazurite.runtime.values.LzrMap;
 import com.kingmang.lazurite.runtime.values.LzrString;
 import com.kingmang.lazurite.runtime.values.LzrValue;
+import org.jetbrains.annotations.NotNull;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -34,7 +35,7 @@ public class lsoup implements Library {
 
     private static class body implements Function {
         @Override
-        public LzrValue execute(LzrValue... args) {
+        public @NotNull LzrValue execute(@NotNull LzrValue... args) {
             if (docum != null) {
                 return new LzrString(docum.body().toString());
             } else {
@@ -45,7 +46,7 @@ public class lsoup implements Library {
 
     private static class pars implements Function {
         @Override
-        public LzrValue execute(LzrValue... args) {
+        public @NotNull LzrValue execute(@NotNull LzrValue... args) {
             Document doc = null;
             try {
                 doc = Jsoup.connect(args[0].toString()).get();
@@ -64,7 +65,7 @@ public class lsoup implements Library {
 
     private static class select implements Function {
         @Override
-        public LzrValue execute(LzrValue... args) {
+        public @NotNull LzrValue execute(@NotNull LzrValue... args) {
             Elements divs = docum.select(args[0].toString());
             Variables.set("elements", new LzrString(Arrays.toString((divs.toString()).getBytes(StandardCharsets.UTF_8))));
             element = divs;

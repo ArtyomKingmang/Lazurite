@@ -8,11 +8,12 @@ import com.kingmang.lazurite.runtime.values.LzrArray;
 import com.kingmang.lazurite.runtime.values.LzrMap;
 import com.kingmang.lazurite.runtime.values.LzrValue;
 import com.kingmang.lazurite.utils.ValueUtils;
+import org.jetbrains.annotations.NotNull;
 
 public final class Map implements Function {
 
     @Override
-    public LzrValue execute(LzrValue... args) {
+    public @NotNull LzrValue execute(@NotNull LzrValue... args) {
         Arguments.checkOrOr(2, 3, args.length);
         
         final LzrValue container = args[0];

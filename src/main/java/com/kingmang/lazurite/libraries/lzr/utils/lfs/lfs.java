@@ -9,6 +9,7 @@ import com.kingmang.lazurite.exceptions.LzrException;
 import com.kingmang.lazurite.libraries.Library;
 import com.kingmang.lazurite.runtime.Variables;
 import com.kingmang.lazurite.runtime.values.*;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.*;
 import java.nio.channels.FileChannel;
@@ -78,7 +79,7 @@ public final class lfs implements Library {
     private static class open implements Function {
 
         @Override
-        public LzrValue execute(LzrValue... args) {
+        public @NotNull LzrValue execute(@NotNull LzrValue... args) {
             Arguments.checkAtLeast(1, args.length);
             
             final File file = Console.fileInstance(args[0].asString());
@@ -119,7 +120,7 @@ public final class lfs implements Library {
     private abstract static class FileFunction implements Function {
         
         @Override
-        public LzrValue execute(LzrValue... args) {
+        public @NotNull LzrValue execute(@NotNull LzrValue... args) {
             if (args.length < 1) throw new LzrException("ArgumentsMismatchException ","File descriptor expected");
             final int key = args[0].asInt();
             try {
@@ -142,7 +143,7 @@ public final class lfs implements Library {
     private static class copy implements Function {
 
         @Override
-        public LzrValue execute(LzrValue... args) {
+        public @NotNull LzrValue execute(@NotNull LzrValue... args) {
             Arguments.check(2, args.length);
             try {
                 final FileInputStream is = new FileInputStream(fileFrom(args[0]));
@@ -161,7 +162,7 @@ public final class lfs implements Library {
     private static class rename implements Function {
 
         @Override
-        public LzrValue execute(LzrValue... args) {
+        public @NotNull LzrValue execute(@NotNull LzrValue... args) {
             Arguments.check(2, args.length);
             return LzrNumber.fromBoolean( fileFrom(args[0]).renameTo(fileFrom(args[1])) );
         }

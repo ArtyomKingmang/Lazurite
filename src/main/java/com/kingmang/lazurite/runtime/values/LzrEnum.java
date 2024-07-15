@@ -16,8 +16,9 @@ public class LzrEnum implements LzrValue {
         return enums.get(enm);
     }
 
+    @NotNull
     @Override
-    public Object raw() {
+    public Map<String, LzrString> raw() {
         return enums;
     }
 
@@ -31,11 +32,13 @@ public class LzrEnum implements LzrValue {
         return enums.size();
     }
 
+    @NotNull
     @Override
     public String asString() {
         return enums.toString();
     }
 
+    @NotNull
     @Override
     public int[] asArray() {
         return new int[0];

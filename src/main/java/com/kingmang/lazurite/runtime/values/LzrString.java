@@ -6,6 +6,7 @@ import com.kingmang.lazurite.core.Function;
 import com.kingmang.lazurite.core.Types;
 import com.kingmang.lazurite.exceptions.LzrException;
 import com.kingmang.lazurite.libraries.Keyword;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
 
@@ -15,7 +16,7 @@ public final class LzrString implements LzrValue {
 
     private final String value;
 
-    public LzrString(String value){
+    public LzrString(String value) {
         this.value = value;
     }
 
@@ -66,7 +67,7 @@ public final class LzrString implements LzrValue {
                 }
                 break;
         }
-        throw new LzrException("UnknownPropertyException ",prop);
+        throw new LzrException("UnknownPropertyException ", prop);
     }
 
     public int length() {
@@ -78,8 +79,9 @@ public final class LzrString implements LzrValue {
         return Types.STRING;
     }
 
+    @NotNull
     @Override
-    public Object raw() {
+    public String raw() {
         return value;
     }
 
@@ -93,11 +95,13 @@ public final class LzrString implements LzrValue {
         return Double.parseDouble(value);
     }
 
+    @NotNull
     @Override
     public String asString() {
         return value;
     }
 
+    @NotNull
     @Override
     public int[] asArray() {
         return new int[0];
@@ -122,7 +126,7 @@ public final class LzrString implements LzrValue {
     }
 
     @Override
-    public int compareTo(LzrValue o) {
+    public int compareTo(@NotNull LzrValue o) {
         if (o.type() == Types.STRING) {
             return value.compareTo(((LzrString) o).value);
         }

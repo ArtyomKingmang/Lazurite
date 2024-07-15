@@ -8,6 +8,7 @@ import com.kingmang.lazurite.runtime.values.LzrArray;
 import com.kingmang.lazurite.runtime.values.LzrMap;
 import com.kingmang.lazurite.runtime.values.LzrNumber;
 import com.kingmang.lazurite.runtime.values.LzrValue;
+import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
 import java.awt.*;
@@ -197,13 +198,13 @@ public class graph implements Library {
     private static class Frame implements Function {
 
         @Override
-        public LzrValue execute(LzrValue... args) {
+        public @NotNull LzrValue execute(@NotNull LzrValue... args) {
             String title = "";
             int width = 640;
             int height = 480;
             switch (args.length) {
                 case 1:
-                    title = args[0].raw().toString();
+                    title = String.valueOf(args[0].raw());
                     break;
                 case 2:
                     title = "";
@@ -211,7 +212,7 @@ public class graph implements Library {
                     height = (int) args[1].asNumber();
                     break;
                 case 3:
-                    title = args[0].raw().toString();
+                    title = String.valueOf(args[0].raw());
                     width = (int) args[1].asNumber();
                     height = (int) args[2].asNumber();
                     break;
@@ -229,7 +230,7 @@ public class graph implements Library {
 
     private static class KeyPressed implements Function {
         @Override
-        public LzrValue execute(LzrValue... args) {
+        public @NotNull LzrValue execute(@NotNull LzrValue... args) {
             return lastKey;
         }
     }
@@ -237,7 +238,7 @@ public class graph implements Library {
     private static class MouseHover implements Function {
 
         @Override
-        public LzrValue execute(LzrValue... args) {
+        public @NotNull LzrValue execute(@NotNull LzrValue... args) {
             return mouseHover;
         }
     }
@@ -245,11 +246,11 @@ public class graph implements Library {
     private static class DrawText implements Function {
 
         @Override
-        public LzrValue execute(LzrValue... args) {
+        public @NotNull LzrValue execute(@NotNull LzrValue... args) {
             if (args.length != 3) throw new RuntimeException("Four args expected");
             int x = (int) args[1].asNumber();
             int y = (int) args[2].asNumber();
-            graphics.drawString(args[0].raw().toString(), x, y);
+            graphics.drawString(String.valueOf(args[0].raw()), x, y);
             return LzrNumber.ZERO;
         }
     }
@@ -257,7 +258,7 @@ public class graph implements Library {
 
     private static class Redraw implements Function {
         @Override
-        public LzrValue execute(LzrValue... args) {
+        public @NotNull LzrValue execute(@NotNull LzrValue... args) {
             panel.invalidate();
             panel.repaint();
             return LzrNumber.ZERO;
@@ -266,7 +267,7 @@ public class graph implements Library {
 
     private static class translate implements Function {
         @Override
-        public LzrValue execute(LzrValue... args) {
+        public @NotNull LzrValue execute(@NotNull LzrValue... args) {
             graphics.translate(args[0].asNumber(),args[1].asNumber());
             return LzrNumber.ZERO;
         }
@@ -274,7 +275,7 @@ public class graph implements Library {
 
     private static class scale implements Function {
         @Override
-        public LzrValue execute(LzrValue... args) {
+        public @NotNull LzrValue execute(@NotNull LzrValue... args) {
             graphics.scale(args[0].asNumber(),args[1].asNumber());
             return LzrNumber.ZERO;
         }
@@ -282,7 +283,7 @@ public class graph implements Library {
 
     private static class font implements Function {
         @Override
-        public LzrValue execute(LzrValue... args) {
+        public @NotNull LzrValue execute(@NotNull LzrValue... args) {
            graphics.setFont(new Font(args[0].asString(), 0, args[1].asInt()));
             return LzrNumber.ZERO;
         }
@@ -291,7 +292,7 @@ public class graph implements Library {
 
     private static class dispose implements Function {
         @Override
-        public LzrValue execute(LzrValue... args) {
+        public @NotNull LzrValue execute(@NotNull LzrValue... args) {
             graphics.dispose();
             return LzrNumber.ZERO;
         }
@@ -300,7 +301,7 @@ public class graph implements Library {
 
     private static class rotate implements Function {
         @Override
-        public LzrValue execute(LzrValue... args) {
+        public @NotNull LzrValue execute(@NotNull LzrValue... args) {
             if (args.length == 1) {
                 graphics.rotate(args[0].asNumber());
                 return LzrNumber.ZERO;
@@ -317,7 +318,7 @@ public class graph implements Library {
     private static class background implements Function {
 
         @Override
-        public LzrValue execute(LzrValue... args) {
+        public @NotNull LzrValue execute(@NotNull LzrValue... args) {
             if (args.length == 1) {
                 int rgb = (int) args[0].asNumber();
                 panel.setBackground(new Color(rgb));
@@ -334,7 +335,7 @@ public class graph implements Library {
     private static class fill implements Function {
 
         @Override
-        public LzrValue execute(LzrValue... args) {
+        public @NotNull LzrValue execute(@NotNull LzrValue... args) {
             if (args.length == 1) {
                 graphics.setColor(new Color((int) args[0].asNumber()));
                 return LzrNumber.ZERO;

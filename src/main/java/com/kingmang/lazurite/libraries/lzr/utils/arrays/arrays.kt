@@ -44,9 +44,9 @@ class arrays : Library {
                 1 -> Arrays.sort(elements)
                 2 -> {
                     val comparator = ValueUtils.consumeFunction(args[1], 1)
-                    Arrays.sort(
-                        elements
-                    ) { o1: LzrValue?, o2: LzrValue? -> comparator.execute(o1, o2).asInt() }
+                    Arrays.sort(elements) { o1: LzrValue, o2: LzrValue ->
+                        comparator.execute(o1, o2).asInt()
+                    }
                 }
 
                 else -> throw LzrException("ArgumentsMismatchException ", "Wrong number of arguments")

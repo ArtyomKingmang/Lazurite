@@ -7,6 +7,7 @@ import com.kingmang.lazurite.parser.AST.Expressions.*;
 import com.kingmang.lazurite.parser.AST.Statements.*;
 import com.kingmang.lazurite.runtime.UserDefinedFunction;
 import com.kingmang.lazurite.runtime.values.LzrFunction;
+import com.kingmang.lazurite.runtime.values.LzrString;
 
 import java.util.Iterator;
 import java.util.List;
@@ -361,7 +362,7 @@ public class PrintVisitor implements ResultVisitor<StringBuilder, StringBuilder>
     public StringBuilder visit(ValueExpression s, StringBuilder t) {
         switch (s.value.type()) {
             case Types.STRING:
-                String str = s.value.raw().toString();
+                String str = ((LzrString) s.value).raw();
                 str = str.replace("\n", "\\n");
                 str = str.replace("\t", "\\t");
                 t.append('"').append(str).append('"');

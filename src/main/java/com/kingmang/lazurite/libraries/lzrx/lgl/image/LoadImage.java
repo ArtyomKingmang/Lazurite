@@ -9,13 +9,14 @@ import javafx.scene.image.Image;
 import javafx.scene.image.PixelWriter;
 import javafx.scene.image.WritableImage;
 import javafx.scene.image.WritablePixelFormat;
+import org.jetbrains.annotations.NotNull;
 
 import java.nio.IntBuffer;
 
 public class LoadImage implements Function {
 
         @Override
-        public LzrValue execute(LzrValue[] args) {
+        public @NotNull LzrValue execute(@NotNull LzrValue... args) {
             Arguments.checkAtLeast(1, args.length);
             final Image result = switch (args.length) {
                 case 1 -> new Image(args[0].asString());

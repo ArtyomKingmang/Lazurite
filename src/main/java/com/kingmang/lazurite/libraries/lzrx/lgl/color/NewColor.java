@@ -4,11 +4,12 @@ import com.kingmang.lazurite.core.Function;
 import com.kingmang.lazurite.libraries.lzrx.lgl.value.ColorValue;
 import com.kingmang.lazurite.runtime.values.LzrValue;
 import javafx.scene.paint.Color;
+import org.jetbrains.annotations.NotNull;
 
 public class NewColor implements Function {
 
         @Override
-        public LzrValue execute(LzrValue[] args) {
+        public @NotNull LzrValue execute(@NotNull LzrValue... args) {
             double r, g, b, opacity;
             if (args.length == 1) {
                 final int color = args[0].asInt();

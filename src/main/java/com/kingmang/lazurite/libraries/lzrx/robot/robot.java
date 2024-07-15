@@ -7,6 +7,7 @@ import com.kingmang.lazurite.exceptions.LzrException;
 import com.kingmang.lazurite.libraries.Library;
 import com.kingmang.lazurite.runtime.Variables;
 import com.kingmang.lazurite.runtime.values.*;
+import org.jetbrains.annotations.NotNull;
 
 import java.awt.*;
 import java.awt.datatransfer.DataFlavor;
@@ -162,7 +163,7 @@ public final class robot implements Library {
 
 class MouseMove implements Function {
     @Override
-    public LzrValue execute(LzrValue... args) {
+    public @NotNull LzrValue execute(@NotNull LzrValue... args) {
         Arguments.check(2, args.length);
 
         try {
@@ -176,7 +177,7 @@ class MouseMove implements Function {
 class TypeText implements Function{
 
     @Override
-    public LzrValue execute(LzrValue... args) {
+    public @NotNull LzrValue execute(@NotNull LzrValue... args) {
         Arguments.check(1, args.length);
 
         try {
@@ -236,7 +237,7 @@ class RobotClipboard{
     static final class ToClipboard implements Function {
 
         @Override
-        public LzrValue execute(LzrValue... args) {
+        public @NotNull LzrValue execute(@NotNull LzrValue... args) {
             Arguments.check(1, args.length);
             Toolkit.getDefaultToolkit().getSystemClipboard()
                     .setContents(new StringSelection(args[0].asString()), null);
@@ -247,7 +248,7 @@ class RobotClipboard{
     static final class FromClipboard implements Function {
 
         @Override
-        public LzrValue execute(LzrValue... args) {
+        public @NotNull LzrValue execute(@NotNull LzrValue... args) {
             try {
                 Object data = Toolkit.getDefaultToolkit().getSystemClipboard()
                         .getData(DataFlavor.stringFlavor);
@@ -271,7 +272,7 @@ final class Execute implements Function {
     }
 
     @Override
-    public LzrValue execute(LzrValue... args) {
+    public @NotNull LzrValue execute(@NotNull LzrValue... args) {
         Arguments.checkAtLeast(1, args.length);
 
         try {

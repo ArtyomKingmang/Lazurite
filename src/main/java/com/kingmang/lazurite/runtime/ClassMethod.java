@@ -3,6 +3,7 @@ package com.kingmang.lazurite.runtime;
 import com.kingmang.lazurite.parser.AST.Arguments;
 import com.kingmang.lazurite.parser.AST.Statements.Statement;
 import com.kingmang.lazurite.runtime.values.LzrValue;
+import org.jetbrains.annotations.NotNull;
 
 public class ClassMethod extends UserDefinedFunction {
     
@@ -14,7 +15,7 @@ public class ClassMethod extends UserDefinedFunction {
     }
     
     @Override
-    public LzrValue execute(LzrValue[] values) {
+    public @NotNull LzrValue execute(@NotNull LzrValue... values) {
         Variables.push();
         Variables.define("this", classInstance.getThisMap());
         

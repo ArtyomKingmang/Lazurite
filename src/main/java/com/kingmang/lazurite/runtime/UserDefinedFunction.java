@@ -4,11 +4,15 @@ import com.kingmang.lazurite.core.Function;
 import com.kingmang.lazurite.exceptions.LzrException;
 import com.kingmang.lazurite.parser.AST.Argument;
 import com.kingmang.lazurite.parser.AST.Arguments;
+import com.kingmang.lazurite.parser.AST.Expressions.Expression;
 import com.kingmang.lazurite.parser.AST.Statements.ReturnStatement;
 import com.kingmang.lazurite.parser.AST.Statements.Statement;
 import com.kingmang.lazurite.runtime.values.LzrNumber;
 import com.kingmang.lazurite.runtime.values.LzrValue;
 import lombok.AllArgsConstructor;
+import org.jetbrains.annotations.NotNull;
+
+import java.util.Objects;
 
 @AllArgsConstructor
 public class UserDefinedFunction implements Function {
@@ -26,7 +30,7 @@ public class UserDefinedFunction implements Function {
     }
 
     @Override
-    public LzrValue execute(LzrValue... values) {
+    public @NotNull LzrValue execute(@NotNull LzrValue... values) {
         final int size = values.length;
         final int requiredArgsCount = arguments.getRequiredCount();
         if (size < requiredArgsCount) {
@@ -47,7 +51,8 @@ public class UserDefinedFunction implements Function {
             // Optional args if exists
             for (int i = size; i < totalArgsCount; i++) {
                 final Argument arg = arguments.get(i);
-                Variables.define(arg.getName(), arg.getValueExpr().eval());
+                Expression valueExpr = Objects.requireNonNull(arg.getValueExpr(), "Not found value for optional argument: " + arg.getName());
+                Variables.define(arg.getName(), valueExpr.eval());
             }
             body.execute();
             return LzrNumber.ZERO;

@@ -11,9 +11,10 @@ public class ColorValue implements LzrValue {
         public ColorValue(Color effect) {
             this.color = effect;
         }
-        
+
+        @NotNull
         @Override
-        public Object raw() {
+        public Color raw() {
             return color;
         }
         
@@ -31,11 +32,13 @@ public class ColorValue implements LzrValue {
             return asInt();
         }
         
+        @NotNull
         @Override
         public String asString() {
             return color.toString();
         }
 
+        @NotNull
         @Override
         public int[] asArray() {
             return new int[0];

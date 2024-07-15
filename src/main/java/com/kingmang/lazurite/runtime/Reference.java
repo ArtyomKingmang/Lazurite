@@ -23,16 +23,19 @@ public class Reference implements LzrValue, Serializable {
         throw new LzrException("BadArithmetic", "Cannot cast REFERENCE to a NUMBER");
     }
 
+    @NotNull
     @Override
     public Object raw() {
         return ref;
     }
 
+    @NotNull
     @Override
     public String asString() {
-        return null;
+        return "#Reference<" + hashCode() + ">";
     }
 
+    @NotNull
     @Override
     public int[] asArray() {
         return new int[0];
@@ -46,7 +49,7 @@ public class Reference implements LzrValue, Serializable {
 
     @Override
     public String toString() {
-        return "#Reference<" + hashCode() + ">";
+        return asString();
     }
 
     @Override

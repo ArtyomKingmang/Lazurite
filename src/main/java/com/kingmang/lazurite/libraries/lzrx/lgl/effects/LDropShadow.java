@@ -6,10 +6,11 @@ import com.kingmang.lazurite.runtime.values.LzrValue;
 import javafx.scene.effect.BlurType;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.paint.Color;
+import org.jetbrains.annotations.NotNull;
 
 public class LDropShadow implements Function {
         @Override
-        public LzrValue execute(LzrValue[] args) {
+        public @NotNull LzrValue execute(@NotNull LzrValue... args) {
             DropShadow effect = switch (args.length) {
                 case 2 -> new DropShadow(args[0].asNumber(), (Color) args[1].raw());
                 case 4 -> new DropShadow(args[0].asNumber(), args[1].asInt(), args[2].asInt(),
