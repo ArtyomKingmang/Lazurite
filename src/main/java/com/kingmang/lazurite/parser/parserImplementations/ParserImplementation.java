@@ -4,6 +4,7 @@ import com.kingmang.lazurite.exceptions.LzrException;
 import com.kingmang.lazurite.exceptions.parser.ParseErrors;
 import com.kingmang.lazurite.parser.AST.Accessible;
 import com.kingmang.lazurite.parser.AST.Arguments;
+import com.kingmang.lazurite.parser.AST.ArgumentsBuilder;
 import com.kingmang.lazurite.parser.AST.Expressions.*;
 import com.kingmang.lazurite.parser.AST.Statements.*;
 import com.kingmang.lazurite.parser.IParser;
@@ -339,22 +340,22 @@ public final class ParserImplementation implements IParser {
 
     private Arguments arguments() {
 
-        final Arguments arguments = new Arguments();
+        final ArgumentsBuilder builder = new ArgumentsBuilder();
         boolean startsOptionalArgs = false;
         consume(TokenType.LPAREN);
         while (!match(TokenType.RPAREN)) {
             final String name = consume(TokenType.WORD).getText();
             if (match(TokenType.EQ)) {
                 startsOptionalArgs = true;
-                arguments.addOptional(name, variable());
+                builder.addOptional(name, variable());
             } else if (!startsOptionalArgs) {
-                arguments.addRequired(name);
+                builder.addRequired(name);
             } else {
-                throw new LzrException("ParseException ","Required argument cannot be after optional");
+                throw new LzrException("ParseException ", "Required argument cannot be after optional");
             }
             match(TokenType.COMMA);
         }
-        return arguments;
+        return builder.build();
     }
 
 

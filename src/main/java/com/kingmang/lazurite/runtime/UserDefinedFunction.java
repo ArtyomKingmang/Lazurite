@@ -28,7 +28,7 @@ public class UserDefinedFunction implements Function {
     @Override
     public LzrValue execute(LzrValue... values) {
         final int size = values.length;
-        final int requiredArgsCount = arguments.getRequiredArgumentsCount();
+        final int requiredArgsCount = arguments.getRequiredCount();
         if (size < requiredArgsCount) {
             throw new LzrException("ArgumentsMismatchException ",String.format(
                     "Arguments count mismatch. Required %d, got %d", requiredArgsCount, size));
