@@ -7,6 +7,7 @@ import com.kingmang.lazurite.runtime.values.LzrValue;
 import javafx.scene.image.Image;
 import javafx.scene.image.PixelReader;
 import javafx.scene.image.WritablePixelFormat;
+import org.jetbrains.annotations.NotNull;
 
 import java.nio.IntBuffer;
 
@@ -40,6 +41,7 @@ public class ImageValue extends LzrMap {
         return new LzrArray(size, index -> LzrNumber.of(buffer[index]));
     }
 
+    @NotNull
     @Override
     public String toString() {
         return "Image " + image;

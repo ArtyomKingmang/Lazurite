@@ -9,7 +9,6 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
 
-@RequiredArgsConstructor
 public class LzrFunction implements LzrValue {
 
     public static final LzrFunction EMPTY = new LzrFunction(args -> LzrNumber.ZERO);
@@ -18,6 +17,9 @@ public class LzrFunction implements LzrValue {
     @NotNull
     public final Function value;
 
+    public LzrFunction(@NotNull Function value) {
+        this.value = value;
+    }
 
     @Override
     public int type() {

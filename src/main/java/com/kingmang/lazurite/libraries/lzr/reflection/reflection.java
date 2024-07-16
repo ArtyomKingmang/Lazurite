@@ -157,13 +157,14 @@ public final class reflection implements Library {
         }
 
         @Override
-        public LzrValue get(LzrValue key) {
+        public LzrValue get(@NotNull LzrValue key) {
             if (super.containsKey(key)) {
                 return super.get(key);
             }
             return getValue(clazz, null, key.asString());
         }
 
+        @NotNull
         @Override
         public String toString() {
             return "ClassValue " + clazz.toString();
@@ -185,7 +186,7 @@ public final class reflection implements Library {
         }
 
         @Override
-        public boolean containsKey(LzrValue key) {
+        public boolean containsKey(@NotNull LzrValue key) {
             return get(key) != null;
         }
 
@@ -200,6 +201,7 @@ public final class reflection implements Library {
             return object.toString();
         }
 
+        @NotNull
         @Override
         public String toString() {
             return "ObjectValue " + asString();
