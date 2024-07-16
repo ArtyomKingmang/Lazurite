@@ -20,6 +20,7 @@ import javafx.scene.shape.FillRule;
 import javafx.scene.shape.StrokeLineCap;
 import javafx.scene.shape.StrokeLineJoin;
 import javafx.scene.text.TextAlignment;
+import org.jetbrains.annotations.NotNull;
 
 import static com.kingmang.lazurite.core.Converters.*;
 import static com.kingmang.lazurite.libraries.lzrx.lgl.value.EffectValue.FX_EFFECT_TYPE;
@@ -333,6 +334,7 @@ public class GraphicsValue extends LzrMap {
             return LzrNumber.ZERO;
         }
 
+        @NotNull
         @Override
         public String toString() {
             return "GraphicsValue " + asString();
