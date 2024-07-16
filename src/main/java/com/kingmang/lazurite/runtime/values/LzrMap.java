@@ -5,6 +5,7 @@ import com.kingmang.lazurite.core.Types;
 import com.kingmang.lazurite.exceptions.LzrException;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Iterator;
 import java.util.LinkedHashMap;
@@ -100,17 +101,20 @@ public class LzrMap implements LzrValue, Iterable<Map.Entry<LzrValue, LzrValue>>
         throw new LzrException("TypeException","Cannot cast map to number");
     }
 
+    @NotNull
     @Override
     public String asString() {
         return map.toString();
     }
 
+    @NotNull
     @Override
     public int[] asArray() {
         return new int[0];
     }
 
 
+    @NotNull
     @Override
     public Iterator<Map.Entry<LzrValue, LzrValue>> iterator() {
         return map.entrySet().iterator();
@@ -134,7 +138,7 @@ public class LzrMap implements LzrValue, Iterable<Map.Entry<LzrValue, LzrValue>>
     }
     
     @Override
-    public int compareTo(LzrValue o) {
+    public int compareTo(@NotNull LzrValue o) {
         if (o.type() == Types.MAP) {
             final int lengthCompare = Integer.compare(size(), ((LzrMap) o).size());
             if (lengthCompare != 0) return lengthCompare;

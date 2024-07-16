@@ -2,7 +2,7 @@ package com.kingmang.lazurite.parser.AST
 
 import com.kingmang.lazurite.parser.AST.Expressions.Expression
 
-class Argument(
+data class Argument(
     val name: String,
     val valueExpr: Expression? = null
 ) {

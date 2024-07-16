@@ -31,6 +31,7 @@ import javafx.scene.shape.FillRule;
 import javafx.scene.shape.StrokeLineCap;
 import javafx.scene.shape.StrokeLineJoin;
 import javafx.scene.text.TextAlignment;
+import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
 import java.awt.*;
@@ -156,7 +157,7 @@ public final class lgl implements Library {
     private static class LFrame implements Function {
 
         @Override
-        public LzrValue execute(LzrValue[] args) {
+        public @NotNull LzrValue execute(@NotNull LzrValue... args) {
             String title = "";
             int width = 640;
             int height = 480;
@@ -201,7 +202,7 @@ public final class lgl implements Library {
     private static class Redraw implements Function {
 
         @Override
-        public LzrValue execute(LzrValue[] args) {
+        public @NotNull LzrValue execute(@NotNull LzrValue... args) {
             panel.invalidate();
             panel.repaint();
             return LzrNumber.ZERO;
@@ -210,7 +211,7 @@ public final class lgl implements Library {
     
     private static class EventFilter implements Function {
         @Override
-        public LzrValue execute(LzrValue[] args) {
+        public @NotNull LzrValue execute(@NotNull LzrValue... args) {
             final Function handler = ((LzrFunction) args[1]).value;
             final Events event = Events.values()[args[0].asInt()];
             canvas.addEventFilter(event.getHandler(), e -> handleEvent(e, handler));
@@ -220,7 +221,7 @@ public final class lgl implements Library {
     
     private static class EventHandler implements Function {
         @Override
-        public LzrValue execute(LzrValue[] args) {
+        public @NotNull LzrValue execute(@NotNull LzrValue... args) {
             final Function handler = ((LzrFunction) args[1]).getValue();
             final Events event = Events.values()[args[0].asInt()];
             canvas.addEventHandler(event.getHandler(), e -> handleEvent(e, handler));

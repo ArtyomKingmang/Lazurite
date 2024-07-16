@@ -10,18 +10,19 @@ class ArgumentsBuilderTest {
 
     @Test
     fun build() {
-        val expression = ValueExpression("value_optional")
+        val expression1 = ValueExpression("value_optional1")
+        val expression2 = ValueExpression("value_optional2")
         val expected = listOf(
             Argument("arg_required1"),
             Argument("arg_required2"),
-            Argument("arg_optional1", expression),
-            Argument("arg_optional2"),
+            Argument("arg_optional1", expression1),
+            Argument("arg_optional2", expression2),
         )
         val actual = ArgumentsBuilder().run {
             addRequired("arg_required1")
             addRequired("arg_required2")
-            addOptional("arg_optional1", expression)
-            addOptional("arg_optional2", null)
+            addOptional("arg_optional1", expression1)
+            addOptional("arg_optional2", expression2)
             build()
         }
         assertEquals(4, actual.size(), "total size")

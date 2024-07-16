@@ -5,10 +5,11 @@ import com.kingmang.lazurite.libraries.lzrx.lgl.value.EffectValue;
 import com.kingmang.lazurite.runtime.values.LzrValue;
 import javafx.scene.effect.Effect;
 import javafx.scene.effect.Glow;
+import org.jetbrains.annotations.NotNull;
 
 public class LGlow implements Function {
         @Override
-        public LzrValue execute(LzrValue[] args) {
+        public @NotNull LzrValue execute(@NotNull LzrValue... args) {
             Glow effect = new Glow();
             if (args.length >= 1) {
                 effect.setLevel(args[0].asNumber());

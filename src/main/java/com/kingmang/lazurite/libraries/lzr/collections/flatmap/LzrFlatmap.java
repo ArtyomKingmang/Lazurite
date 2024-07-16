@@ -7,6 +7,7 @@ import com.kingmang.lazurite.exceptions.LzrException;
 import com.kingmang.lazurite.runtime.values.LzrArray;
 import com.kingmang.lazurite.runtime.values.LzrValue;
 import com.kingmang.lazurite.utils.ValueUtils;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +15,7 @@ import java.util.List;
 public final class LzrFlatmap implements Function {
 
         @Override
-        public LzrValue execute(LzrValue... args) {
+        public @NotNull LzrValue execute(@NotNull LzrValue... args) {
             Arguments.check(2, args.length);
             if (args[0].type() != Types.ARRAY) {
                 throw new LzrException("TypeExeption ", "Array expected in first argument");

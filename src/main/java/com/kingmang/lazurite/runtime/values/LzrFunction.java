@@ -5,6 +5,7 @@ import com.kingmang.lazurite.core.Function;
 import com.kingmang.lazurite.core.Types;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
 
@@ -14,6 +15,7 @@ public class LzrFunction implements LzrValue {
     public static final LzrFunction EMPTY = new LzrFunction(args -> LzrNumber.ZERO);
 
     @Getter
+    @NotNull
     public final Function value;
 
 
@@ -22,8 +24,9 @@ public class LzrFunction implements LzrValue {
         return Types.FUNCTION;
     }
 
+    @NotNull
     @Override
-    public Object raw() {
+    public Function raw() {
         return value;
     }
 
@@ -37,11 +40,13 @@ public class LzrFunction implements LzrValue {
         throw new LzrException("TypeExeption","Cannot cast function to number");
     }
 
+    @NotNull
     @Override
     public String asString() {
         return value.toString();
     }
 
+    @NotNull
     @Override
     public int[] asArray() {
         return new int[0];
@@ -67,7 +72,7 @@ public class LzrFunction implements LzrValue {
     }
 
     @Override
-    public int compareTo(LzrValue o) {
+    public int compareTo(@NotNull LzrValue o) {
         return asString().compareTo(o.asString());
     }
 

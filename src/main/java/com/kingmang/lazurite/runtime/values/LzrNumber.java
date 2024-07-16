@@ -3,6 +3,7 @@ package com.kingmang.lazurite.runtime.values;
 
 import com.kingmang.lazurite.core.Types;
 import lombok.RequiredArgsConstructor;
+import org.jetbrains.annotations.NotNull;
 
 @RequiredArgsConstructor
 public final class LzrNumber implements LzrValue {
@@ -52,7 +53,8 @@ public final class LzrNumber implements LzrValue {
     public int type() {
         return Types.NUMBER;
     }
-    
+
+    @NotNull
     @Override
     public Number raw() {
         return value;
@@ -92,11 +94,13 @@ public final class LzrNumber implements LzrValue {
         return value.doubleValue();
     }
 
+    @NotNull
     @Override
     public String asString() {
         return value.toString();
     }
 
+    @NotNull
     @Override
     public int[] asArray() {
         return new int[0];
@@ -130,7 +134,7 @@ public final class LzrNumber implements LzrValue {
     }
     
     @Override
-    public int compareTo(LzrValue o) {
+    public int compareTo(@NotNull LzrValue o) {
         if (o.type() == Types.NUMBER) {
             final Number other = ((LzrNumber) o).value;
             if (value instanceof Double || other instanceof Double) {

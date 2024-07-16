@@ -10,6 +10,7 @@ import com.kingmang.lazurite.runtime.Variables;
 import com.kingmang.lazurite.runtime.values.*;
 import okhttp3.*;
 import okhttp3.internal.http.HttpMethod;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.*;
 import java.net.HttpURLConnection;
@@ -137,7 +138,7 @@ public final class http implements Library {
         private final OkHttpClient client = new OkHttpClient();
 
         @Override
-        public LzrValue execute(LzrValue... args) {
+        public @NotNull LzrValue execute(@NotNull LzrValue... args) {
             String url, method;
             switch (args.length) {
                 case 1: // http(url)

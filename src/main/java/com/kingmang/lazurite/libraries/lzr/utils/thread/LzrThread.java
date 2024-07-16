@@ -8,11 +8,12 @@ import com.kingmang.lazurite.libraries.Keyword;
 import com.kingmang.lazurite.runtime.values.LzrFunction;
 import com.kingmang.lazurite.runtime.values.LzrNumber;
 import com.kingmang.lazurite.runtime.values.LzrValue;
+import org.jetbrains.annotations.NotNull;
 
 public final class LzrThread implements Function {
 
     @Override
-    public LzrValue execute(LzrValue... args) {
+    public @NotNull LzrValue execute(@NotNull LzrValue... args) {
         Arguments.checkAtLeast(1, args.length);
 
         Function body;

@@ -4,11 +4,12 @@ import com.kingmang.lazurite.core.Function;
 import com.kingmang.lazurite.libraries.lzrx.lgl.value.ColorValue;
 import com.kingmang.lazurite.runtime.values.LzrValue;
 import javafx.scene.paint.Color;
+import org.jetbrains.annotations.NotNull;
 
 public class Hsb implements Function {
 
         @Override
-        public LzrValue execute(LzrValue[] args) {
+        public @NotNull LzrValue execute(@NotNull LzrValue... args) {
             double h = args[0].asNumber();
             double s = args[1].asNumber();
             double b = args[2].asNumber();

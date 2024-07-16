@@ -5,6 +5,7 @@ import com.kingmang.lazurite.core.Function;
 import com.kingmang.lazurite.exceptions.LzrException;
 import com.kingmang.lazurite.runtime.values.LzrNumber;
 import com.kingmang.lazurite.runtime.values.LzrValue;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.BufferedInputStream;
 import java.io.IOException;
@@ -17,7 +18,7 @@ public class LzrBufferedInputStream {
     static class newBufferedInputStream implements Function {
 
         @Override
-        public LzrValue execute(LzrValue... args) {
+        public @NotNull LzrValue execute(@NotNull LzrValue... args) {
             Arguments.check(1, 1);
             bufferedInputStream = new BufferedInputStream((InputStream) args[0]);
             return LzrNumber.ZERO;
@@ -27,7 +28,7 @@ public class LzrBufferedInputStream {
     static class read implements Function {
 
         @Override
-        public LzrValue execute(LzrValue... args) {
+        public @NotNull LzrValue execute(@NotNull LzrValue... args) {
             Arguments.check(1, 1);
             try {
                 bufferedInputStream.read();

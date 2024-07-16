@@ -1,6 +1,7 @@
 package com.kingmang.lazurite.exceptions.parser;
 
 import com.kingmang.lazurite.console.Console;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -26,6 +27,7 @@ public final class ParseErrors implements Iterable<ParseError> {
         return !errors.isEmpty();
     }
 
+    @NotNull
     @Override
     public Iterator<ParseError> iterator() {
         return errors.iterator();

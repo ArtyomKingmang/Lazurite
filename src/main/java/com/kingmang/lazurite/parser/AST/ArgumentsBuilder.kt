@@ -13,7 +13,7 @@ class ArgumentsBuilder {
         requiredCount++
     }
 
-    fun addOptional(name: String, expr: Expression?) {
+    fun addOptional(name: String, expr: Expression) {
         arguments.add(Argument(name, expr))
     }
 

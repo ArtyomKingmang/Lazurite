@@ -5,10 +5,11 @@ import com.kingmang.lazurite.libraries.lzrx.lgl.value.EffectValue;
 import com.kingmang.lazurite.runtime.values.LzrValue;
 import javafx.scene.effect.BoxBlur;
 import javafx.scene.effect.Effect;
+import org.jetbrains.annotations.NotNull;
 
 public class LBoxBlur implements Function {
         @Override
-        public LzrValue execute(LzrValue[] args) {
+        public @NotNull LzrValue execute(@NotNull LzrValue... args) {
             BoxBlur effect = new BoxBlur();
             if (args.length >= 3) {
                 effect.setWidth(args[0].asNumber());

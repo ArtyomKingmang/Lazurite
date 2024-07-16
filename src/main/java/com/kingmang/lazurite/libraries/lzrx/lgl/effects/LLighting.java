@@ -8,10 +8,11 @@ import javafx.scene.effect.Effect;
 import javafx.scene.effect.Light;
 import javafx.scene.effect.Lighting;
 import javafx.scene.paint.Color;
+import org.jetbrains.annotations.NotNull;
 
 public class LLighting implements Function {
         @Override
-        public LzrValue execute(LzrValue[] args) {
+        public @NotNull LzrValue execute(@NotNull LzrValue... args) {
             Light light;
             final LzrArray l = (LzrArray) args[0];
             light = switch (l.size()) {

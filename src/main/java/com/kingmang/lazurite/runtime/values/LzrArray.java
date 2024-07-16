@@ -3,6 +3,7 @@ package com.kingmang.lazurite.runtime.values;
 import com.kingmang.lazurite.core.Converters;
 import com.kingmang.lazurite.core.Types;
 import com.kingmang.lazurite.exceptions.LzrException;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
 import java.util.Iterator;
@@ -110,8 +111,9 @@ public class LzrArray implements LzrValue, Iterable<LzrValue> {
         elements[index] = value;
     }
 
+    @NotNull
     @Override
-    public Object raw() {
+    public LzrValue[] raw() {
         return elements;
     }
 
@@ -125,17 +127,20 @@ public class LzrArray implements LzrValue, Iterable<LzrValue> {
         throw new LzrException("TypeExeption","Cannot cast array to number");
     }
 
+    @NotNull
     @Override
     public String asString() {
         return Arrays.toString(elements);
     }
 
+    @NotNull
     @Override
     public int[] asArray() {
         return new int[0];
     }
 
 
+    @NotNull
     @Override
     public Iterator<LzrValue> iterator() {
         return Arrays.asList(elements).iterator();
@@ -159,7 +164,7 @@ public class LzrArray implements LzrValue, Iterable<LzrValue> {
     }
 
     @Override
-    public int compareTo(LzrValue o) {
+    public int compareTo(@NotNull LzrValue o) {
         if (o.type() == Types.ARRAY) {
             final int lengthCompare = Integer.compare(size(), ((LzrArray) o).size());
             if (lengthCompare != 0) return lengthCompare;

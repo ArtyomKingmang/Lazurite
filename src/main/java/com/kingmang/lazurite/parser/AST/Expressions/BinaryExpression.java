@@ -95,7 +95,7 @@ public record BinaryExpression(com.kingmang.lazurite.parser.AST.Expressions.Bina
         final Number number1 = value1.raw();
         if (value2.type() == Types.NUMBER) {
             // number1 + number2
-            final Number number2 = (Number) value2.raw();
+            final Number number2 = ((LzrNumber) value2).raw();
             if (number1 instanceof Double || number2 instanceof Double) {
                 return LzrNumber.of(number1.doubleValue() + number2.doubleValue());
             }
@@ -132,7 +132,7 @@ public record BinaryExpression(com.kingmang.lazurite.parser.AST.Expressions.Bina
         final Number number1 = value1.raw();
         if (value2.type() == Types.NUMBER) {
             // number1 - number2
-            final Number number2 = (Number) value2.raw();
+            final Number number2 = ((LzrNumber) value2).raw();
             if (number1 instanceof Double || number2 instanceof Double) {
                 return LzrNumber.of(number1.doubleValue() - number2.doubleValue());
             }
@@ -170,7 +170,7 @@ public record BinaryExpression(com.kingmang.lazurite.parser.AST.Expressions.Bina
         final Number number1 = value1.raw();
         if (value2.type() == Types.NUMBER) {
             // number1 * number2
-            final Number number2 = (Number) value2.raw();
+            final Number number2 = ((LzrNumber) value2).raw();
             if (number1 instanceof Double || number2 instanceof Double) {
                 return LzrNumber.of(number1.doubleValue() * number2.doubleValue());
             }
@@ -213,7 +213,7 @@ public record BinaryExpression(com.kingmang.lazurite.parser.AST.Expressions.Bina
         final Number number1 = value1.raw();
         if (value2.type() == Types.NUMBER) {
             // number1 / number2
-            final Number number2 = (Number) value2.raw();
+            final Number number2 = ((LzrNumber) value2).raw();
             if (number1 instanceof Double || number2 instanceof Double) {
                 return LzrNumber.of(number1.doubleValue() / number2.doubleValue());
             }
@@ -250,7 +250,7 @@ public record BinaryExpression(com.kingmang.lazurite.parser.AST.Expressions.Bina
         final Number number1 = value1.raw();
         if (value2.type() == Types.NUMBER) {
             // number1 % number2
-            final Number number2 = (Number) value2.raw();
+            final Number number2 = ((LzrNumber) value2).raw();
             if (number1 instanceof Double || number2 instanceof Double) {
                 return LzrNumber.of(number1.doubleValue() % number2.doubleValue());
             }
@@ -295,7 +295,7 @@ public record BinaryExpression(com.kingmang.lazurite.parser.AST.Expressions.Bina
         final Number number1 = value1.raw();
         if (value2.type() == Types.NUMBER) {
             // number1 & number2
-            final Number number2 = (Number) value2.raw();
+            final Number number2 = ((LzrNumber) value2).raw();
             if (number1 instanceof Long || number2 instanceof Long) {
                 return LzrNumber.of(number1.longValue() & number2.longValue());
             }
@@ -320,7 +320,7 @@ public record BinaryExpression(com.kingmang.lazurite.parser.AST.Expressions.Bina
         final Number number1 = value1.raw();
         if (value2.type() == Types.NUMBER) {
             // number1 | number2
-            final Number number2 = (Number) value2.raw();
+            final Number number2 = ((LzrNumber) value2).raw();
             if (number1 instanceof Long || number2 instanceof Long) {
                 return LzrNumber.of(number1.longValue() | number2.longValue());
             }
@@ -345,7 +345,7 @@ public record BinaryExpression(com.kingmang.lazurite.parser.AST.Expressions.Bina
         final Number number1 = value1.raw();
         if (value2.type() == Types.NUMBER) {
             // number1 ^ number2
-            final Number number2 = (Number) value2.raw();
+            final Number number2 = ((LzrNumber) value2).raw();
             if (number1 instanceof Long || number2 instanceof Long) {
                 return LzrNumber.of(number1.longValue() ^ number2.longValue());
             }
@@ -371,7 +371,7 @@ public record BinaryExpression(com.kingmang.lazurite.parser.AST.Expressions.Bina
         final Number number1 = value1.raw();
         if (value2.type() == Types.NUMBER) {
             // number1 << number2
-            final Number number2 = (Number) value2.raw();
+            final Number number2 = ((LzrNumber) value2).raw();
             if (number1 instanceof Long || number2 instanceof Long) {
                 return LzrNumber.of(number1.longValue() << number2.longValue());
             }
@@ -402,7 +402,7 @@ public record BinaryExpression(com.kingmang.lazurite.parser.AST.Expressions.Bina
         final Number number1 = value1.raw();
         if (value2.type() == Types.NUMBER) {
             // number1 >> number2
-            final Number number2 = (Number) value2.raw();
+            final Number number2 = ((LzrNumber) value2).raw();
             if (number1 instanceof Long || number2 instanceof Long) {
                 return LzrNumber.of(number1.longValue() >> number2.longValue());
             }
@@ -427,7 +427,7 @@ public record BinaryExpression(com.kingmang.lazurite.parser.AST.Expressions.Bina
         final Number number1 = value1.raw();
         if (value2.type() == Types.NUMBER) {
             // number1 >>> number2
-            final Number number2 = (Number) value2.raw();
+            final Number number2 = ((LzrNumber) value2).raw();
             if (number1 instanceof Long || number2 instanceof Long) {
                 return LzrNumber.of(number1.longValue() >>> number2.longValue());
             }

@@ -1,9 +1,7 @@
 package com.kingmang.lazurite.utils
 
+import com.kingmang.lazurite.core.*
 import com.kingmang.lazurite.core.Function
-import com.kingmang.lazurite.core.Types
-import com.kingmang.lazurite.core.asLzrFunction
-import com.kingmang.lazurite.core.asLzrNumberOrNull
 import com.kingmang.lazurite.runtime.values.*
 import org.json.JSONArray
 import org.json.JSONException
@@ -15,10 +13,10 @@ object ValueUtils {
     @JvmStatic
     @Throws(JSONException::class)
     fun toObject(value: LzrValue): Any = when (value.type()) {
-        Types.ARRAY -> (value as LzrArray).toJsonArray()
-        Types.MAP -> (value as LzrMap).toJsonObject()
-        Types.NUMBER -> value.raw()
-        Types.STRING -> value.asString()
+        Types.ARRAY -> value.asLzrArray().toJsonArray()
+        Types.MAP -> value.asLzrMap().toJsonObject()
+        Types.NUMBER -> value.asLzrNumber().raw()
+        Types.STRING -> value.asLzrString().raw()
         else -> JSONObject.NULL
     }
 

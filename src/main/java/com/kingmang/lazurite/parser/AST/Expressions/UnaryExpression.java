@@ -87,7 +87,7 @@ public final class UnaryExpression implements Expression, Statement {
     
     private LzrValue increment(LzrValue value) {
         if (value.type() == Types.NUMBER) {
-            final Number number = (Number) value.raw();
+            final Number number = ((LzrNumber) value).raw();
             if (number instanceof Double) {
                 return LzrNumber.of(number.doubleValue() + 1);
             }
@@ -103,7 +103,7 @@ public final class UnaryExpression implements Expression, Statement {
     
     private LzrValue decrement(LzrValue value) {
         if (value.type() == Types.NUMBER) {
-            final Number number = (Number) value.raw();
+            final Number number = ((LzrNumber) value).raw();
             if (number instanceof Double) {
                 return LzrNumber.of(number.doubleValue() - 1);
             }
@@ -123,7 +123,7 @@ public final class UnaryExpression implements Expression, Statement {
             return new LzrString(sb.reverse().toString());
         }
         if (value.type() == Types.NUMBER) {
-            final Number number = (Number) value.raw();
+            final Number number = ((LzrNumber) value).raw();
             if (number instanceof Double) {
                 return LzrNumber.of(-number.doubleValue());
             }
@@ -139,7 +139,7 @@ public final class UnaryExpression implements Expression, Statement {
     
     private LzrValue complement(LzrValue value) {
         if (value.type() == Types.NUMBER) {
-            final Number number = (Number) value.raw();
+            final Number number = ((LzrNumber) value).raw();
             if (number instanceof Long) {
                 return LzrNumber.of(~number.longValue());
             }

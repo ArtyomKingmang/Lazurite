@@ -5,10 +5,11 @@ import com.kingmang.lazurite.libraries.lzrx.lgl.value.EffectValue;
 import com.kingmang.lazurite.runtime.values.LzrValue;
 import javafx.scene.effect.Effect;
 import javafx.scene.effect.GaussianBlur;
+import org.jetbrains.annotations.NotNull;
 
 public class LGaussianBlur implements Function {
         @Override
-        public LzrValue execute(LzrValue[] args) {
+        public @NotNull LzrValue execute(@NotNull LzrValue... args) {
             GaussianBlur effect = new GaussianBlur();
             if (args.length >= 1) {
                 effect.setRadius(args[0].asNumber());

@@ -9,6 +9,7 @@ import com.kingmang.lazurite.libraries.Keyword;
 import com.kingmang.lazurite.libraries.Library;
 import com.kingmang.lazurite.runtime.Variables;
 import com.kingmang.lazurite.runtime.values.*;
+import org.jetbrains.annotations.NotNull;
 
 import java.lang.reflect.*;
 import java.net.MalformedURLException;
@@ -193,6 +194,7 @@ public final class reflection implements Library {
             return getValue(object.getClass(), object, key.asString());
         }
 
+        @NotNull
         @Override
         public String asString() {
             return object.toString();

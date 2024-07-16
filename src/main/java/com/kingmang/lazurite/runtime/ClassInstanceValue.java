@@ -5,6 +5,8 @@ import com.kingmang.lazurite.exceptions.LzrException;
 import com.kingmang.lazurite.runtime.values.LzrMap;
 import com.kingmang.lazurite.runtime.values.LzrValue;
 import lombok.Getter;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.Objects;
 
@@ -55,6 +57,7 @@ public class ClassInstanceValue implements LzrValue {
         thisMap.set(key, value);
     }
 
+    @Nullable
     @Override
     public Object raw() {
         return null;
@@ -70,6 +73,7 @@ public class ClassInstanceValue implements LzrValue {
         throw new LzrException("TypeExeption","Cannot cast class to integer");
     }
 
+    @NotNull
     @Override
     public String asString() {
         if (toString != null) {
@@ -78,6 +82,7 @@ public class ClassInstanceValue implements LzrValue {
         return className + "@" + thisMap;
     }
 
+    @NotNull
     @Override
     public int[] asArray() {
         return new int[0];
@@ -108,7 +113,7 @@ public class ClassInstanceValue implements LzrValue {
     }
 
     @Override
-    public int compareTo(LzrValue o) {
+    public int compareTo(@NotNull LzrValue o) {
         return asString().compareTo(o.asString());
     }
 
