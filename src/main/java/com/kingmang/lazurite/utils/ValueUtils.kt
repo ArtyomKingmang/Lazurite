@@ -93,11 +93,8 @@ object ValueUtils {
     }
 
     private fun JSONArray.toLzrArray(): LzrArray {
-        val length = length()
-        val result = LzrArray(length)
-        for (i in 0 until length) {
-            result[i] = toValue(get(i))
+        return LzrArray(length()) {
+            toValue(get(it))
         }
-        return result
     }
 }

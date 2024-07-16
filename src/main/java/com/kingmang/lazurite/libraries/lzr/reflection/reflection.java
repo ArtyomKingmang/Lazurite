@@ -352,12 +352,9 @@ public final class reflection implements Library {
         return clazz;
     }
 
-    private static LzrArray array(Class<?>[] classes) {
-        final LzrArray result = new LzrArray(classes.length);
-        for (int i = 0; i < classes.length; i++) {
-            result.set(i, JavaClassValue.classOrNull(classes[i]));
-        }
-        return result;
+    @NotNull
+    private static LzrArray array(@NotNull Class<?>[] classes) {
+        return new LzrArray(classes.length, index -> JavaClassValue.classOrNull(classes[index]));
     }
 
     private static LzrValue objectToValue(Object o) {

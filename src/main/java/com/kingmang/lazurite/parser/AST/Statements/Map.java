@@ -30,14 +30,11 @@ public final class Map implements Function {
 
         throw new LzrException("ArgumentsMismatchException ","Invalid first argument. Array or map expected");
     }
-    
-    private LzrValue mapArray(LzrArray array, Function mapper) {
+
+    @NotNull
+    private LzrValue mapArray(@NotNull LzrArray array, @NotNull Function mapper) {
         final int size = array.size();
-        final LzrArray result = new LzrArray(size);
-        for (int i = 0; i < size; i++) {
-            result.set(i, mapper.execute(array.get(i)));
-        }
-        return result;
+        return new LzrArray(size, index -> mapper.execute(array.get(index)));
     }
     
     private LzrValue mapMap(LzrMap map, Function keyMapper, Function valueMapper) {

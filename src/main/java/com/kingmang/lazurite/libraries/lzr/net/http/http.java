@@ -224,10 +224,7 @@ public final class http implements Library {
                 final LzrMap headers = new LzrMap(response.headers().size());
                 for (Map.Entry<String, List<String>> entry : response.headers().toMultimap().entrySet()) {
                     final int valuesSize = entry.getValue().size();
-                    final LzrArray values = new LzrArray(valuesSize);
-                    for (int i = 0; i < valuesSize; i++) {
-                        values.set(i, new LzrString(entry.getValue().get(i)));
-                    }
+                    final LzrArray values = new LzrArray(valuesSize, index -> new LzrString(entry.getValue().get(index)));
                     headers.set(entry.getKey(), values);
                 }
                 map.set("headers", headers);

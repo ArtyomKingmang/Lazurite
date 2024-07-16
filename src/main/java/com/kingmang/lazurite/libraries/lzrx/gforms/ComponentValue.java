@@ -6,6 +6,7 @@ import com.kingmang.lazurite.core.Converters;
 import com.kingmang.lazurite.core.Function;
 import com.kingmang.lazurite.runtime.values.*;
 import com.kingmang.lazurite.utils.ValueUtils;
+import org.jetbrains.annotations.NotNull;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -112,20 +113,16 @@ public abstract class ComponentValue extends LzrMap {
         return LzrNumber.ZERO;
     }
 
-    private LzrValue getLocation(LzrValue[] args) {
+    @NotNull
+    private LzrValue getLocation(@NotNull LzrValue[] args) {
         final Point location = component.getLocation();
-        final LzrArray result = new LzrArray(2);
-        result.set(0, LzrNumber.of(location.x));
-        result.set(1, LzrNumber.of(location.y));
-        return result;
+        return LzrArray.of(LzrNumber.of(location.x), LzrNumber.of(location.y));
     }
 
-    private LzrValue getLocationOnScreen(LzrValue[] args) {
+    @NotNull
+    private LzrValue getLocationOnScreen(@NotNull LzrValue[] args) {
         final Point location = component.getLocationOnScreen();
-        final LzrArray result = new LzrArray(2);
-        result.set(0, LzrNumber.of(location.x));
-        result.set(1, LzrNumber.of(location.y));
-        return result;
+        return LzrArray.of(LzrNumber.of(location.x), LzrNumber.of(location.y));
     }
 
     private LzrValue setFont(LzrValue[] args) {
@@ -149,10 +146,7 @@ public abstract class ComponentValue extends LzrMap {
     protected static LzrFunction dimensionFunction(Supplier<Dimension> s) {
         return new LzrFunction(args -> {
             final Dimension dimension = s.get();
-            final LzrArray result = new LzrArray(2);
-            result.set(0, LzrNumber.of(dimension.getWidth()));
-            result.set(1, LzrNumber.of(dimension.getHeight()));
-            return result;
+            return LzrArray.of(LzrNumber.of(dimension.getWidth()),LzrNumber.of(dimension.getHeight()));
         });
     }
 

@@ -15,3 +15,7 @@ fun assertLzrFails(expected: LzrException, block: () -> Unit) {
 fun assertLzrTypeFails(text: String, block: () -> Unit) {
     assertLzrFails(LzrException("TypeException", text), block)
 }
+
+fun assertLzrTypeCastFails(origin: String, target: String, block: () -> Unit) {
+    assertLzrFails(LzrException("TypeException", "Cannot cast $origin to $target"), block)
+}

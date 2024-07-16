@@ -4,6 +4,7 @@ import com.kingmang.lazurite.core.*
 import com.kingmang.lazurite.runtime.ClassInstanceValue
 import com.kingmang.lazurite.runtime.values.*
 import org.junit.Test
+import testutils.assertLzrTypeCastFails
 import testutils.assertLzrTypeFails
 import kotlin.test.assertEquals
 
@@ -61,20 +62,20 @@ class TypesCastExtTest {
 
     @Test
     fun `throwTypeCastException with types Expect valid fail`() {
-        assertLzrTypeFails(castText("map", "string")) {
+        assertLzrTypeCastFails("map", "string") {
             throwTypeCastException(Types.MAP, Types.STRING)
         }
-        assertLzrTypeFails(castText("string", "class")) {
+        assertLzrTypeCastFails("string", "class") {
             throwTypeCastException(Types.STRING, Types.CLASS)
         }
     }
 
     @Test
     fun `throwTypeCastException with strings Expect valid fail`() {
-        assertLzrTypeFails(castText("map", "string")) {
+        assertLzrTypeCastFails("map", "string") {
             throwTypeCastException("map", "string")
         }
-        assertLzrTypeFails(castText("string", "class")) {
+        assertLzrTypeCastFails("string", "class") {
             throwTypeCastException("string", "class")
         }
     }
@@ -84,10 +85,6 @@ class TypesCastExtTest {
         assertLzrTypeFails(testMessage) {
             throwTypeException(testMessage)
         }
-    }
-
-    private fun castText(origin: String, target: String): String {
-        return "Cannot cast $origin to $target"
     }
 
     private fun assertType(targetType: Int, block: LzrValue.((() -> String)?) -> LzrValue) {
