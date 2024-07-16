@@ -212,7 +212,7 @@ public final class lgl implements Library {
     private static class EventFilter implements Function {
         @Override
         public @NotNull LzrValue execute(@NotNull LzrValue... args) {
-            final Function handler = ((LzrFunction) args[1]).value;
+            final Function handler = ((LzrFunction) args[1]).getValue();
             final Events event = Events.values()[args[0].asInt()];
             canvas.addEventFilter(event.getHandler(), e -> handleEvent(e, handler));
             return LzrNumber.ZERO;

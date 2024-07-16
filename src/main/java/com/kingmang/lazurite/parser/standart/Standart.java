@@ -53,7 +53,7 @@ public class Standart {
                     throw new LzrException("TypeException ", arg + " is not a function");
                 }
                 final Function current = result;
-                final Function next = ((LzrFunction) arg).value;
+                final Function next = ((LzrFunction) arg).getValue();
                 result = fArgs -> {
                     if (current == null) return next.execute(fArgs);
                     return next.execute(current.execute(fArgs));

@@ -62,7 +62,7 @@ public final class FunctionalExpression extends InterruptableNode implements Exp
         try {
             final LzrValue value = expr.eval();
             if (value.type() == Types.FUNCTION) {
-                return ((LzrFunction) value).value;
+                return ((LzrFunction) value).getValue();
             }
             return getFunction(value.asString());
         } catch (VariableDoesNotExistsException ex) {
