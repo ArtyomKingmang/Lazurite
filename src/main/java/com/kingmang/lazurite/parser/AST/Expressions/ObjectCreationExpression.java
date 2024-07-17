@@ -7,11 +7,9 @@ import com.kingmang.lazurite.parser.AST.Statements.ClassDeclarationStatement;
 import com.kingmang.lazurite.parser.AST.Statements.FunctionDefineStatement;
 import com.kingmang.lazurite.patterns.visitor.ResultVisitor;
 import com.kingmang.lazurite.patterns.visitor.Visitor;
-import com.kingmang.lazurite.runtime.ClassInstanceValue;
-import com.kingmang.lazurite.runtime.ClassMethod;
+import com.kingmang.lazurite.runtime.ClassInstanceBuilder;
 import com.kingmang.lazurite.runtime.Variables;
 import com.kingmang.lazurite.runtime.values.LzrValue;
-import lombok.AllArgsConstructor;
 
 import java.util.Iterator;
 import java.util.List;
@@ -33,19 +31,16 @@ public record ObjectCreationExpression(String className, List<Expression> constr
         }
 
 
-        final ClassInstanceValue instance = new ClassInstanceValue(className);
+        final ClassInstanceBuilder builder = new ClassInstanceBuilder(className);
         for (AssignmentExpression f : cd.fields) {
 
             final String fieldName = ((VariableExpression) f.target).name;
-            instance.addField(fieldName, f.eval());
+            builder.addField(fieldName, f.eval());
         }
         for (FunctionDefineStatement m : cd.methods) {
-            instance.addMethod(m.name(), new ClassMethod(m.arguments(), m.body(), instance));
+            builder.addMethod(m.name(), m.arguments(), m.body());
         }
-
-
-        instance.callConstructor(ctorArgs());
-        return instance;
+        return builder.build(ctorArgs());
     }
 
     private LzrValue[] ctorArgs() {

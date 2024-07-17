@@ -371,8 +371,8 @@ public class PrintVisitor implements ResultVisitor<StringBuilder, StringBuilder>
                 final Function function = ((LzrFunction) s.value).getValue();
                 if (function instanceof UserDefinedFunction f) {
                     t.append("def");
-                    t.append(f.arguments);
-                    return visitFunctionBody(f.body, t);
+                    t.append(f.getArguments());
+                    return visitFunctionBody(f.getBody(), t);
                 } else t.append(function);
                 break;
             }
@@ -435,7 +435,7 @@ public class PrintVisitor implements ResultVisitor<StringBuilder, StringBuilder>
         }
         return t;
     }
-    
+
     private void printArgs(StringBuilder t, List<Expression> args) {
         t.append("(");
         boolean firstElement = true;
