@@ -23,7 +23,7 @@ public interface ResultVisitor<R, T> {
     R visit(ForeachAStatement s, T t);
     R visit(ForeachMStatement s, T t);
     R visit(FunctionDefineStatement s, T t);
-    R visit(DPointExpression s, T t);
+    R visit(FunctionReferenceExpression s, T t);
     R visit(ExprStatement s, T t);
     R visit(FunctionalExpression s, T t);
     R visit(IfStatement s, T t);

@@ -203,7 +203,7 @@ public class PrintVisitor implements ResultVisitor<StringBuilder, StringBuilder>
     }
 
     @Override
-    public StringBuilder visit(DPointExpression s, StringBuilder t) {
+    public StringBuilder visit(FunctionReferenceExpression s, StringBuilder t) {
         t.append("::");
         visitVariable(s.name, t);
         return t;

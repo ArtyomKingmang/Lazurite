@@ -23,7 +23,7 @@ public interface Visitor {
     void visit(ForeachAStatement s);
     void visit(ForeachMStatement s);
     void visit(FunctionDefineStatement s);
-    void visit(DPointExpression e);
+    void visit(FunctionReferenceExpression e);
     void visit(ExprStatement s);
     void visit(FunctionalExpression s);
     void visit(IfStatement s);

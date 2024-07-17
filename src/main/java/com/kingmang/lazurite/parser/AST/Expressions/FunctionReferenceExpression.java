@@ -8,7 +8,7 @@ import com.kingmang.lazurite.runtime.values.LzrFunction;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
-public final class DPointExpression extends InterruptableNode implements Expression {
+public final class FunctionReferenceExpression extends InterruptableNode implements Expression {
 
     public final String name;
 

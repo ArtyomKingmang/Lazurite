@@ -102,7 +102,7 @@ public abstract class AbstractVisitor implements Visitor {
     }
 
     @Override
-    public void visit(DPointExpression e) {
+    public void visit(FunctionReferenceExpression e) {
     }
 
     @Override

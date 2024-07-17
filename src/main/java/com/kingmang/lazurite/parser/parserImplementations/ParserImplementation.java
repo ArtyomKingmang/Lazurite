@@ -819,7 +819,7 @@ public final class ParserImplementation implements IParser {
 
         if (match(TokenType.COLONCOLON)) {
             final String functionName = consume(TokenType.WORD).getText();
-            return new DPointExpression(functionName);
+            return new FunctionReferenceExpression(functionName);
         }
 
         if (match(TokenType.SWITCH)) {
