@@ -5,22 +5,30 @@
 * [gforms - графическая библиотека (виджеты)](#gforms)
 * [robot - автоматизация](#robot)
 * [lsoup - работа с HTML ](#lsoup)
-* [async](#async)
-* [std](#std)
-* [arrays - работа с массивами](#arrays)
+* [utils](#utils)
+  * [arrays](#arrays)
+  * [artify](#artify)
+  * [base64](#base64)
+  * [clipboard](#clipboard)
+  * [json](#json)
+  * [lfs](#lfs)
+  * [math](#math)
+  * [random](#random)
+  * [thread](#thread)
+  * [time](#time)
+  
+* [collections](#collections)
 * [graph - графическая библиотека](#graph)
-* [artify](#artify)
-* [base64](#base64)
-* [clipboard](#clipboard)
-* [LFS - работа с файлами](#LFS)
-* [system](#system)
-* [io](#io)
-* [ML](#ML)
-* [jloader - загрузка jar файлов](#jloader)
-* [random](#random)
-* [time](#time)
+
+* [lang](#lang)
+  * [system](#system)
+  * [io](#io)
+  * [Character](#Character)
+  * [Integer](#Integer)
+  * [Double](#Double)
+  * [String][#String]
+
 * [colors](#colors)
-* [json](#json)
 
 # lgl
 ### (добавлено с 2.7.4)
@@ -63,7 +71,7 @@
 Пример 1:
 
 ```python
-using "lgl"
+using "lzrx.lgl"
 
 frame = lgl.createFrame("Hello, Lazurite!", 500, 400)
 frame.rect(10, 10, 30, 30)
@@ -80,7 +88,7 @@ img в позиции x; y с размерами width; height.
 Пример 2:
 
 ````python
-using "lgl"
+using "lzrx.lgl"
 
 frame = lgl.createFrame(500,500)
 
@@ -116,7 +124,7 @@ frame.image(img, 100, 100, 100, 100)
 
 Пример 3:
 ````python
-using "lgl"
+using "lzrx.lgl"
 
 frame = lgl.createFrame(500,500)
 
@@ -157,7 +165,7 @@ frame.rect(100,100,100,100)
 Пример 4:
 
 ````python
-using "lgl"
+using "lzrx.lgl"
 
 window = lgl.createFrame("Test Frame", 500, 500)
 
@@ -197,7 +205,7 @@ SWIPE_UP=16
 ````
 Пример 5:
 ````python
-using "lgl"
+using "lzrx.lgl"
 
 window = lgl.createFrame("Test Frame", 500, 500)
 
@@ -235,7 +243,7 @@ isSynthesized
 ````
 Пример 6:
 ````python
-using "lgl"
+using "lzrx.lgl"
 
 window = lgl.createFrame("Test Frame", 500, 500)
 
@@ -263,7 +271,7 @@ isShortcutDown
 # http
 `http.download()` - загружает файл из downloadUrl в filePath
 ````java
-using "http"
+using "lzr.net.http"
 http.download("https://test/tester.html", "test.txt")
 ````
 
@@ -353,7 +361,7 @@ println("Country Name: " + locale1.getDisplayCountry());
 `Button(text = "")` - создает новую кнопку
 
 ````java
-using "gforms"
+using "lzrx.gforms"
 
 button = Button("Button")
 
@@ -473,7 +481,7 @@ gridLayout(rows = 1, cols = 0, hgap = 0, vgap = 0) - создаёт GridLayout
 
 Пример
 ````java
-using "gforms"
+using "lzrx.gforms"
 
 window = Frame("test")
 window.setMinimumSize(600,300)
@@ -551,7 +559,7 @@ robot.execProcess("mkdir", "Hello")
 `robot.keyPress(key)` - Зажимает клавишу с указанным кодом.
 
 ````cpp
-using "robot"
+using "lzrx.robot"
 robot.keyPress(KEY.TAB)
 robot.keyPress(KEY.A)
 ````
@@ -582,7 +590,7 @@ robot.keyPress(KEY.A)
 `lsoup.select("tag")` - выполняет поиск элементов с тегом "tag" в загруженном HTML-коде.
 
 ````java
-using "lsoup"
+using "lzr.net.lsoup"
 
 lsoup.parser("https://artyomkingmang.github.io/lazurite-pages/")
 result = lsoup.select("title")
@@ -595,29 +603,254 @@ print(result)
 
 Пример использования:
 ````java
-using "async"
+using "lzr.async"
 func hel(arg){
     print(arg)
 }
 async.supply(hel("Hello"))
 ````
-# std
-`std.thread("function", arg)` - создает новый поток. Первым аргументом выступает название функции (тип string), однако можно использовать и ссылку на функцию (`std.thread("function", arg)`).
+
+# utils
+* [arrays](#arrays)
+* [artify](#artify)
+* [base64](#base64)
+* [clipboard](#clipboard)
+* [lfs](#lfs)
+* [json](#json)
+* [math](#math)
+* [random](#random)
+* [thread](#thread)
+* [time](#time)
+
+# arrays
+`arrays.combine(keys, values)` — создает массив, используя один массив для ключей, а другой — для его значений
+
+Пример:
+````java
+using "lzr.utils.arrays"
+
+colors = ["green", "red", "yellow"]
+fruits = ["avocado", "apple", "banana"]
+
+out = arrays.combine(colors, fruits)
+print(out)
+````
+
+`arrays.keyExists(key, map)` - Проверяет, существует ли в массиве заданный ключ или индекс. Если существует, возвращает 1, иначе 0.
+
+Пример:
+````java
+using "lzr.utils.arrays"
+map = {
+    "apple" : "red"
+    "banana" : "yellow"
+}
+print(arrays.keyExists("apple",map))
+````
+
+`arrays.join(array, "delimiter", "prefix", "suffix")` — объединяет массив в строку с разделителем, префиксом и суффиксом.
+
+Пример:
+
+````java
+using "lzr.utils.arrays"
+array = ["banana", "apple", "pie"]
+
+out_array = arrays.join(array, "--")
+print(out_array)
+
+//Вывод: banana--apple--pie
+````
+
+`arrays.sort(array)` — сортирует массив.
+
+
+# artify
+Библиотека для преобразования текста в ASCII арт.
+
+`artify.build(text = "")` - преобразует текст с арт
+Пример:
+````java
+using "lzr.utils.artify"
+
+print(artify.build("Hello World!"))
+````
+Вывод:
+````
+  _  _   ___   _      _       ___        __      __   ___    ___   _      ___    _ 
+ | || | | __| | |    | |     / _ \       \ \    / /  / _ \  | _ \ | |    |   \  | |
+ | __ | | _|  | |__  | |__  | (_) |       \ \/\/ /  | (_) | |   / | |__  | |) | |_|
+ |_||_| |___| |____| |____|  \___/         \_/\_/    \___/  |_|_\ |____| |___/  (_)
+````
+
+# base64
+`base64.encode(data, type = 0)` - кодирует массив байт или строку в закодированный base64 массив байт.
+
+# clipboard
+Библиотека для работы с для буфером обмена
+
+`clipboard.get()` - получить текст из буфера обмена
+
+`clipboard.set("text")` - установить текст в буфер обмена
+
+`clipboard.has()` - проверяет, есть ли текст в буфере обмена
+
+`clipboard.add("text")` - добавляет текст в конец буфера обмена
+
+`clipboard.clear()` - отчищает буфер обмена
+
+# lfs
+`lfs.open(path, mode = "r")` — открывает файл по пути path в заданном режиме mode:
+
+* "" - открывает файл или папку для получения информации;
+* "r" - открывает файл для чтения в текстовом режиме;
+* "rb" - открывает файл для чтения в бинарном режиме;
+* "w" - открывает файл для записи в текстовом режиме;
+* "w+" - открывает файл для дозаписи в текстовом режиме;
+* "wb" - открывает файл для записи в бинарном режиме;
+* "wb+" - открывает файл для дозаписи в бинарном режиме.
+
+`lfs.close(f)` — закрывает файл.
+
+`lfs.fileSize(f)` — возвращает размер файла в байтах.
+
+`lfs.isDir(f)` — проверяет, является ли дескриптор f папкой. 1 - является, 0 - нет.
+
+`lfs.isFile(f)` — проверяет, является ли дескриптор f файлом. 1 - является, 0 - нет.
+
+`lfs.mkdir(f)` — создаёт папку. Возвращает 1, если создание прошло успешно, иначе - 0.
+
+`lfs.read.allBytes(f)` — чтение всех байт файла. Возвращает массив байт файла.
+
+`lfs.read.bytes(f, array, offset = 0, length = length(array))` — чтение заданного количества байт в массив array. Возвращает число прочитанных байт.
+Если offset и length не указаны, то читается количество байт равное длине массива.
+Если offset и length указаны, то читается length байт в массив array, начиная с offset+1 байта
+
+`lfs.read.double(f)` — чтение 8 байт (вещественное число двойной точности)
+
+`lfs.read.float(f)` — чтение 4 байт (вещественное число)
+
+`lfs.read.int(f)` — чтение 4 байт (целое число)
+
+`lfs.read.line(f)` — чтение строки в текстовом режиме
+
+`lfs.read.long(f)` — чтение 8 байт (длинное целое число)
+
+`lfs.read.short(f)` — чтение 2 байт (короткое целое число)
+
+`lfs.read.text(f)` — чтение всего файла в текстовом режиме в строку
+
+`lfs.read.utf(f)` — чтение строки в бинарном режиме
+
+`lfs.rename(from, to)` — переименование (или перемещение) файла
+
+`lfs.copy(src, dst)` — копирует файл src в dst
+
+`lfs.delete(f)` — удаляет файл или папку. Возвращает 1, если удаление прошло успешно, иначе - 0
+
+# json
+`json.decode(data)` - преобразует переданные данные в строку в формате json
+Пример:
+````java
+using "lzr.utils.json"
+data = "{\"name\":Kingmang,\"digit\":2,\"array\":\"[2,6,7,7,4,6]\"}"
+println(json.decode(data))
+````
+Результат:
+
+`{array=[2,6,7,7,4,6], name=Kingmang, digit=2}`
+
+
+# math
+### Библиотека для работы с математикой
+
+`math.abs(x)` — модуль числа x
+
+`math.acos(x)` — арккосинус
+
+`math.asin(x)`— арксинус
+
+`math.atan(x)` — арктангенс
+
+`math.atan2(y, x)` — угол θ, тангенс которого равен отношению двух указанных чисел
+
+`math.cbrt(x)` — кубический корень числа x
+
+`math.ceil(x)` — округляет вещественное число в большую сторону
+
+`math.cos(x)` — косинус
+
+`math.cosh(x)` — гиперболический косинус
+
+`math.floor(x)` — округляет вещественное число в меньшую сторону
+
+`math.getExponent(x)` — возвращают несмещенное значение экспоненты числа
+
+`math.hypot(x, y)` — расчёт гипотенузы sqrt(x2 + y2) без переполнения
+
+`math.IEEEremainder(x, y)` — возвращает остаток от деления x на y по стандарту ANSI/IEEE Std 754-1985, раздел 5.1
+
+`math.log(x)` — логарифм
+
+`math.log1p(x)` — натуральный логарифм от x + 1 (ln(x + 1))
+
+`math.log10(x)` — десятичный логарифм
+
+`math.max(x, y)` — максимальное из двух чисел
+
+`math.min(x, y)` — минимальное из двух чисел
+
+`math.pow(x, y)` — возведение x в степень y
+
+`math.round(x)` — округляет вещественное число до ближайшего целого
+
+`math.signum(x)` — возвращает целое число, указывающее знак числа
+
+`math.sin(x)` — синус
+
+`math.sinh(x)` — гиперболический синус
+
+`math.sqrt(x)` — квадратный корень
+
+`math.tan(x)` — тангенс
+
+`math.tanh(x)` — гиперболический тангенс
+
+`math.toDegrees(x)` — перевод радиан в градусы
+
+`math.toRadians(x)` — перевод градусов в радианы
+
+# thread
+`thread("function", arg)` - создает новый поток. Первым аргументом выступает название функции (тип string), однако можно использовать и ссылку на функцию (`std.thread("function", arg)`).
 Второй аргумент является аргументом переданной функции.
 
 Пример:
 ````java
-using "std"
+using "lzr.utils.thread"
 
 func message(name){
     print("Hello, " + name)
 }
 
-std.thread("message", "Artyom")
+thread("message", "Artyom")
 ````
 В этом потоке вызывается функция message с аргументом "Artyom". Функция message просто выводит приветственное сообщение с именем, переданным в качестве аргумента.
 
 Использование потоков выполнения позволяет выполнять различные задачи параллельно, что может улучшить производительность программы. В данном случае, создается новый поток, который вызывает функцию message, тогда как основной поток может продолжать выполнять другие задачи.
+
+
+# random
+`random(from = 0, to = 10)` — возвращает псевдослучайное число.
+
+# time
+`time.sleep(time)` - приостановка текущего потока на time миллисекунд.
+
+
+
+
+# collection
+
+### (добавлено с 2.7.3)
 
 `flatmap(array, mapper)` — преобразует каждый элемент массива в массив элементов.
 
@@ -639,69 +872,6 @@ output = std.flatmap(numbers, func(x) {
 print(output)
 ````
 
-### Обертки для классов (Добавлено с 2.7.3)
-
-##### Integer
-`Integer.bitCount(arg = 0)` - Возвращает количество однобитовых чисел в двоичном представлении указанного целочисленного значения.
-
-`Integer.max(arg1 = 0, arg2 = 0)` - Возвращает большее из двух значений int.
-
-`Integer.min(arg1 = 0, arg2 = 0)` - Возвращает меньшее из двух значений int.
-
-`Integer.compare(arg1 = 0, arg2 = 0)` - Сравнивает два значения int
-
-`Integer.parseInt(arg = "")` - Анализирует строковый аргумент как десятичное целое число со знаком.
-
-`Integer.decode(arg = "")` - Декодирует строку в целое число.
-
-`Integer.signum(arg = 0)` - Возвращает функцию signum указанного значения int
-
-`Integer.compareUnsigned(arg1 = 0, arg2 = 0)` - Сравнивает два значения int в числовом виде, рассматривая значения как "беззнаковые".
-
-`Integer.MAX_VALUE` - Константа, содержащая максимальное значение, которое может иметь int (2**31-1).
-
-`Integer.MIN_VALUE `- Константа, содержащая минимальное значение, которое может иметь int, (-2**31).
-
-##### Double
-`Double.max(arg1 = 0, arg2 = 0)` - Возвращает большее из двух значений double.
-
-`Double.min(arg1 = 0, arg2 = 0)` - Возвращает меньшее из двух значений double.
-
-`Double.doubleToLongBits(arg)` - функция используется для преобразования числа типа double в его битовое представление типа long
-
-`Double.parseDouble(arg)` - Анализирует строковый аргумент как десятичное целое число со знаком.
-
-`Double.MAX_VALUE` - Константа, содержащая максимальное значение, которое может иметь double.
-
-`Double.MIN_VALUE `- Константа, содержащая минимальное значение, которое может иметь double.
-
-#### Функции String
-
-`String.valueOf(arg)`
-
-`String.format(arg,arg)`
-
-`String.join(arg,arg)`
-
-`String.CASE_INSENSITIVE_ORDER`
-
-### Коллекции (добавлено с 2.7.3)
-
-`arrayDeque` - новый ArrayDeque
-
-Функции arrayDeque:
-
-````
-arrayDeque.add()
-
-arrayDeque.remove()
-
-arrayDeque.size()
-
-arrayDeque.toArray()
-
-````
-
 `hashMap(fromMap = {})` — создаёт новый HashMap из значений fromMap
 
 `linkedHashMap(fromMap = {})` — создаёт новый LinkedHashMap из значений fromMap
@@ -711,50 +881,6 @@ arrayDeque.toArray()
 `treeMap(fromMap = {}, comparator = func(a, b) = 0)` — создаёт новый TreeMap из значений fromMap и компаратора comparator
 
 `concurrentSkipListMap(fromMap = {}, comparator = func(a, b) = 0)` — создаёт новый ConcurrentSkipListMap из значений fromMap и компаратора comparator
-
-
-# arrays
-`arrays.combine(keys, values)` — создает массив, используя один массив для ключей, а другой — для его значений
-
-Пример:
-````java
-using "arrays"
-
-colors = ["green", "red", "yellow"]
-fruits = ["avocado", "apple", "banana"]
-
-out = arrays.combine(colors, fruits)
-print(out)
-````
-
-`arrays.keyExists(key, map)` - Проверяет, существует ли в массиве заданный ключ или индекс. Если существует, возвращает 1, иначе 0.
-
-Пример:
-````java
-using "arrays"
-map = {
-    "apple" : "red"
-    "banana" : "yellow"
-}
-print(arrays.keyExists("apple",map))
-````
-
-`arrays.join(array, "delimiter", "prefix", "suffix")` — объединяет массив в строку с разделителем, префиксом и суффиксом.
-
-Пример:
-
-````java
-using "arrays"
-array = ["banana", "apple", "pie"]
-
-out_array = arrays.join(array, "--")
-print(out_array)
-
-//Вывод: banana--apple--pie
-````
-
-`arrays.sort(array)` — сортирует массив.
-
 
 
 
@@ -849,7 +975,6 @@ while(1){
 ````
 
 
-
 ### Другие функции
 ````
 translate(arg[0], arg[1])
@@ -860,88 +985,13 @@ scale(arg[0], arg[1])
 
 
 
-# artify
-Библиотека для преобразования текста в ASCII арт.
-
-`artify.build(text = "")` - преобразует текст с арт
-Пример:
-````java
-using "artify"
-
-print(artify.build("Hello World!"))
-````
-Вывод:
-````
-  _  _   ___   _      _       ___        __      __   ___    ___   _      ___    _ 
- | || | | __| | |    | |     / _ \       \ \    / /  / _ \  | _ \ | |    |   \  | |
- | __ | | _|  | |__  | |__  | (_) |       \ \/\/ /  | (_) | |   / | |__  | |) | |_|
- |_||_| |___| |____| |____|  \___/         \_/\_/    \___/  |_|_\ |____| |___/  (_)
-````
-
-# base64
-`base64.encode(data, type = 0)` - кодирует массив байт или строку в закодированный base64 массив байт.
-
-# clipboard
-Библиотека для работы с для буфером обмена
-
-`clipboard.get()` - получить текст из буфера обмена
-
-`clipboard.set("text")` - установить текст в буфер обмена
-
-`clipboard.has()` - проверяет, есть ли текст в буфере обмена
-
-`clipboard.add("text")` - добавляет текст в конец буфера обмена
-
-`clipboard.clear()` - отчищает буфер обмена
-
-# LFS
-`lfs.open(path, mode = "r")` — открывает файл по пути path в заданном режиме mode:
-
-* "" - открывает файл или папку для получения информации;
-* "r" - открывает файл для чтения в текстовом режиме;
-* "rb" - открывает файл для чтения в бинарном режиме;
-* "w" - открывает файл для записи в текстовом режиме;
-* "w+" - открывает файл для дозаписи в текстовом режиме;
-* "wb" - открывает файл для записи в бинарном режиме;
-* "wb+" - открывает файл для дозаписи в бинарном режиме.
-
-`lfs.close(f)` — закрывает файл.
-
-`lfs.fileSize(f)` — возвращает размер файла в байтах.
-
-`lfs.isDir(f)` — проверяет, является ли дескриптор f папкой. 1 - является, 0 - нет.
-
-`lfs.isFile(f)` — проверяет, является ли дескриптор f файлом. 1 - является, 0 - нет.
-
-`lfs.mkdir(f)` — создаёт папку. Возвращает 1, если создание прошло успешно, иначе - 0.
-
-`lfs.read.allBytes(f)` — чтение всех байт файла. Возвращает массив байт файла.
-
-`lfs.read.bytes(f, array, offset = 0, length = length(array))` — чтение заданного количества байт в массив array. Возвращает число прочитанных байт.
-Если offset и length не указаны, то читается количество байт равное длине массива.
-Если offset и length указаны, то читается length байт в массив array, начиная с offset+1 байта
-
-`lfs.read.double(f)` — чтение 8 байт (вещественное число двойной точности)
-
-`lfs.read.float(f)` — чтение 4 байт (вещественное число)
-
-`lfs.read.int(f)` — чтение 4 байт (целое число)
-
-`lfs.read.line(f)` — чтение строки в текстовом режиме
-
-`lfs.read.long(f)` — чтение 8 байт (длинное целое число)
-
-`lfs.read.short(f)` — чтение 2 байт (короткое целое число)
-
-`lfs.read.text(f)` — чтение всего файла в текстовом режиме в строку
-
-`lfs.read.utf(f)` — чтение строки в бинарном режиме
-
-`lfs.rename(from, to)` — переименование (или перемещение) файла
-
-`lfs.copy(src, dst)` — копирует файл src в dst
-
-`lfs.delete(f)` — удаляет файл или папку. Возвращает 1, если удаление прошло успешно, иначе - 0
+# lang
+* [system](#system)
+* [io](#io)
+* [Character](#Character)
+* [Integer](#Integer)
+* [Double](#Double)
+* [String](#String)
 
 # system
 ### Библиотека для работы с системой.
@@ -949,7 +999,7 @@ print(artify.build("Hello World!"))
 
 Пример:
 ````java
-using "system"
+using "lzr.lang.system"
 println(system.getProperty("lzr.version"))
 println(system.getProperty("os.name"))
 println(system.getProperty("java.version"))
@@ -1011,7 +1061,7 @@ println(system.getProperty("file.separator"))
 Пример использования:
 
 ````cpp
-using "io"
+using "lzr.lang.io"
 
 ps = io.PrintStream
 ps.`new`("test.txt")
@@ -1028,7 +1078,7 @@ ps.`print`("Hello everyone!")
 `read()` - Считывает следующий байт данных из этого входного потока.
 
 ````cpp
-using "io"
+using "lzr.lang.io"
 
 input = "Hello"
 
@@ -1045,96 +1095,68 @@ while((b=bais.read())!=-1){
 `readNBytes(arg, off, len)` - Считывает запрошенное количество байтов из входного потока в заданный массив байтов. Этот метод блокируется до тех пор, пока не будут прочитаны len байт входных данных, не будет обнаружен конец потока или не будет выдано исключение
 
 
-# ML
-### Библиотека для работы с математикой (Math Library).
-
-`ml.abs(x)` — модуль числа x
-
-`ml.acos(x)` — арккосинус
-
-`ml.asin(x)`— арксинус
-
-`ml.atan(x)` — арктангенс
-
-`ml.atan2(y, x)` — угол θ, тангенс которого равен отношению двух указанных чисел
-
-`ml.cbrt(x)` — кубический корень числа x
-
-`ml.ceil(x)` — округляет вещественное число в большую сторону
-
-`ml.cos(x)` — косинус
-
-`ml.cosh(x)` — гиперболический косинус
-
-`ml.floor(x)` — округляет вещественное число в меньшую сторону
-
-`ml.getExponent(x)` — возвращают несмещенное значение экспоненты числа
-
-`ml.hypot(x, y)` — расчёт гипотенузы sqrt(x2 + y2) без переполнения
-
-`ml.IEEEremainder(x, y)` — возвращает остаток от деления x на y по стандарту ANSI/IEEE Std 754-1985, раздел 5.1
-
-`ml.log(x)` — логарифм
-
-`ml.log1p(x)` — натуральный логарифм от x + 1 (ln(x + 1))
-
-`ml.log10(x)` — десятичный логарифм
-
-`ml.max(x, y)` — максимальное из двух чисел
-
-`ml.min(x, y)` — минимальное из двух чисел
-
-`ml.pow(x, y)` — возведение x в степень y
-
-`ml.round(x)` — округляет вещественное число до ближайшего целого
-
-`ml.signum(x)` — возвращает целое число, указывающее знак числа
-
-`ml.sin(x)` — синус
-
-`ml.sinh(x)` — гиперболический синус
-
-`ml.sqrt(x)` — квадратный корень
-
-`ml.tan(x)` — тангенс
-
-`ml.tanh(x)` — гиперболический тангенс
-
-`ml.toDegrees(x)` — перевод радиан в градусы
-
-`ml.toRadians(x)` — перевод градусов в радианы
-
-# jloader
-Библиотека позволяет загружать jar-файлы, не добавляя их в сам lazurite
-
-Пример:
-````java
-using "jloader"
+# Character
+`Character.isAlphabetic(arg)` - Определяет, является ли указанный символ (кодовая точка Юникода) алфавитом.
+`Character.isDigit(arg)` - Определяет, является ли указанный символ цифрой.
+`Character.isLetter(arg)` - Определяет, является ли указанный символ буквой.
+`Character.isLetterOrDigit(arg)` - Определяет, является ли указанный символ буквой или цифрой.
 
 
-jloader.invoke("examples/jloader/printer.java", "com.monsler.printer.Printer", "print", "Hello from java!", 1)
-/*  
-Аргументы:
-1 - путь к jar;
-2 - класс;
-3 - метод;
-4 - аргумент ( используйте Object[] как аргумент );
-5 - статичность метода (0 - нет; 1 - да)
-*/
-````
 
-# random
-`random(from = 0, to = 10)` — возвращает псевдослучайное число.
+# Integer
+`Integer.bitCount(arg = 0)` - Возвращает количество однобитовых чисел в двоичном представлении указанного целочисленного значения.
 
-# time
-`time.sleep(time)` - приостановка текущего потока на time миллисекунд.
+`Integer.max(arg1 = 0, arg2 = 0)` - Возвращает большее из двух значений int.
+
+`Integer.min(arg1 = 0, arg2 = 0)` - Возвращает меньшее из двух значений int.
+
+`Integer.compare(arg1 = 0, arg2 = 0)` - Сравнивает два значения int
+
+`Integer.parseInt(arg = "")` - Анализирует строковый аргумент как десятичное целое число со знаком.
+
+`Integer.decode(arg = "")` - Декодирует строку в целое число.
+
+`Integer.signum(arg = 0)` - Возвращает функцию signum указанного значения int
+
+`Integer.compareUnsigned(arg1 = 0, arg2 = 0)` - Сравнивает два значения int в числовом виде, рассматривая значения как "беззнаковые".
+
+`Integer.MAX_VALUE` - Константа, содержащая максимальное значение, которое может иметь int (2**31-1).
+
+`Integer.MIN_VALUE `- Константа, содержащая минимальное значение, которое может иметь int, (-2**31).
+
+# Double
+`Double.max(arg1 = 0, arg2 = 0)` - Возвращает большее из двух значений double.
+
+`Double.min(arg1 = 0, arg2 = 0)` - Возвращает меньшее из двух значений double.
+
+`Double.doubleToLongBits(arg)` - функция используется для преобразования числа типа double в его битовое представление типа long
+
+`Double.parseDouble(arg)` - Анализирует строковый аргумент как десятичное целое число со знаком.
+
+`Double.MAX_VALUE` - Константа, содержащая максимальное значение, которое может иметь double.
+
+`Double.MIN_VALUE `- Константа, содержащая минимальное значение, которое может иметь double.
+
+# String
+
+`String.valueOf(arg)`
+
+`String.format(arg,arg)`
+
+`String.join(arg,arg)`
+
+`String.CASE_INSENSITIVE_ORDER`
+
+
+
+
 
 # colors
 
 Упрощает работу с цветами в консоли.
 Пример:
 ````java
-using "colors"
+using "lzrx.colors"
 println(sprintf(color.blue))
 println("Hello")
 ````
@@ -1158,16 +1180,5 @@ println("Hello")
 
 `color.clear()`
 
-# json
-`json.decode(data)` - преобразует переданные данные в строку в формате json
-Пример:
-````java
-using "json"
-data = "{\"name\":Kingmang,\"digit\":2,\"array\":\"[2,6,7,7,4,6]\"}"
-println(json.decode(data))
-````
-Результат:
-
-`{array=[2,6,7,7,4,6], name=Kingmang, digit=2}`
 
 
