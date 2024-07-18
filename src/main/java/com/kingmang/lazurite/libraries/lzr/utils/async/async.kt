@@ -1,4 +1,4 @@
-package com.kingmang.lazurite.libraries.lzr.async
+package com.kingmang.lazurite.libraries.lzr.utils.async
 
 import com.kingmang.lazurite.core.Arguments
 import com.kingmang.lazurite.core.Function

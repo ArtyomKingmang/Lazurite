@@ -1,11 +1,21 @@
 # Библиотеки
-* [lgl - графическая библиотека](#lgl)
-* [http - работа с сетью](#http)
-* [reflection - внедрение java пакетов](#reflection)
-* [gforms - графическая библиотека (виджеты)](#gforms)
-* [robot - автоматизация](#robot)
-* [lsoup - работа с HTML ](#lsoup)
+
+### lzr
+
+* [net](#net)
+  * [http - работа с сетью](#http)
+  * [lsoup - работа с HTML ](#lsoup)
+  
+* [collections](#collections)
+  * [flatmap](#flatmap)
+  * [concurrentHashMap](#concurrentHashMap)
+  * [hashMap](#hashMap)
+  * [linkedHashMap](#linkedHashMap)
+  * [treeMap](#treeMap)
+  * [concurrentSkipListMap](#concurrentSkipListMap)
+
 * [utils](#utils)
+  * [async](#async)
   * [arrays](#arrays)
   * [artify](#artify)
   * [base64](#base64)
@@ -17,18 +27,600 @@
   * [thread](#thread)
   * [time](#time)
   
-* [collections](#collections)
-* [graph - графическая библиотека](#graph)
-
 * [lang](#lang)
   * [system](#system)
   * [io](#io)
   * [Character](#Character)
   * [Integer](#Integer)
   * [Double](#Double)
-  * [String][#String]
+  * [String](#String)
 
+* [reflection - внедрение java пакетов](#reflection)
+
+### lzrx
+
+* [lgl - графическая библиотека](#lgl)
+* [gforms - графическая библиотека (виджеты)](#gforms)
+* [robot - автоматизация](#robot)
+* [graph - графическая библиотека](#graph)
 * [colors](#colors)
+
+
+
+
+
+# net
+* [http](#http)
+* [lsoup](#lsoup)
+
+# http
+`http.download()` - загружает файл из downloadUrl в filePath
+````java
+using "lzr.net.http"
+http.download("https://test/tester.html", "test.txt")
+````
+
+
+`http.getContentLength(url)` - получает длину содержимого, отправляя запрос HEAD на указанный URL-адрес
+
+`http.request(url)` - выполняет GET-запрос на указанный адрес url.
+
+`http.request(url, method)` - выполняет запрос на указанный адрес url методом method (GET, POST, PUT, DELETE, PATCH, OPTIONS).
+
+`http.request(url, callback)` - выполняет GET-запрос на указанный адрес url, ответ сервера передаёт в функцию callback.
+````java
+using "lzr.net.http"
+http.request("https://github.com/ArtyomKingmang/Lazurite/blob/main/docs/Documentation_RU.md", ::echo)
+````
+`http.request(url, method, params)` - выполняет запрос на указанный адрес url, методом method c данными params (объект).
+
+`http.request(url, method, callback)` - выполняет запрос на указанный адрес url, методом method, ответ сервера передаёт в функцию callback.
+
+`http.request(url, method, params, callback)` - выполняет запрос на указанный адрес url, методом method, с данными params, ответ сервера передаёт в функцию callback.
+
+`http.request(url, method, params, options, callback)` - выполняет запрос на указанный адрес url, методом method, с данными params, параметрами подключения options, ответ сервера передаёт в функцию callback.
+
+Параметрами подключения выступает объект. Допустимы следующие параметры
+
+    header - задаёт http-заголовок, если передана строка или несколько заголовков, если массив.
+
+    encoded - указывает, что данные params уже закодированы в URL-формате.
+
+    content_type - указывает Content-Type.
+
+    extended_result - указывает, что ответ сервера нужно вернуть в расширенном виде, а именно объектом с данными:
+
+        text - текст ответа сервера
+
+        message - сообщение сервера
+
+        code - код ответа сервера
+
+        headers - http-заголовки ответа
+
+        content_length - Content-Length
+
+        content_type - Content-Type
+
+`url.encode(str)` - преобразует строку в URL-формат
+
+# lsoup
+`lsoup.parser(url)` - загружает HTML-код веб-страницы по указанному URL.
+
+`lsoup.select("tag")` - выполняет поиск элементов с тегом "tag" в загруженном HTML-коде.
+
+````java
+using "lzr.net.lsoup"
+
+lsoup.parser("https://artyomkingmang.github.io/lazurite-pages/")
+result = lsoup.select("title")
+
+print(result)
+````
+
+# collection
+
+### (добавлено с 2.7.3)
+
+# flatmap
+`flatmap(array, mapper)` — преобразует каждый элемент массива в массив элементов.
+
+Пример:
+
+````java
+using "std"
+
+numbers = [1,2,3,4,5,6,7,8,9]
+
+output = std.flatmap(numbers, func(x) {
+  arr = Array(x)
+  for(i = 0, i < x, i++){
+    arr[i] = x
+  }
+  return arr
+})
+
+print(output)
+````
+
+# hashMap
+
+`hashMap(fromMap = {})` — создаёт новый HashMap из значений fromMap
+
+# linkedHashMap
+`linkedHashMap(fromMap = {})` — создаёт новый LinkedHashMap из значений fromMap
+
+# concurrentHashMap
+`concurrentHashMap(fromMap = {})` — создаёт новый ConcurrentHashMap из значений fromMap
+
+# treeMap
+`treeMap(fromMap = {}, comparator = func(a, b) = 0)` — создаёт новый TreeMap из значений fromMap и компаратора comparator
+
+# concurrentSkipListMap
+`concurrentSkipListMap(fromMap = {}, comparator = func(a, b) = 0)` — создаёт новый ConcurrentSkipListMap из значений fromMap и компаратора comparator
+
+
+
+# utils
+* [async](#async)
+* [arrays](#arrays)
+* [artify](#artify)
+* [base64](#base64)
+* [clipboard](#clipboard)
+* [lfs](#lfs)
+* [json](#json)
+* [math](#math)
+* [random](#random)
+* [thread](#thread)
+* [time](#time)
+
+# async
+`async.supply(function)` - асинхронный способ получения или предоставления информации, когда данные поступают или отправляются не сразу, а по мере их доступности. Это означает, что вы можете запросить какие-то данные и продолжать выполнять другие задачи, пока данные еще не готовы. Когда данные станут доступны, они будут переданы вам для использования. Это помогает сделать программы более отзывчивыми и эффективными, так как они не блокируются в ожидании данных.
+
+Пример использования:
+````java
+using "lzr.async"
+func hel(arg){
+    print(arg)
+}
+async.supply(hel("Hello"))
+````
+
+# arrays
+`arrays.combine(keys, values)` — создает массив, используя один массив для ключей, а другой — для его значений
+
+Пример:
+````java
+using "lzr.utils.arrays"
+
+colors = ["green", "red", "yellow"]
+fruits = ["avocado", "apple", "banana"]
+
+out = arrays.combine(colors, fruits)
+print(out)
+````
+
+`arrays.keyExists(key, map)` - Проверяет, существует ли в массиве заданный ключ или индекс. Если существует, возвращает 1, иначе 0.
+
+Пример:
+````java
+using "lzr.utils.arrays"
+map = {
+    "apple" : "red"
+    "banana" : "yellow"
+}
+print(arrays.keyExists("apple",map))
+````
+
+`arrays.join(array, "delimiter", "prefix", "suffix")` — объединяет массив в строку с разделителем, префиксом и суффиксом.
+
+Пример:
+
+````java
+using "lzr.utils.arrays"
+array = ["banana", "apple", "pie"]
+
+out_array = arrays.join(array, "--")
+print(out_array)
+
+//Вывод: banana--apple--pie
+````
+
+`arrays.sort(array)` — сортирует массив.
+
+
+# artify
+Библиотека для преобразования текста в ASCII арт.
+
+`artify.build(text = "")` - преобразует текст с арт
+Пример:
+````java
+using "lzr.utils.artify"
+
+print(artify.build("Hello World!"))
+````
+Вывод:
+````
+  _  _   ___   _      _       ___        __      __   ___    ___   _      ___    _ 
+ | || | | __| | |    | |     / _ \       \ \    / /  / _ \  | _ \ | |    |   \  | |
+ | __ | | _|  | |__  | |__  | (_) |       \ \/\/ /  | (_) | |   / | |__  | |) | |_|
+ |_||_| |___| |____| |____|  \___/         \_/\_/    \___/  |_|_\ |____| |___/  (_)
+````
+
+# base64
+`base64.encode(data, type = 0)` - кодирует массив байт или строку в закодированный base64 массив байт.
+
+# clipboard
+Библиотека для работы с для буфером обмена
+
+`clipboard.get()` - получить текст из буфера обмена
+
+`clipboard.set("text")` - установить текст в буфер обмена
+
+`clipboard.has()` - проверяет, есть ли текст в буфере обмена
+
+`clipboard.add("text")` - добавляет текст в конец буфера обмена
+
+`clipboard.clear()` - отчищает буфер обмена
+
+# lfs
+`lfs.open(path, mode = "r")` — открывает файл по пути path в заданном режиме mode:
+
+* "" - открывает файл или папку для получения информации;
+* "r" - открывает файл для чтения в текстовом режиме;
+* "rb" - открывает файл для чтения в бинарном режиме;
+* "w" - открывает файл для записи в текстовом режиме;
+* "w+" - открывает файл для дозаписи в текстовом режиме;
+* "wb" - открывает файл для записи в бинарном режиме;
+* "wb+" - открывает файл для дозаписи в бинарном режиме.
+
+`lfs.close(f)` — закрывает файл.
+
+`lfs.fileSize(f)` — возвращает размер файла в байтах.
+
+`lfs.isDir(f)` — проверяет, является ли дескриптор f папкой. 1 - является, 0 - нет.
+
+`lfs.isFile(f)` — проверяет, является ли дескриптор f файлом. 1 - является, 0 - нет.
+
+`lfs.mkdir(f)` — создаёт папку. Возвращает 1, если создание прошло успешно, иначе - 0.
+
+`lfs.read.allBytes(f)` — чтение всех байт файла. Возвращает массив байт файла.
+
+`lfs.read.bytes(f, array, offset = 0, length = length(array))` — чтение заданного количества байт в массив array. Возвращает число прочитанных байт.
+Если offset и length не указаны, то читается количество байт равное длине массива.
+Если offset и length указаны, то читается length байт в массив array, начиная с offset+1 байта
+
+`lfs.read.double(f)` — чтение 8 байт (вещественное число двойной точности)
+
+`lfs.read.float(f)` — чтение 4 байт (вещественное число)
+
+`lfs.read.int(f)` — чтение 4 байт (целое число)
+
+`lfs.read.line(f)` — чтение строки в текстовом режиме
+
+`lfs.read.long(f)` — чтение 8 байт (длинное целое число)
+
+`lfs.read.short(f)` — чтение 2 байт (короткое целое число)
+
+`lfs.read.text(f)` — чтение всего файла в текстовом режиме в строку
+
+`lfs.read.utf(f)` — чтение строки в бинарном режиме
+
+`lfs.rename(from, to)` — переименование (или перемещение) файла
+
+`lfs.copy(src, dst)` — копирует файл src в dst
+
+`lfs.delete(f)` — удаляет файл или папку. Возвращает 1, если удаление прошло успешно, иначе - 0
+
+# json
+`json.decode(data)` - преобразует переданные данные в строку в формате json
+Пример:
+````java
+using "lzr.utils.json"
+data = "{\"name\":Kingmang,\"digit\":2,\"array\":\"[2,6,7,7,4,6]\"}"
+println(json.decode(data))
+````
+Результат:
+
+`{array=[2,6,7,7,4,6], name=Kingmang, digit=2}`
+
+
+# math
+### Библиотека для работы с математикой
+
+`math.abs(x)` — модуль числа x
+
+`math.acos(x)` — арккосинус
+
+`math.asin(x)`— арксинус
+
+`math.atan(x)` — арктангенс
+
+`math.atan2(y, x)` — угол θ, тангенс которого равен отношению двух указанных чисел
+
+`math.cbrt(x)` — кубический корень числа x
+
+`math.ceil(x)` — округляет вещественное число в большую сторону
+
+`math.cos(x)` — косинус
+
+`math.cosh(x)` — гиперболический косинус
+
+`math.floor(x)` — округляет вещественное число в меньшую сторону
+
+`math.getExponent(x)` — возвращают несмещенное значение экспоненты числа
+
+`math.hypot(x, y)` — расчёт гипотенузы sqrt(x2 + y2) без переполнения
+
+`math.IEEEremainder(x, y)` — возвращает остаток от деления x на y по стандарту ANSI/IEEE Std 754-1985, раздел 5.1
+
+`math.log(x)` — логарифм
+
+`math.log1p(x)` — натуральный логарифм от x + 1 (ln(x + 1))
+
+`math.log10(x)` — десятичный логарифм
+
+`math.max(x, y)` — максимальное из двух чисел
+
+`math.min(x, y)` — минимальное из двух чисел
+
+`math.pow(x, y)` — возведение x в степень y
+
+`math.round(x)` — округляет вещественное число до ближайшего целого
+
+`math.signum(x)` — возвращает целое число, указывающее знак числа
+
+`math.sin(x)` — синус
+
+`math.sinh(x)` — гиперболический синус
+
+`math.sqrt(x)` — квадратный корень
+
+`math.tan(x)` — тангенс
+
+`math.tanh(x)` — гиперболический тангенс
+
+`math.toDegrees(x)` — перевод радиан в градусы
+
+`math.toRadians(x)` — перевод градусов в радианы
+
+# thread
+`thread("function", arg)` - создает новый поток. Первым аргументом выступает название функции (тип string), однако можно использовать и ссылку на функцию (`std.thread("function", arg)`).
+Второй аргумент является аргументом переданной функции.
+
+Пример:
+````java
+using "lzr.utils.thread"
+
+func message(name){
+    print("Hello, " + name)
+}
+
+thread("message", "Artyom")
+````
+В этом потоке вызывается функция message с аргументом "Artyom". Функция message просто выводит приветственное сообщение с именем, переданным в качестве аргумента.
+
+Использование потоков выполнения позволяет выполнять различные задачи параллельно, что может улучшить производительность программы. В данном случае, создается новый поток, который вызывает функцию message, тогда как основной поток может продолжать выполнять другие задачи.
+
+
+# random
+`random(from = 0, to = 10)` — возвращает псевдослучайное число.
+
+# time
+`time.sleep(time)` - приостановка текущего потока на time миллисекунд.
+
+
+# lang
+* [system](#system)
+* [io](#io)
+* [Character](#Character)
+* [Integer](#Integer)
+* [Double](#Double)
+* [String](#String)
+
+# system
+### Библиотека для работы с системой.
+`system.getProperty("property.name")` - возвращает информацию о локальной системе и конфигурации.
+
+Пример:
+````java
+using "lzr.lang.system"
+println(system.getProperty("lzr.version"))
+println(system.getProperty("os.name"))
+println(system.getProperty("java.version"))
+println(system.getProperty("file.separator"))
+
+//Все property, которые есть в java.lang.System.getProperty()
+````
+
+`system.currentTimeMillis()` - возвращает текущее время в миллисекундах. Единицей времени возвращаемого значения является миллисекунда, степень детализации значения зависит от базовой операционной системы и может быть больше.
+
+
+
+`system.exec(command)` - выполняет указанную строковую команду в отдельном процессе.
+Аргумент, который передается - системная команда.
+
+`system.exit(code)` - завершение программы.
+Этот метод на вход принимает значение типа int. Обычно это 0, что говорит о том, что программа завершается без ошибок. Любое другое значение говорит о том, что программа завершилась с ошибкой.
+
+
+`system.nanoTime()` - возвращает текущее значение наиболее точного доступного системного таймера в наносекундах.
+
+
+`system.getScreenResolution()` - возвращает разрешение экрана.
+### Память
+
+`system.getUsedMemory()` - Возвращает используемый объем памяти.
+
+`system.getTotalMemory()` - Возвращает общий объем памяти виртуальной машины (jvm).
+
+`system.getMaxMemory()` - Возвращает максимальный объем памяти, который jvm попытается использовать.
+
+`system.getFreeMemory()` - Возвращает объем свободной памяти в виртуальной машине (jvm).
+
+`system.availableProcessors()` - Возвращает количество процессоров, доступных виртуальной машине (jvm).
+
+# io
+### (добавлено с 2.7.4)
+Содержит функции для работы с потоками ввода/вывода
+
+### PrintStream
+#### Методы:
+`new(filename)` - инициализирует
+новый PrintStream. Аргументом
+является имя файла, куда будет
+выводиться информация.
+
+`print(arg)` - записывает строку
+из аргумента в файл.
+
+Поскольку методы классов io
+являются ключевыми словами
+(в языке уже есть ключевые слова
+`new` и `print`), то их методы нужно
+перегружать. Если вы не знакомы
+с перегрузкой методов, то
+обратитесь к DOCUMENTATION_RU.md ->
+раздел 26.
+
+Пример использования:
+
+````cpp
+using "lzr.lang.io"
+
+ps = io.PrintStream
+ps.`new`("test.txt")
+ps.`print`("Hello everyone!")
+````
+
+### ByteArrayInputStream
+#### Методы:
+`new(arg)` - инициализирует
+новый ByteArrayInputStream.
+Переданный аргумент он
+переводит в массив byte.
+
+`read()` - Считывает следующий байт данных из этого входного потока.
+
+````cpp
+using "lzr.lang.io"
+
+input = "Hello"
+
+bais = io.ByteArrayInputStream
+bais.`new`(input)
+
+while((b=bais.read())!=-1){
+    println(b);
+}
+````
+
+`avaliable()` - Это встроенный метод, который возвращает количество оставшихся байтов, которые можно прочитать (или пропустить) из этого входного потока.
+
+`readNBytes(arg, off, len)` - Считывает запрошенное количество байтов из входного потока в заданный массив байтов. Этот метод блокируется до тех пор, пока не будут прочитаны len байт входных данных, не будет обнаружен конец потока или не будет выдано исключение
+
+
+# Character
+`Character.isAlphabetic(arg)` - Определяет, является ли указанный символ (кодовая точка Юникода) алфавитом.
+`Character.isDigit(arg)` - Определяет, является ли указанный символ цифрой.
+`Character.isLetter(arg)` - Определяет, является ли указанный символ буквой.
+`Character.isLetterOrDigit(arg)` - Определяет, является ли указанный символ буквой или цифрой.
+
+
+
+# Integer
+`Integer.bitCount(arg = 0)` - Возвращает количество однобитовых чисел в двоичном представлении указанного целочисленного значения.
+
+`Integer.max(arg1 = 0, arg2 = 0)` - Возвращает большее из двух значений int.
+
+`Integer.min(arg1 = 0, arg2 = 0)` - Возвращает меньшее из двух значений int.
+
+`Integer.compare(arg1 = 0, arg2 = 0)` - Сравнивает два значения int
+
+`Integer.parseInt(arg = "")` - Анализирует строковый аргумент как десятичное целое число со знаком.
+
+`Integer.decode(arg = "")` - Декодирует строку в целое число.
+
+`Integer.signum(arg = 0)` - Возвращает функцию signum указанного значения int
+
+`Integer.compareUnsigned(arg1 = 0, arg2 = 0)` - Сравнивает два значения int в числовом виде, рассматривая значения как "беззнаковые".
+
+`Integer.MAX_VALUE` - Константа, содержащая максимальное значение, которое может иметь int (2**31-1).
+
+`Integer.MIN_VALUE `- Константа, содержащая минимальное значение, которое может иметь int, (-2**31).
+
+# Double
+`Double.max(arg1 = 0, arg2 = 0)` - Возвращает большее из двух значений double.
+
+`Double.min(arg1 = 0, arg2 = 0)` - Возвращает меньшее из двух значений double.
+
+`Double.doubleToLongBits(arg)` - функция используется для преобразования числа типа double в его битовое представление типа long
+
+`Double.parseDouble(arg)` - Анализирует строковый аргумент как десятичное целое число со знаком.
+
+`Double.MAX_VALUE` - Константа, содержащая максимальное значение, которое может иметь double.
+
+`Double.MIN_VALUE `- Константа, содержащая минимальное значение, которое может иметь double.
+
+# String
+
+`String.valueOf(arg)`
+
+`String.format(arg,arg)`
+
+`String.join(arg,arg)`
+
+`String.CASE_INSENSITIVE_ORDER`
+
+
+# reflection
+Работа с пакетами java и конвертацией java в lazurite (и наоборот)
+
+`JClass(arg)` - создает новый JavaClassValue
+
+````java
+using "reflection"
+Locale = JClass("java.util.Locale")
+
+locale1 = new Locale("EN", "INDIA");
+println("Locale: " + locale1)
+
+println("Country Name: " + locale1.getDisplayCountry());
+````
+
+`JObject(arg)` - конвертирует LZRValue в java объект
+
+`LZRValue(arg)` - конвертирует java объект в LZRValue
+
+### Добавлено с версии 2.7.3
+`JUpload("jarname.jar", "com.example")` -
+динамическая загрузка библиотеки
+из jar файла. Первый аргумент - имя jar
+файла, второй - название пакета, в котором
+должен находится класс invoker
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# lzrx
+
+* [lgl](#lgl)
+* [gforms](#gforms)
+* [robot](#robot)
+* [graph](#graph)
+* [colors](#colors)
+
+
 
 # lgl
 ### (добавлено с 2.7.4)
@@ -268,83 +860,6 @@ isShortcutDown
 
 
 
-# http
-`http.download()` - загружает файл из downloadUrl в filePath
-````java
-using "lzr.net.http"
-http.download("https://test/tester.html", "test.txt")
-````
-
-
-`http.getContentLength(url)` - получает длину содержимого, отправляя запрос HEAD на указанный URL-адрес
-
-`http.request(url)` - выполняет GET-запрос на указанный адрес url.
-
-`http.request(url, method)` - выполняет запрос на указанный адрес url методом method (GET, POST, PUT, DELETE, PATCH, OPTIONS).
-
-`http.request(url, callback)` - выполняет GET-запрос на указанный адрес url, ответ сервера передаёт в функцию callback.
-````java
-http.request("https://github.com/ArtyomKingmang/Lazurite/blob/main/docs/RU.md", ::echo)
-````
-`http.request(url, method, params)` - выполняет запрос на указанный адрес url, методом method c данными params (объект).
-
-`http.request(url, method, callback)` - выполняет запрос на указанный адрес url, методом method, ответ сервера передаёт в функцию callback.
-
-`http.request(url, method, params, callback)` - выполняет запрос на указанный адрес url, методом method, с данными params, ответ сервера передаёт в функцию callback.
-
-`http.request(url, method, params, options, callback)` - выполняет запрос на указанный адрес url, методом method, с данными params, параметрами подключения options, ответ сервера передаёт в функцию callback.
-
-Параметрами подключения выступает объект. Допустимы следующие параметры
-
-    header - задаёт http-заголовок, если передана строка или несколько заголовков, если массив.
-
-    encoded - указывает, что данные params уже закодированы в URL-формате.
-
-    content_type - указывает Content-Type.
-
-    extended_result - указывает, что ответ сервера нужно вернуть в расширенном виде, а именно объектом с данными:
-
-        text - текст ответа сервера
-
-        message - сообщение сервера
-
-        code - код ответа сервера
-
-        headers - http-заголовки ответа
-
-        content_length - Content-Length
-
-        content_type - Content-Type
-
-`url.encode(str)` - преобразует строку в URL-формат
-
-
-
-# reflection
-Работа с пакетами java и конвертацией java в lazurite (и наоборот) 
-
-`JClass(arg)` - создает новый JavaClassValue
-
-````java
-using "reflection"
-Locale = JClass("java.util.Locale")
-
-locale1 = new Locale("EN", "INDIA");
-println("Locale: " + locale1)
-
-println("Country Name: " + locale1.getDisplayCountry());
-````
-
-`JObject(arg)` - конвертирует LZRValue в java объект
-
-`LZRValue(arg)` - конвертирует java объект в LZRValue
-
-### Добавлено с версии 2.7.3
-`JUpload("jarname.jar", "com.example")` - 
-динамическая загрузка библиотеки
-из jar файла. Первый аргумент - имя jar
-файла, второй - название пакета, в котором
-должен находится класс invoker
 
 # gforms
 * [Виджеты](#Виджеты)
@@ -551,6 +1066,7 @@ PAGE_AXIS
 `robot.click(buttons)` - Осуществляет клик мышью с заданными клавишами.
 
 `robot.execProcess(args...)` - Запускает процесс с указанными аргументами. Если передано несколько аргументов, они все передаются как параметры. Если передан только один массив, его элементы используются как параметры. Если передан только один параметр, он служит единственным параметром.
+
 ````cpp
 using "robot"
 robot.execProcess("mkdir", "Hello")
@@ -583,304 +1099,6 @@ robot.keyPress(KEY.A)
 `robot.toClipboard(text)` - Копирует строку в буфер обмена.
 
 `robot.typeText(text)` - Последовательно нажимает клавиши для ввода указанного текста
-
-# lsoup
-`lsoup.parser(url)` - загружает HTML-код веб-страницы по указанному URL.
-
-`lsoup.select("tag")` - выполняет поиск элементов с тегом "tag" в загруженном HTML-коде.
-
-````java
-using "lzr.net.lsoup"
-
-lsoup.parser("https://artyomkingmang.github.io/lazurite-pages/")
-result = lsoup.select("title")
-
-print(result)
-````
-
-# async
-`async.supply(function)` - асинхронный способ получения или предоставления информации, когда данные поступают или отправляются не сразу, а по мере их доступности. Это означает, что вы можете запросить какие-то данные и продолжать выполнять другие задачи, пока данные еще не готовы. Когда данные станут доступны, они будут переданы вам для использования. Это помогает сделать программы более отзывчивыми и эффективными, так как они не блокируются в ожидании данных.
-
-Пример использования:
-````java
-using "lzr.async"
-func hel(arg){
-    print(arg)
-}
-async.supply(hel("Hello"))
-````
-
-# utils
-* [arrays](#arrays)
-* [artify](#artify)
-* [base64](#base64)
-* [clipboard](#clipboard)
-* [lfs](#lfs)
-* [json](#json)
-* [math](#math)
-* [random](#random)
-* [thread](#thread)
-* [time](#time)
-
-# arrays
-`arrays.combine(keys, values)` — создает массив, используя один массив для ключей, а другой — для его значений
-
-Пример:
-````java
-using "lzr.utils.arrays"
-
-colors = ["green", "red", "yellow"]
-fruits = ["avocado", "apple", "banana"]
-
-out = arrays.combine(colors, fruits)
-print(out)
-````
-
-`arrays.keyExists(key, map)` - Проверяет, существует ли в массиве заданный ключ или индекс. Если существует, возвращает 1, иначе 0.
-
-Пример:
-````java
-using "lzr.utils.arrays"
-map = {
-    "apple" : "red"
-    "banana" : "yellow"
-}
-print(arrays.keyExists("apple",map))
-````
-
-`arrays.join(array, "delimiter", "prefix", "suffix")` — объединяет массив в строку с разделителем, префиксом и суффиксом.
-
-Пример:
-
-````java
-using "lzr.utils.arrays"
-array = ["banana", "apple", "pie"]
-
-out_array = arrays.join(array, "--")
-print(out_array)
-
-//Вывод: banana--apple--pie
-````
-
-`arrays.sort(array)` — сортирует массив.
-
-
-# artify
-Библиотека для преобразования текста в ASCII арт.
-
-`artify.build(text = "")` - преобразует текст с арт
-Пример:
-````java
-using "lzr.utils.artify"
-
-print(artify.build("Hello World!"))
-````
-Вывод:
-````
-  _  _   ___   _      _       ___        __      __   ___    ___   _      ___    _ 
- | || | | __| | |    | |     / _ \       \ \    / /  / _ \  | _ \ | |    |   \  | |
- | __ | | _|  | |__  | |__  | (_) |       \ \/\/ /  | (_) | |   / | |__  | |) | |_|
- |_||_| |___| |____| |____|  \___/         \_/\_/    \___/  |_|_\ |____| |___/  (_)
-````
-
-# base64
-`base64.encode(data, type = 0)` - кодирует массив байт или строку в закодированный base64 массив байт.
-
-# clipboard
-Библиотека для работы с для буфером обмена
-
-`clipboard.get()` - получить текст из буфера обмена
-
-`clipboard.set("text")` - установить текст в буфер обмена
-
-`clipboard.has()` - проверяет, есть ли текст в буфере обмена
-
-`clipboard.add("text")` - добавляет текст в конец буфера обмена
-
-`clipboard.clear()` - отчищает буфер обмена
-
-# lfs
-`lfs.open(path, mode = "r")` — открывает файл по пути path в заданном режиме mode:
-
-* "" - открывает файл или папку для получения информации;
-* "r" - открывает файл для чтения в текстовом режиме;
-* "rb" - открывает файл для чтения в бинарном режиме;
-* "w" - открывает файл для записи в текстовом режиме;
-* "w+" - открывает файл для дозаписи в текстовом режиме;
-* "wb" - открывает файл для записи в бинарном режиме;
-* "wb+" - открывает файл для дозаписи в бинарном режиме.
-
-`lfs.close(f)` — закрывает файл.
-
-`lfs.fileSize(f)` — возвращает размер файла в байтах.
-
-`lfs.isDir(f)` — проверяет, является ли дескриптор f папкой. 1 - является, 0 - нет.
-
-`lfs.isFile(f)` — проверяет, является ли дескриптор f файлом. 1 - является, 0 - нет.
-
-`lfs.mkdir(f)` — создаёт папку. Возвращает 1, если создание прошло успешно, иначе - 0.
-
-`lfs.read.allBytes(f)` — чтение всех байт файла. Возвращает массив байт файла.
-
-`lfs.read.bytes(f, array, offset = 0, length = length(array))` — чтение заданного количества байт в массив array. Возвращает число прочитанных байт.
-Если offset и length не указаны, то читается количество байт равное длине массива.
-Если offset и length указаны, то читается length байт в массив array, начиная с offset+1 байта
-
-`lfs.read.double(f)` — чтение 8 байт (вещественное число двойной точности)
-
-`lfs.read.float(f)` — чтение 4 байт (вещественное число)
-
-`lfs.read.int(f)` — чтение 4 байт (целое число)
-
-`lfs.read.line(f)` — чтение строки в текстовом режиме
-
-`lfs.read.long(f)` — чтение 8 байт (длинное целое число)
-
-`lfs.read.short(f)` — чтение 2 байт (короткое целое число)
-
-`lfs.read.text(f)` — чтение всего файла в текстовом режиме в строку
-
-`lfs.read.utf(f)` — чтение строки в бинарном режиме
-
-`lfs.rename(from, to)` — переименование (или перемещение) файла
-
-`lfs.copy(src, dst)` — копирует файл src в dst
-
-`lfs.delete(f)` — удаляет файл или папку. Возвращает 1, если удаление прошло успешно, иначе - 0
-
-# json
-`json.decode(data)` - преобразует переданные данные в строку в формате json
-Пример:
-````java
-using "lzr.utils.json"
-data = "{\"name\":Kingmang,\"digit\":2,\"array\":\"[2,6,7,7,4,6]\"}"
-println(json.decode(data))
-````
-Результат:
-
-`{array=[2,6,7,7,4,6], name=Kingmang, digit=2}`
-
-
-# math
-### Библиотека для работы с математикой
-
-`math.abs(x)` — модуль числа x
-
-`math.acos(x)` — арккосинус
-
-`math.asin(x)`— арксинус
-
-`math.atan(x)` — арктангенс
-
-`math.atan2(y, x)` — угол θ, тангенс которого равен отношению двух указанных чисел
-
-`math.cbrt(x)` — кубический корень числа x
-
-`math.ceil(x)` — округляет вещественное число в большую сторону
-
-`math.cos(x)` — косинус
-
-`math.cosh(x)` — гиперболический косинус
-
-`math.floor(x)` — округляет вещественное число в меньшую сторону
-
-`math.getExponent(x)` — возвращают несмещенное значение экспоненты числа
-
-`math.hypot(x, y)` — расчёт гипотенузы sqrt(x2 + y2) без переполнения
-
-`math.IEEEremainder(x, y)` — возвращает остаток от деления x на y по стандарту ANSI/IEEE Std 754-1985, раздел 5.1
-
-`math.log(x)` — логарифм
-
-`math.log1p(x)` — натуральный логарифм от x + 1 (ln(x + 1))
-
-`math.log10(x)` — десятичный логарифм
-
-`math.max(x, y)` — максимальное из двух чисел
-
-`math.min(x, y)` — минимальное из двух чисел
-
-`math.pow(x, y)` — возведение x в степень y
-
-`math.round(x)` — округляет вещественное число до ближайшего целого
-
-`math.signum(x)` — возвращает целое число, указывающее знак числа
-
-`math.sin(x)` — синус
-
-`math.sinh(x)` — гиперболический синус
-
-`math.sqrt(x)` — квадратный корень
-
-`math.tan(x)` — тангенс
-
-`math.tanh(x)` — гиперболический тангенс
-
-`math.toDegrees(x)` — перевод радиан в градусы
-
-`math.toRadians(x)` — перевод градусов в радианы
-
-# thread
-`thread("function", arg)` - создает новый поток. Первым аргументом выступает название функции (тип string), однако можно использовать и ссылку на функцию (`std.thread("function", arg)`).
-Второй аргумент является аргументом переданной функции.
-
-Пример:
-````java
-using "lzr.utils.thread"
-
-func message(name){
-    print("Hello, " + name)
-}
-
-thread("message", "Artyom")
-````
-В этом потоке вызывается функция message с аргументом "Artyom". Функция message просто выводит приветственное сообщение с именем, переданным в качестве аргумента.
-
-Использование потоков выполнения позволяет выполнять различные задачи параллельно, что может улучшить производительность программы. В данном случае, создается новый поток, который вызывает функцию message, тогда как основной поток может продолжать выполнять другие задачи.
-
-
-# random
-`random(from = 0, to = 10)` — возвращает псевдослучайное число.
-
-# time
-`time.sleep(time)` - приостановка текущего потока на time миллисекунд.
-
-
-
-
-# collection
-
-### (добавлено с 2.7.3)
-
-`flatmap(array, mapper)` — преобразует каждый элемент массива в массив элементов.
-
-Пример:
-
-````java
-using "std"
-
-numbers = [1,2,3,4,5,6,7,8,9]
-
-output = std.flatmap(numbers, func(x) {
-  arr = Array(x)
-  for(i = 0, i < x, i++){
-    arr[i] = x
-  }
-  return arr
-})
-
-print(output)
-````
-
-`hashMap(fromMap = {})` — создаёт новый HashMap из значений fromMap
-
-`linkedHashMap(fromMap = {})` — создаёт новый LinkedHashMap из значений fromMap
-
-`concurrentHashMap(fromMap = {})` — создаёт новый ConcurrentHashMap из значений fromMap
-
-`treeMap(fromMap = {}, comparator = func(a, b) = 0)` — создаёт новый TreeMap из значений fromMap и компаратора comparator
-
-`concurrentSkipListMap(fromMap = {}, comparator = func(a, b) = 0)` — создаёт новый ConcurrentSkipListMap из значений fromMap и компаратора comparator
 
 
 
@@ -982,171 +1200,6 @@ dispose()
 rotate(arg[0]) || rotate(arg[0], arg[1], arg[2])
 scale(arg[0], arg[1])
 ````
-
-
-
-# lang
-* [system](#system)
-* [io](#io)
-* [Character](#Character)
-* [Integer](#Integer)
-* [Double](#Double)
-* [String](#String)
-
-# system
-### Библиотека для работы с системой.
-`system.getProperty("property.name")` - возвращает информацию о локальной системе и конфигурации.
-
-Пример:
-````java
-using "lzr.lang.system"
-println(system.getProperty("lzr.version"))
-println(system.getProperty("os.name"))
-println(system.getProperty("java.version"))
-println(system.getProperty("file.separator"))
-
-//Все property, которые есть в java.lang.System.getProperty()
-````
-
-`system.currentTimeMillis()` - возвращает текущее время в миллисекундах. Единицей времени возвращаемого значения является миллисекунда, степень детализации значения зависит от базовой операционной системы и может быть больше.
-
-
-
-`system.exec(command)` - выполняет указанную строковую команду в отдельном процессе. 
-Аргумент, который передается - системная команда.
-
-`system.exit(code)` - завершение программы.
-Этот метод на вход принимает значение типа int. Обычно это 0, что говорит о том, что программа завершается без ошибок. Любое другое значение говорит о том, что программа завершилась с ошибкой.
-
-
-`system.nanoTime()` - возвращает текущее значение наиболее точного доступного системного таймера в наносекундах.
-
-
-`system.getScreenResolution()` - возвращает разрешение экрана.
-### Память
-
-`system.getUsedMemory()` - Возвращает используемый объем памяти.
-
-`system.getTotalMemory()` - Возвращает общий объем памяти виртуальной машины (jvm).
-
-`system.getMaxMemory()` - Возвращает максимальный объем памяти, который jvm попытается использовать.
-
-`system.getFreeMemory()` - Возвращает объем свободной памяти в виртуальной машине (jvm).
-
-`system.availableProcessors()` - Возвращает количество процессоров, доступных виртуальной машине (jvm).
-
-# io
-### (добавлено с 2.7.4)
-Содержит функции для работы с потоками ввода/вывода
-
-### PrintStream
-#### Методы:
-`new(filename)` - инициализирует
-новый PrintStream. Аргументом 
-является имя файла, куда будет
-выводиться информация.
-
-`print(arg)` - записывает строку
-из аргумента в файл.
-
-Поскольку методы классов io
-являются ключевыми словами
-(в языке уже есть ключевые слова
-`new` и `print`), то их методы нужно
-перегружать. Если вы не знакомы
-с перегрузкой методов, то 
-обратитесь к DOCUMENTATION_RU.md ->
-раздел 26.
-
-Пример использования:
-
-````cpp
-using "lzr.lang.io"
-
-ps = io.PrintStream
-ps.`new`("test.txt")
-ps.`print`("Hello everyone!")
-````
-
-### ByteArrayInputStream
-#### Методы:
-`new(arg)` - инициализирует 
-новый ByteArrayInputStream.
-Переданный аргумент он 
-переводит в массив byte.
-
-`read()` - Считывает следующий байт данных из этого входного потока.
-
-````cpp
-using "lzr.lang.io"
-
-input = "Hello"
-
-bais = io.ByteArrayInputStream
-bais.`new`(input)
-
-while((b=bais.read())!=-1){
-    println(b);
-}
-````
-
-`avaliable()` - Это встроенный метод, который возвращает количество оставшихся байтов, которые можно прочитать (или пропустить) из этого входного потока.
-
-`readNBytes(arg, off, len)` - Считывает запрошенное количество байтов из входного потока в заданный массив байтов. Этот метод блокируется до тех пор, пока не будут прочитаны len байт входных данных, не будет обнаружен конец потока или не будет выдано исключение
-
-
-# Character
-`Character.isAlphabetic(arg)` - Определяет, является ли указанный символ (кодовая точка Юникода) алфавитом.
-`Character.isDigit(arg)` - Определяет, является ли указанный символ цифрой.
-`Character.isLetter(arg)` - Определяет, является ли указанный символ буквой.
-`Character.isLetterOrDigit(arg)` - Определяет, является ли указанный символ буквой или цифрой.
-
-
-
-# Integer
-`Integer.bitCount(arg = 0)` - Возвращает количество однобитовых чисел в двоичном представлении указанного целочисленного значения.
-
-`Integer.max(arg1 = 0, arg2 = 0)` - Возвращает большее из двух значений int.
-
-`Integer.min(arg1 = 0, arg2 = 0)` - Возвращает меньшее из двух значений int.
-
-`Integer.compare(arg1 = 0, arg2 = 0)` - Сравнивает два значения int
-
-`Integer.parseInt(arg = "")` - Анализирует строковый аргумент как десятичное целое число со знаком.
-
-`Integer.decode(arg = "")` - Декодирует строку в целое число.
-
-`Integer.signum(arg = 0)` - Возвращает функцию signum указанного значения int
-
-`Integer.compareUnsigned(arg1 = 0, arg2 = 0)` - Сравнивает два значения int в числовом виде, рассматривая значения как "беззнаковые".
-
-`Integer.MAX_VALUE` - Константа, содержащая максимальное значение, которое может иметь int (2**31-1).
-
-`Integer.MIN_VALUE `- Константа, содержащая минимальное значение, которое может иметь int, (-2**31).
-
-# Double
-`Double.max(arg1 = 0, arg2 = 0)` - Возвращает большее из двух значений double.
-
-`Double.min(arg1 = 0, arg2 = 0)` - Возвращает меньшее из двух значений double.
-
-`Double.doubleToLongBits(arg)` - функция используется для преобразования числа типа double в его битовое представление типа long
-
-`Double.parseDouble(arg)` - Анализирует строковый аргумент как десятичное целое число со знаком.
-
-`Double.MAX_VALUE` - Константа, содержащая максимальное значение, которое может иметь double.
-
-`Double.MIN_VALUE `- Константа, содержащая минимальное значение, которое может иметь double.
-
-# String
-
-`String.valueOf(arg)`
-
-`String.format(arg,arg)`
-
-`String.join(arg,arg)`
-
-`String.CASE_INSENSITIVE_ORDER`
-
 
 
 

@@ -1,4 +1,4 @@
-using "lzr.async"
+using "lzr.utils.async"
 func hel(arg){
     print(arg)
 }

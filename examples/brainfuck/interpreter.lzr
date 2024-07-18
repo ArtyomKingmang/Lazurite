@@ -1,6 +1,4 @@
-using "lzr.reflection"
-
-String = JClass("java.lang.String")
+#jInclude "java.lang.String"
 
 func charAt(arg, index){
      input = new String(arg)

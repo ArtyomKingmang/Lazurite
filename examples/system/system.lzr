@@ -1,4 +1,4 @@
-using "lzr.utils.system"
+using "lzr.lang.system"
 
 // Выводит имя операционной системы и версию lazurite
 println(system.getProperty("os.name"))
