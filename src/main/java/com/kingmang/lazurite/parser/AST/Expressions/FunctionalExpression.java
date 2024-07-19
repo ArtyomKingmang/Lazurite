@@ -3,7 +3,10 @@ package com.kingmang.lazurite.parser.AST.Expressions;
 import com.kingmang.lazurite.core.CallStack;
 import com.kingmang.lazurite.core.Function;
 import com.kingmang.lazurite.core.Types;
+import com.kingmang.lazurite.exceptions.IFileInfoProvider;
 import com.kingmang.lazurite.exceptions.LzrException;
+import com.kingmang.lazurite.exceptions.LzrTracedException;
+import com.kingmang.lazurite.exceptions.LzrTracedException.TraceInfo;
 import com.kingmang.lazurite.exceptions.VariableDoesNotExistsException;
 import com.kingmang.lazurite.libraries.Keyword;
 import com.kingmang.lazurite.parser.AST.InterruptableNode;
@@ -48,13 +51,22 @@ public final class FunctionalExpression extends InterruptableNode implements Exp
             values[i] = arguments.get(i).eval();
         }
         final Function f = consumeFunction(functionExpr);
-        CallStack.enter(functionExpr.toString(), f);
+        if (functionExpr instanceof IFileInfoProvider provider)
+            CallStack.enter(functionExpr.toString(), f, provider.getFile());
+        else CallStack.enter(functionExpr.toString(), f, null);
         try {
             final LzrValue result = f.execute(values);
             CallStack.exit();
             return result;
+        } catch (LzrTracedException ex) {
+            throw ex;
         } catch (LzrException ex) {
-            throw new RuntimeException(ex.getMessage() + " in function " + functionExpr, ex);
+            TraceInfo info;
+            if (functionExpr instanceof IFileInfoProvider provider)
+                info = new TraceInfo(provider.getFile(), CallStack.getCalls());
+            else info = new TraceInfo(null, CallStack.getCalls());
+            CallStack.exit();
+            throw new LzrTracedException(ex.getType(), ex.getMessage(), info);
         }
     }
     

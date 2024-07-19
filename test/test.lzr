@@ -1,0 +1,9 @@
+func foo() {
+    throw FooExc "Foo!"
+}
+
+func bar() {
+    foo()
+}
+
+bar()

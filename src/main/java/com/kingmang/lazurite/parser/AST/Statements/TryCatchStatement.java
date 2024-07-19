@@ -9,7 +9,6 @@ import com.kingmang.lazurite.runtime.values.LzrString;
 import lombok.Getter;
 
 public record TryCatchStatement(Statement tryStatement, Statement catchStatement) implements Statement {
-
     @Override
     public void execute() {
         try {
@@ -17,7 +16,7 @@ public record TryCatchStatement(Statement tryStatement, Statement catchStatement
         } catch (LzrException ex) {
             final LzrMap exInfo = new LzrMap(2);
             exInfo.set("type", new LzrString(ex.getType()));
-            exInfo.set("text", new LzrString(ex.getText()));
+            exInfo.set("text", new LzrString(ex.getMessage()));
             Variables.define("exception", exInfo);
             catchStatement.execute();
         }

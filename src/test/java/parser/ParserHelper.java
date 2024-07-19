@@ -51,7 +51,7 @@ public final class ParserHelper {
     }
 
     private static Statement parse(String input) {
-        ParserImplementation parserImplementation = new ParserImplementation(LexerImplementation.tokenize(input));
+        ParserImplementation parserImplementation = new ParserImplementation(LexerImplementation.tokenize(input), );
         return parserImplementation.parse();
     }
     

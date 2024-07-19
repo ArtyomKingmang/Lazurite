@@ -1,5 +1,7 @@
 package com.kingmang.lazurite.parser.AST.Expressions;
 
+import com.kingmang.lazurite.exceptions.FileInfo;
+import com.kingmang.lazurite.exceptions.IFileInfoProvider;
 import com.kingmang.lazurite.exceptions.VariableDoesNotExistsException;
 import com.kingmang.lazurite.parser.AST.Accessible;
 import com.kingmang.lazurite.parser.AST.InterruptableNode;
@@ -8,11 +10,13 @@ import com.kingmang.lazurite.patterns.visitor.Visitor;
 import com.kingmang.lazurite.runtime.Variables;
 import com.kingmang.lazurite.runtime.values.LzrValue;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 
 @AllArgsConstructor
-public final class VariableExpression extends InterruptableNode implements Expression, Accessible {
-    
+public final class VariableExpression extends InterruptableNode implements Expression, Accessible, IFileInfoProvider {
     public final String name;
+    @Getter
+    public final FileInfo file;
 
     @Override
     public LzrValue eval() {

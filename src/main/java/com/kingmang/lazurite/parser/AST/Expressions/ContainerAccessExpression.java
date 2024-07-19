@@ -1,6 +1,7 @@
 package com.kingmang.lazurite.parser.AST.Expressions;
 
 import com.kingmang.lazurite.core.Types;
+import com.kingmang.lazurite.exceptions.FileInfo;
 import com.kingmang.lazurite.exceptions.LzrException;
 import com.kingmang.lazurite.parser.AST.Accessible;
 import com.kingmang.lazurite.patterns.visitor.ResultVisitor;
@@ -22,8 +23,8 @@ public final class ContainerAccessExpression implements Expression, Accessible {
     public final List<Expression> indices;
     private final boolean rootIsVariable;
 
-    public ContainerAccessExpression(String variable, List<Expression> indices) {
-        this(new VariableExpression(variable), indices);
+    public ContainerAccessExpression(String variable, List<Expression> indices, FileInfo file) {
+        this(new VariableExpression(variable, file), indices);
     }
 
     public ContainerAccessExpression(Expression root, List<Expression> indices) {

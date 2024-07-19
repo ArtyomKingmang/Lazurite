@@ -105,7 +105,7 @@ public final class UsingStatement extends InterruptableNode implements Statement
     public Statement loadLzrLibrary(String path) throws IOException {
         final String input = Loader.readSource(path);
         final List<Token> tokens = LexerImplementation.tokenize(input);
-        final IParser parser = new ParserImplementation(tokens);
+        final IParser parser = new ParserImplementation(tokens, path);
         final Statement program = parser.parse();
         if (parser.getParseErrors().hasErrors()) {
             throw new LzrException("ParseException ", parser.getParseErrors().toString());

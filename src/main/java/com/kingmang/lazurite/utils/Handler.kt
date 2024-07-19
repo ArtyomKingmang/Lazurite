@@ -19,7 +19,6 @@ import com.kingmang.lazurite.runtime.Libraries
 import com.kingmang.lazurite.runtime.Variables
 import com.kingmang.lazurite.runtime.values.LzrNumber
 import com.kingmang.lazurite.runtime.values.LzrValue
-import org.fusesource.jansi.Ansi
 import java.io.IOException
 import java.util.*
 import kotlin.jvm.Throws
@@ -30,7 +29,7 @@ object Handler {
     @Throws(IOException::class)
     fun Run(path: String) {
         Libraries.add(path)
-        runProgram(Loader.readSource(path))
+        runProgram(Loader.readSource(path), path)
     }
 
     @JvmStatic
@@ -41,7 +40,7 @@ object Handler {
     }
 
     @JvmStatic
-    fun runProgram(code: String) {
+    fun runProgram(code: String, file: String) {
         CrashHandler.register(
             SimpleCrashReporter(),
 
@@ -58,7 +57,7 @@ object Handler {
             val tokens = lexer.tokenize()
             CrashHandler.getCrashReporter().addProcessor(TokensProcessor(tokens))
 
-            val parser: IParser = ParserImplementation(tokens)
+            val parser: IParser = ParserImplementation(tokens, file)
             val parsedProgram = parser.parse()
             if (parser.parseErrors.hasErrors()) {
                 println(parser.parseErrors)
@@ -69,9 +68,7 @@ object Handler {
             try {
                 parsedProgram.execute()
             } catch (ex: LzrException) {
-                val ansiInput = Ansi.ansi().fg(Ansi.Color.GREEN).a(input).reset()
-                println("${ex.type}: ${ex.text} in $ansiInput")
-                //Console.handleException(Thread.currentThread(), ex);
+                ex.print(System.err)
             } catch (throwable: Throwable) {
                 CrashHandler.proceed(throwable)
             }
@@ -96,14 +93,14 @@ object Handler {
                 }
                 println("---Result---")
             }
-            val program = ParserImplementation(tokens).parse() as BlockStatement
+            val program = ParserImplementation(tokens, pathToScript).parse() as BlockStatement
             program.execute()
             if (!isExec) {
                 Variables.clear()
             }
         } catch (ex: LzrException) {
-            Log.append("${ex.type}: ${ex.text} in $pathToScript (${Date()})\n")
-            println("${ex.type}: ${ex.text} in $pathToScript")
+            Log.append("${ex.type}: ${ex.message} in $pathToScript (${Date()})\n")
+            ex.print(System.err)
             if (!isExec) {
                 Variables.clear()
             }
@@ -120,10 +117,10 @@ object Handler {
     fun returnHandle(input: String, pathToScript: String): LzrValue {
         try {
             val tokens = LexerImplementation(input).tokenize()
-            val program = ParserImplementation(tokens).parseExpression()
+            val program = ParserImplementation(tokens, pathToScript).parseExpression()
             return program.eval()
         } catch (ex: LzrException) {
-            println("${ex.type}: ${ex.text} in $pathToScript")
+            ex.print(System.err)
             return LzrNumber.ZERO
         }
     }
