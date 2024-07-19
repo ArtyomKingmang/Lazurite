@@ -2,7 +2,6 @@ package preprocessor;
 
 import com.kingmang.lazurite.parser.preprocessor.Preprocessor;
 import org.junit.Test;
-import parser.ParserHelper;
 
 import static org.junit.Assert.assertEquals;
 

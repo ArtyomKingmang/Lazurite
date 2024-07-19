@@ -1,6 +1,7 @@
 package com.kingmang.lazurite.parser.AST.Statements;
 
 import com.kingmang.lazurite.console.Console;
+import com.kingmang.lazurite.exceptions.LzrException;
 import com.kingmang.lazurite.parser.AST.Expressions.Expression;
 import com.kingmang.lazurite.parser.AST.InterruptableNode;
 import com.kingmang.lazurite.patterns.visitor.ResultVisitor;
@@ -21,7 +22,7 @@ public final class AssertStatement extends InterruptableNode implements Statemen
         else booleanExpr = false;
 
         if (!booleanExpr) {
-            throw new AssertionError("Assertion failed: " + expression);
+            throw new LzrException("AssertionError", "Assertion failed: " + expression);
         }
     }
 
