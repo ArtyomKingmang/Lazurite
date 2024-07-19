@@ -1,5 +1,7 @@
 package com.kingmang.lazurite.parser.parserImplementations;
 
+import com.kingmang.lazurite.exceptions.FileInfo;
+import com.kingmang.lazurite.exceptions.IFileInfoProvider;
 import com.kingmang.lazurite.exceptions.LzrException;
 import com.kingmang.lazurite.exceptions.parser.ParseErrors;
 import com.kingmang.lazurite.parser.AST.Accessible;
@@ -16,15 +18,15 @@ import com.kingmang.lazurite.runtime.values.LzrNumber;
 import com.kingmang.lazurite.runtime.values.LzrString;
 import lombok.Getter;
 import lombok.Setter;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Map;
 import java.util.*;
 
 
-public final class ParserImplementation implements IParser {
-
-    public Statement parse(List<Token> tokens) {
-        final ParserImplementation parser = new ParserImplementation(tokens);
+public final class ParserImplementation implements IParser, IFileInfoProvider {
+    public Statement parse(List<Token> tokens, String file) {
+        final ParserImplementation parser = new ParserImplementation(tokens, file);
         final Statement program = parser.parse();
         if (parser.getParseErrors().hasErrors()) {
             throw new LzrException("ParseException ", "");
@@ -77,12 +79,20 @@ public final class ParserImplementation implements IParser {
     private Statement parsedStatement;
 
     private int pos;
+    private final String file;
 
-    public ParserImplementation(List<Token> tokens) {
+    public ParserImplementation(List<Token> tokens, String file) {
         this.tokens = tokens;
         size = tokens.size();
+        this.file = file;
         this.macros = new HashMap<>();
         parseErrors = new ParseErrors();
+    }
+
+    @NotNull
+    @Override
+    public FileInfo getFile() {
+        return new FileInfo(file, getErrorLine());
     }
 
     @Override
@@ -229,13 +239,14 @@ public final class ParserImplementation implements IParser {
         for (int i = 0; i < macros.get(name); i++)
             exprs.add(expression());
 
-        return new FunctionalExpression(new VariableExpression(name), exprs);
+        return new FunctionalExpression(new VariableExpression(name, getFile()), exprs);
     }
 
     private Statement throwStatement() {
+        FileInfo file = getFile();
         String type = consume(TokenType.WORD).getText();
         Expression expr = expression();
-        return new ThrowStatement(type, expr);
+        return new ThrowStatement(type, expr, file);
     }
     private Statement assignmentStatement() {
 
@@ -872,9 +883,9 @@ public final class ParserImplementation implements IParser {
 
         final List<Expression> indices = variableSuffix();
         if (indices == null || indices.isEmpty())
-            return new VariableExpression(current.getText());
+            return new VariableExpression(current.getText(), getFile());
 
-        return new ContainerAccessExpression(current.getText(), indices);
+        return new ContainerAccessExpression(current.getText(), indices, getFile());
     }
 
     private List<Expression> variableSuffix() {

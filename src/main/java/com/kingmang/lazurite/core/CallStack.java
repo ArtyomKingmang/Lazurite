@@ -1,6 +1,10 @@
 package com.kingmang.lazurite.core;
 
+import com.kingmang.lazurite.exceptions.FileInfo;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.Deque;
 import java.util.concurrent.ConcurrentLinkedDeque;
@@ -14,8 +18,8 @@ public final class CallStack {
         calls.clear();
     }
     
-    public static synchronized void enter(String name, Function function) {
-        calls.push(new CallInfo(name, function));
+    public static synchronized void enter(String name, Function function, FileInfo file) {
+        calls.push(new CallInfo(name, function, file));
     }
     
     public static synchronized void exit() {
@@ -25,19 +29,11 @@ public final class CallStack {
     public static synchronized Deque<CallInfo> getCalls() {
         return calls;
     }
-    
-    public static class CallInfo {
-        String name;
-        Function function;
 
-        public CallInfo(String name, Function function) {
-            this.name = name;
-            this.function = function;
-        }
-
+    public record CallInfo(String name, Function function, @Nullable FileInfo file) {
         @Override
         public String toString() {
-            return String.format("%s: %s", name, function.toString().trim());
-        }
+                return String.format("%s: %s", name, function.toString().trim());
+            }
     }
 }
