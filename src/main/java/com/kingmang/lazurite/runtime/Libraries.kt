@@ -6,7 +6,6 @@ import com.kingmang.lazurite.runtime.scope.findOrCurrent
 private typealias LibraryList = MutableList<String>
 
 object Libraries {
-
     @Volatile
     private var scope = createRootScope()
 
@@ -26,16 +25,13 @@ object Libraries {
     @Synchronized
     @Suppress("unused")
     fun pop() {
-        scope.parent?.also { parent ->
-            scope = parent
-        }
+        scope.parent?.let { scope = it }
     }
 
     @JvmStatic
     @Synchronized
-    fun isExists(path: String): Boolean {
-        return findScope(path).isFound
-    }
+    fun isExists(path: String): Boolean =
+        findScope(path).isFound
 
     @JvmStatic
     @Synchronized
@@ -49,11 +45,12 @@ object Libraries {
         findScope(path).scope.data.remove(path)
     }
 
-    private fun findScope(path: String) = scope.findOrCurrent {
-        it.data.contains(path)
-    }
+    private fun findScope(path: String) =
+        scope.findOrCurrent { it.data.contains(path) }
 
-    private fun createRootScope() = Scope<LibraryList>(null, ArrayList())
+    private fun createRootScope() =
+        Scope<LibraryList>(null, ArrayList())
 
-    private fun createChildScope(parent: Scope<LibraryList>) = Scope(parent, ArrayList())
+    private fun createChildScope(parent: Scope<LibraryList>) =
+        Scope(parent, ArrayList())
 }

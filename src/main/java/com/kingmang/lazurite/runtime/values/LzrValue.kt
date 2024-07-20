@@ -1,7 +1,6 @@
 package com.kingmang.lazurite.runtime.values
 
 interface LzrValue : Comparable<LzrValue> {
-
     fun raw(): Any?
 
     fun asInt(): Int

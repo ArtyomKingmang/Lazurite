@@ -1,42 +1,39 @@
-package com.kingmang.lazurite.patterns.visitor;
+package com.kingmang.lazurite.patterns.visitor
 
+import com.kingmang.lazurite.parser.ast.expressions.*
+import com.kingmang.lazurite.parser.ast.statements.*
 
-import com.kingmang.lazurite.parser.AST.Expressions.*;
-import com.kingmang.lazurite.parser.AST.Statements.*;
-
-public interface ResultVisitor<R, T> {
-
-    R visit(AssertStatement s, T t);
-    R visit(TryCatchStatement s, T t);
-    R visit(ArrayExpression s, T t);
-    R visit(AssignmentExpression s, T t);
-    R visit(BinaryExpression s, T t);
-    R visit(BlockStatement s, T t);
-    R visit(BreakStatement s, T t);
-    R visit(ClassDeclarationStatement s, T t);
-    R visit(ConditionalExpression s, T t);
-    R visit(ContainerAccessExpression s, T t);
-    R visit(ContinueStatement s, T t);
-
-    R visit(DestructuringAssignmentStatement s, T t);
-    R visit(ForStatement s, T t);
-    R visit(ForeachAStatement s, T t);
-    R visit(ForeachMStatement s, T t);
-    R visit(FunctionDefineStatement s, T t);
-    R visit(FunctionReferenceExpression s, T t);
-    R visit(ExprStatement s, T t);
-    R visit(FunctionalExpression s, T t);
-    R visit(IfStatement s, T t);
-    R visit(MapExpression s, T t);
-    R visit(MatchExpression s, T t);
-    R visit(ObjectCreationExpression s, T t);
-    R visit(PrintStatement s, T t);
-    R visit(PrintlnStatement s, T t);
-    R visit(ReturnStatement s, T t);
-    R visit(TernaryExpression s, T t);
-    R visit(UnaryExpression s, T t);
-    R visit(ValueExpression s, T t);
-    R visit(VariableExpression s, T t);
-    R visit(WhileStatement s, T t);
-    R visit(UsingStatement s, T t);
+interface ResultVisitor<R, T> {
+    fun visit(s: AssertStatement, t: T): R
+    fun visit(s: TryCatchStatement, t: T): R
+    fun visit(s: ArrayExpression, t: T): R
+    fun visit(s: AssignmentExpression, t: T): R
+    fun visit(s: BinaryExpression, t: T): R
+    fun visit(s: BlockStatement, t: T): R
+    fun visit(s: BreakStatement, t: T): R
+    fun visit(s: ClassDeclarationStatement, t: T): R
+    fun visit(s: ConditionalExpression, t: T): R
+    fun visit(s: ContainerAccessExpression, t: T): R
+    fun visit(s: ContinueStatement, t: T): R
+    fun visit(s: DestructuringAssignmentStatement, t: T): R
+    fun visit(s: ForStatement, t: T): R
+    fun visit(s: ForeachAStatement, t: T): R
+    fun visit(s: ForeachMStatement, t: T): R
+    fun visit(s: FunctionDefineStatement, t: T): R
+    fun visit(s: FunctionReferenceExpression, t: T): R
+    fun visit(s: ExprStatement, t: T): R
+    fun visit(s: FunctionalExpression, t: T): R
+    fun visit(s: IfStatement, t: T): R
+    fun visit(s: MapExpression, t: T): R
+    fun visit(s: MatchExpression, t: T): R
+    fun visit(s: ObjectCreationExpression, t: T): R
+    fun visit(s: PrintStatement, t: T): R
+    fun visit(s: PrintlnStatement, t: T): R
+    fun visit(s: ReturnStatement, t: T): R
+    fun visit(s: TernaryExpression, t: T): R
+    fun visit(s: UnaryExpression, t: T): R
+    fun visit(s: ValueExpression, t: T): R
+    fun visit(s: VariableExpression, t: T): R
+    fun visit(s: WhileStatement, t: T): R
+    fun visit(s: UsingStatement, t: T): R
 }

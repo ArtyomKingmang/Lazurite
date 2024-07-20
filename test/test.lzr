@@ -1,4 +1,3 @@
 for(i = 0, i < 10, i++){
-    i++
-    assert i < 5
+    println(i)
 }

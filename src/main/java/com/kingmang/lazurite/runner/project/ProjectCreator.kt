@@ -9,18 +9,15 @@ import kotlin.io.path.writeText
 import kotlin.io.path.writer
 
 object ProjectCreator {
-
     @Throws(ProjectCreatorException::class)
     fun create(args: List<String>) {
         try {
             val input = handleArguments(args)
             createByInput(input)
+        } catch (ex: ProjectCreatorException) {
+            throw ex
         } catch (ex: Exception) {
-            if (ex is ProjectCreatorException) {
-                throw ex
-            } else {
-                throw ProjectCreatorException("Unknown exception: $ex", ex)
-            }
+            throw ProjectCreatorException("Unknown exception: $ex", ex)
         }
     }
 
@@ -28,13 +25,9 @@ object ProjectCreator {
         val arg0 = args.getOrNull(0)
         val arg1 = args.getOrNull(1)
         val isLib = arg0?.let { it == "--lib" || it == "-l" } ?: false
-        val name = if (isLib) arg1 else arg0
-        if (name == null) {
-            throw ProjectCreatorException("Project name not specified")
-        }
-        if (name.startsWith("-") || !name.matches("^[a-z0-9\\-]+$".toRegex())) {
+        val name = (if (isLib) arg1 else arg0) ?: throw ProjectCreatorException("Project name not specified")
+        if (name.startsWith("-") || !name.matches("^[a-z0-9\\-]+$".toRegex()))
             throw ProjectCreatorException("Name of project should contain only `a-z`, `0-9` and `-`")
-        }
         return Input(name, isLib)
     }
 
@@ -48,15 +41,13 @@ object ProjectCreator {
 
     private fun createProjectDir(input: Input): Path {
         val projectPath = Paths.get(System.getProperty("user.dir"), input.name)
-        if (Files.exists(projectPath) && Files.isDirectory(projectPath)) {
+        if (Files.isDirectory(projectPath)) {
             Files.newDirectoryStream(projectPath).use {
                 if (it.any()) {
                     throw ProjectCreatorException("Can't create project ${input.name} in existing folder that contains something in it")
                 }
             }
-        } else {
-            Files.createDirectory(projectPath)
-        }
+        } else Files.createDirectory(projectPath)
         return projectPath
     }
 
@@ -68,25 +59,20 @@ object ProjectCreator {
 
     private fun createLzrLibsDir(): Path {
         val lzrLibsPath = Paths.get(RunnerInfo.LZR_LIBS_PATH)
-        if (!Files.exists(lzrLibsPath)) {
+        if (!Files.exists(lzrLibsPath))
             Files.createDirectory(lzrLibsPath)
-        }
         return lzrLibsPath
     }
 
     private fun createDefaultSrcFile(input: Input, srcPath: Path) {
-        if (input.isLibrary) {
+        if (input.isLibrary)
             Files.createFile(Paths.get(srcPath.toString(), "lib.lzr"))
-        } else {
-            val file = Files.createFile(Paths.get(srcPath.toString(), "main.lzr"))
-            file.writeText("print(\"Hello World\")")
-        }
+        else Files.createFile(Paths.get(srcPath.toString(), "main.lzr")).writeText("print(\"Hello World\")")
     }
 
     private fun createProjectFile(input: Input, projectPath: Path) {
         val settingsMap = createSetting(input)
-        val file = Files.createFile(Paths.get(projectPath.toString(), "project.toml"))
-        file.writer().use {
+        Files.createFile(Paths.get(projectPath.toString(), "project.toml")).writer().use {
             TomlWriter().write(settingsMap, it)
         }
     }

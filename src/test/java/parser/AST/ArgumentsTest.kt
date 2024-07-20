@@ -1,7 +1,7 @@
 package parser.AST
 
-import com.kingmang.lazurite.parser.AST.Argument
-import com.kingmang.lazurite.parser.AST.Arguments
+import com.kingmang.lazurite.parser.ast.Argument
+import com.kingmang.lazurite.parser.ast.Arguments
 import org.junit.Test
 import kotlin.test.assertEquals
 

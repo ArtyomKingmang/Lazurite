@@ -5,36 +5,107 @@ import com.kingmang.lazurite.core.Types
 import com.kingmang.lazurite.core.asLzrArrayOrNull
 import com.kingmang.lazurite.core.throwTypeCastException
 
-open class LzrArray : LzrValue, Iterable<LzrValue> {
+open class LzrArray(private val elements: Array<LzrValue>, unit: Unit) : LzrValue, Iterable<LzrValue> {
+    constructor(size: Int) :
+            this(Array(size) { LzrNull }, Unit)
+    constructor(size: Int, init: (index: Int) -> LzrValue) :
+            this(Array(size, init), Unit)
+    constructor(values: Array<LzrValue>) :
+            this(values.copyOf(), Unit)
+    constructor(values: List<LzrValue>) :
+            this(values.toTypedArray(), Unit)
+    constructor(array: LzrArray) :
+            this(array.elements.copyOf(), Unit)
+
+    open val copyElements: Array<LzrValue>
+        get() = this.elements.copyOf()
+
+    override fun type(): Int =
+        Types.ARRAY
+
+    open fun size(): Int =
+        this.elements.size
+
+    open operator fun get(index: Int): LzrValue =
+        this.elements[index]
+
+    operator fun get(index: LzrValue): LzrValue =
+        when (index.asString()) {
+            "length" -> LzrNumber.of(this.size())
+            "isEmpty" -> Converters.voidToBoolean { this.size() == 0 }
+            else -> this[index.asInt()]
+        }
+
+    open operator fun set(index: Int, value: LzrValue) {
+        this.elements[index] = value
+    }
+
+    override fun raw(): Array<LzrValue> =
+        this.elements
+
+    override fun asInt(): Int =
+        throwTypeCastException("array", "integer")
+
+    override fun asNumber(): Double =
+        throwTypeCastException("array", "number")
+
+    override fun asString(): String =
+        this.elements.contentToString()
+
+    override fun asArray(): IntArray =
+        IntArray(0)
+
+    override fun iterator(): Iterator<LzrValue> =
+        this.elements.iterator()
+
+    override fun hashCode(): Int {
+        var hash = 5
+        hash = 79 * hash + this.elements.contentDeepHashCode()
+        return hash
+    }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other)
+            return true
+        if (other == null || this.javaClass != other.javaClass)
+            return false
+        other as LzrArray
+        return elements.contentDeepEquals(other.elements)
+    }
+
+    override fun compareTo(other: LzrValue): Int {
+        other.asLzrArrayOrNull()?.let {
+            val lengthCompare = this.size().compareTo(it.size())
+            if (lengthCompare != 0) {
+                return lengthCompare
+            }
+        }
+        return this.asString().compareTo(other.asString())
+    }
+
+    override fun toString(): String =
+        this.asString()
 
     companion object {
+        @JvmStatic
+        fun of(vararg values: LzrValue): LzrArray =
+            LzrArray(arrayOf(*values))
 
         @JvmStatic
-        fun of(vararg values: LzrValue): LzrArray {
-            return LzrArray(arrayOf(*values))
-        }
+        fun of(array: ByteArray): LzrArray =
+            LzrArray(array.size) { LzrNumber.of(array[it].toInt()) }
 
         @JvmStatic
-        fun of(array: ByteArray): LzrArray {
-            return LzrArray(array.size) {
-                LzrNumber.of(array[it].toInt())
-            }
-        }
-
-        @JvmStatic
-        fun of(array: Array<String>): LzrArray {
-            return LzrArray(array.size) {
-                LzrString(array[it])
-            }
-        }
+        fun of(array: Array<String>): LzrArray =
+            LzrArray(array.size) { LzrString(array[it]) }
 
         @JvmStatic
         fun add(array: LzrArray, value: LzrValue): LzrArray {
             val last = array.elements.size
-            val result = LzrArray(last + 1)
-            array.elements.copyInto(result.elements)
-            result.elements[last] = value
-            return result
+            return LzrArray(last + 1).apply {
+                array.elements.copyInto(this.elements)
+                this.elements[last] = value
+            }
         }
 
         @JvmStatic
@@ -51,7 +122,8 @@ open class LzrArray : LzrValue, Iterable<LzrValue> {
         fun joinToString(array: LzrArray, delimiter: String = "", prefix: String = "", suffix: String = ""): LzrString {
             val sb = StringBuilder()
             for (value in array) {
-                if (sb.isNotEmpty()) sb.append(delimiter)
+                if (sb.isNotEmpty())
+                    sb.append(delimiter)
                 else sb.append(prefix)
                 sb.append(value.asString())
             }
@@ -59,105 +131,4 @@ open class LzrArray : LzrValue, Iterable<LzrValue> {
             return LzrString(sb.toString())
         }
     }
-
-    private val elements: Array<LzrValue>
-
-    constructor(size: Int) {
-        val defaultNull = LzrNull()
-        this.elements = Array(size) { defaultNull }
-    }
-
-    constructor(size: Int, init: (index: Int) -> LzrValue) {
-        this.elements = Array(size, init)
-    }
-
-    constructor(values: Array<LzrValue>) {
-        this.elements = values.copyOf()
-    }
-
-    constructor(values: List<LzrValue>) {
-        this.elements = values.toTypedArray()
-    }
-
-    constructor(array: LzrArray) : this(array.elements)
-
-    open val copyElements: Array<LzrValue>
-        get() {
-            return elements.copyOf()
-        }
-
-    override fun type(): Int {
-        return Types.ARRAY
-    }
-
-    open fun size(): Int {
-        return elements.size
-    }
-
-    open operator fun get(index: Int): LzrValue {
-        return elements[index]
-    }
-
-    operator fun get(index: LzrValue): LzrValue {
-        return when (index.asString()) {
-            "length" -> LzrNumber.of(size())
-            "isEmpty" -> Converters.voidToBoolean { size() == 0 }
-            else -> get(index.asInt())
-        }
-    }
-
-    open operator fun set(index: Int, value: LzrValue) {
-        elements[index] = value
-    }
-
-    override fun raw(): Array<LzrValue> {
-        return elements
-    }
-
-    override fun asInt(): Int {
-        throwTypeCastException("array", "integer")
-    }
-
-    override fun asNumber(): Double {
-        throwTypeCastException("array", "number")
-    }
-
-    override fun asString(): String {
-        return elements.contentToString()
-    }
-
-    override fun asArray(): IntArray {
-        return IntArray(0)
-    }
-
-    override fun iterator(): Iterator<LzrValue> {
-        return elements.iterator()
-    }
-
-    override fun hashCode(): Int {
-        var hash = 5
-        hash = 79 * hash + elements.contentDeepHashCode()
-        return hash
-    }
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) return true
-        if (other == null) return false
-        if (javaClass != other.javaClass) return false
-        other as LzrArray
-        return elements.contentDeepEquals(other.elements)
-    }
-
-    override fun compareTo(other: LzrValue): Int {
-        other.asLzrArrayOrNull()?.also {
-            val lengthCompare = size().compareTo(it.size())
-            if (lengthCompare != 0) return lengthCompare
-        }
-        return asString().compareTo(other.asString())
-    }
-
-    override fun toString(): String {
-        return asString()
-    }
-
 }

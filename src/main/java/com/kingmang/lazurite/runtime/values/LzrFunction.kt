@@ -5,39 +5,24 @@ import com.kingmang.lazurite.core.Types
 import com.kingmang.lazurite.core.throwTypeCastException
 import java.util.*
 
-class LzrFunction(
-    val value: Function
-) : LzrValue {
+class LzrFunction(val value: Function) : LzrValue {
+    override fun type(): Int =
+        Types.FUNCTION
 
-    companion object {
-        @JvmField
-        val EMPTY = LzrFunction { LzrNumber.ZERO }
-    }
+    override fun raw(): Any =
+        this.value
 
-    override fun type(): Int {
-        return Types.FUNCTION
-    }
-
-    override fun raw(): Any {
-        return value
-    }
-
-    override fun asInt(): Int {
+    override fun asInt(): Int =
         throwTypeCastException("function", "integer")
-    }
 
-    override fun asNumber(): Double {
+    override fun asNumber(): Double =
         throwTypeCastException("function", "number")
-    }
 
-    override fun asString(): String {
-        return value.toString()
-    }
+    override fun asString(): String =
+        this.value.toString()
 
-    override fun asArray(): IntArray {
-        return IntArray(0)
-    }
-
+    override fun asArray(): IntArray =
+        IntArray(0)
 
     override fun hashCode(): Int {
         var hash = 7
@@ -45,20 +30,23 @@ class LzrFunction(
         return hash
     }
 
-
     override fun equals(other: Any?): Boolean {
-        if (this === other) return true
-        if (other == null) return false
-        if (javaClass != other.javaClass) return false
+        if (this === other)
+            return true
+        if (other == null || javaClass != other.javaClass)
+            return false
         other as LzrFunction
         return this.value == other.value
     }
 
-    override fun compareTo(other: LzrValue): Int {
-        return asString().compareTo(other.asString())
-    }
+    override fun compareTo(other: LzrValue): Int =
+        this.asString().compareTo(other.asString())
 
-    override fun toString(): String {
-        return asString()
+    override fun toString(): String =
+        this.asString()
+
+    companion object {
+        @JvmField
+        val EMPTY = LzrFunction { LzrNumber.ZERO }
     }
 }

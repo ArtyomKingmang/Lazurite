@@ -8,11 +8,11 @@ import com.kingmang.lazurite.crashHandler.reporter.output.impl.FileReportOutput
 import com.kingmang.lazurite.crashHandler.reporter.processors.impl.SourceCodeProcessor
 import com.kingmang.lazurite.crashHandler.reporter.processors.impl.TokensProcessor
 import com.kingmang.lazurite.exceptions.LzrException
-import com.kingmang.lazurite.parser.AST.Statements.BlockStatement
+import com.kingmang.lazurite.parser.ast.statements.BlockStatement
 import com.kingmang.lazurite.parser.ILexer
 import com.kingmang.lazurite.parser.IParser
-import com.kingmang.lazurite.parser.lexerImplementations.LexerImplementation
-import com.kingmang.lazurite.parser.parserImplementations.ParserImplementation
+import com.kingmang.lazurite.parser.impl.LexerImplementation
+import com.kingmang.lazurite.parser.impl.ParserImplementation
 import com.kingmang.lazurite.parser.preprocessor.Preprocessor
 import com.kingmang.lazurite.patterns.visitor.FunctionAdder
 import com.kingmang.lazurite.runtime.Libraries
@@ -24,10 +24,9 @@ import java.util.*
 import kotlin.jvm.Throws
 
 object Handler {
-
     @JvmStatic
     @Throws(IOException::class)
-    fun Run(path: String) {
+    fun run(path: String) {
         Libraries.add(path)
         runProgram(Loader.readSource(path), path)
     }
@@ -43,7 +42,6 @@ object Handler {
     fun runProgram(code: String, file: String) {
         CrashHandler.register(
             SimpleCrashReporter(),
-
             ConsoleReportOutput(),
             FileReportOutput()
         )
@@ -57,7 +55,8 @@ object Handler {
             val tokens = lexer.tokenize()
             CrashHandler.getCrashReporter().addProcessor(TokensProcessor(tokens))
 
-            val parser: IParser = ParserImplementation(tokens, file)
+            val parser: IParser =
+                ParserImplementation(tokens, file)
             val parsedProgram = parser.parse()
             if (parser.parseErrors.hasErrors()) {
                 println(parser.parseErrors)
@@ -93,7 +92,10 @@ object Handler {
                 }
                 println("---Result---")
             }
-            val program = ParserImplementation(tokens, pathToScript).parse() as BlockStatement
+            val program = ParserImplementation(
+                tokens,
+                pathToScript
+            ).parse() as BlockStatement
             program.execute()
             if (!isExec) {
                 Variables.clear()
@@ -117,7 +119,10 @@ object Handler {
     fun returnHandle(input: String, pathToScript: String): LzrValue {
         try {
             val tokens = LexerImplementation(input).tokenize()
-            val program = ParserImplementation(tokens, pathToScript).parseExpression()
+            val program = ParserImplementation(
+                tokens,
+                pathToScript
+            ).parseExpression()
             return program.eval()
         } catch (ex: LzrException) {
             ex.print(System.err)

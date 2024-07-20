@@ -1,59 +1,28 @@
-package com.kingmang.lazurite.runtime;
+package com.kingmang.lazurite.runtime
 
-import com.kingmang.lazurite.exceptions.LzrException;
-import com.kingmang.lazurite.runtime.values.LzrValue;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import org.jetbrains.annotations.NotNull;
+import com.kingmang.lazurite.exceptions.LzrException
+import com.kingmang.lazurite.runtime.values.LzrValue
+import java.io.Serializable
 
-import java.io.Serializable;
+class Reference(private val ref: Any) : LzrValue, Serializable {
+    override fun raw(): Any =
+        ref
 
-@Getter
-@AllArgsConstructor
-public class Reference implements LzrValue, Serializable {
-    private Object ref;
+    override fun asInt(): Int =
+        throw LzrException("BadArithmetic", "Cannot cast REFERENCE to a NUMBER")
 
-    @Override
-    public int asInt() {
-        throw new LzrException("BadArithmetic", "Cannot cast REFERENCE to a NUMBER");
-    }
+    override fun asNumber(): Double =
+        throw LzrException("BadArithmetic", "Cannot cast REFERENCE to a NUMBER")
 
-    @Override
-    public double asNumber() {
-        throw new LzrException("BadArithmetic", "Cannot cast REFERENCE to a NUMBER");
-    }
+    override fun asString(): String =
+        "#Reference<${hashCode()}>"
 
-    @NotNull
-    @Override
-    public Object raw() {
-        return ref;
-    }
+    override fun asArray(): IntArray = // todo: Почему в случае с asInt | asNumber мы кидаем исключение, а тут просто создаём пустой массив интов?
+        intArrayOf()
 
-    @NotNull
-    @Override
-    public String asString() {
-        return "#Reference<" + hashCode() + ">";
-    }
+    override fun type(): Int =
+        0
 
-    @NotNull
-    @Override
-    public int[] asArray() {
-        return new int[0];
-    }
-
-    @Override
-    public int type() {
-        return 0;
-    }
-
-
-    @Override
-    public String toString() {
-        return asString();
-    }
-
-    @Override
-    public int compareTo(@NotNull LzrValue o) {
-        return 0;
-    }
+    override fun compareTo(other: LzrValue): Int = // todo: Меня берут большие сомнения...
+        0
 }
