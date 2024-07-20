@@ -4,7 +4,7 @@ import com.kingmang.lazurite.editors.Editor
 import com.kingmang.lazurite.runner.command.RunnerCommand
 import com.kingmang.lazurite.runner.command.RunnerCommandData
 import com.kingmang.lazurite.runner.command.RunnerCommandHandler
-import com.kingmang.lazurite.runner.console.ConsoleUi
+import com.kingmang.lazurite.runner.console.ConsoleUI
 import com.kingmang.lazurite.runner.project.ProjectCreator
 import com.kingmang.lazurite.runner.project.ProjectCreatorException
 import com.kingmang.lazurite.runner.runtype.RunType
@@ -15,7 +15,6 @@ import java.io.*
 
 
 object Runner {
-
     @JvmStatic
     fun main(args: Array<String>) {
         if (args.isEmpty()) {
@@ -31,13 +30,11 @@ object Runner {
     }
 
     private fun console() {
-        ConsoleUi.printFirstHelp()
-        var works = true
-        while (works) {
-            ConsoleUi.printCommandsDivider()
+        ConsoleUI.printFirstHelp()
+        do {
+            ConsoleUI.printCommandsDivider()
             val commandData = RunnerCommandHandler.readInput()
-            works = handleCommandData(commandData)
-        }
+        } while (handleCommandData(commandData))
     }
 
     private fun handleCommandData(commandData: RunnerCommandData?): Boolean {
@@ -46,10 +43,10 @@ object Runner {
             return true
         }
         when (commandData.command) {
-            RunnerCommand.Version -> ConsoleUi.printVersion()
-            RunnerCommand.Help -> ConsoleUi.printHelp()
+            RunnerCommand.Version -> ConsoleUI.printVersion()
+            RunnerCommand.Help -> ConsoleUI.printHelp()
             RunnerCommand.Editor -> Editor.openEditor()
-            RunnerCommand.Clear -> ConsoleUi.clear()
+            RunnerCommand.Clear -> ConsoleUI.clear()
             RunnerCommand.New -> createProject(commandData.args)
             RunnerCommand.Run -> runProgram(commandData.args, true)
             RunnerCommand.Exit -> return false
@@ -84,7 +81,7 @@ object Runner {
     private fun runByFilePath(runFile: String, runPath: String, preprocess: Boolean) {
         try {
             if (preprocess) {
-                Handler.Run(runPath)
+                Handler.run(runPath)
             }
         } catch (e: ArrayIndexOutOfBoundsException) {
             println("Correct entry form: r <file>")

@@ -1,11 +1,11 @@
 package runtime
 
 import com.kingmang.lazurite.core.asLzrFunction
-import com.kingmang.lazurite.parser.AST.Arguments
-import com.kingmang.lazurite.parser.AST.ArgumentsBuilder
-import com.kingmang.lazurite.parser.AST.Expressions.FunctionalExpression
-import com.kingmang.lazurite.parser.AST.Expressions.ValueExpression
-import com.kingmang.lazurite.parser.AST.Statements.ReturnStatement
+import com.kingmang.lazurite.parser.ast.Arguments
+import com.kingmang.lazurite.parser.ast.ArgumentsBuilder
+import com.kingmang.lazurite.parser.ast.expressions.FunctionalExpression
+import com.kingmang.lazurite.parser.ast.expressions.ValueExpression
+import com.kingmang.lazurite.parser.ast.statements.ReturnStatement
 import com.kingmang.lazurite.runtime.ClassInstanceBuilder
 import com.kingmang.lazurite.runtime.values.LzrNumber
 import com.kingmang.lazurite.runtime.values.LzrString

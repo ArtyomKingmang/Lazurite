@@ -1,7 +1,7 @@
 package lexer;
 
 import com.kingmang.lazurite.parser.tokens.Token;
-import com.kingmang.lazurite.parser.lexerImplementations.LexerImplementation;
+import com.kingmang.lazurite.parser.impl.LexerImplementation;
 import org.junit.Test;
 
 import java.util.List;

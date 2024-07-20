@@ -2,9 +2,9 @@ package runtime
 
 import com.kingmang.lazurite.core.Types
 import com.kingmang.lazurite.exceptions.LzrException
-import com.kingmang.lazurite.parser.AST.ArgumentsBuilder
-import com.kingmang.lazurite.parser.AST.Expressions.ValueExpression
-import com.kingmang.lazurite.parser.AST.Statements.ReturnStatement
+import com.kingmang.lazurite.parser.ast.ArgumentsBuilder
+import com.kingmang.lazurite.parser.ast.expressions.ValueExpression
+import com.kingmang.lazurite.parser.ast.statements.ReturnStatement
 import com.kingmang.lazurite.runtime.ClassInstanceValue
 import com.kingmang.lazurite.runtime.ClassMethod
 import com.kingmang.lazurite.runtime.UserDefinedFunction

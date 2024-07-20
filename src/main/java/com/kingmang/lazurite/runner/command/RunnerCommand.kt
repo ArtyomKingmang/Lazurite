@@ -7,7 +7,6 @@ enum class RunnerCommand(
     val info: String,
     val commandFull: String = "--$full",
 ) {
-
     Run(
         full = "run",
         compact = "-r",

@@ -1,36 +1,27 @@
 package com.kingmang.lazurite.runtime.values
 
 class LzrEnum(private val enums: Map<String, LzrString>) : LzrValue {
+    fun get(enm: String): LzrString? =
+        this.enums[enm]
 
-    fun get(enm: String): LzrString? {
-        return enums[enm]
-    }
+    override fun raw(): Map<String, LzrString> =
+        this.enums
 
-    override fun raw(): Map<String, LzrString> {
-        return enums
-    }
+    override fun asInt(): Int =
+        this.enums.size
 
-    override fun asInt(): Int {
-        return enums.size
-    }
+    override fun asNumber(): Double =
+        this.enums.size.toDouble()
 
-    override fun asNumber(): Double {
-        return enums.size.toDouble()
-    }
+    override fun asString(): String =
+        this.enums.toString()
 
-    override fun asString(): String {
-        return enums.toString()
-    }
+    override fun asArray(): IntArray =
+        IntArray(0)
 
-    override fun asArray(): IntArray {
-        return IntArray(0)
-    }
+    override fun type(): Int =
+        0
 
-    override fun type(): Int {
-        return 0
-    }
-
-    override fun compareTo(other: LzrValue): Int {
-        return 0
-    }
+    override fun compareTo(other: LzrValue): Int =
+        0
 }

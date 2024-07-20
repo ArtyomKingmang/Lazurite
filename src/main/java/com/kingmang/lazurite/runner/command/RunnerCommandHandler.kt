@@ -1,9 +1,9 @@
 package com.kingmang.lazurite.runner.command
 
 object RunnerCommandHandler {
-
     fun handleArgs(args: List<String>): RunnerCommandData? {
-        if (args.isEmpty()) return null
+        if (args.isEmpty())
+            return null
         val command = args[0].findCommandByArg() ?: return null
         val commandArgs = args.excludeCommandArg()
         return RunnerCommandData(command, commandArgs)
@@ -14,13 +14,9 @@ object RunnerCommandHandler {
         return handleArgs(args)
     }
 
-    private fun String.findCommandByArg(): RunnerCommand? {
-        return RunnerCommand.entries.find {
-            this == it.full || this == it.commandFull || this == it.compact
-        }
-    }
+    private fun String.findCommandByArg(): RunnerCommand? =
+        RunnerCommand.entries.find { when (this) { it.full, it.commandFull, it.compact -> true else -> false } }
 
-    private fun List<String>.excludeCommandArg(): List<String> {
-        return slice(1 until size)
-    }
+    private fun List<String>.excludeCommandArg(): List<String> =
+        slice(1 until size)
 }

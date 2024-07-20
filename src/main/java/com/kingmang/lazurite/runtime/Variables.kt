@@ -9,7 +9,6 @@ import kotlin.concurrent.Volatile
 private typealias VariableMap = MutableMap<String, LzrValue>
 
 object Variables {
-
     @Volatile
     private var scope = createRootScope()
 
@@ -75,10 +74,12 @@ object Variables {
         it.data.containsKey(variable)
     }
 
-    private fun createRootScope() = Scope<VariableMap>(null, HashMap()).apply {
-        data["true"] = LzrNumber.ONE
-        data["false"] = LzrNumber.ZERO
-    }
+    private fun createRootScope() =
+        Scope<VariableMap>(null, HashMap()).apply {
+            data["true"] = LzrNumber.ONE
+            data["false"] = LzrNumber.ZERO
+        }
 
-    private fun createChildScope(parent: Scope<VariableMap>) = Scope(parent, HashMap())
+    private fun createChildScope(parent: Scope<VariableMap>) =
+        Scope(parent, HashMap())
 }

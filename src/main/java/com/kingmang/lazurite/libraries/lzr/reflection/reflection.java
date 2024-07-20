@@ -85,7 +85,7 @@ public final class reflection implements Library {
     private static class JavaClassValue extends LzrMap implements Instantiable {
 
         public static LzrValue classOrNull(Class<?> clazz) {
-            if (clazz == null) return new LzrNull();
+            if (clazz == null) return LzrNull.INSTANCE;
             return new JavaClassValue(clazz);
         }
 
@@ -174,7 +174,7 @@ public final class reflection implements Library {
     private static class ObjectValue extends LzrMap {
 
         public static LzrValue objectOrNull(Object object) {
-            if (object == null) return new LzrNull();
+            if (object == null) return LzrNull.INSTANCE;
             return new ObjectValue(object);
         }
 
@@ -230,7 +230,7 @@ public final class reflection implements Library {
 
     private LzrValue JObject(LzrValue[] args) {
         Arguments.check(1, args.length);
-        if (Objects.equals(args[0], new LzrNull())) return new LzrNull();
+        if (Objects.equals(args[0], LzrNull.INSTANCE)) return LzrNull.INSTANCE;
         return new ObjectValue(valueToObject(args[0]));
     }
 
@@ -239,7 +239,7 @@ public final class reflection implements Library {
         if (args[0] instanceof ObjectValue) {
             return objectToValue( ((ObjectValue) args[0]).object );
         }
-        return new LzrNull();
+        return LzrNull.INSTANCE;
     }
 
 
@@ -271,7 +271,7 @@ public final class reflection implements Library {
             // ignore and go to the next step
         }
 
-        return new LzrNull();
+        return LzrNull.INSTANCE;
     }
 
     private static LzrValue findConstructorAndInstantiate(LzrValue[] args, Constructor<?>[] ctors) {
@@ -316,7 +316,7 @@ public final class reflection implements Library {
             final LzrValue arg = args[i];
             final Class<?> clazz = types[i];
 
-            if (Objects.equals(arg, new LzrNull())) continue;
+            if (Objects.equals(arg, LzrNull.INSTANCE)) continue;
 
             final Class<?> unboxed = unboxed(clazz);
             boolean assignable = unboxed != null;
@@ -360,12 +360,12 @@ public final class reflection implements Library {
     }
 
     private static LzrValue objectToValue(Object o) {
-        if (o == null) return new LzrNull();
+        if (o == null) return LzrNull.INSTANCE;
         return objectToValue(o.getClass(), o);
     }
 
     private static LzrValue objectToValue(Class<?> clazz, Object o) {
-        if (o == null || o.equals(new LzrNull())) return new LzrNull();
+        if (o == null || o.equals(LzrNull.INSTANCE)) return LzrNull.INSTANCE;
         if (clazz.isPrimitive()) {
             if (int.class.isAssignableFrom(clazz))
                 return LzrNumber.of((int) o);
@@ -460,7 +460,7 @@ public final class reflection implements Library {
     }
 
     private static Object valueToObject(LzrValue value) {
-        if (Objects.equals(value, new LzrNull())) return null;
+        if (Objects.equals(value, LzrNull.INSTANCE)) return null;
         switch (value.type()) {
             case Types.NUMBER:
                 return value.raw();

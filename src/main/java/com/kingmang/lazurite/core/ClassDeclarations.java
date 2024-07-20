@@ -1,6 +1,6 @@
 package com.kingmang.lazurite.core;
 
-import com.kingmang.lazurite.parser.AST.Statements.ClassDeclarationStatement;
+import com.kingmang.lazurite.parser.ast.statements.ClassDeclarationStatement;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 

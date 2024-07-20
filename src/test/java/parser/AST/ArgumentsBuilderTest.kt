@@ -1,8 +1,8 @@
 package parser.AST
 
-import com.kingmang.lazurite.parser.AST.Argument
-import com.kingmang.lazurite.parser.AST.ArgumentsBuilder
-import com.kingmang.lazurite.parser.AST.Expressions.ValueExpression
+import com.kingmang.lazurite.parser.ast.Argument
+import com.kingmang.lazurite.parser.ast.ArgumentsBuilder
+import com.kingmang.lazurite.parser.ast.expressions.ValueExpression
 import org.junit.Test
 import kotlin.test.assertEquals
 

@@ -9,20 +9,6 @@ import java.util.function.Consumer
 
 // TODO remove JvmSuppressWildcards annotations after completely move to kotlin
 open class LzrMap : LzrValue, Iterable<Map.Entry<@JvmSuppressWildcards LzrValue, @JvmSuppressWildcards LzrValue>> {
-
-    companion object {
-        @JvmField
-        val EMPTY = LzrMap(1)
-
-        @JvmStatic
-        fun merge(map1: LzrMap, map2: LzrMap): LzrMap {
-            val result = LzrMap(map1.size() + map2.size())
-            result.map.putAll(map1.map)
-            result.map.putAll(map2.map)
-            return result
-        }
-    }
-
     private val map: MutableMap<LzrValue, LzrValue>
 
     constructor(size: Int) {
@@ -33,9 +19,8 @@ open class LzrMap : LzrValue, Iterable<Map.Entry<@JvmSuppressWildcards LzrValue,
         this.map = map.toMutableMap()
     }
 
-    fun ifPresent(key: String, consumer: Consumer<LzrValue>): Boolean {
-        return ifPresent(LzrString(key), consumer)
-    }
+    fun ifPresent(key: String, consumer: Consumer<LzrValue>): Boolean =
+        ifPresent(LzrString(key), consumer)
 
     fun ifPresent(key: LzrValue, consumer: Consumer<LzrValue>): Boolean {
         if (map.containsKey(key)) {
@@ -45,29 +30,23 @@ open class LzrMap : LzrValue, Iterable<Map.Entry<@JvmSuppressWildcards LzrValue,
         return false
     }
 
-    fun toPairs(): LzrArray {
-        return LzrArray(map.map { LzrArray.of(it.key, it.value) })
-    }
+    fun toPairs(): LzrArray =
+        LzrArray(this.map.map { LzrArray.of(it.key, it.value) })
 
-    fun getMap(): Map<LzrValue, LzrValue> {
-        return map
-    }
+    fun getMap(): Map<LzrValue, LzrValue> =
+        this.map
 
-    override fun type(): Int {
-        return Types.MAP
-    }
+    override fun type(): Int =
+        Types.MAP
 
-    fun size(): Int {
-        return map.size
-    }
+    fun size(): Int =
+        this.map.size
 
-    open fun containsKey(key: LzrValue): Boolean {
-        return map.containsKey(key)
-    }
+    open fun containsKey(key: LzrValue): Boolean =
+        this.map.containsKey(key)
 
-    open operator fun get(key: LzrValue): LzrValue? {
-        return map[key]
-    }
+    open operator fun get(key: LzrValue): LzrValue? =
+        this.map[key]
 
     operator fun set(key: String, value: LzrValue) {
         set(LzrString(key), value)
@@ -81,29 +60,23 @@ open class LzrMap : LzrValue, Iterable<Map.Entry<@JvmSuppressWildcards LzrValue,
         map[key] = value
     }
 
-    override fun raw(): Any? {
-        return map
-    }
+    override fun raw(): Any? =
+        this.map
 
-    override fun asInt(): Int {
+    override fun asInt(): Int =
         throwTypeCastException("map", "integer")
-    }
 
-    override fun asNumber(): Double {
+    override fun asNumber(): Double =
         throwTypeCastException("map", "number")
-    }
 
-    override fun asString(): String {
-        return map.toString()
-    }
+    override fun asString(): String =
+        this.map.toString()
 
-    override fun asArray(): IntArray {
-        return IntArray(0)
-    }
+    override fun asArray(): IntArray =
+        IntArray(0)
 
-    override fun iterator(): Iterator<Map.Entry<LzrValue, LzrValue>> {
-        return map.entries.iterator()
-    }
+    override fun iterator(): Iterator<Map.Entry<LzrValue, LzrValue>> =
+        this.map.entries.iterator()
 
     override fun hashCode(): Int {
         var hash = 5
@@ -112,22 +85,36 @@ open class LzrMap : LzrValue, Iterable<Map.Entry<@JvmSuppressWildcards LzrValue,
     }
 
     override fun equals(other: Any?): Boolean {
-        if (this === other) return true
-        if (other == null) return false
-        if (javaClass != other.javaClass) return false
+        if (this === other)
+            return true
+        if (other == null || this.javaClass != other.javaClass)
+            return false
         other as LzrMap
         return this.map == other.map
     }
 
     override fun compareTo(other: LzrValue): Int {
-        other.asLzrMapOrNull()?.also {
-            val lengthCompare = size().compareTo(it.size())
-            if (lengthCompare != 0) return lengthCompare
+        other.asLzrMapOrNull()?.let {
+            val lengthCompare = this.size().compareTo(it.size())
+            if (lengthCompare != 0) {
+                return lengthCompare
+            }
         }
-        return asString().compareTo(other.asString())
+        return this.asString().compareTo(other.asString())
     }
 
-    override fun toString(): String {
-        return asString()
+    override fun toString(): String =
+        this.asString()
+
+    companion object {
+        @JvmField
+        val EMPTY = LzrMap(1)
+
+        @JvmStatic
+        fun merge(map1: LzrMap, map2: LzrMap): LzrMap =
+            LzrMap(map1.size() + map2.size()).apply {
+                map.putAll(map1.map)
+                map.putAll(map2.map)
+            }
     }
 }
