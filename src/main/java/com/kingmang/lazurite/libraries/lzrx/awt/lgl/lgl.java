@@ -13,7 +13,6 @@ import com.kingmang.lazurite.libraries.lzrx.awt.lgl.value.ColorValue;
 import com.kingmang.lazurite.libraries.lzrx.awt.lgl.value.graphics.GraphicsValue;
 import com.kingmang.lazurite.libraries.lzrx.awt.lgl.color.Rgb;
 import com.kingmang.lazurite.libraries.lzrx.awt.lgl.color.Web;
-import com.kingmang.lazurite.libraries.lzrx.lgl.effects.*;
 import com.kingmang.lazurite.runtime.Variables;
 import com.kingmang.lazurite.runtime.values.*;
 import javafx.application.Platform;
