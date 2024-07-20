@@ -21,6 +21,7 @@ object ConsoleUI {
         val maxLength = maxOf(version.length, title.length)
         val divider = "-".repeat(maxLength)
         "\n\t$version\n\t$title\n\t$divider"
+
     }
 
     private val HELP by lazy {
@@ -49,8 +50,8 @@ object ConsoleUI {
     fun printFirstHelp() {
         AnsiConsole.systemInstall()
         println(Ansi.ansi().fg(Ansi.Color.RED).a(HEADER).reset())
-        AnsiConsole.out().println(DIVIDER)
-        AnsiConsole.out().println(HELP)
+        println(Ansi.ansi().fg(Ansi.Color.GREEN).a(DIVIDER).reset())
+        println(Ansi.ansi().fg(Ansi.Color.GREEN).a(HELP).reset())
     }
 
     fun printHelp() {

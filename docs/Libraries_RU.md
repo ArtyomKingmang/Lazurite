@@ -232,19 +232,36 @@ print(out_array)
 # artify
 Библиотека для преобразования текста в ASCII арт.
 
-`artify.build(text = "")` - преобразует текст с арт
+`artify.build(text = "", style = "")` - преобразует текст в арт
+
 Пример:
 ````java
 using "lzr.utils.artify"
-
-print(artify.build("Hello World!"))
+println(artify.build("Hello", "doom"))
 ````
 Вывод:
 ````
-  _  _   ___   _      _       ___        __      __   ___    ___   _      ___    _ 
- | || | | __| | |    | |     / _ \       \ \    / /  / _ \  | _ \ | |    |   \  | |
- | __ | | _|  | |__  | |__  | (_) |       \ \/\/ /  | (_) | |   / | |__  | |) | |_|
- |_||_| |___| |____| |____|  \___/         \_/\_/    \___/  |_|_\ |____| |___/  (_)
+  _   _        _  _        
+| | | |      | || |       
+| |_| |  ___ | || |  ___  
+|  _  | / _ \| || | / _ \ 
+| | | ||  __/| || || (_) |
+\_| |_/ \___||_||_| \___/ 
+````
+
+Все стили:
+
+````
+banner,
+doh,
+doom,
+georgia,
+gothic,
+small,
+smkeyboard,
+speed,
+starwars,
+swampland
 ````
 
 # base64
