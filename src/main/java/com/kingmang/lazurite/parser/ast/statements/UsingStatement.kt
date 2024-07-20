@@ -37,7 +37,7 @@ data class UsingStatement(val expression: Expression) : InterruptableNode(), Sta
                 program.accept(FunctionAdder())
                 program.execute()
             } catch (ex: Exception) {
-                throw RuntimeException(ex)
+                throw LzrException(ex.toString(), ex.message.toString())
             }
         } catch (e: Exception) {
             //load Lzr libs

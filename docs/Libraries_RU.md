@@ -34,16 +34,17 @@
   * [Integer](#Integer)
   * [Double](#Double)
   * [String](#String)
+  * [reflection - внедрение java пакетов](#reflection)
 
-* [reflection - внедрение java пакетов](#reflection)
+
 
 ### lzrx
-
-* [lgl - графическая библиотека](#lgl)
-* [gforms - графическая библиотека (виджеты)](#gforms)
-* [robot - автоматизация](#robot)
-* [graph - графическая библиотека](#graph)
-* [colors](#colors)
+* [awt](#awt)
+  * [lgl - графическая библиотека](#lgl)
+  * [gforms - графическая библиотека (виджеты)](#gforms)
+  * [robot - автоматизация](#robot)
+  * [graph - графическая библиотека](#graph)
+  * [colors](#colors)
 
 
 
@@ -596,7 +597,7 @@ while((b=bais.read())!=-1){
 `JClass(arg)` - создает новый JavaClassValue
 
 ````java
-using "reflection"
+using "lzr.lang.reflection"
 Locale = JClass("java.util.Locale")
 
 locale1 = new Locale("EN", "INDIA");
@@ -622,14 +623,7 @@ println("Country Name: " + locale1.getDisplayCountry());
 
 
 
-
-
-
-
-
-
-
-# lzrx
+# awt
 
 * [lgl](#lgl)
 * [gforms](#gforms)
@@ -680,7 +674,7 @@ println("Country Name: " + locale1.getDisplayCountry());
 Пример 1:
 
 ```python
-using "lzrx.lgl"
+using "lzrx.awt.lgl"
 
 frame = lgl.createFrame("Hello, Lazurite!", 500, 400)
 frame.rect(10, 10, 30, 30)
@@ -697,7 +691,7 @@ img в позиции x; y с размерами width; height.
 Пример 2:
 
 ````python
-using "lzrx.lgl"
+using "lzrx.awt.lgl"
 
 frame = lgl.createFrame(500,500)
 
@@ -733,7 +727,7 @@ frame.image(img, 100, 100, 100, 100)
 
 Пример 3:
 ````python
-using "lzrx.lgl"
+using "lzrx.awt.lgl"
 
 frame = lgl.createFrame(500,500)
 
@@ -774,7 +768,7 @@ frame.rect(100,100,100,100)
 Пример 4:
 
 ````python
-using "lzrx.lgl"
+using "lzrx.awt.lgl"
 
 window = lgl.createFrame("Test Frame", 500, 500)
 
@@ -814,7 +808,7 @@ SWIPE_UP=16
 ````
 Пример 5:
 ````python
-using "lzrx.lgl"
+using "lzrx.awt.lgl"
 
 window = lgl.createFrame("Test Frame", 500, 500)
 
@@ -852,7 +846,7 @@ isSynthesized
 ````
 Пример 6:
 ````python
-using "lzrx.lgl"
+using "lzrx.awt.lgl"
 
 window = lgl.createFrame("Test Frame", 500, 500)
 
@@ -893,7 +887,7 @@ isShortcutDown
 `Button(text = "")` - создает новую кнопку
 
 ````java
-using "lzrx.gforms"
+using "lzrx.awt.gforms"
 
 button = Button("Button")
 
@@ -1013,7 +1007,7 @@ gridLayout(rows = 1, cols = 0, hgap = 0, vgap = 0) - создаёт GridLayout
 
 Пример
 ````java
-using "lzrx.gforms"
+using "lzrx.awt.gforms"
 
 window = Frame("test")
 window.setMinimumSize(600,300)
@@ -1128,7 +1122,7 @@ robot.keyPress(KEY.A)
 Все аргументы опциональны и указывать их необязательно, ведь в таком случае будут выбраны заранее заготовленные аргументы.
 
 ````java
-using "graph"
+using "lzrx.awt.graph"
 width = 640
 height = 400
 Frame("test",width,height)
@@ -1150,7 +1144,7 @@ Redraw() - обновление экрана
 `fill(rgb)` - закрашивает все фигуры, идущие после него
 
 ````java
-using "graph"
+using "lzrx.awt.graph"
 Frame()
 
 fill(100,100,200)
@@ -1164,14 +1158,14 @@ lrect(100,100,100,100)
 ### Текст
 `text("text", x, y)` - создает текст в координатах x, y
 ````java
-using "graph"
+using "lzrx.awt.graph"
 Frame(500,500)
 fill(0)
 text("Hello",100,100)
 ````
 `font("Arial", size)` - устанавливает шрифт с определенным размером
 ````java
-using "graph"
+using "lzrx.awt.graph"
 Frame(500,500)
 
 font("Arial",30)
@@ -1182,7 +1176,7 @@ text("Hello",100,100)
 ### Обработка нажатий
 `keyPressed()`
 ````java
-using "graph"
+using "lzrx.awt.graph"
 Frame(500,500)
 
 while(1){
@@ -1196,7 +1190,7 @@ while(1){
 ````
 `mouseHover()`
 ````java
-using "graph"
+using "lzrx.awt.graph"
 
 Frame()
 mouse = mouseHover()
@@ -1226,7 +1220,7 @@ scale(arg[0], arg[1])
 Упрощает работу с цветами в консоли.
 Пример:
 ````java
-using "lzrx.colors"
+using "lzrx.awt.colors"
 println(sprintf(color.blue))
 println("Hello")
 ````
