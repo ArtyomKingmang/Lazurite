@@ -1,4 +1,4 @@
-using "lzrx.graph"
+using "lzrx.awt.graph"
 using "lzr.utils.random"
 
 

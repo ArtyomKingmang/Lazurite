@@ -1,4 +1,4 @@
-using "lzrx.graph"
+using "lzrx.awt.graph"
 width = 640
 height = 400
 Frame("Fractal",width,height)

@@ -1,4 +1,4 @@
-using "lzrx.gforms"
+using "lzrx.awt.gforms"
 using "lzr.lang.system"
 
 wnd = Frame("text editor")

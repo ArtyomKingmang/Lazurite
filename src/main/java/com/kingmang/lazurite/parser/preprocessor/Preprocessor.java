@@ -30,7 +30,7 @@ public class Preprocessor {
                 if (parts.length == 2) {
                     String[] partsOfPkg = parts[1].split("\\.");
                     final String template = "%s = JClass(%s)";
-                    processedCode.append("using \"lzr.reflection\"; ");
+                    processedCode.append("using \"lzr.lang.reflection\"; ");
                     processedCode.append(String.format(template, partsOfPkg[2].replaceAll("\"", ""), parts[1]));
                     processedCode.append("\n");
                 }

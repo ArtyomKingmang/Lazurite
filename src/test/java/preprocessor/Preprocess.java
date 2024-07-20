@@ -12,7 +12,7 @@ public class Preprocess {
     public void testJIncludePreprocess() {
         String code = "#jInclude \"java.util.Stack\"";
         String input = Preprocessor.preprocess(code);
-        String output = "using \"lzr.reflection\"; Stack = JClass(\"java.util.Stack\")\n";
+        String output = "using \"lzr.lang.reflection\"; Stack = JClass(\"java.util.Stack\")\n";
         assertEquals(input, output);
     }
 }

@@ -1,4 +1,4 @@
-using "lzrx.gforms"
+using "lzrx.awt.gforms"
 
 panel = Panel()
 panel.setLayout(boxLayout(panel, BoxLayout.PAGE_AXIS))
