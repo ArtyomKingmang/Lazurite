@@ -29,32 +29,45 @@ print(text)
 
 async example:
 ```cpp
-using "lzr.async"
+using "lzr.utils.async"
 func hel(arg){
     print(arg)
 }
 async.supply(hel("Hello"))
 ```
-graph example:
-```cpp
-using "lzrx.graph"
-Frame()
 
-fill(100,100,200)
-rect(10,10,200,100)
-
-fill(100,200,100)
-lrect(100,100,100,100)
-```
 thread example:
 ```cpp
 using "lzr.utils.thread"
+
 func th(arg){
    println("My " + str(arg) + " Thread")
 }
 for(i=0, i<10, i++){
     std.thread(::th, i)
 }
+```
+
+stream api example:
+```cpp
+using "lzr.utils.streamApi"
+
+inputArray = range(0,5) // [0,0,0,0,0]
+resultArray = stream(inputArray)
+ .custom(::changeNums)
+ .toArray()
+
+func changeNums(container){
+    len = length(container)
+    result = Array(len)
+    for(i = 0, i < len, i++){
+        result[i] = 7
+    }
+    return result
+}
+
+println(resultArray)
+
 ```
 
 ## Download
@@ -71,14 +84,6 @@ We will review and help with all reasonable pull requests as long as the guideli
 - If you need help, check out the [Google Java Style Guide](https://google.github.io/styleguide/javaguide.html) for a reference.
 
 
-## Why Lazurite?
-Why should you choose Lazurite?:
-
-- Simple syntax.
-- Using java features and simplifying them
-- Flexible syntax
-- Dynamic typing
-- Object-Oriented Language.
 
 
 ## License
