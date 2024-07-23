@@ -1,16 +1,12 @@
 package com.kingmang.lazurite.runtime.values
 
 import com.kingmang.lazurite.exceptions.LzrException
-import com.kingmang.lazurite.memory.Storage
 import java.io.Serializable
 
 class LzrReference(
     @JvmField val ref: Any
 ) : LzrValue, Serializable {
 
-    init {
-        Storage.segment(this)
-    }
 
     override fun raw(): Any? {
         return ref
