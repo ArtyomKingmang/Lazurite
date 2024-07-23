@@ -1,4 +1,4 @@
-package com.kingmang.lazurite.libraries.lzr.collections.flatmap;
+package com.kingmang.lazurite.libraries.lzr.utils.flatmap;
 
 import com.kingmang.lazurite.core.Arguments;
 import com.kingmang.lazurite.core.Function;
