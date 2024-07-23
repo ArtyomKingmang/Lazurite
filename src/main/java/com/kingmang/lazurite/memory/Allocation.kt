@@ -1,107 +1,97 @@
-package com.kingmang.lazurite.memory;
+package com.kingmang.lazurite.memory
 
-import com.kingmang.lazurite.runtime.values.LzrArray;
-import com.kingmang.lazurite.runtime.values.LzrValue;
-import lombok.Getter;
-import org.jetbrains.annotations.NotNull;
+import com.kingmang.lazurite.memory.Storage.segment
+import com.kingmang.lazurite.memory.StorageUtils.size
+import com.kingmang.lazurite.runtime.values.LzrArray
+import com.kingmang.lazurite.runtime.values.LzrValue
+import lombok.Getter
+import java.util.*
+import java.util.List
 
-import java.util.LinkedList;
-import java.util.List;
+class Allocation : LzrValue {
+    var list: LinkedList<LzrValue>
 
-public class Allocation implements LzrValue {
+    private var allocated: Int
+    private var defaultAlloc: Int
 
-    private LinkedList<LzrValue> list;
-
-    @Getter
-    private int allocated, defaultAlloc;
-
-    public Allocation(LinkedList<LzrValue> list, int allocated) {
-        this.list = list; Storage.segment(allocated);
-        this.allocated = allocated;
-        this.defaultAlloc = allocated;
+    fun getAllocated() : Int{
+        return allocated
     }
 
-    public Allocation(int allocated, LzrValue... values) {
-        this.list = new LinkedList<>(List.of(values));
-        this.allocated = allocated;
-        this.defaultAlloc = allocated;
+    fun getDefaultAlloc() : Int{
+        return defaultAlloc
     }
 
-    public Allocation(int size) {
-        this.list = new LinkedList<>();
-        this.allocated = size;
-        this.defaultAlloc = size;
+    constructor(list: LinkedList<LzrValue>, allocated: Int) {
+        this.list = list
+        segment(allocated)
+        this.allocated = allocated
+        this.defaultAlloc = allocated
     }
 
-    public LzrValue toList() {
-        return new LzrArray(list);
+    constructor(allocated: Int, vararg values: LzrValue?) {
+        this.list = LinkedList(List.of(*values))
+        this.allocated = allocated
+        this.defaultAlloc = allocated
     }
 
-    public void segment(LzrValue obj) {
-        allocated -= StorageUtils.size(obj);
+    constructor(size: Int) {
+        this.list = LinkedList()
+        this.allocated = size
+        this.defaultAlloc = size
     }
 
-    public void clear() {
-        allocated = defaultAlloc;
-        list.clear();
+    fun toList(): LzrValue {
+        return LzrArray(list)
     }
 
-    public void setList(LinkedList<LzrValue> list) {
-        this.list = list;
+    fun segment(obj: LzrValue?) {
+        allocated -= size(obj!!).toInt()
     }
 
-    public void setAllocated(int allocated) {
-        this.allocated = allocated;
+    fun clear() {
+        allocated = defaultAlloc
+        list.clear()
     }
 
-    public void setDefaultAlloc(int defaultAlloc) {
-        this.defaultAlloc = defaultAlloc;
+    fun setAllocated(allocated: Int) {
+        this.allocated = allocated
     }
 
-    @Override
-    public String toString() {
-        return "allocation " + hashCode();
+    fun setDefaultAlloc(defaultAlloc: Int) {
+        this.defaultAlloc = defaultAlloc
+    }
+
+    override fun toString(): String {
+        return "allocation " + hashCode()
     }
 
 
-    public LinkedList<LzrValue> getList() {
-        return list;
+    override fun raw(): Any? {
+        return list
     }
 
-    @Override
-    public Object raw() {
-        return list;
+    override fun asInt(): Int {
+        return 0
     }
 
-    @Override
-    public int asInt() {
-        return 0;
+    override fun asNumber(): Double {
+        return 0.0
     }
 
-    @Override
-    public double asNumber() {
-        return 0;
+    override fun asString(): String {
+        return ""
     }
 
-    @NotNull
-    @Override
-    public String asString() {
-        return "";
+    override fun asArray(): IntArray {
+        return IntArray(0)
     }
 
-    @NotNull
-    @Override
-    public int[] asArray() {
-        return new int[0];
+    override fun type(): Int {
+        return 0
     }
 
-    @Override
-    public int type() {
-        return 0;
-    }
-
-    @Override
-    public int compareTo(@NotNull LzrValue o) {
-        return 0;
+    override fun compareTo(o: LzrValue): Int {
+        return 0
     }
 }

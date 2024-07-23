@@ -1,29 +1,34 @@
-package com.kingmang.lazurite.memory;
+package com.kingmang.lazurite.memory
 
-import com.kingmang.lazurite.exceptions.LzrException;
-import com.kingmang.lazurite.runtime.values.LzrValue;
+import com.kingmang.lazurite.exceptions.LzrException
+import com.kingmang.lazurite.memory.StorageUtils.size
+import com.kingmang.lazurite.runtime.values.LzrValue
 
-public class Storage {
+object Storage {
+    private var left: Long = 2080000000
 
-    private static long left = 2080000000;
-
-    public static void free(LzrValue obj) {
-        left += StorageUtils.size(obj);
+    fun free(obj: LzrValue?) {
+        left += size(obj!!).toLong()
     }
 
-    public static void segment(LzrValue obj) {
-        left -= StorageUtils.size(obj);
-        if (left <= 0) throw new LzrException("SegmentationFault", "segmentation fault, last allocation: 'allocation " + obj + ":" + StorageUtils.size(obj) + "'");
+    fun segment(obj: LzrValue) {
+        left -= size(obj).toLong()
+        if (left <= 0) throw LzrException(
+            "SegmentationFault",
+            "segmentation fault, last allocation: 'allocation " + obj + ":" + size(obj) + "'"
+        )
     }
 
-    public static void segment(int obj) {
-        left -= obj;
+    @JvmStatic
+    fun segment(obj: Int) {
+        left -= obj.toLong()
     }
 
-    public static void reset() { left = 2080000000; }
-
-    public static long left() {
-        return left;
+    fun reset() {
+        left = 2080000000
     }
 
+    fun left(): Long {
+        return left
+    }
 }
