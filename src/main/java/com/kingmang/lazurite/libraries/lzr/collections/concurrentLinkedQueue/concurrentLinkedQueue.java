@@ -1,4 +1,4 @@
-package com.kingmang.lazurite.libraries.lzr.collections.queue;
+package com.kingmang.lazurite.libraries.lzr.collections.concurrentLinkedQueue;
 
 import com.kingmang.lazurite.core.Arguments;
 import com.kingmang.lazurite.exceptions.LzrException;
@@ -9,10 +9,10 @@ import com.kingmang.lazurite.runtime.values.*;
 import java.util.LinkedList;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
-public class queue implements Library {
+public class concurrentLinkedQueue implements Library {
     @Override
     public void init() {
-        LzrMap queue = new LzrMap(1);
+        final LzrMap queue = new LzrMap(6);
 
         queue.set("new", args -> {
             Arguments.check(0, args.length);
@@ -23,7 +23,7 @@ public class queue implements Library {
             Arguments.check(2, args.length);
             LzrValue s = args[0];
             if (!(s instanceof LzrReference))
-                throw new LzrException("BadArg", "expected reference as queue object");
+                throw new LzrException("BadArg", "expected reference as concurrentLinkedQueue object");
             ConcurrentLinkedQueue<LzrValue> st = (ConcurrentLinkedQueue<LzrValue>) ((LzrReference) s).ref;
             st.add(args[1]);
             return args[1];
@@ -33,7 +33,7 @@ public class queue implements Library {
             Arguments.check(1, args.length);
             LzrValue s = args[0];
             if (!(s instanceof LzrReference))
-                throw new LzrException("BadArg", "expected reference as queue object");
+                throw new LzrException("BadArg", "expected reference as concurrentLinkedQueue object");
             ConcurrentLinkedQueue<LzrValue> st = (ConcurrentLinkedQueue<LzrValue>) ((LzrReference) s).ref;
             return st.remove();
         });
@@ -42,7 +42,7 @@ public class queue implements Library {
             Arguments.check(1, args.length);
             LzrValue s = args[0];
             if (!(s instanceof LzrReference))
-                throw new LzrException("BadArg", "expected reference as queue object");
+                throw new LzrException("BadArg", "expected reference as concurrentLinkedQueue object");
             ConcurrentLinkedQueue<LzrValue> st = (ConcurrentLinkedQueue<LzrValue>) ((LzrReference) s).ref;
             return st.peek();
         });
@@ -51,7 +51,7 @@ public class queue implements Library {
             Arguments.check(1, args.length);
             LzrValue s = args[0];
             if (!(s instanceof LzrReference))
-                throw new LzrException("BadArg", "expected reference as queue object");
+                throw new LzrException("BadArg", "expected reference as concurrentLinkedQueue object");
             ConcurrentLinkedQueue<LzrValue> st = (ConcurrentLinkedQueue<LzrValue>) ((LzrReference) s).ref;
             LzrValue[] calls = st.toArray(new LzrValue[]{});
             LinkedList<LzrValue> result = new LinkedList<>();
@@ -65,11 +65,11 @@ public class queue implements Library {
             Arguments.check(1, args.length);
             LzrValue s = args[0];
             if (!(s instanceof LzrReference))
-                throw new LzrException("BadArg", "expected reference as queue object");
+                throw new LzrException("BadArg", "expected reference as concurrentLinkedQueue object");
             ConcurrentLinkedQueue<LzrValue> st = (ConcurrentLinkedQueue<LzrValue>) ((LzrReference) s).ref;
             return new LzrString(String.valueOf(st.isEmpty()));
         });
 
-        Variables.define("queue", queue);
+        Variables.define("concurrentLinkedQueue", queue);
     }
 }
