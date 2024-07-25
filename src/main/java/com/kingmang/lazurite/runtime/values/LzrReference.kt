@@ -8,6 +8,10 @@ class LzrReference(
 ) : LzrValue, Serializable {
 
 
+    fun getRef() : Any?{
+        return ref
+    }
+
     override fun raw(): Any? {
         return ref
     }
