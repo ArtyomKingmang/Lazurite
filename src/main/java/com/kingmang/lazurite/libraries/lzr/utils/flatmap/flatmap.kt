@@ -1,11 +1,10 @@
-package com.kingmang.lazurite.libraries.lzr.utils.flatmap;
+package com.kingmang.lazurite.libraries.lzr.utils.flatmap
 
-import com.kingmang.lazurite.libraries.Keyword;
-import com.kingmang.lazurite.libraries.Library;
+import com.kingmang.lazurite.libraries.Keyword
+import com.kingmang.lazurite.libraries.Library
 
-public class flatmap implements Library {
-    @Override
-    public void init() {
-        Keyword.put("flatmap", new LzrFlatmap());
+class flatmap : Library {
+    override fun init() {
+        Keyword.put("flatmap", LzrFlatmap())
     }
 }

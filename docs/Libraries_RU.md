@@ -129,11 +129,11 @@ print(result)
 Пример:
 
 ````java
-using "std"
+using "lzr.collections.flatmap"
 
 numbers = [1,2,3,4,5,6,7,8,9]
 
-output = std.flatmap(numbers, func(x) {
+output = flatmap(numbers, func(x) {
   arr = Array(x)
   for(i = 0, i < x, i++){
     arr[i] = x
