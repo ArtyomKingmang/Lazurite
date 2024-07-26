@@ -1,19 +1,18 @@
 package runtime
 
 import com.kingmang.lazurite.runtime.Libraries
-import org.junit.Before
-import org.junit.Test
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.Test
 import kotlin.test.assertEquals
 
 class LibrariesTest {
-
     companion object {
         private const val LIB1 = "lib1"
         private const val LIB2 = "lib2"
         private const val LIB3 = "lib3"
     }
 
-    @Before
+    @BeforeEach
     fun resetLibrariesState() {
         Libraries.clear()
     }

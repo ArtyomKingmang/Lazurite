@@ -2,16 +2,11 @@ package parser.AST
 
 import com.kingmang.lazurite.parser.ast.Argument
 import com.kingmang.lazurite.parser.ast.Arguments
-import org.junit.Test
+import org.junit.jupiter.api.Test
 import kotlin.test.assertEquals
 
 class ArgumentsTest {
-
-    private val argsList = buildList<Argument> {
-        repeat(10) {
-            add(Argument("arg$it"))
-        }
-    }
+    private val argsList = buildList { repeat(10) { add(Argument("arg$it")) } }
     private val args = Arguments(argsList, 5)
 
     @Test

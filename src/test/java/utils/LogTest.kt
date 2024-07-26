@@ -1,14 +1,13 @@
 package utils
 
 import com.kingmang.lazurite.utils.Log
-import org.junit.Before
-import org.junit.Test
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.Test
 import java.io.FileReader
 import kotlin.test.assertEquals
 
 class LogTest {
-
-    @Before
+    @BeforeEach
     fun before() {
         Log.clear()
     }

@@ -2,8 +2,8 @@ package lexer
 
 import com.kingmang.lazurite.parser.impl.LexerImplementation
 import com.kingmang.lazurite.parser.tokens.TokenType
-import org.junit.Assert
-import org.junit.Test
+import org.junit.jupiter.api.Assertions
+import org.junit.jupiter.api.Test
 
 class LexerTest {
     @Test
@@ -129,6 +129,6 @@ class LexerTest {
         val expList = Helper.list(TokenType.TEXT)
         val result = LexerImplementation.tokenize(input)
         Helper.assertTokens(expList, result)
-        Assert.assertEquals("1\"2", result[0].text)
+        Assertions.assertEquals("1\"2", result[0].text)
     }
 }

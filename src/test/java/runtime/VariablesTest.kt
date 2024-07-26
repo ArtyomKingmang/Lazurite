@@ -3,12 +3,11 @@ package runtime
 import com.kingmang.lazurite.runtime.Variables
 import com.kingmang.lazurite.runtime.values.LzrNumber
 import com.kingmang.lazurite.runtime.values.LzrValue
-import org.junit.Before
-import org.junit.Test
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.Test
 import kotlin.test.assertEquals
 
 class VariablesTest {
-
     companion object {
         private val VAR_TRUE = Var("true", LzrNumber.ONE)
         private val VAR_FALSE = Var("false", LzrNumber.ZERO)
@@ -17,7 +16,7 @@ class VariablesTest {
         private val VAR2 = Var("var2", LzrNumber.of(-1000))
     }
 
-    @Before
+    @BeforeEach
     fun resetVariablesState() {
         Variables.clear()
     }

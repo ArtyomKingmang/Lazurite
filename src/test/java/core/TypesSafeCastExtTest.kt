@@ -3,11 +3,10 @@ package core
 import com.kingmang.lazurite.core.*
 import com.kingmang.lazurite.runtime.ClassInstanceBuilder
 import com.kingmang.lazurite.runtime.values.*
-import org.junit.Test
+import org.junit.jupiter.api.Test
 import kotlin.test.assertEquals
 
 class TypesSafeCastExtTest {
-
     private val types = listOf(
         LzrNumber.ONE to Types.NUMBER,
         LzrString("") to Types.STRING,

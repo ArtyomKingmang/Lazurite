@@ -1,8 +1,8 @@
 package preprocessor
 
 import com.kingmang.lazurite.parser.preprocessor.Preprocessor.preprocess
-import org.junit.Assert
-import org.junit.Test
+import org.junit.jupiter.api.Assertions
+import org.junit.jupiter.api.Test
 
 class Preprocess {
     @Test
@@ -10,6 +10,6 @@ class Preprocess {
         val code = "#jInclude \"java.util.Stack\""
         val input = preprocess(code)
         val output = "using \"lzr.lang.reflection\"; Stack = JClass(\"java.util.Stack\")\n"
-        Assert.assertEquals(input, output)
+        Assertions.assertEquals(input, output)
     }
 }

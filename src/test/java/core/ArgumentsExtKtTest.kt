@@ -7,11 +7,10 @@ import com.kingmang.lazurite.core.checkRange
 import com.kingmang.lazurite.exceptions.LzrException
 import com.kingmang.lazurite.runtime.values.LzrNumber
 import com.kingmang.lazurite.runtime.values.LzrValue
-import org.junit.Test
+import org.junit.jupiter.api.Test
 import testutils.assertLzrFails
 
 class ArgumentsExtKtTest {
-
     @Test
     fun check() {
         val data = arrayOf(LzrNumber.MINUS_ONE, LzrNumber.ZERO, LzrNumber.ONE)
