@@ -15,7 +15,7 @@ data class ObjectCreationExpression(
     val constructorArguments: List<Expression>
 ) : Expression {
     override fun eval(): LzrValue {
-        val cd = ClassDeclarations.get(className)
+        val cd = ClassDeclarations[className]
         if (cd == null) {
             // Is Instantiable?
             if (isExists(className)) {

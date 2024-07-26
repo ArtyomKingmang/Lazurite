@@ -59,7 +59,7 @@ public class LzrByteArrayInputStream {
                 throw new LzrException("BadArg", "expected reference as byteArrayInputStream object");
             ByteArrayInputStream st = (ByteArrayInputStream) ((LzrReference) s).getRef();
             byte[] bytes = args[1].asString().getBytes();
-            int resultOfReading = st.readNBytes(bytes, args[2].asInt(), args[3].asInt());
+            int resultOfReading = st.read(bytes, args[2].asInt(), args[3].asInt());
             return new LzrNumber(resultOfReading);
         }
     }

@@ -23,11 +23,14 @@ public class streamApi implements Library {
             Arguments.checkAtLeast(1, args.length);
 
             final LzrValue value = args[0];
-            return switch (value.type()) {
-                case Types.MAP -> new LzrStream(((LzrMap) value).toPairs());
-                case Types.ARRAY -> new LzrStream((LzrArray) value);
-                default -> throw new LzrException("TypeException","Invalid argument. Array or map expected");
-            };
+            switch (value.type()) {
+                case Types.MAP:
+                    return new LzrStream(((LzrMap) value).toPairs());
+                case Types.ARRAY:
+                    return new LzrStream((LzrArray) value);
+                default:
+                    throw new LzrException("TypeException","Invalid argument. Array or map expected");
+            }
         }
     }
 }

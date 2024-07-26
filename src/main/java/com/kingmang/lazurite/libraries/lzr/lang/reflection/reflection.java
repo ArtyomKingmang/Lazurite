@@ -141,8 +141,9 @@ public final class reflection implements Library {
             return LzrNumber.fromBoolean(clazz.isAssignableFrom( ((JavaClassValue)args[0]).clazz ));
         }
 
+        @NotNull
         @Override
-        public LzrValue newInstance(LzrValue[] args) {
+        public LzrValue newInstance(@NotNull LzrValue[] args) {
             return findConstructorAndInstantiate(args, clazz.getConstructors());
         }
 

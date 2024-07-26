@@ -1,12 +1,11 @@
 package utils
 
 import com.kingmang.lazurite.utils.Loader
-import org.junit.Test
+import org.junit.jupiter.api.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFails
 
 class LoaderTest {
-
     @Test
     fun `loadSource with resource Expect success`() {
         val actual = Loader.readSource("unit-test-res.lzr")

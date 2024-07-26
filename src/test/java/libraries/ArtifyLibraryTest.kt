@@ -1,7 +1,7 @@
 package libraries
 
 import com.kingmang.lazurite.libraries.lzr.utils.artify.artify
-import org.junit.Test
+import org.junit.jupiter.api.Test
 import kotlin.test.assertEquals
 
 class ArtifyLibraryTest {

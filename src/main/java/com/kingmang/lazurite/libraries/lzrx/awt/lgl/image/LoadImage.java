@@ -18,10 +18,13 @@ public class LoadImage implements Function {
         @Override
         public @NotNull LzrValue execute(@NotNull LzrValue... args) {
             Arguments.checkAtLeast(1, args.length);
-            final Image result = switch (args.length) {
-                case 1 -> new Image(args[0].asString());
-                default -> new WritableImage(args[0].asInt(), args[1].asInt());
-                case 3 -> {
+            final Image result;
+            switch (args.length) {
+                case 1: {
+                    result = new Image(args[0].asString());
+                    break;
+                }
+                case 3: {
                     final int w = args[0].asInt();
                     final int h = args[1].asInt();
                     final int size = w * h;
@@ -34,7 +37,12 @@ public class LoadImage implements Function {
                         buffer[i] = array.get(i).asInt();
                     }
                     pw.setPixels(0, 0, w, h, format, buffer, 0, w);
-                    yield writableImage;
+                    result = writableImage;
+                    break;
+                }
+                default: {
+                    result = new WritableImage(args[0].asInt(), args[1].asInt());
+                    break;
                 }
             };
             return new ImageValue(result);

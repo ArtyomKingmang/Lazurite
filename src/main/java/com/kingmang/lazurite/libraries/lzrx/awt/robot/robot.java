@@ -15,6 +15,7 @@ import java.awt.datatransfer.StringSelection;
 import java.awt.event.KeyEvent;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 import java.util.function.IntConsumer;
 
 import static com.kingmang.lazurite.libraries.lzrx.awt.robot.robot.SYMBOL_CODES;
@@ -285,10 +286,9 @@ final class Execute implements Function {
             } else
                 process = Runtime.getRuntime().exec(args[0].asString());
 
-            return switch (mode) {
-                case EXEC_AND_WAIT -> LzrNumber.of(process.waitFor());
-                default -> LzrNumber.ZERO;
-            };
+            if (mode == Mode.EXEC_AND_WAIT)
+                return LzrNumber.of(process.waitFor());
+            return LzrNumber.ZERO;
         } catch (Exception ex) {
             return LzrNumber.ZERO;
         }

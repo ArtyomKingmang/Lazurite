@@ -439,7 +439,7 @@ public class Standart {
                 if (isIntegerRange()) {
                     final int toInt = (int) to;
                     final int stepInt = (int) step;
-                    return new Iterator<>() {
+                    return new Iterator<LzrValue>() {
 
                         int value = (int) from;
 
@@ -460,7 +460,7 @@ public class Standart {
                     };
                 }
 
-                return new Iterator<>() {
+                return new Iterator<LzrValue>() {
 
                     long value = from;
 
@@ -508,11 +508,11 @@ public class Standart {
                     final int lengthCompare = Integer.compare(size(), ((LzrArray) other).size());
                     if (lengthCompare != 0) return lengthCompare;
 
-                    if (other instanceof RangeValue o2) {
+                    if (other instanceof RangeValue) {
                         int compareResult;
-                        compareResult = Long.compare(this.from, o2.from);
+                        compareResult = Long.compare(this.from, ((RangeValue) other).from);
                         if (compareResult != 0) return compareResult;
-                        compareResult = Long.compare(this.to, o2.to);
+                        compareResult = Long.compare(this.to, ((RangeValue) other).to);
                         if (compareResult != 0) return compareResult;
                     }
                 }

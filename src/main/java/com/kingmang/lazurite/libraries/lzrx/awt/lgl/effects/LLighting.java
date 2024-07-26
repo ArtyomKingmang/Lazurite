@@ -15,15 +15,23 @@ public class LLighting implements Function {
         public @NotNull LzrValue execute(@NotNull LzrValue... args) {
             Light light;
             final LzrArray l = (LzrArray) args[0];
-            light = switch (l.size()) {
-                case 3 -> new Light.Distant(l.get(0).asNumber(), l.get(1).asNumber(),
-                        (Color) l.get(2).raw());
-                case 4 -> new Light.Point(l.get(0).asNumber(), l.get(1).asNumber(), l.get(2).asNumber(),
-                        (Color) l.get(3).raw());
-                case 5 -> new Light.Spot(l.get(0).asNumber(), l.get(1).asNumber(), l.get(2).asNumber(),
-                        l.get(3).asNumber(), (Color) l.get(4).raw());
-                default -> null;
-            };
+            switch (l.size()) {
+                case 3:
+                    light = new Light.Distant(l.get(0).asNumber(), l.get(1).asNumber(),
+                            (Color) l.get(2).raw());
+                    break;
+                case 4:
+                    light = new Light.Point(l.get(0).asNumber(), l.get(1).asNumber(), l.get(2).asNumber(),
+                            (Color) l.get(3).raw());
+                    break;
+                case 5:
+                    light = new Light.Spot(l.get(0).asNumber(), l.get(1).asNumber(), l.get(2).asNumber(),
+                            l.get(3).asNumber(), (Color) l.get(4).raw());
+                    break;
+                default:
+                    light = null;
+                    break;
+            }
             Lighting effect = new Lighting(light);
             if (args.length >= 2) {
                 effect.setSurfaceScale(args[1].asNumber());

@@ -2,11 +2,10 @@ package parser.AST
 
 import com.kingmang.lazurite.parser.ast.Argument
 import com.kingmang.lazurite.parser.ast.expressions.ValueExpression
-import org.junit.Test
+import org.junit.jupiter.api.Test
 import kotlin.test.assertEquals
 
 class ArgumentTest {
-
     @Test
     fun testToStringNoExpression() {
         val arg = Argument("arg")
