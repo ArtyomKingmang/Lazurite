@@ -1,30 +1,23 @@
-package com.kingmang.lazurite.core;
+package com.kingmang.lazurite.core
 
-import com.kingmang.lazurite.parser.ast.statements.ClassDeclarationStatement;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import com.kingmang.lazurite.parser.ast.statements.ClassDeclarationStatement
+import lombok.Getter
+import lombok.NoArgsConstructor
+import java.util.concurrent.ConcurrentHashMap
 
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
+object ClassDeclarations {
+    private val declarations: MutableMap<String, ClassDeclarationStatement> = HashMap()
 
-@NoArgsConstructor
-public final class ClassDeclarations {
+    @Synchronized
+    fun clear() =
+        declarations.clear()
 
-    @Getter
-    private static final Map<String, ClassDeclarationStatement> declarations;
-    static {
-        declarations = new ConcurrentHashMap<>();
+    @Synchronized
+    operator fun set(key: String, classDef: ClassDeclarationStatement) {
+        declarations[key] = classDef
     }
 
-    public static void clear() {
-        declarations.clear();
-    }
-    
-    public static ClassDeclarationStatement get(String key) {
-        return declarations.get(key);
-    }
-    
-    public static void set(String key, ClassDeclarationStatement classDef) {
-        declarations.put(key, classDef);
-    }
+    @Synchronized
+    operator fun get(key: String): ClassDeclarationStatement? =
+        declarations[key]
 }

@@ -19,6 +19,7 @@ import java.net.MalformedURLException
 import java.net.URL
 import java.net.URLClassLoader
 
+@Suppress("DEPRECATION")
 data class UsingStatement(val expression: Expression) : InterruptableNode(), Statement {
     override fun execute() {
         super.interruptionCheck()

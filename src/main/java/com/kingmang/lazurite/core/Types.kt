@@ -1,31 +1,25 @@
-package com.kingmang.lazurite.core;
+package com.kingmang.lazurite.core
 
-import lombok.AccessLevel;
-import lombok.NoArgsConstructor;
+import lombok.AccessLevel
+import lombok.NoArgsConstructor
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public final class Types {
+object Types {
+    const val OBJECT: Int = 0
+    const val NUMBER: Int = 1
+    const val STRING: Int = 2
+    const val ARRAY: Int = 3
+    const val MAP: Int = 4
+    const val FUNCTION: Int = 5
+    const val CLASS: Int = 6
 
-    public static final int
-            OBJECT = 0,
-            NUMBER = 1,
-            STRING = 2,
-            ARRAY = 3,
-            MAP = 4,
-            FUNCTION = 5,
-            CLASS = 6;
-    
-    private static final int FIRST = OBJECT;
-    private static final int LAST = CLASS;
-    public static final String[] NAMES = {
-        "object", "number", "string", "array", "map", "function", "class"
-    };
-    
-    public static String typeToString(int type) {
-        if (FIRST <= type && type <= LAST) {
-            return NAMES[type];
-        }
-        return "unknown (" + type + ")";
-    }
+    private const val FIRST = OBJECT
+    private const val LAST = CLASS
+    val NAMES: Array<String> = arrayOf("object", "number", "string", "array", "map", "function", "class")
 
+    @JvmStatic
+    fun typeToString(type: Int): String =
+        if (type in FIRST..LAST)
+            NAMES[type]
+        else "unknown ($type)"
 }

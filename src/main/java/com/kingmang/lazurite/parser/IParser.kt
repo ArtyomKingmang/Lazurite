@@ -1,10 +1,10 @@
-package com.kingmang.lazurite.parser;
+package com.kingmang.lazurite.parser
 
-import com.kingmang.lazurite.exceptions.parser.ParseErrors;
-import com.kingmang.lazurite.parser.ast.statements.Statement;
+import com.kingmang.lazurite.exceptions.parser.ParseErrors
+import com.kingmang.lazurite.parser.ast.statements.Statement
 
-public interface IParser {
-    Statement parse();
+interface IParser {
+    fun parse(): Statement
 
-    ParseErrors getParseErrors();
+    val parseErrors: ParseErrors
 }

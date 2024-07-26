@@ -1,7 +1,6 @@
-package com.kingmang.lazurite.parser.tokens;
+package com.kingmang.lazurite.parser.tokens
 
-
-public enum TokenType {
+enum class TokenType {
     //KEYWORDS
     ASSERT,
     ENUM,
@@ -37,70 +36,68 @@ public enum TokenType {
     WORD,
     TEXT,
 
-    PLUS, // +
-    MINUS, // -
-    STAR, // *
-    SLASH, // /
-    PERCENT,// %
-    AT, // @
+    PLUS,  // +
+    MINUS,  // -
+    STAR,  // *
+    SLASH,  // /
+    PERCENT,  // %
+    AT,  // @
 
-    EQ, // =
-    EQEQ, // ==
-    EXCL, // !
-    EXCLEQ, // !=
-    LTEQ, // <=
-    LT, // <
-    GT, // >
-    GTEQ, // >=
+    EQ,  // =
+    EQEQ,  // ==
+    EXCL,  // !
+    EXCLEQ,  // !=
+    LTEQ,  // <=
+    LT,  // <
+    GT,  // >
+    GTEQ,  // >=
 
-    PLUSEQ, // +=
-    MINUSEQ, // -=
-    STAREQ, // *=
-    SLASHEQ, // /=
-    PERCENTEQ, // %=
-    ATEQ, // @=
-    AMPEQ, // &=
-    CARETEQ, // ^=
-    BAREQ, // |=
-    COLONCOLONEQ, // ::=
-    LTLTEQ, // <<=
-    GTGTEQ, // >>=
-    GTGTGTEQ, // >>>=
+    PLUSEQ,  // +=
+    MINUSEQ,  // -=
+    STAREQ,  // *=
+    SLASHEQ,  // /=
+    PERCENTEQ,  // %=
+    ATEQ,  // @=
+    AMPEQ,  // &=
+    CARETEQ,  // ^=
+    BAREQ,  // |=
+    COLONCOLONEQ,  // ::=
+    LTLTEQ,  // <<=
+    GTGTEQ,  // >>=
+    GTGTGTEQ,  // >>>=
 
-    PLUSPLUS, // ++
-    MINUSMINUS, // --
+    PLUSPLUS,  // ++
+    MINUSMINUS,  // --
 
-    LTLT, // <<
-    GTGT, // >>
-    GTGTGT, // >>>
+    LTLT,  // <<
+    GTGT,  // >>
+    GTGTGT,  // >>>
 
-    DOTDOT, // ..
-    STARSTAR, // **
-    QUESTIONCOLON, // ?:
-    QUESTIONQUESTION, // ??
+    DOTDOT,  // ..
+    STARSTAR,  // **
+    QUESTIONCOLON,  // ?:
+    QUESTIONQUESTION,  // ??
 
-    TILDE, // ~
-    CARET, // ^
-    CARETCARET, // ^^
-    BAR, // |
-    BARBAR, // ||
-    AMP, // &
-    AMPAMP, // &&
+    TILDE,  // ~
+    CARET,  // ^
+    CARETCARET,  // ^^
+    BAR,  // |
+    BARBAR,  // ||
+    AMP,  // &
+    AMPAMP,  // &&
 
-    QUESTION, // ?
-    COLON, // :
-    COLONCOLON, // ::
+    QUESTION,  // ?
+    COLON,  // :
+    COLONCOLON,  // ::
 
-    LPAREN, // (
-    RPAREN, // )
-    LBRACKET, // [
-    RBRACKET, // ]
-    LBRACE, // {
-    RBRACE, // }
-    COMMA, // ,
-    DOT, // .
+    LPAREN,  // (
+    RPAREN,  // )
+    LBRACKET,  // [
+    RBRACKET,  // ]
+    LBRACE,  // {
+    RBRACE,  // }
+    COMMA,  // ,
+    DOT,  // .
 
     EOF // end of file
-
-
 }

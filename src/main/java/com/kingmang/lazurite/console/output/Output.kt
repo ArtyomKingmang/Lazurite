@@ -1,36 +1,30 @@
-package com.kingmang.lazurite.console.output;
+package com.kingmang.lazurite.console.output
 
-import java.io.File;
+import java.io.File
 
-public interface Output {
+interface Output {
+    fun newline(): String
 
-    String newline();
+    fun print(value: String)
 
-    void print(String value);
+    fun print(value: Any?) =
+        print(value.toString())
 
-    default void print(Object value) {
-        print(value.toString());
+    fun println() =
+        print(newline())
+
+    fun println(value: String) {
+        print(value)
+        println()
     }
 
-    default void println() {
-        print(newline());
-    }
+    fun println(value: Any?) =
+        println(value.toString())
 
-    default void println(String value) {
-        print(value);
-        println();
-    }
+    fun error(throwable: Throwable) =
+        error(throwable.toString())
 
-    default void println(Object value) {
-        println(value.toString());
-    }
+    fun error(value: CharSequence)
 
-    default void error(Throwable throwable) {
-        error(throwable.toString());
-    }
-
-    void error(CharSequence value);
-
-    File fileInstance(String path);
-
+    fun fileInstance(path: String): File
 }

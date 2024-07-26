@@ -3,7 +3,6 @@ package com.kingmang.lazurite.core
 import com.kingmang.lazurite.exceptions.LzrException
 import com.kingmang.lazurite.runtime.values.LzrValue
 
-
 fun Array<out LzrValue>.check(expected: Int) {
     if (expected == size) return
     throwMismatchException("$expected ${pluralize(expected)} expected, got $size")

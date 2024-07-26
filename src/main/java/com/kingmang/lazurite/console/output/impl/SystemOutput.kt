@@ -1,30 +1,22 @@
-package com.kingmang.lazurite.console.output.impl;
+package com.kingmang.lazurite.console.output.impl
 
-import com.kingmang.lazurite.console.output.Output;
+import com.kingmang.lazurite.console.output.Output
+import java.io.File
 
-import java.io.File;
+class SystemOutput : Output {
+    private val out = PrintStreamOutput(System.out, System.err)
 
-public class SystemOutput implements Output {
+    override fun newline(): String =
+        System.lineSeparator()
 
-    private final PrintStreamOutput out = new PrintStreamOutput(System.out, System.err);
-
-    @Override
-    public String newline() {
-        return System.lineSeparator();
+    override fun print(value: String) {
+        out.print(value)
     }
 
-    @Override
-    public void print(String value) {
-        out.print(value);
+    override fun error(value: CharSequence) {
+        out.error(value)
     }
 
-    @Override
-    public void error(CharSequence value) {
-        out.error(value);
-    }
-
-    @Override
-    public File fileInstance(String path) {
-        return new File(path);
-    }
+    override fun fileInstance(path: String): File =
+        File(path)
 }

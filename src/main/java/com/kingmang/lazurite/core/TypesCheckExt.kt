@@ -1,30 +1,25 @@
+@file:Suppress("NOTHING_TO_INLINE")
 package com.kingmang.lazurite.core
 
 import com.kingmang.lazurite.runtime.values.LzrValue
 
+inline fun LzrValue.isLzrNumber(): Boolean =
+    isLzrType(Types.NUMBER)
 
-fun LzrValue.isLzrNumber(): Boolean {
-    return isLzrType(Types.NUMBER)
-}
+inline fun LzrValue.isLzrString(): Boolean =
+    isLzrType(Types.STRING)
 
-fun LzrValue.isLzrString(): Boolean {
-    return isLzrType(Types.STRING)
-}
+inline fun LzrValue.isLzrArray(): Boolean =
+    isLzrType(Types.ARRAY)
 
-fun LzrValue.isLzrArray(): Boolean {
-    return isLzrType(Types.ARRAY)
-}
+inline fun LzrValue.isLzrMap(): Boolean =
+    isLzrType(Types.MAP)
 
-fun LzrValue.isLzrMap(): Boolean {
-    return isLzrType(Types.MAP)
-}
+inline fun LzrValue.isLzrFunction(): Boolean =
+    isLzrType(Types.FUNCTION)
 
-fun LzrValue.isLzrFunction(): Boolean {
-    return isLzrType(Types.FUNCTION)
-}
+inline fun LzrValue.isLzrClass(): Boolean =
+    isLzrType(Types.CLASS)
 
-fun LzrValue.isLzrClass(): Boolean {
-    return isLzrType(Types.CLASS)
-}
-
-inline fun LzrValue.isLzrType(targetType: Int): Boolean = type() == targetType
+inline fun LzrValue.isLzrType(targetType: Int): Boolean =
+    type() == targetType

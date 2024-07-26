@@ -1,36 +1,30 @@
-package com.kingmang.lazurite.core;
+package com.kingmang.lazurite.core
 
-import com.kingmang.lazurite.exceptions.LzrException;
-import com.kingmang.lazurite.runtime.ClassInstanceValue;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import com.kingmang.lazurite.exceptions.LzrException
+import com.kingmang.lazurite.runtime.ClassInstanceValue
+import lombok.Getter
+import lombok.NoArgsConstructor
 
-import java.util.HashMap;
-import java.util.Map;
+object Classes {
+    private val classes: MutableMap<String, ClassInstanceValue> = HashMap()
 
-@NoArgsConstructor
-public final class Classes {
+    @Synchronized
+    fun clear() =
+        classes.clear()
 
-    @Getter
-    private static final Map<String, ClassInstanceValue> classes;
-    static {
-        classes = new HashMap<>();
+    @Synchronized
+    fun isExists(key: String): Boolean =
+        classes.containsKey(key)
+
+    @Synchronized
+    operator fun set(key: String, classDef: ClassInstanceValue) {
+        classes[key] = classDef
     }
 
-    public static void clear() {
-        classes.clear();
-    }
-
-    public static boolean isExists(String key) {
-        return classes.containsKey(key);
-    }
-    
-    public static ClassInstanceValue get(String key) {
-        if (!isExists(key)) throw new LzrException("UnknownClassException ", "Unknown class " + key);
-        return classes.get(key);
-    }
-    
-    public static void set(String key, ClassInstanceValue classDef) {
-        classes.put(key, classDef);
+    @Synchronized
+    operator fun get(key: String): ClassInstanceValue? {
+        if (!isExists(key))
+            throw LzrException("UnknownClassException ", "Unknown class $key")
+        return classes[key]
     }
 }

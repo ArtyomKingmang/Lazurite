@@ -1,9 +1,7 @@
-package com.kingmang.lazurite.parser;
+package com.kingmang.lazurite.parser
 
-import com.kingmang.lazurite.parser.tokens.Token;
+import com.kingmang.lazurite.parser.tokens.Token
 
-import java.util.List;
-
-public interface ILexer {
-    List<Token> tokenize();
+interface ILexer {
+    fun tokenize(): List<Token>
 }

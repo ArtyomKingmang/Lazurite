@@ -16,7 +16,7 @@ object Console {
         output.newline()
 
     @JvmStatic
-    fun print(value: String?) =
+    fun print(value: String) =
         output.print(value)
 
     @JvmStatic
@@ -40,11 +40,11 @@ object Console {
         output.toString()
 
     @JvmStatic
-    fun error(throwable: Throwable?) =
+    fun error(throwable: Throwable) =
         output.error(throwable)
 
     @JvmStatic
-    fun error(value: CharSequence?) =
+    fun error(value: CharSequence) =
         output.error(value)
 
     @JvmStatic
@@ -63,6 +63,6 @@ object Console {
     }
 
     @JvmStatic
-    fun fileInstance(path: String?): File =
+    fun fileInstance(path: String): File =
         output.fileInstance(path)
 }

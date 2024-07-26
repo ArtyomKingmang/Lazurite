@@ -1,60 +1,39 @@
-package com.kingmang.lazurite.console.output.impl;
+package com.kingmang.lazurite.console.output.impl
 
-import com.kingmang.lazurite.console.output.Output;
-import lombok.AllArgsConstructor;
+import com.kingmang.lazurite.console.output.Output
+import lombok.AllArgsConstructor
+import java.io.File
 
-import java.io.File;
+class StringOutput(private val out: StringBuffer?, private val err: StringBuffer?) : Output {
+    constructor(out: StringBuffer? = StringBuffer()) : this(out, out)
 
-@AllArgsConstructor
-public class StringOutput implements Output {
+    override fun newline(): String =
+        System.lineSeparator()
 
-    private final StringBuffer out, err;
-
-    public StringOutput() {
-        this(new StringBuffer());
+    override fun print(value: String) {
+        out!!.append(value)
     }
 
-    public StringOutput(StringBuffer out) {
-        this(out, out);
+    override fun println() {
+        out!!.append(newline())
     }
 
-    @Override
-    public String newline() {
-        return System.lineSeparator();
+    override fun println(value: String) {
+        out!!.append(value).append(newline())
     }
 
-    @Override
-    public void print(String value) {
-        out.append(value);
+    override fun toString(): String {
+        return out.toString()
     }
 
-    @Override
-    public void println() {
-        out.append(newline());
+    override fun error(throwable: Throwable) {
+        error(throwable.toString())
     }
 
-    @Override
-    public void println(String value) {
-        out.append(value).append(newline());
+    override fun error(value: CharSequence) {
+        err!!.append(value).append(newline())
     }
 
-    @Override
-    public String toString() {
-        return out.toString();
-    }
-
-    @Override
-    public void error(Throwable throwable) {
-        error(throwable.toString());
-    }
-
-    @Override
-    public void error(CharSequence value) {
-        err.append(value).append(newline());
-    }
-
-    @Override
-    public File fileInstance(String path) {
-        return new File(path);
-    }
+    override fun fileInstance(path: String): File =
+        File(path)
 }

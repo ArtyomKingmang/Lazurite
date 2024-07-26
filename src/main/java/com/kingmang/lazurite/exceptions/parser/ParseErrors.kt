@@ -1,44 +1,26 @@
-package com.kingmang.lazurite.exceptions.parser;
+package com.kingmang.lazurite.exceptions.parser
 
-import com.kingmang.lazurite.console.Console;
-import org.jetbrains.annotations.NotNull;
+import com.kingmang.lazurite.console.Console.newline
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
+class ParseErrors : Iterable<ParseError?> {
+    private val errors: MutableList<ParseError> = ArrayList()
 
-public final class ParseErrors implements Iterable<ParseError> {
+    fun clear() =
+        errors.clear()
 
-    private final List<ParseError> errors;
-
-    public ParseErrors() {
-        errors = new ArrayList<>();
-    }
-    
-    public void clear() {
-        errors.clear();
-    }
-    
-    public void add(Exception ex, int line) {
-        errors.add(new ParseError(line, ex));
-    }
-    
-    public boolean hasErrors() {
-        return !errors.isEmpty();
+    fun add(ex: Exception?, line: Int) {
+        errors.add(ParseError(line, ex!!))
     }
 
-    @NotNull
-    @Override
-    public Iterator<ParseError> iterator() {
-        return errors.iterator();
-    }
+    fun hasErrors(): Boolean =
+        errors.isNotEmpty()
 
-    @Override
-    public String toString() {
-        final StringBuilder result = new StringBuilder();
-        for (ParseError error : errors) {
-            result.append(error).append(Console.newline());
-        }
-        return result.toString();
+    override fun iterator(): MutableIterator<ParseError> =
+        errors.iterator()
+
+    override fun toString(): String {
+        val result = StringBuilder()
+        errors.forEach { result.append(it).append(newline()) }
+        return result.toString()
     }
 }
