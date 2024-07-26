@@ -40,6 +40,10 @@ jobs:
         run: mvn clean install
         continue-on-error: true
 
+      - name: Run tests
+        run: mvn test
+        continue-on-error: true
+
       - name: Archive test reports
         uses: actions/upload-artifact@v4
         with:
