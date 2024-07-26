@@ -15,7 +15,7 @@ on:
       - '**'
 
 jobs:
-  build-test:
+  build-and-test:
     runs-on: ubuntu-latest
 
     steps:
@@ -51,5 +51,5 @@ jobs:
         with:
           artifact: surefire-reports
           name: Test Results
-          path: '*.xml'
+          path: 'target/surefire-reports/*.xml'
           reporter: java-junit
