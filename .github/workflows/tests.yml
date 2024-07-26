@@ -17,6 +17,7 @@ on:
 jobs:
   build-test:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -40,20 +41,12 @@ jobs:
         continue-on-error: true
 
       - name: Archive test reports
-        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: surefire-reports
           path: target/surefire-reports/*.xml
 
-  report:
-    runs-on: ubuntu-latest
-    needs: [build-test]
-    permissions: write-all
-
-    steps:
       - name: Report test results
-        if: always()
         uses: dorny/test-reporter@v1
         with:
           artifact: surefire-reports
