@@ -1,20 +1,10 @@
 name: Maven Build and Test
 
 permissions:
-  actions: write
   checks: write
-  issues: write
-  pages: write
-  contents: write
+  actions: write
+  contents: read
   statuses: write
-  id-token: write
-  packages: write
-  deployments: write
-  discussions: write
-  attestations: write
-  pull-requests: write
-  security-events: write
-  repository-projects: write
 
 on:
   push:
@@ -27,8 +17,6 @@ on:
 jobs:
   build-test:
     runs-on: ubuntu-latest
-    permissions: write-all
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
