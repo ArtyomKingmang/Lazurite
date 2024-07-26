@@ -85,7 +85,7 @@ public final class http implements Library {
         }
 
         try (InputStream is = new URL(downloadUrl).openStream();
-             OutputStream os = Files.newOutputStream(Console.INSTANCE.fileInstance(filePath).toPath())) {
+             OutputStream os = Files.newOutputStream(Console.fileInstance(filePath).toPath())) {
             int downloaded = 0;
             final byte[] buffer = new byte[bufferSize];
             int read;

@@ -82,7 +82,7 @@ public final class lfs implements Library {
         public @NotNull LzrValue execute(@NotNull LzrValue... args) {
             Arguments.checkAtLeast(1, args.length);
             
-            final File file = Console.INSTANCE.fileInstance(args[0].asString());
+            final File file = Console.fileInstance(args[0].asString());
             try {
                 if (args.length > 1) {
                     return process(file, args[1].asString().toLowerCase());
