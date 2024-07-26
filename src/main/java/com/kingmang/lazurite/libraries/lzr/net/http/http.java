@@ -16,6 +16,7 @@ import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.nio.file.Files;
 import java.util.List;
 import java.util.Map;
 
@@ -84,7 +85,7 @@ public final class http implements Library {
         }
 
         try (InputStream is = new URL(downloadUrl).openStream();
-             OutputStream os = new FileOutputStream(Console.fileInstance(filePath))) {
+             OutputStream os = Files.newOutputStream(Console.INSTANCE.fileInstance(filePath).toPath())) {
             int downloaded = 0;
             final byte[] buffer = new byte[bufferSize];
             int read;

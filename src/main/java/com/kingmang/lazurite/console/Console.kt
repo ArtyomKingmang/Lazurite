@@ -1,80 +1,70 @@
-package com.kingmang.lazurite.console;
+package com.kingmang.lazurite.console
 
-import com.kingmang.lazurite.console.output.Output;
-import com.kingmang.lazurite.console.output.impl.SystemOutput;
-import com.kingmang.lazurite.core.CallStack;
-import lombok.NoArgsConstructor;
+import com.kingmang.lazurite.console.output.Output
+import com.kingmang.lazurite.console.output.impl.SystemOutput
+import com.kingmang.lazurite.core.CallStack.getCalls
+import lombok.NoArgsConstructor
+import java.io.ByteArrayOutputStream
+import java.io.File
+import java.io.PrintStream
+import java.nio.charset.StandardCharsets
 
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.PrintStream;
-import java.nio.charset.StandardCharsets;
+object Console {
+    @JvmStatic
+    var output: Output = SystemOutput()
 
-@NoArgsConstructor
-public class Console {
+    @JvmStatic
+    fun newline(): String =
+        output.newline()
 
-    
-    private static Output outputSettings = new SystemOutput();
+    @JvmStatic
+    fun print(value: String?) =
+        output.print(value)
 
-    public static void useOutput(Output outputSettings) {
-        Console.outputSettings = outputSettings;
-    }
+    @JvmStatic
+    fun print(value: Any?) =
+        output.print(value)
 
-    public static Output getOutput() {
-        return outputSettings;
-    }
+    @JvmStatic
+    fun println() =
+        output.println()
 
-    public static String newline() {
-        return outputSettings.newline();
-    }
+    @JvmStatic
+    fun println(value: String?) =
+        output.println(value)
 
-    public static void print(String value) {
-        outputSettings.print(value);
-    }
+    @JvmStatic
+    fun println(value: Any?) =
+        output.println(value)
 
-    public static void print(Object value) {
-        outputSettings.print(value);
-    }
+    @JvmStatic
+    fun text(): String =
+        output.toString()
 
-    public static void println() {
-        outputSettings.println();
-    }
+    @JvmStatic
+    fun error(throwable: Throwable?) =
+        output.error(throwable)
 
-    public static void println(String value) {
-        outputSettings.println(value);
-    }
+    @JvmStatic
+    fun error(value: CharSequence?) =
+        output.error(value)
 
-    public static void println(Object value) {
-        outputSettings.println(value);
-    }
-
-    public static String text() {
-        return outputSettings.toString();
-    }
-
-    public static void error(Throwable throwable) {
-        outputSettings.error(throwable);
-    }
-
-    public static void error(CharSequence value) {
-        outputSettings.error(value);
-    }
-
-    public static void handleException(Thread thread, Throwable throwable) {
-        final ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        try(final PrintStream ps = new PrintStream(baos)) {
-            ps.printf("%s in %s%n", throwable.getMessage(), thread.getName());
-            for (CallStack.CallInfo call : CallStack.getCalls()) {
-                ps.printf("\tat %s%n", call);
+    @JvmStatic
+    fun handleException(thread: Thread, throwable: Throwable) {
+        val baos = ByteArrayOutputStream()
+        PrintStream(baos).use { ps ->
+            ps.printf("%s in %s%n", throwable.message, thread.name)
+            for (call in getCalls()) {
+                ps.printf("\tat %s%n", call)
             }
-            ps.println();
-            throwable.printStackTrace(ps);
-            ps.flush();
+            ps.println()
+            throwable.printStackTrace(ps)
+            ps.flush()
         }
-        error(baos.toString(StandardCharsets.UTF_8));
+        error(baos.toString("UTF-8"))
     }
 
-    public static File fileInstance(String path) {
-        return outputSettings.fileInstance(path);
-    }
+    @JvmStatic
+    fun fileInstance(path: String?): File =
+        output.fileInstance(path)
 }

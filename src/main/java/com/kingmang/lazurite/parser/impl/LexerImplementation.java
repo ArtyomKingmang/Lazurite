@@ -152,7 +152,7 @@ public final class LexerImplementation implements ILexer {
             current = next();
         }
 
-        if (!buffer.isEmpty())
+        if (buffer.length() > 0)
             addToken(TokenType.HEX_NUMBER, buffer.toString());
     }
 

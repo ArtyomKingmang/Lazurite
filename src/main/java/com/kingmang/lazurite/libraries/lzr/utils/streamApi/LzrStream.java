@@ -67,12 +67,15 @@ public class LzrStream extends LzrMap {
         final LzrValue[] elements = container.getCopyElements();
 
         switch (args.length) {
-            case 0 -> Arrays.sort(elements);
-            case 1 -> {
+            case 0:
+                Arrays.sort(elements);
+                break;
+            case 1:
                 final Function comparator = ValueUtils.consumeFunction(args[0], 0);
                 Arrays.sort(elements, (o1, o2) -> comparator.execute(o1, o2).asInt());
-            }
-            default -> throw new LzrException("ArgumentsMismatchException", "Wrong number of arguments");
+                break;
+            default:
+                throw new LzrException("ArgumentsMismatchException", "Wrong number of arguments");
         }
 
         return new LzrStream(new LzrArray(elements));

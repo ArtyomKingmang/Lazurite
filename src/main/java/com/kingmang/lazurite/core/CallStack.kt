@@ -1,39 +1,24 @@
-package com.kingmang.lazurite.core;
+package com.kingmang.lazurite.core
 
-import com.kingmang.lazurite.exceptions.FileInfo;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import org.jetbrains.annotations.Nullable;
+import com.kingmang.lazurite.exceptions.FileInfo
+import java.util.*
 
-import java.util.Deque;
-import java.util.concurrent.ConcurrentLinkedDeque;
+object CallStack {
+    private val stack: Deque<CallInfo> = ArrayDeque()
 
-@NoArgsConstructor
-public final class CallStack {
-    
-    private static final Deque<CallInfo> calls = new ConcurrentLinkedDeque<>();
-    
-    public static synchronized void clear() {
-        calls.clear();
-    }
-    
-    public static synchronized void enter(String name, Function function, FileInfo file) {
-        calls.push(new CallInfo(name, function, file));
-    }
-    
-    public static synchronized void exit() {
-        calls.pop();
+    @Synchronized
+    fun enter(name: String, function: Function, file: FileInfo?) {
+        stack.push(CallInfo(name, function, file))
     }
 
-    public static synchronized Deque<CallInfo> getCalls() {
-        return calls;
+    @Synchronized
+    fun exit() {
+        stack.pop()
     }
 
-    public record CallInfo(String name, Function function, @Nullable FileInfo file) {
-        @Override
-        public String toString() {
-                return String.format("%s: %s", name, function.toString().trim());
-            }
-    }
+    @Synchronized
+    fun getCalls(): Deque<CallInfo> =
+        this.stack
+
+    data class CallInfo(val name: String, val function: Function, val file: FileInfo?)
 }
