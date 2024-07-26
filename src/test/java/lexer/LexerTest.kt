@@ -1,84 +1,134 @@
-package lexer;
+package lexer
 
-import com.kingmang.lazurite.parser.tokens.Token;
-import com.kingmang.lazurite.parser.impl.LexerImplementation;
-import org.junit.Test;
+import com.kingmang.lazurite.parser.impl.LexerImplementation
+import com.kingmang.lazurite.parser.tokens.TokenType
+import org.junit.Assert
+import org.junit.Test
 
-import java.util.List;
-
-import static com.kingmang.lazurite.parser.tokens.TokenType.*;
-import static lexer.Helper.assertTokens;
-import static lexer.Helper.list;
-import static org.junit.Assert.assertEquals;
-
-
-public class LexerTest {
-
+class LexerTest {
     @Test
-    public void testLexerStringTemplate() {
-        String input = """
+    fun testLexerStringTemplate() {
+        var input = """
                 a = 2
-                print ("a = $a = ${a + 4}")
-                """;
-        List<Token> expList = list(
-                WORD, EQ, NUMBER,
-                PRINT, LPAREN, TEXT, PLUS, WORD, LPAREN, WORD, RPAREN, PLUS, TEXT, PLUS, WORD, LPAREN, WORD, PLUS, NUMBER, RPAREN, RPAREN
-        );
-        List<Token> result = LexerImplementation.tokenize(input);
-        assertTokens(expList, result);
+                print ("a = ${'$'}a = ${'$'}{a + 4}")
+                
+                """.trimIndent()
+        var expList = Helper.list(
+            TokenType.WORD,
+            TokenType.EQ,
+            TokenType.NUMBER,
+            TokenType.PRINT,
+            TokenType.LPAREN,
+            TokenType.TEXT,
+            TokenType.PLUS,
+            TokenType.WORD,
+            TokenType.LPAREN,
+            TokenType.WORD,
+            TokenType.RPAREN,
+            TokenType.PLUS,
+            TokenType.TEXT,
+            TokenType.PLUS,
+            TokenType.WORD,
+            TokenType.LPAREN,
+            TokenType.WORD,
+            TokenType.PLUS,
+            TokenType.NUMBER,
+            TokenType.RPAREN,
+            TokenType.RPAREN
+        )
+        var result = LexerImplementation.tokenize(input)
+        Helper.assertTokens(expList, result)
 
         input = """
                 a = 14
                 b = 88
-                c = "ab = $a$b"
-                print("$c = Procc")
-                """;
+                c = "ab = ${'$'}a${'$'}b"
+                print("${'$'}c = Procc")
+                
+                """.trimIndent()
 
-        expList = list(
-                WORD, EQ, NUMBER,
-                WORD, EQ, NUMBER,
-                WORD, EQ, TEXT, PLUS, WORD, LPAREN, WORD, RPAREN, PLUS, WORD, LPAREN, WORD, RPAREN,
-                PRINT, LPAREN, WORD, LPAREN, WORD, RPAREN, PLUS, TEXT, RPAREN
-        );
-        result = LexerImplementation.tokenize(input);
-        assertTokens(expList, result);
+        expList = Helper.list(
+            TokenType.WORD,
+            TokenType.EQ,
+            TokenType.NUMBER,
+            TokenType.WORD,
+            TokenType.EQ,
+            TokenType.NUMBER,
+            TokenType.WORD,
+            TokenType.EQ,
+            TokenType.TEXT,
+            TokenType.PLUS,
+            TokenType.WORD,
+            TokenType.LPAREN,
+            TokenType.WORD,
+            TokenType.RPAREN,
+            TokenType.PLUS,
+            TokenType.WORD,
+            TokenType.LPAREN,
+            TokenType.WORD,
+            TokenType.RPAREN,
+            TokenType.PRINT,
+            TokenType.LPAREN,
+            TokenType.WORD,
+            TokenType.LPAREN,
+            TokenType.WORD,
+            TokenType.RPAREN,
+            TokenType.PLUS,
+            TokenType.TEXT,
+            TokenType.RPAREN
+        )
+        result = LexerImplementation.tokenize(input)
+        Helper.assertTokens(expList, result)
     }
 
     @Test
-    public void testNums() {
-        String input = """
+    fun testNums() {
+        val input = """
                 print  (1_000_000)
-                """;
-        List<Token> expList = list(PRINT, LPAREN, NUMBER, RPAREN);
-        List<Token> result = LexerImplementation.tokenize(input);
-        assertTokens(expList, result);
+                
+                """.trimIndent()
+        val expList = Helper.list(TokenType.PRINT, TokenType.LPAREN, TokenType.NUMBER, TokenType.RPAREN)
+        val result = LexerImplementation.tokenize(input)
+        Helper.assertTokens(expList, result)
     }
 
     @Test
-    public void testLexer() {
-        String input = """
+    fun testLexer() {
+        val input = """
                 print  ("Hello")
-                """;
-        List<Token> expList = list(PRINT, LPAREN, TEXT, RPAREN);
-        List<Token> result = LexerImplementation.tokenize(input);
-        assertTokens(expList, result);
+                
+                """.trimIndent()
+        val expList = Helper.list(TokenType.PRINT, TokenType.LPAREN, TokenType.TEXT, TokenType.RPAREN)
+        val result = LexerImplementation.tokenize(input)
+        Helper.assertTokens(expList, result)
     }
 
     @Test
-    public void testOperators() {
-        String input = "=+-*/%<>!&|";
-        List<Token> expList = list(EQ, PLUS, MINUS, STAR, SLASH, PERCENT, LT, GT, EXCL, AMP, BAR);
-        List<Token> result = LexerImplementation.tokenize(input);
-        assertTokens(expList, result);
+    fun testOperators() {
+        val input = "=+-*/%<>!&|"
+        val expList = Helper.list(
+            TokenType.EQ,
+            TokenType.PLUS,
+            TokenType.MINUS,
+            TokenType.STAR,
+            TokenType.SLASH,
+            TokenType.PERCENT,
+            TokenType.LT,
+            TokenType.GT,
+            TokenType.EXCL,
+            TokenType.AMP,
+            TokenType.BAR
+        )
+        val result = LexerImplementation.tokenize(input)
+        Helper.assertTokens(expList, result)
     }
 
     @Test
-    public void testString() {
-        String input = "\"1\\\"2\"";
-        List<Token> expList = list(TEXT);
-        List<Token> result = LexerImplementation.tokenize(input);
-        assertTokens(expList, result);
-        assertEquals("1\"2", result.get(0).getText());
+    fun testString() {
+        val input = "\"1\\\"2\""
+        val expList = Helper.list(TokenType.TEXT)
+        val result = LexerImplementation.tokenize(input)
+        Helper.assertTokens(expList, result)
+        Assert.assertEquals("1\"2", result[0].text)
     }
-    
 }
