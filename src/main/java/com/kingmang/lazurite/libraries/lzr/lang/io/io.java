@@ -23,8 +23,8 @@ public class io implements Library {
         ps.set("new", new LzrPrintStream.newPrintStream());
         ps.set("print", new LzrPrintStream.PrintStreamOut());
 
-        io.set("ByteArrayInputStream", bais);
-        io.set("PrintStream", ps);
+        io.set("byteArrayInputStream", bais);
+        io.set("printStream", ps);
         Variables.define("io", io);
 
     }
