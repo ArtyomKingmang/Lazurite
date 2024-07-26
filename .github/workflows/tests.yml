@@ -42,16 +42,16 @@ jobs:
 
       - name: Archive test reports
         uses: actions/upload-artifact@v4
-        run: mvn test
         with:
           name: surefire-reports
           path: target/surefire-reports/*.xml
+          run: mvn test
 
       - name: Report test results
         uses: dorny/test-reporter@v1
-        run: mvn test
         with:
           artifact: surefire-reports
           name: Test Results
           path: 'target/surefire-reports/*.xml'
           reporter: java-junit
+          run: mvn test
