@@ -1,10 +1,12 @@
 name: Maven Build and Test
 
 permissions:
-  contents: read
   actions: write
   checks: write
+  contents: write
   statuses: write
+  pull-requests: write
+  repository-projects: write
 
 on:
   push:
