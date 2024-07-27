@@ -12,9 +12,7 @@
 Привет Мир на Lazurite!
 
 ```shell
-a = "Привет"
-b = "Мир"
-print("$a ${b}!")
+print("Привет мир!")
 ```
 lsoup:
 ```cpp
