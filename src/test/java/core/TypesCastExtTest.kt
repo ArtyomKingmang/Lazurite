@@ -3,13 +3,12 @@ package core
 import com.kingmang.lazurite.core.*
 import com.kingmang.lazurite.runtime.ClassInstanceBuilder
 import com.kingmang.lazurite.runtime.values.*
-import org.junit.Test
+import org.junit.jupiter.api.Test
 import testutils.assertLzrTypeCastFails
 import testutils.assertLzrTypeFails
 import kotlin.test.assertEquals
 
 class TypesCastExtTest {
-
     private val types = listOf(
         LzrNumber.ONE to Types.NUMBER,
         LzrString("") to Types.STRING,
@@ -20,7 +19,6 @@ class TypesCastExtTest {
     )
 
     private val testMessage = "Test message"
-
     private val testLazyMessage = { testMessage }
 
     @Test

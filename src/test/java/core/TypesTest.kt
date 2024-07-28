@@ -1,11 +1,10 @@
 package core
 
 import com.kingmang.lazurite.core.Types
-import org.junit.Test
+import org.junit.jupiter.api.Test
 import kotlin.test.assertEquals
 
 class TypesTest {
-
     private val names = listOf(
         "object" to 0,
         "number" to 1,

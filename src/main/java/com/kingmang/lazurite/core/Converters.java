@@ -8,7 +8,6 @@ import com.kingmang.lazurite.utils.ValueUtils;
 import java.util.function.Predicate;
 
 public final class Converters {
-
     public interface VoidToVoidFunction {
         void apply();
     }

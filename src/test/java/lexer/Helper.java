@@ -2,19 +2,18 @@ package lexer;
 
 import com.kingmang.lazurite.parser.tokens.Token;
 import com.kingmang.lazurite.parser.tokens.TokenType;
+import org.junit.jupiter.api.Assertions;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static org.junit.Assert.assertEquals;
 
 public class Helper {
 
     protected static void assertTokens(List<Token> expList, List<Token> result) {
         final int length = expList.size();
-        assertEquals(length, result.size());
+        Assertions.assertEquals(length, result.size());
         for (int i = 0; i < length; i++) {
-            assertEquals(expList.get(i).getType(), result.get(i).getType());
+            Assertions.assertEquals(expList.get(i).getType(), result.get(i).getType());
         }
     }
 

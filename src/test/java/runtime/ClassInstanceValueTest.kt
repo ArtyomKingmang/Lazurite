@@ -12,7 +12,7 @@ import com.kingmang.lazurite.runtime.values.LzrMap
 import com.kingmang.lazurite.runtime.values.LzrNumber
 import com.kingmang.lazurite.runtime.values.LzrString
 import com.kingmang.lazurite.runtime.values.LzrValue
-import org.junit.Test
+import org.junit.jupiter.api.Test
 import testutils.assertLzrFails
 import testutils.assertLzrTypeCastFails
 import java.util.*
@@ -20,7 +20,6 @@ import kotlin.test.assertContentEquals
 import kotlin.test.assertEquals
 
 class ClassInstanceValueTest {
-
     @Test
     fun access() {
         val thisMap = LzrMap(mapOf(LzrString("field") to LzrString("field_value")))

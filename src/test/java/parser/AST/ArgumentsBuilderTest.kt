@@ -3,11 +3,10 @@ package parser.AST
 import com.kingmang.lazurite.parser.ast.Argument
 import com.kingmang.lazurite.parser.ast.ArgumentsBuilder
 import com.kingmang.lazurite.parser.ast.expressions.ValueExpression
-import org.junit.Test
+import org.junit.jupiter.api.Test
 import kotlin.test.assertEquals
 
 class ArgumentsBuilderTest {
-
     @Test
     fun build() {
         val expression1 = ValueExpression("value_optional1")

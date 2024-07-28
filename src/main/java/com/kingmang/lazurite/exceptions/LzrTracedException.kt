@@ -1,6 +1,6 @@
 package com.kingmang.lazurite.exceptions
 
-import com.kingmang.lazurite.core.CallStack.CallInfo
+import com.kingmang.lazurite.core.CallStack
 import java.io.File
 import java.io.PrintStream
 import java.nio.file.Files
@@ -25,7 +25,7 @@ class LzrTracedException(type: String, text: String, val info: TraceInfo) : LzrE
         stream.printf("|> %s\n", cache.getOrPut(file.name) { Files.lines(File(file.name).toPath()).toArray{ arrayOfNulls<String>(it) } }[file.line - 1].trim())
     }
 
-    class TraceInfo(val thrower: FileInfo?, stack: Deque<CallInfo>) {
-        val stack: Deque<CallInfo> = ArrayDeque(stack)
+    class TraceInfo(val thrower: FileInfo?, stack: Deque<CallStack.CallInfo>) {
+        val stack: Deque<CallStack.CallInfo> = ArrayDeque(stack)
     }
 }
