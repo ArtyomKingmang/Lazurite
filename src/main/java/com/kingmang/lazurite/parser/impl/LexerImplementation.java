@@ -459,6 +459,7 @@ public final class LexerImplementation implements ILexer {
 
     private static void standart(){
         Variables.define("null", LzrNull.INSTANCE);
+        Keyword.put("sortBy", new Standart.sortBy());
         Keyword.put("charAt", new Standart.charAt());
         Keyword.put("equals", new Standart.equal());
         Keyword.put("combine", new Standart.combine());
