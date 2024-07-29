@@ -32,8 +32,8 @@ public class LzrByteArrayInputStream {
             LzrValue s = args[0];
             if (!(s instanceof LzrReference))
                 throw new LzrException("BadArg", "expected reference as byteArrayInputStream object");
-            ByteArrayInputStream st = (ByteArrayInputStream) ((LzrReference) s).getRef();
-            int read = st.read();
+            ByteArrayInputStream byteArrayInputStream = (ByteArrayInputStream) ((LzrReference) s).getRef();
+            int read = byteArrayInputStream.read();
             return new LzrNumber(read);
         }
     }
@@ -44,8 +44,8 @@ public class LzrByteArrayInputStream {
             LzrValue s = args[0];
             if (!(s instanceof LzrReference))
                 throw new LzrException("BadArg", "expected reference as byteArrayInputStream object");
-            ByteArrayInputStream st = (ByteArrayInputStream) ((LzrReference) s).getRef();
-            int resultOfAvailable = st.available();
+            ByteArrayInputStream byteArrayInputStream = (ByteArrayInputStream) ((LzrReference) s).getRef();
+            int resultOfAvailable = byteArrayInputStream.available();
             return new LzrNumber(resultOfAvailable);
         }
     }
@@ -57,9 +57,9 @@ public class LzrByteArrayInputStream {
             LzrValue s = args[0];
             if (!(s instanceof LzrReference))
                 throw new LzrException("BadArg", "expected reference as byteArrayInputStream object");
-            ByteArrayInputStream st = (ByteArrayInputStream) ((LzrReference) s).getRef();
+            ByteArrayInputStream byteArrayInputStream = (ByteArrayInputStream) ((LzrReference) s).getRef();
             byte[] bytes = args[1].asString().getBytes();
-            int resultOfReading = st.read(bytes, args[2].asInt(), args[3].asInt());
+            int resultOfReading = byteArrayInputStream.read(bytes, args[2].asInt(), args[3].asInt());
             return new LzrNumber(resultOfReading);
         }
     }

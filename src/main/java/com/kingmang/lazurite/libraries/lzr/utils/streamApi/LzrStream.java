@@ -38,9 +38,9 @@ public class LzrStream extends LzrMap {
         final int size = container.size();
 
         if (skipCount <= 0) return this;
-        if (skipCount >= size) {
+        if (skipCount >= size)
             return new LzrStream(new LzrArray(0));
-        }
+
 
         final LzrValue[] result = new LzrValue[size - skipCount];
         System.arraycopy(container.getCopyElements(), skipCount, result, 0, result.length);
