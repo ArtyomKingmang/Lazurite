@@ -10,9 +10,9 @@ import com.kingmang.lazurite.runtime.values.LzrNumber.Companion.of
 import com.kingmang.lazurite.runtime.values.LzrString
 
 data class AssignmentStatement(
-    private val variable: String,
-    private val expression: Expression,
-    private val mode: Int
+    val variable: String,
+    val expression: Expression,
+    val mode: Int
 ) : Statement {
     constructor(variable: String, expression: Expression) : this(variable, expression, 0)
 

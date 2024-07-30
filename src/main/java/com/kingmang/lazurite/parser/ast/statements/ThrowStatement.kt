@@ -9,9 +9,9 @@ import com.kingmang.lazurite.patterns.visitor.ResultVisitor
 import com.kingmang.lazurite.patterns.visitor.Visitor
 
 class ThrowStatement(
-    private val type: String,
-    private val expr: Expression,
-    private val file: FileInfo?
+    val type: String,
+    val expr: Expression,
+    val file: FileInfo?
 ) : Statement {
     override fun execute() =
         throw LzrTracedException(this.type, this.expr.eval().toString(), TraceInfo(this.file, CallStack.getCalls()))
