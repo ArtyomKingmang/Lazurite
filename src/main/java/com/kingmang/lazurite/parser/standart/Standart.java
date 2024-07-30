@@ -41,7 +41,20 @@ public class Standart {
         }
     }
 
-
+    public static final class sortBy implements Function{
+        @NotNull
+        @Override
+        public LzrValue execute(@NotNull LzrValue... args) {
+            Arguments.check(2, args.length);
+            if(args[0].type() != Types.ARRAY){
+                throw new LzrException("Type Exception", "Array expected at first argument");
+            }
+            final LzrValue[] elements = ((LzrArray) args[0]).getCopyElements();
+            final Function function = ValueUtils.consumeFunction(args[1], 1);
+            Arrays.sort(elements, Comparator.comparing(function::execute));
+            return new LzrArray(elements);
+        }
+    }
 
     public static class combine implements Function {
 
