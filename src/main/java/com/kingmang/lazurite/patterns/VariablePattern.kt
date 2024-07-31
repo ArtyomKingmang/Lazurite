@@ -1,18 +1,21 @@
-package com.kingmang.lazurite.patterns;
+package com.kingmang.lazurite.patterns
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
+import java.io.Serializable
 
-import java.io.Serializable;
+class VariablePattern : Pattern, Serializable  {
 
-@Getter
-@AllArgsConstructor
-public class VariablePattern extends Pattern implements Serializable {
 
-    private String variable;
+    private val variable: String?
 
-    @Override
-    public String toString() {
-        return variable;
+    constructor(variable : String){
+        this.variable = variable
+    }
+
+    fun getVariable() : String? {
+        return variable
+    }
+
+    override fun toString(): String {
+        return variable!!
     }
 }

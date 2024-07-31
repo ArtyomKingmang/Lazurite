@@ -1,6 +1,5 @@
-package com.kingmang.lazurite.patterns;
+package com.kingmang.lazurite.patterns
 
-import java.io.Serializable;
+import java.io.Serializable
 
-public abstract class Pattern implements Serializable {
-}
+abstract class Pattern : Serializable

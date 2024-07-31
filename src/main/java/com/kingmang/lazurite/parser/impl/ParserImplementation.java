@@ -12,6 +12,8 @@ import com.kingmang.lazurite.parser.ast.statements.*;
 import com.kingmang.lazurite.parser.IParser;
 import com.kingmang.lazurite.parser.tokens.Token;
 import com.kingmang.lazurite.parser.tokens.TokenType;
+import com.kingmang.lazurite.patterns.Pattern;
+import com.kingmang.lazurite.patterns.VariablePattern;
 import com.kingmang.lazurite.runtime.UserDefinedFunction;
 import com.kingmang.lazurite.runtime.values.LzrEnum;
 import com.kingmang.lazurite.runtime.values.LzrNumber;
@@ -111,7 +113,7 @@ public final class ParserImplementation implements IParser, IFileInfoProvider {
         return result;
     }
 
-    public Expression parseExpression(){
+    public Expression parseExpression() {
         return expression();
     }
 
@@ -152,73 +154,72 @@ public final class ParserImplementation implements IParser, IFileInfoProvider {
     }
 
     private Statement statement() {
-       if (lookMatch(0, TokenType.WORD) && macros.containsKey(get(0).getText()))
+        if (lookMatch(0, TokenType.WORD) && macros.containsKey(get(0).getText()))
             return macroUsage();
 
-       if (match(TokenType.PRINT))
+        if (match(TokenType.PRINT))
             return new PrintStatement(expression());
 
-       if(match(TokenType.ASSERT))
-           return new AssertStatement(expression());
+        if (match(TokenType.ASSERT))
+            return new AssertStatement(expression());
 
-       if (match(TokenType.PRINTLN))
+        if (match(TokenType.PRINTLN))
             return new PrintlnStatement(expression());
 
-       if (match(TokenType.IF))
+        if (match(TokenType.IF))
             return ifElse();
 
-       if (match(TokenType.WHILE))
+        if (match(TokenType.WHILE))
             return whileStatement();
 
-       if (match(TokenType.BREAK))
+        if (match(TokenType.BREAK))
             return new BreakStatement();
 
-       if (match(TokenType.CONTINUE))
+        if (match(TokenType.CONTINUE))
             return new ContinueStatement();
 
-       if (match(TokenType.RETURN))
+        if (match(TokenType.RETURN))
             return new ReturnStatement(expression());
 
-       if(match(TokenType.ENUM))
+        if (match(TokenType.ENUM))
             return enums();
 
-       if (match(TokenType.USING))
+        if (match(TokenType.USING))
             return new UsingStatement(expression());
 
-       if (match(TokenType.FOR))
+        if (match(TokenType.FOR))
             return forStatement();
 
-       if(match(TokenType.MACRO))
+        if (match(TokenType.MACRO))
             return macro();
 
-       if (match(TokenType.FUNC))
+        if (match(TokenType.FUNC))
             return functionDefine();
 
-       if (match(TokenType.SWITCH))
+        if (match(TokenType.SWITCH))
             return match();
 
-       if (match(TokenType.CLASS))
+        if (match(TokenType.CLASS))
             return classDeclaration();
 
-       if (lookMatch(0, TokenType.WORD) && lookMatch(1, TokenType.LPAREN))
+        if (lookMatch(0, TokenType.WORD) && lookMatch(1, TokenType.LPAREN))
             return new ExprStatement(functionChain(qualifiedName()));
 
-       else if (match(TokenType.THROW))
+        else if (match(TokenType.THROW))
             return throwStatement();
 
-       else if(match(TokenType.TRY))
-           return tryCatch();
+        else if (match(TokenType.TRY))
+            return tryCatch();
 
-       return assignmentStatement();
+        return assignmentStatement();
     }
 
     private Statement tryCatch() {
         final Statement tryStatement = statementOrBlock();
         final Statement catchStatement;
-        if(match(TokenType.CATCH)){
+        if (match(TokenType.CATCH)) {
             catchStatement = statementOrBlock();
-        }
-        else{
+        } else {
             throw new LzrException("CatchBlockError", "the catch block was not found");
         }
         return new TryCatchStatement(tryStatement, catchStatement);
@@ -248,13 +249,14 @@ public final class ParserImplementation implements IParser, IFileInfoProvider {
         Expression expr = expression();
         return new ThrowStatement(type, expr, file);
     }
+
     private Statement assignmentStatement() {
 
         final Expression expression = expression();
         if (expression instanceof Statement) {
             return (Statement) expression;
         }
-        throw new LzrException("ParseException ","Unknown statement: " + get(0));
+        throw new LzrException("ParseException ", "Unknown statement: " + get(0));
     }
 
     private Statement ifElse() {
@@ -264,7 +266,7 @@ public final class ParserImplementation implements IParser, IFileInfoProvider {
         final Statement elseStatement = match(TokenType.ELSE)
                 ? statementOrBlock() : null;
 
-         return new IfStatement(condition, ifStatement, elseStatement);
+        return new IfStatement(condition, ifStatement, elseStatement);
     }
 
     private Statement whileStatement() {
@@ -290,15 +292,15 @@ public final class ParserImplementation implements IParser, IFileInfoProvider {
         int foreachIndex = lookMatch(0, TokenType.LPAREN) ? 1 : 0;
 
         if (
-            lookMatch(foreachIndex, TokenType.WORD)
-            && lookMatch(foreachIndex + 1, TokenType.COLON)
+                lookMatch(foreachIndex, TokenType.WORD)
+                        && lookMatch(foreachIndex + 1, TokenType.COLON)
         ) return foreachArrayStatement();
 
         if (
-            lookMatch(foreachIndex, TokenType.WORD)
-            && lookMatch(foreachIndex + 1, TokenType.COMMA)
-            && lookMatch(foreachIndex + 2, TokenType.WORD)
-            && lookMatch(foreachIndex + 3, TokenType.COLON)
+                lookMatch(foreachIndex, TokenType.WORD)
+                        && lookMatch(foreachIndex + 1, TokenType.COMMA)
+                        && lookMatch(foreachIndex + 2, TokenType.WORD)
+                        && lookMatch(foreachIndex + 3, TokenType.COLON)
         ) return foreachMapStatement();
 
         boolean optParentheses = match(TokenType.LPAREN);
@@ -487,7 +489,7 @@ public final class ParserImplementation implements IParser, IFileInfoProvider {
             }
 
             if (pattern == null) {
-                throw new LzrException("ParseException ","Wrong pattern in match expression: " + current);
+                throw new LzrException("ParseException ", "Wrong pattern in match expression: " + current);
             }
             if (match(TokenType.IF)) {
                 pattern.setOptCondition(expression());
@@ -516,7 +518,7 @@ public final class ParserImplementation implements IParser, IFileInfoProvider {
                 if (fieldDeclaration != null) {
                     classDeclaration.addField(fieldDeclaration);
                 } else {
-                    throw new LzrException("ParseException ","Class can contain only assignments and function declarations");
+                    throw new LzrException("ParseException ", "Class can contain only assignments and function declarations");
                 }
             }
         } while (!match(TokenType.RBRACE));
@@ -782,7 +784,7 @@ public final class ParserImplementation implements IParser, IFileInfoProvider {
     }
 
     private Expression objectCreation() {
-       if (match(TokenType.NEW)) {
+        if (match(TokenType.NEW)) {
             final String className = consume(TokenType.WORD).getText();
             final List<Expression> args = new ArrayList<>();
             consume(TokenType.LPAREN);
@@ -921,7 +923,7 @@ public final class ParserImplementation implements IParser, IFileInfoProvider {
                     match(TokenType.DOT);
                     return functionChain(new ContainerAccessExpression(
                             strExpr, Collections.singletonList(
-                                    new ValueExpression(consume(TokenType.WORD).getText())
+                            new ValueExpression(consume(TokenType.WORD).getText())
                     )));
                 }
 
@@ -935,7 +937,7 @@ public final class ParserImplementation implements IParser, IFileInfoProvider {
             return strExpr;
         }
 
-        throw new LzrException("ParseException ","Unknown expression: " + current);
+        throw new LzrException("ParseException ", "Unknown expression: " + current);
     }
 
     private boolean isNumberToken(TokenType type) {
@@ -946,10 +948,10 @@ public final class ParserImplementation implements IParser, IFileInfoProvider {
         if (match(TokenType.NUMBER))
             return createNumber(current.getText(), 10);
 
-        if(match(TokenType.FLOAT_NUM))
+        if (match(TokenType.FLOAT_NUM))
             return createFloatNumber(current.getText());
 
-        if(match(TokenType.DOUBLE_NUM))
+        if (match(TokenType.DOUBLE_NUM))
             return createDoubleNumber(current.getText());
 
         if (match(TokenType.INT_NUM))
@@ -981,25 +983,31 @@ public final class ParserImplementation implements IParser, IFileInfoProvider {
     private Number createLongNumber(String text) {
         return Long.parseLong(text, 10);
     }
+
     private Number createShortNumber(String text) {
         return Short.parseShort(text, 10);
     }
+
     private Number createByteNumber(String text) {
         return Byte.parseByte(text, 10);
     }
+
     private Number createIntegerNumber(String text, int radix) {
         return Integer.parseInt(text, radix);
     }
+
     private Number createFloatNumber(String text) {
         return Float.parseFloat(text);
     }
+
     private Number createDoubleNumber(String text) {
         return Double.parseDouble(text);
     }
+
     private Token consume(TokenType type) {
         final Token current = get(0);
         if (type != current.getType())
-            throw new LzrException("ParseException ","Token " + current + " doesn't match " + type);
+            throw new LzrException("ParseException ", "Token " + current + " doesn't match " + type);
 
         pos++;
         return current;
@@ -1026,5 +1034,11 @@ public final class ParserImplementation implements IParser, IFileInfoProvider {
             return EOF;
 
         return tokens.get(position);
+    }
+
+    private Pattern pattern(Expression ast) {
+        if (ast instanceof VariableExpression)
+            return new VariablePattern(ast.toString());
+        return null;
     }
 }
