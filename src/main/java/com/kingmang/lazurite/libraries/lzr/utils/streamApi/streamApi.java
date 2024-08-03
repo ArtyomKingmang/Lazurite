@@ -6,14 +6,23 @@ import com.kingmang.lazurite.core.Types;
 import com.kingmang.lazurite.exceptions.LzrException;
 import com.kingmang.lazurite.libraries.Keyword;
 import com.kingmang.lazurite.libraries.Library;
-import com.kingmang.lazurite.runtime.values.LzrArray;
-import com.kingmang.lazurite.runtime.values.LzrMap;
-import com.kingmang.lazurite.runtime.values.LzrValue;
+import com.kingmang.lazurite.runtime.values.*;
+import kotlin.Pair;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class streamApi implements Library {
     @Override
     public void init() {
         Keyword.put("stream", new initStream());
+    }
+
+    @Override
+    public Map<String, Pair<Integer, Function>> provides() {
+        Map<String, Pair<Integer, Function>> map = new HashMap<>();
+        map.put("stream", new Pair<>(Types.OBJECT, new initStream()));
+        return map;
     }
 
     public static final class initStream implements Function {
