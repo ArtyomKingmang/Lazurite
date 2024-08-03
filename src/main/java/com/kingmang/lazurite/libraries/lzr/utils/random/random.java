@@ -2,20 +2,31 @@ package com.kingmang.lazurite.libraries.lzr.utils.random;
 
 
 import com.kingmang.lazurite.core.Arguments;
+import com.kingmang.lazurite.core.Function;
+import com.kingmang.lazurite.core.Types;
 import com.kingmang.lazurite.libraries.Keyword;
 import com.kingmang.lazurite.libraries.Library;
 import com.kingmang.lazurite.runtime.values.LzrNumber;
 import com.kingmang.lazurite.runtime.values.LzrValue;
+import kotlin.Pair;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 
 public final class random implements Library {
-
     private final Random RND = new Random();
 
     @Override
     public void init() {
         Keyword.put("random", this::execute);
+    }
+
+    @Override
+    public Map<String, Pair<Integer, Function>> provides() {
+        Map<String, Pair<Integer, Function>> map = new HashMap<>();
+        map.put("random", new Pair<>(Types.NUMBER, this::execute));
+        return map;
     }
 
     public LzrValue execute(LzrValue... args) {
