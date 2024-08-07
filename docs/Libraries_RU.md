@@ -58,6 +58,7 @@
 `http.download()` - загружает файл из downloadUrl в filePath
 ````java
 using "lzr.net.http"
+
 http.download("https://test/tester.html", "test.txt")
 ````
 
@@ -71,6 +72,7 @@ http.download("https://test/tester.html", "test.txt")
 `http.request(url, callback)` - выполняет GET-запрос на указанный адрес url, ответ сервера передаёт в функцию callback.
 ````java
 using "lzr.net.http"
+
 http.request("https://github.com/ArtyomKingmang/Lazurite/blob/main/docs/Documentation_RU.md", ::echo)
 ````
 `http.request(url, method, params)` - выполняет запрос на указанный адрес url, методом method c данными params (объект).
@@ -119,9 +121,9 @@ result = lsoup.select("title")
 print(result)
 ````
 
-# collection
+# collections
 
-### (добавлено с 2.7.3)
+### (добавлено с *2.7.3*)
 
 # flatmap
 `flatmap(array, mapper)` — преобразует каждый элемент массива в массив элементов.
@@ -131,11 +133,11 @@ print(result)
 ````java
 using "lzr.collections.flatmap"
 
-numbers = [1,2,3,4,5,6,7,8,9]
+numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9]
 
 output = flatmap(numbers, func(x) {
   arr = Array(x)
-  for(i = 0, i < x, i++){
+  for(i = 0, i < x, i++) {
     arr[i] = x
   }
   return arr
@@ -180,7 +182,7 @@ print(output)
 
 Пример использования:
 ````java
-using "lzr.async"
+using "lzr.utils.async"
 
 func hel(arg) {
     print(arg)
@@ -208,10 +210,12 @@ print(out)
 Пример:
 ```java
 using "lzr.utils.arrays"
+
 map = {
     "apple": "red"
     "banana": "yellow"
 }
+
 print(arrays.keyExists("apple", map))
 ```
 
@@ -535,8 +539,8 @@ input = "Hello"
 bais = io.ByteArrayInputStream
 bais.`new`(input)
 
-while((b=bais.read())!=-1){
-    println(b);
+while((b = bais.read()) != -1) {
+    println(b)
 }
 ````
 
@@ -591,9 +595,9 @@ while((b=bais.read())!=-1){
 
 `String.valueOf(arg)`
 
-`String.format(arg,arg)`
+`String.format(arg, arg)`
 
-`String.join(arg,arg)`
+`String.join(arg, arg)`
 
 `String.CASE_INSENSITIVE_ORDER`
 
@@ -1029,7 +1033,7 @@ field = TextField("")
 field.setFont("Tahoma", 0, 28)
 
 panel.add(field, BorderLayout.NORTH)
-second_panel = Panel(layoutManager = gridLayout(rows=4, cols=4))
+second_panel = Panel(layoutManager = gridLayout(rows = 4, cols = 4))
 for(i = 0, i < 4, i++) {
     second_panel.add(Button(i))
 }
