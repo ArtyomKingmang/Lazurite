@@ -5,16 +5,19 @@
 </div>
 
 ## Подробнее О Языке
->Для работы необходимо установить JDK 17+
+> Для работы необходимо установить JDK 17+
 
-Этот язык использует преимущества Java и упрощает его. Это делает Lazurite довольно простым. В основном язык используется для создания игр и приложений, так как имеет мощные библиотеки для этого. Но на нем можно делать ботов для социальных сетей, работать с файлами и многое другое.
+Этот язык использует преимущества Java и упрощает его. Это делает Lazurite довольно простым.
+В основном язык используется для создания *игр* и *приложений*, так как имеет мощные библиотеки для этого.
+Но на нем можно делать *ботов для социальных сетей*, *работать с файлами* и многое *другое*.
 
 Привет Мир на Lazurite!
 
 ```shell
 print("Привет мир!")
 ```
-lsoup:
+
+пример lsoup:
 ```cpp
 using "lzr.net.lsoup"
 
@@ -31,7 +34,7 @@ print(text)
 ```cpp
 using "lzr.utils.async"
 
-func hel(arg){
+func hel(arg) {
     print(arg)
 }
 async.supply(hel("Hello"))
@@ -41,10 +44,11 @@ async.supply(hel("Hello"))
 ```cpp
 using "lzr.utils.thread"
 
-func th(arg){
-   println("My " + str(arg) + " Thread")
+func th(arg) {
+   println("My ${arg} thread")
 }
-for(i=0, i<10, i++){
+
+for(i = 0, i < 10, i++) {
     std.thread(::th, i)
 }
 ```
@@ -53,33 +57,31 @@ for(i=0, i<10, i++){
 ```cpp
 using "lzr.utils.streamApi"
 
-inputArray = range(0,5) // [0,0,0,0,0]
+inputArray = range(0, 5) // [0, 0, 0, 0, 0]
 resultArray = stream(inputArray)
  .custom(::changeNums)
  .toArray()
 
-func changeNums(container){
+func changeNums(container) {
     len = length(container)
     result = Array(len)
-    for(i = 0, i < len, i++){
+    for(i = 0, i < len, i++) {
         result[i] = 7
     }
     return result
 }
 
 println(resultArray)
-
 ```
 
 ## Загрузка
 
-Скачать jar и exe файлы интерпретатора можно на вкладке <a href = "https://github.com/ArtyomKingmang/Lazurite/releases">Releases</a>
+Скачать jar и exe файлы интерпретатора можно на вкладке [Releases](https://github.com/ArtyomKingmang/Lazurite/releases).
 
-## Взносы
+## Контрибьютинг
 Мы рассмотрим и поможем с любыми разумными запросами, если будут соблюдены следующие правила.
 
-- Заголовок лицензии должен быть применен ко всем файлам исходного кода java.
-- IDE or system-related files should be added to the .gitignore, never committed in pull requests.
+- Лицензия должна быть применена ко всем файлам исходного кода.
 - Файлы, связанные с IDE или системой, должны быть добавлены в .gitignore и никогда не добавляться в pull request.
 - Отдайте предпочтение удобству чтения перед компактностью.
 - Если вам нужна помощь, обратитесь к [Руководству по стилю Google Java](https://google.github.io/styleguide/javaguide.html).
@@ -87,7 +89,7 @@ println(resultArray)
 
 
 
-## License
+## Лицензия
 Lazurite распространяется на условиях <a href="https://github.com/ArtyomKingmang/Lazurite/wiki">MIT License 2.0</a>
 
 Узнайте больше об этом!

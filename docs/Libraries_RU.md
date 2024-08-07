@@ -58,6 +58,7 @@
 `http.download()` - загружает файл из downloadUrl в filePath
 ````java
 using "lzr.net.http"
+
 http.download("https://test/tester.html", "test.txt")
 ````
 
@@ -71,6 +72,7 @@ http.download("https://test/tester.html", "test.txt")
 `http.request(url, callback)` - выполняет GET-запрос на указанный адрес url, ответ сервера передаёт в функцию callback.
 ````java
 using "lzr.net.http"
+
 http.request("https://github.com/ArtyomKingmang/Lazurite/blob/main/docs/Documentation_RU.md", ::echo)
 ````
 `http.request(url, method, params)` - выполняет запрос на указанный адрес url, методом method c данными params (объект).
@@ -119,9 +121,9 @@ result = lsoup.select("title")
 print(result)
 ````
 
-# collection
+# collections
 
-### (добавлено с 2.7.3)
+### (добавлено с *2.7.3*)
 
 # flatmap
 `flatmap(array, mapper)` — преобразует каждый элемент массива в массив элементов.
@@ -131,11 +133,11 @@ print(result)
 ````java
 using "lzr.collections.flatmap"
 
-numbers = [1,2,3,4,5,6,7,8,9]
+numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9]
 
 output = flatmap(numbers, func(x) {
   arr = Array(x)
-  for(i = 0, i < x, i++){
+  for(i = 0, i < x, i++) {
     arr[i] = x
   }
   return arr
@@ -180,10 +182,12 @@ print(output)
 
 Пример использования:
 ````java
-using "lzr.async"
-func hel(arg){
+using "lzr.utils.async"
+
+func hel(arg) {
     print(arg)
 }
+
 async.supply(hel("Hello"))
 ````
 
@@ -204,28 +208,30 @@ print(out)
 `arrays.keyExists(key, map)` - Проверяет, существует ли в массиве заданный ключ или индекс. Если существует, возвращает 1, иначе 0.
 
 Пример:
-````java
+```java
 using "lzr.utils.arrays"
+
 map = {
-    "apple" : "red"
-    "banana" : "yellow"
+    "apple": "red"
+    "banana": "yellow"
 }
-print(arrays.keyExists("apple",map))
-````
+
+print(arrays.keyExists("apple", map))
+```
 
 `arrays.join(array, "delimiter", "prefix", "suffix")` — объединяет массив в строку с разделителем, префиксом и суффиксом.
 
 Пример:
 
-````java
+```java
 using "lzr.utils.arrays"
+
 array = ["banana", "apple", "pie"]
-
 out_array = arrays.join(array, "--")
-print(out_array)
 
-//Вывод: banana--apple--pie
-````
+// Вывод: banana--apple--pie
+print(out_array)
+```
 
 `arrays.sort(array)` — сортирует массив.
 
@@ -238,6 +244,7 @@ print(out_array)
 Пример:
 ````java
 using "lzr.utils.artify"
+
 println(artify.build("Hello", "doom"))
 ````
 Вывод:
@@ -335,6 +342,7 @@ swampland
 Пример:
 ````java
 using "lzr.utils.json"
+
 data = "{\"name\":Kingmang,\"digit\":2,\"array\":\"[2,6,7,7,4,6]\"}"
 println(json.decode(data))
 ````
@@ -410,15 +418,18 @@ println(json.decode(data))
 ````java
 using "lzr.utils.thread"
 
-func message(name){
+func message(name) {
     print("Hello, " + name)
 }
 
 thread("message", "Artyom")
 ````
-В этом потоке вызывается функция message с аргументом "Artyom". Функция message просто выводит приветственное сообщение с именем, переданным в качестве аргумента.
+В этом потоке вызывается функция message с аргументом "Artyom".
+Функция `message` просто выводит приветственное сообщение с именем, переданным в качестве аргумента.
 
-Использование потоков выполнения позволяет выполнять различные задачи параллельно, что может улучшить производительность программы. В данном случае, создается новый поток, который вызывает функцию message, тогда как основной поток может продолжать выполнять другие задачи.
+Использование потоков выполнения позволяет выполнять различные задачи параллельно, что может улучшить производительность программы.
+В данном случае, создается новый поток, который вызывает функцию message,
+тогда как основной поток может продолжать выполнять другие задачи.
 
 
 # random
@@ -443,12 +454,12 @@ thread("message", "Artyom")
 Пример:
 ````java
 using "lzr.lang.system"
+
+// Все property, которые есть в java.lang.System.getProperty()
 println(system.getProperty("lzr.version"))
 println(system.getProperty("os.name"))
 println(system.getProperty("java.version"))
 println(system.getProperty("file.separator"))
-
-//Все property, которые есть в java.lang.System.getProperty()
 ````
 
 `system.currentTimeMillis()` - возвращает текущее время в миллисекундах. Единицей времени возвращаемого значения является миллисекунда, степень детализации значения зависит от базовой операционной системы и может быть больше.
@@ -479,7 +490,7 @@ println(system.getProperty("file.separator"))
 `system.availableProcessors()` - Возвращает количество процессоров, доступных виртуальной машине (jvm).
 
 # io
-### (добавлено с 2.7.4)
+### (добавлено с *2.7.4*)
 Содержит функции для работы с потоками ввода/вывода
 
 ### PrintStream
@@ -528,8 +539,8 @@ input = "Hello"
 bais = io.ByteArrayInputStream
 bais.`new`(input)
 
-while((b=bais.read())!=-1){
-    println(b);
+while((b = bais.read()) != -1) {
+    println(b)
 }
 ````
 
@@ -584,9 +595,9 @@ while((b=bais.read())!=-1){
 
 `String.valueOf(arg)`
 
-`String.format(arg,arg)`
+`String.format(arg, arg)`
 
-`String.join(arg,arg)`
+`String.join(arg, arg)`
 
 `String.CASE_INSENSITIVE_ORDER`
 
@@ -598,6 +609,7 @@ while((b=bais.read())!=-1){
 
 ````java
 using "lzr.lang.reflection"
+
 Locale = JClass("java.util.Locale")
 
 locale1 = new Locale("EN", "INDIA");
@@ -610,7 +622,7 @@ println("Country Name: " + locale1.getDisplayCountry());
 
 `LZRValue(arg)` - конвертирует java объект в LZRValue
 
-### Добавлено с версии 2.7.3
+### Добавлено с версии *2.7.3*
 `JUpload("jarname.jar", "com.example")` -
 динамическая загрузка библиотеки
 из jar файла. Первый аргумент - имя jar
@@ -634,7 +646,7 @@ println("Country Name: " + locale1.getDisplayCountry());
 
 
 # lgl
-### (добавлено с 2.7.4)
+### (добавлено с *2.7.4*)
 
 
 `frame = lgl.createFrame("Title", width, height)` - Создать фрейм. все параметры необязательны.<BR>
@@ -693,7 +705,7 @@ img в позиции x; y с размерами width; height.
 ````python
 using "lzrx.awt.lgl"
 
-frame = lgl.createFrame(500,500)
+frame = lgl.createFrame(500, 500)
 
 img = loadImage("https://cs8.pikabu.ru/post_img/2016/02/17/10/145572598117693502.png")
 frame.image(img, 100, 100, 100, 100)
@@ -729,10 +741,10 @@ frame.image(img, 100, 100, 100, 100)
 ````python
 using "lzrx.awt.lgl"
 
-frame = lgl.createFrame(500,500)
+frame = lgl.createFrame(500, 500)
 
-frame.setFill(Color.rgb(100,100,200))
-frame.rect(100,100,100,100)
+frame.setFill(Color.rgb(100, 100, 200))
+frame.rect(100, 100, 100, 100)
 ````
 #### Effects - эффекты
 + Blend()
@@ -774,38 +786,40 @@ window = lgl.createFrame("Test Frame", 500, 500)
 
 window.setEffect(effect.BoxBlur())
 window.setFill(Color.BLUE)
-window.rect(100,100,100,100)
+window.rect(100, 100, 100, 100)
 ````
 
 ### Обработка нажатий
 
 #### Event
 Функции:
-````
+```
 Handler()
 
 Filter()
-````
+```
+
 Константы:
-````
-DRAG_DETECTED=0,
-MOUSE_CLICKED=1,
-MOUSE_DRAGGED=2,
-MOUSE_ENTERED=3,
-MOUSE_ENTERED_TARGET=4,
-MOUSE_EXITED=5,
-MOUSE_EXITED_TARGET=6,
-MOUSE_MOVED=7,
-MOUSE_PRESSED=8,
-MOUSE_RELEASED=9,
-KEY_PRESSED=10,
-KEY_RELEASED=11,
-KEY_TYPED=12,
-SWIPE_DOWN=13,
-SWIPE_LEFT=14,
-SWIPE_RIGHT=15,
-SWIPE_UP=16
-````
+```
+DRAG_DETECTED = 0
+MOUSE_CLICKED = 1
+MOUSE_DRAGGED = 2
+MOUSE_ENTERED = 3
+MOUSE_ENTERED_TARGET = 4
+MOUSE_EXITED = 5
+MOUSE_EXITED_TARGET = 6
+MOUSE_MOVED = 7
+MOUSE_PRESSED = 8
+MOUSE_RELEASED = 9
+KEY_PRESSED = 10
+KEY_RELEASED = 11
+KEY_TYPED = 12
+SWIPE_DOWN = 13
+SWIPE_LEFT = 14
+SWIPE_RIGHT = 15
+SWIPE_UP = 16
+```
+
 Пример 5:
 ````python
 using "lzrx.awt.lgl"
@@ -813,7 +827,7 @@ using "lzrx.awt.lgl"
 window = lgl.createFrame("Test Frame", 500, 500)
 
 Event.Handler(Event.KEY_PRESSED, func(e) {
-  if (e.code == KeyCode.X){
+  if (e.code == KeyCode.X) {
     println("Click X")
   }
 })
@@ -851,7 +865,7 @@ using "lzrx.awt.lgl"
 window = lgl.createFrame("Test Frame", 500, 500)
 
 Event.Handler(Event.MOUSE_MOVED, func(e) {
-  window.ellipse(e.mouseX-50, e.mouseY-50, 100,100)
+  window.ellipse(e.mouseX - 50, e.mouseY - 50, 100, 100)
   lgl.redraw()
 })
 ````
@@ -889,10 +903,11 @@ isShortcutDown
 ````java
 using "lzrx.awt.gforms"
 
+window = Frame("widgets")
+window.setMinimumSize(600, 300)
+
 button = Button("Button")
 
-window = Frame("widgets")
-window.setMinimumSize(600,300)
 window.add(button)
 window.pack()
 window.setVisible()
@@ -911,7 +926,7 @@ window.setVisible()
 `TextArea(text = "")` - создает новую текстовую область
 
 
-### Добавлено с версии 2.7.3
+### Добавлено с версии *2.7.3*
 
 `MenuBar(menu = "", item1 = "")` - создает новый menuBar. Первый аргумент - заголовок к меню.
 Последующие аргументы - ячейки в заданном меню
@@ -1010,21 +1025,21 @@ gridLayout(rows = 1, cols = 0, hgap = 0, vgap = 0) - создаёт GridLayout
 using "lzrx.awt.gforms"
 
 window = Frame("test")
-window.setMinimumSize(600,300)
+window.setMinimumSize(600, 300)
 
 panel = Panel(layoutManager = borderLayout())
 
 field = TextField("")
-field.setFont("Tahoma",0,28)
+field.setFont("Tahoma", 0, 28)
 
-panel.add(field,BorderLayout.NORTH)
-second_panel = Panel(layoutManager = gridLayout(rows=4, cols=4))
-for(i = 0, i < 4, i++){
-second_panel.add(Button(i))
+panel.add(field, BorderLayout.NORTH)
+second_panel = Panel(layoutManager = gridLayout(rows = 4, cols = 4))
+for(i = 0, i < 4, i++) {
+    second_panel.add(Button(i))
 }
 
-window.add(panel,BorderLayout.NORTH)
-window.add(second_panel,BorderLayout.CENTER)
+window.add(panel, BorderLayout.NORTH)
+window.add(second_panel, BorderLayout.CENTER)
 window.pack()
 window.setVisible()
 ````
@@ -1069,7 +1084,7 @@ PAGE_AXIS
 ````
 
 # robot
-#### Добавлено с версии 2.7.3
+#### Добавлено с версии *2.7.3*
 Содержит методы для автоматизации 
 взаимодействия с графическим 
 интерфейсом пользователя
@@ -1087,6 +1102,7 @@ robot.execProcess("mkdir", "Hello")
 
 ````cpp
 using "lzrx.robot"
+
 robot.keyPress(KEY.TAB)
 robot.keyPress(KEY.A)
 ````
@@ -1118,53 +1134,57 @@ robot.keyPress(KEY.A)
 ### Упрощенная библиотека для работы с графикой.
 
 ### Окно
-`Frame(arg[0], arg[1], arg[2])` - создает окно с заголовком arg[0] и размерами arg[1], arg[2].
+`Frame(arg[0], arg[1], arg[2])` - создает окно с заголовком `arg[0]` и размерами `arg[1]`, `arg[2]`.
 Все аргументы опциональны и указывать их необязательно, ведь в таком случае будут выбраны заранее заготовленные аргументы.
 
 ````java
 using "lzrx.awt.graph"
+
 width = 640
 height = 400
-Frame("test",width,height)
+
+Frame("test", width, height)
 ````
 Функции окна:
 ````
-background(r,g,b) - установка цвета фона
+background(r, g, b) - установка цвета фона
 Redraw() - обновление экрана
 ````
 ### Примитивы
-`ellipse(x,y,w,h)` - создает закрашенный эллипс в координатах x, y с размерами w, h
+`ellipse(x, y, w, h)` - создает закрашенный эллипс в координатах x, y с размерами w, h
 
-`lellipse(x,y,w,h)` - создает эллипс в координатах x, y с размерами w, h
+`lellipse(x, y, w, h)` - создает эллипс в координатах x, y с размерами w, h
 
-`rect(x,y,w,h)` - создает закрашенный прямоугольник в координатах x, y с размерами w, h
+`rect(x, y, w, h)` - создает закрашенный прямоугольник в координатах x, y с размерами w, h
 
-`lrect(x,y,w,h)` - создает прямоугольник в координатах x, y с размерами w, h
+`lrect(x, y, w, h)` - создает прямоугольник в координатах x, y с размерами w, h
 
 `fill(rgb)` - закрашивает все фигуры, идущие после него
 
 ````java
 using "lzrx.awt.graph"
+
 Frame()
 
-fill(100,100,200)
-rect(10,10,200,100)
+fill(100, 100, 200)
+rect(10, 10, 200, 100)
 
-fill(100,200,100)
-lrect(100,100,100,100)
+fill(100, 200, 100)
+lrect(100, 100, 100, 100)
 ````
 
 
 ### Текст
 `text("text", x, y)` - создает текст в координатах x, y
-````java
+```java
 using "lzrx.awt.graph"
+
 Frame(500,500)
 fill(0)
 text("Hello",100,100)
-````
+```
 `font("Arial", size)` - устанавливает шрифт с определенным размером
-````java
+```java
 using "lzrx.awt.graph"
 Frame(500,500)
 
@@ -1172,45 +1192,46 @@ font("Arial",30)
 
 fill(0)
 text("Hello",100,100)
-````
+```
 ### Обработка нажатий
 `keyPressed()`
-````java
+```java
 using "lzrx.awt.graph"
+
 Frame(500,500)
 
-while(1){
+while(true) {
     key = keyPressed()
-    if(key == KEY.LEFT){
+    if (key == KEY.LEFT) {
         println("left")
-    }else if(key == KEY.A){
+    } else if (key == KEY.A) {
         println("a")
     }
 }
-````
+```
 `mouseHover()`
-````java
+```java
 using "lzrx.awt.graph"
 
 Frame()
 mouse = mouseHover()
 
-while(1){
-    background(100,100,200)
-    fill(255,255,255)
-    ellipse(mouse[0], mouse[1], 50,50)
+while(true) {
+    background(100, 100, 200)
+    fill(255, 255, 255)
+    ellipse(mouse[0], mouse[1], 50, 50)
     Redraw()
 }
-````
+```
 
 
 ### Другие функции
-````
+```
 translate(arg[0], arg[1])
 dispose()
 rotate(arg[0]) || rotate(arg[0], arg[1], arg[2])
 scale(arg[0], arg[1])
-````
+```
 
 
 
@@ -1219,30 +1240,31 @@ scale(arg[0], arg[1])
 
 Упрощает работу с цветами в консоли.
 Пример:
-````java
+```java
 using "lzrx.awt.colors"
+
 println(sprintf(color.blue))
 println("Hello")
-````
+```
 ### Цвета
 
-`color.red`
+`color.red` - красный цвет
 
-`color.green`
+`color.yellow` - жёлтый цвет
 
-`color.blue`
+`color.green` - зелёный цвет
 
-`color.white`
+`color.purple` - фиолетовый цвет
 
-`color.black`
+`color.blue` - синий цвет
 
-`color.purple`
+`color.cyan` - голубой цвет
 
-`color.yellow`
+`color.white` - белый цвет
 
-`color.cyan`
+`color.black` - чёрный цвет
 
-`color.clear()`
+`color.clear()` - отчистить цвет
 
 
 
