@@ -24,7 +24,7 @@ title = lsoup.select("title")
 text = lsoup.select("h3")
 
 println(title)
-print(text)
+println(text)
 ```
 
 async example:
