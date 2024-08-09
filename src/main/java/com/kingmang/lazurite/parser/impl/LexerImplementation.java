@@ -76,6 +76,7 @@ public final class LexerImplementation implements ILexer {
         row = col = 1;
     }
 
+    @NotNull
     public List<Token> tokenize() {
         while (pos < length) {
             final char current = peek(0);

@@ -38,10 +38,9 @@ public final class ParserImplementation implements IParser, IFileInfoProvider {
 
     private static final Token EOF = new Token(TokenType.EOF, "", -1, -1);
     private final Map<String, Integer> macros;
-    private static final EnumMap<TokenType, BinaryExpression.Operator> ASSIGN_OPERATORS;
+    private static final EnumMap<TokenType, BinaryExpression.Operator> ASSIGN_OPERATORS = new EnumMap<>(TokenType.class);
 
     static {
-        ASSIGN_OPERATORS = new EnumMap<>(TokenType.class);
         ASSIGN_OPERATORS.put(TokenType.PLUSEQ, BinaryExpression.Operator.ADD);
         ASSIGN_OPERATORS.put(TokenType.MINUSEQ, BinaryExpression.Operator.SUBTRACT);
         ASSIGN_OPERATORS.put(TokenType.STAREQ, BinaryExpression.Operator.MULTIPLY);

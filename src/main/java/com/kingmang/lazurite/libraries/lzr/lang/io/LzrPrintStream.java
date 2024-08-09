@@ -33,7 +33,7 @@ public class LzrPrintStream {
             Arguments.check(1, args.length);
             LzrValue s = args[0];
             if (!(s instanceof LzrReference))
-                throw new LzrException("BadArg", "expected reference as byteArrayInputStream object");
+                throw new LzrException("BadArg", "expected reference as printStream object");
             PrintStream printStream = (PrintStream) ((LzrReference) s).getRef();
             printStream.print(args[0]);
             return LzrNumber.ZERO;
