@@ -238,26 +238,14 @@ int[] asArray();
 ```
 # LZRException
 
-Файл: exceptions/LZRException.java
+Файл: exceptions/LzrException.java
 
 ```java
-public class LZRException extends RuntimeException {...}
+open class LzrException(val type: String, message: String) : RuntimeException(message) {...}
 ```
 
-Конструктор класса LZRException, где type это тип ошибки, а text это подробное описание.
+Конструктор класса LzrException, где type это тип ошибки, а text это подробное описание.
 
-```java
-public LZRException(String type, String text) {...}
-```
+
 Lombok генерирует геттеры для полей:
 
-Возвращает тип ошибки.
-
-```java
-public String getType() {...}
-```
-Возвращает подробное описание ошибки.
-
-```java
-public String getText() {...}
-```
