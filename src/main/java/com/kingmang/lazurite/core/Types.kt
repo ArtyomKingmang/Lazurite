@@ -1,5 +1,6 @@
 package com.kingmang.lazurite.core
 
+import com.kingmang.lazurite.runtime.values.LzrValue
 import lombok.AccessLevel
 import lombok.NoArgsConstructor
 
@@ -22,4 +23,7 @@ object Types {
         if (type in FIRST..LAST)
             NAMES[type]
         else "unknown ($type)"
+
+    fun typeToString(value: LzrValue): String =
+        this.typeToString(value.type())
 }

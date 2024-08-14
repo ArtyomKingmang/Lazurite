@@ -7,7 +7,7 @@ class VariablePattern : Pattern, Serializable  {
 
     private val variable: String?
 
-    constructor(variable : String){
+    constructor(variable : String) {
         this.variable = variable
     }
 

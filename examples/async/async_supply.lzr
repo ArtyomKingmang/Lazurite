@@ -1,5 +1,7 @@
 using "lzr.utils.async"
-func hel(arg){
+
+func hel(arg) {
     print(arg)
 }
+
 async.supply(hel("Hello"))

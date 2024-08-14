@@ -1,0 +1,22 @@
+using "lzrx.awt.lgl"
+
+window = lgl.createFrame("Test Frame", 500, 500)
+
+
+window.setFill(Color.rgb(100, 100, 200))
+
+func drawRect() = window.rect(100, 100, 50, 50)
+
+
+Event.Handler(Event.KEY_PRESSED, func(e) {
+    if (e.code == KeyCode.C) {
+        color = Color.rgb(100, 100, 200)
+        window.setFill(color)
+        drawRect()
+    }
+    if (e.code == KeyCode.X) {
+        color = Color.rgb(200, 100, 200)
+        window.setFill(color)
+        drawRect()
+    }
+})

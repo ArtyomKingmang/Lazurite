@@ -3,6 +3,7 @@ package com.kingmang.lazurite.parser.ast.expressions
 import com.kingmang.lazurite.exceptions.FileInfo
 import com.kingmang.lazurite.exceptions.IFileInfoProvider
 import com.kingmang.lazurite.exceptions.VariableDoesNotExistsException
+import com.kingmang.lazurite.libraries.Keyword
 import com.kingmang.lazurite.parser.ast.Accessible
 import com.kingmang.lazurite.parser.ast.InterruptableNode
 import com.kingmang.lazurite.patterns.visitor.ResultVisitor
@@ -20,7 +21,11 @@ class VariableExpression(val name: String, override val file: FileInfo?) : Inter
 
     override fun get(): LzrValue {
         if (!isExists(this.name))
-            throw VariableDoesNotExistsException(this.name)
+            if (Keyword.isExists(this.name)) {
+                throw VariableDoesNotExistsException(this.name, "Do you want to pass function $name? Use '::$name'")
+            } else {
+                throw VariableDoesNotExistsException(this.name)
+            }
         return get(this.name)!!
     }
 

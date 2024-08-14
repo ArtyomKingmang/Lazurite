@@ -1,44 +1,46 @@
 #jInclude "java.lang.String"
 
-func charAt(arg, index){
+func charAt(arg, index) {
      input = new String(arg)
      out = String.valueOf(input.charAt(index))
      return out
 }
 
-func interpret(code){
+func interpret(code) {
     memory = Array(30000)
     pointer = 0
     instructionPointer = 0
     len = length(code)
-    while(instructionPointer < len){
+
+    while(instructionPointer < len) {
         instruction = charAt(code, instructionPointer)
-        match(instruction){
-            case ">" : pointer ++
-            case "<" : pointer --
-            case "+" : memory[pointer] ++
-            case "-" : memory[pointer] --
+
+        match(instruction) {
+            case ">" : pointer++
+            case "<" : pointer--
+            case "+" : memory[pointer]++
+            case "-" : memory[pointer]--
             case "[" : {
-                if(memory[pointer] == 0){
+                if (memory[pointer] == 0) {
                     loopCounter = 1
-                    while(loopCounter != 0){
-                        instructionPointer ++
-                        if(charAt(code, instructionPointer) == "["){
+                    while(loopCounter != 0) {
+                        instructionPointer++
+                        if (charAt(code, instructionPointer) == "[") {
                             loopCounter++
-                        }else if(charAt(code, instructionPointer) == "]"){
+                        } else if (charAt(code, instructionPointer) == "]") {
                             loopCounter--
                         }
                     }
                 }
             }
             case "]" : {
-                if(memory[pointer] != 0){
+                if (memory[pointer] != 0) {
                     loopCounter = 1
-                    while(loopCounter != 0){
-                       instructionPointer --
-                       if(charAt(code, instructionPointer) == "["){
+                    while(loopCounter != 0) {
+                       instructionPointer--
+                       if (charAt(code, instructionPointer) == "[") {
                            loopCounter--
-                       }else if(charAt(code, instructionPointer) == "]"){
+                       } else if (charAt(code, instructionPointer) == "]") {
                            loopCounter++
                        }
                     }

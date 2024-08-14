@@ -247,5 +247,3 @@ open class LzrException(val type: String, message: String) : RuntimeException(me
 Конструктор класса LzrException, где type это тип ошибки, а text это подробное описание.
 
 
-Lombok генерирует геттеры для полей:
-

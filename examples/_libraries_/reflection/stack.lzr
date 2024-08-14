@@ -1,0 +1,9 @@
+using "lzr.lang.reflection"
+
+Stack = JClass("java.util.Stack")
+
+stack = new Stack()
+stack.push(8)
+stack.push(9)
+
+print(stack.pop())

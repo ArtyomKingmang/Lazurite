@@ -1,9 +1,7 @@
 package com.kingmang.lazurite.runtime.values
 
-import com.kingmang.lazurite.core.Converters
-import com.kingmang.lazurite.core.Types
-import com.kingmang.lazurite.core.asLzrStringOrNull
-import com.kingmang.lazurite.core.checkOrOr
+import com.kingmang.lazurite.core.*
+import com.kingmang.lazurite.core.Function
 import com.kingmang.lazurite.exceptions.LzrException
 import com.kingmang.lazurite.libraries.Keyword
 import java.util.*
@@ -12,24 +10,74 @@ class LzrString(private val value: String) : LzrValue {
     fun access(propertyValue: LzrValue): LzrValue {
         val prop = propertyValue.asString()
         val knownProps = when (prop) {
-            "length" -> LzrNumber.of(length())
-            "toLowerCase" -> LzrString(value.lowercase(Locale.getDefault()))
-            "toUpperCase" -> LzrString(value.uppercase(Locale.getDefault()))
-            "chars" -> LzrArray(length()) { LzrNumber.of(value[it].code) }
-            "trim" -> Converters.voidToString { value.trim() }
-            "startsWith" -> LzrFunction { args ->
-                args.checkOrOr(1, 2)
-                val offset = if ((args.size == 2)) args[1].asInt() else 0
-                LzrNumber.fromBoolean(this.value.startsWith(args[0].asString(), offset))
+            "length" -> Function { args ->
+                LzrNumber.of(this.length())
             }
-            "endsWith" -> Converters.stringToBoolean { suffix: String -> this.value.endsWith(suffix) }
-            "matches" -> Converters.stringToBoolean { regex: String -> this.value.matches(regex.toRegex()) }
-            "equals" -> Converters.stringToBoolean { anotherString: String -> this.value.equals(anotherString, ignoreCase = true) }
-            "isEmpty" -> Converters.voidToBoolean { this.value.isEmpty() }
+            "isEmpty" -> Function { args ->
+                LzrNumber.fromBoolean(this.isEmpty())
+            }
+
+            "lower" -> Function { args ->
+                args.check(0)
+                LzrString(this.lower())
+            }
+            "upper" -> Function { args ->
+                args.check(0)
+                LzrString(this.upper())
+            }
+            "isLower" -> Function { args ->
+                args.check(0)
+                LzrNumber.fromBoolean(this.isLower())
+            }
+            "isUpper" -> Function { args ->
+                args.check(0)
+                LzrNumber.fromBoolean(this.isUpper())
+            }
+
+            "chars" -> Function { args ->
+                args.check(0)
+                LzrArray(length()) { LzrNumber.of(value[it].code) }
+            }
+            "trim" -> Function { args ->
+                args.check(0)
+                LzrString(this.trim())
+            }
+            "startsWith" -> Function { args ->
+                args.checkOrOr(1, 2)
+                val value = when (args.size) {
+                    2 -> {
+                        this.startsWith(args[0].asString(), args[0].asInt() != 0) // 0 - false, other - true
+                    }
+                    else -> {
+                        this.startsWith(args[0].asString())
+                    }
+                }
+                LzrNumber.fromBoolean(value)
+            }
+            "endsWith" -> Function { args ->
+                args.checkOrOr(1, 2)
+                val value = when (args.size) {
+                    2 -> {
+                        this.endsWith(args[0].asString(), args[0].asInt() != 0) // 0 - false, other - true
+                    }
+                    else -> {
+                        this.endsWith(args[0].asString())
+                    }
+                }
+                LzrNumber.fromBoolean(value)
+            }
+            "matches" -> Function { args ->
+                args.check(1)
+                LzrNumber.fromBoolean(this.matches(args[0].asString()))
+            }
+            "equals" -> Function { args ->
+                args.check(1)
+                LzrNumber.fromBoolean(this.value == args[0].asString())
+            }
             else -> null
         }
         if (knownProps != null)
-            return knownProps
+            return LzrFunction(knownProps)
         if (Keyword.isExists(prop))
             return LzrFunction { args -> Keyword.get(prop).execute(*arrayOf<LzrValue>(this).plus(args)) }
         throw LzrException("UnknownPropertyException", prop)
@@ -37,6 +85,45 @@ class LzrString(private val value: String) : LzrValue {
 
     fun length(): Int =
         this.value.length
+
+    fun isEmpty(): Boolean =
+        this.length() == 0
+
+    fun lower(locale: Locale = Locale.getDefault()): String =
+        this.value.lowercase()
+
+    fun upper(locale: Locale = Locale.getDefault()): String =
+        this.value.uppercase()
+
+    fun isLower(locale: Locale = Locale.getDefault()): Boolean =
+        this.value == this.lower(locale)
+
+    fun isUpper(locale: Locale = Locale.getDefault()): Boolean =
+        this.value == this.upper(locale)
+
+    fun trim(): String =
+        this.value.trim()
+
+    fun startsWith(prefix: LzrString, ignoreCase: Boolean = false): Boolean =
+        this.endsWith(prefix.asString(), ignoreCase)
+
+    fun startsWith(prefix: String, ignoreCase: Boolean = false): Boolean =
+        this.value.startsWith(prefix, ignoreCase)
+
+    fun endsWith(postfix: LzrString, ignoreCase: Boolean = false): Boolean =
+        this.endsWith(postfix.asString(), ignoreCase)
+
+    fun endsWith(postfix: String, ignoreCase: Boolean = false): Boolean =
+        this.value.endsWith(postfix, ignoreCase)
+
+    fun matches(regex: LzrString): Boolean =
+        this.matches(regex.asString())
+
+    fun matches(regex: String): Boolean =
+        this.matches(regex.toRegex())
+
+    fun matches(regex: Regex): Boolean =
+        this.value.matches(regex)
 
     override fun type(): Int =
         Types.STRING

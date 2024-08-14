@@ -28,19 +28,19 @@ public class JFileChooserValue extends JComponentValue {
 
     }
 
-    private LzrValue showOpenDialog(LzrValue... args){
+    private LzrValue showOpenDialog(LzrValue... args) {
         fileChooser.showOpenDialog(null);
         return LzrNumber.ZERO;
     }
 
-    private LzrValue showSaveDialog(LzrValue... args){
+    private LzrValue showSaveDialog(LzrValue... args) {
         try {
             fileChooser.showSaveDialog(null);
-        }catch(Exception ignored){}
+        } catch (Exception ignored) {}
 
         return LzrNumber.ZERO;
     }
-    private LzrValue getTextFromFile(LzrValue... args){
+    private LzrValue getTextFromFile(LzrValue... args) {
         File selectedFile = fileChooser.getSelectedFile();
         try {
             String fileContent = new String(Files.readAllBytes(selectedFile.toPath()));

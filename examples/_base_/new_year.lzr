@@ -11,33 +11,39 @@ patterns = [
   "\u001b[40m",
   "\u001b[35m",
   "\u001b[33m",
-  "\u001b[36m",
+  "\u001b[36m"
 ]
-func drawTree(){
-  print(sprintf(color.green))
-  for (i = 1, i < 15, i += 2) {
-    spaces = "";
-    for (j = 0, j < (14 - i) / 2, j++) {
-        spaces += " ";
+
+func drawTree() {
+    print(sprintf(color.green))
+
+    for (i = 1, i < 15, i += 2) {
+        spaces = ""
+
+        for (j = 0, j < (14 - i) / 2, j++) {
+            spaces += " "
+        }
+
+        stars = ""
+        for (j = 0, j < i, j++) {
+            stars += "*"
+        }
+
+        println(spaces + stars)
     }
-    stars = "";
-    for (j = 0, j < i, j++) {
-        stars += "*";
-    }
-    println(spaces + stars);
-  }
 }
-func HappyNewYear(){
-    print(sprintf(patterns[random(0,length(patterns))]))
+
+func HappyNewYear() {
+    pattern = patterns[random(0, length(patterns))]
+
+    print(sprintf(pattern))
     println("Happy new year")
+
     time.sleep(500)
     color.clear()
 }
 
-while(true){
+while(true) {
     drawTree()
     HappyNewYear()
 }
-
-
-

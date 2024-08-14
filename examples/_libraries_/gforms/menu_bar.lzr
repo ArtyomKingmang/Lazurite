@@ -1,0 +1,17 @@
+using "lzrx.awt.gforms"
+
+window = Frame("Text editor")
+window.setMinimumSize(500, 500)
+
+panel = Panel(layoutManager = borderLayout())
+
+menu = MenuBar()
+menu.add("test[0]", "test1", "test2")
+menu.add("test[1]", "test")
+
+
+panel.add(menu, BorderLayout.NORTH)
+
+window.add(panel, BorderLayout.NORTH)
+window.pack()
+window.setVisible()

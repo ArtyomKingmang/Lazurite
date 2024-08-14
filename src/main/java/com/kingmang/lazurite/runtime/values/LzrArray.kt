@@ -26,6 +26,15 @@ open class LzrArray(private val elements: Array<LzrValue>, unit: Unit) : LzrValu
     open fun size(): Int =
         this.elements.size
 
+    open fun isEmpty(): Boolean =
+        this.size() == 0
+
+    open fun add(value: LzrValue): LzrArray =
+        add(this, value)
+
+    open fun merge(array: LzrArray): LzrArray =
+        merge(this, array)
+
     open operator fun get(index: Int): LzrValue =
         this.elements[index]
 

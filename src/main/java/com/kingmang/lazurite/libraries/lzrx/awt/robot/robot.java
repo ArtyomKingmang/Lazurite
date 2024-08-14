@@ -104,7 +104,7 @@ public final class robot implements Library {
         SYMBOL_CODES.put(':', KeyEvent.VK_SEMICOLON);
     }
 
-    void initMouseFunctions(){
+    void initMouseFunctions() {
         robotKeywords.set("mousePress", convertFunction(lzrRobot::mousePress));
         robotKeywords.set("mouseRelease", convertFunction(lzrRobot::mouseRelease));
         robotKeywords.set("mouseWheel", convertFunction(lzrRobot::mouseWheel));

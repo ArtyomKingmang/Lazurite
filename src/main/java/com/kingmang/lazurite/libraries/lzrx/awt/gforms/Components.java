@@ -35,7 +35,7 @@ public final class Components {
         return new JButtonValue(new JButton(text));
     }
 
-    static LzrValue newMenuBar(LzrValue[] args){
+    static LzrValue newMenuBar(LzrValue[] args) {
         return new JMenuBarValue(new JMenuBar());
     }
 

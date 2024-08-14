@@ -1,0 +1,16 @@
+using "lzr.lang.reflection"
+using "lzrx.awt.colors"
+
+time = JClass("java.time.LocalDateTime")
+
+while(true) {
+    currentTime = time.now()
+
+    hour = currentTime.getHour()
+    minute = currentTime.getMinute()
+    second = currentTime.getSecond()
+
+    println(str(hour) + ":" + str(minute) + ":" + str(second))
+
+    color.clear()
+}

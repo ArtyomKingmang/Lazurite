@@ -39,7 +39,7 @@ data class ContainerAccessExpression(
         when (container.type()) {
             Types.ARRAY -> (container as LzrArray)[ lastIndex.asInt()] = value
             Types.MAP -> (container as LzrMap)[lastIndex] = value
-            Types.CLASS -> (container as ClassInstanceValue).set(lastIndex, value)
+            Types.CLASS -> (container as ClassInstanceValue)[lastIndex] = value
             else -> throw LzrException("TypeException", "Array or map expected. Got " + container.type())
         }
         return value
@@ -54,6 +54,7 @@ data class ContainerAccessExpression(
                 container = when (container.type()) {
                     Types.ARRAY -> (container as LzrArray)[index.asInt()]
                     Types.MAP -> (container as LzrMap)[index]!!
+                    Types.CLASS -> (container as ClassInstanceValue)[index]
                     else -> throw LzrException("TypeException", "Array or map expected")
                 }
             }

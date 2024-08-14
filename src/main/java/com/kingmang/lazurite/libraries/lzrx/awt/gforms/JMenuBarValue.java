@@ -27,7 +27,7 @@ public class JMenuBarValue extends JComponentValue {
         bar.add(menu);
         items = new JMenuItem[10];
 
-        for(int i = 1; i < args.length; i++){
+        for(int i = 1; i < args.length; i++) {
             items[i] = new JMenuItem(args[i].asString());
             menu.add(items[i]);
         }
@@ -35,7 +35,7 @@ public class JMenuBarValue extends JComponentValue {
         return LzrNumber.ZERO;
     }
 
-    private LzrValue setAction(LzrValue... args){
+    private LzrValue setAction(LzrValue... args) {
         Function body;
         body = ((LzrFunction) args[1]).getValue();
         ActionListener enableActionListener = actionEvent -> body.execute();

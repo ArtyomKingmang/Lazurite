@@ -1,7 +1,7 @@
 #include "lzr.lang.Character"
 
-if(Character.isDigit(49)){
+if (Character.isDigit(49)) {
     println("is digit")
-}else{
+} else {
     println("is not digit")
 }

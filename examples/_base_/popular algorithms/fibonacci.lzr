@@ -1,17 +1,18 @@
 using "lzr.utils.arrays"
+
 func printFibonacci(n) {
-  fibonacci = Array(n)
-  fibonacci[0] = 0;
-  fibonacci[1] = 1;
+    fibonacci = Array(n)
+    fibonacci[0] = 0
+    fibonacci[1] = 1
 
-  for (i = 2, i < n, i++) {
-         fibonacci[i] = fibonacci[i - 1] + fibonacci[i - 2];
-  }
+    for (i = 2, i < n, i++) {
+        fibonacci[i] = fibonacci[i - 1] + fibonacci[i - 2]
+    }
 
-  print("fibonacci: ");
-  for (num : fibonacci) {
-         print(str(num) + " ")
-  }
+    print("fibonacci: ")
+    for (num : fibonacci) {
+        print(str(num) + " ")
+    }
 }
 
 printFibonacci(33)

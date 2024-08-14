@@ -1,0 +1,8 @@
+using "lzr.lang.reflection"
+
+Locale = JClass("java.util.Locale")
+
+locale1 = new Locale("EN", "INDIA")
+println("Locale: " + locale1)
+
+println("Country Name: " + locale1.getDisplayCountry())

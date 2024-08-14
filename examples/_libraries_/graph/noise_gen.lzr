@@ -1,0 +1,38 @@
+using "lzrx.awt.graph"
+using "lzr.utils.random"
+
+
+Frame(900, 500)
+background(255, 255, 255)
+
+
+func circle() {
+    fill(random(255), random(255), random(255))
+    ellipse(x, y, 3, 3)
+    Redraw()
+}
+
+func draw(x, y) {
+    while(true) {
+        choice = random(4)
+        match(choice) {
+            case 0: {
+                x += 5
+            }
+            case 1: {
+                x -= 5
+            }
+            case 2: {
+                y += 5
+            }
+            case 3: {
+                y -= 5
+            }
+        }
+        circle()
+    }
+}
+
+while(true) {
+    draw(random(900), random(500))
+}

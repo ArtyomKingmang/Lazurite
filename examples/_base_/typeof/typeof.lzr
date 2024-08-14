@@ -1,4 +1,6 @@
-print(typeof(10)) //Вывод: 1
+// Вывод: 1
+print(typeof(10))
+
 /*
 object = 0
 number = 1

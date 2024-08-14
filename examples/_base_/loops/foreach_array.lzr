@@ -1,5 +1,7 @@
-//foreach in array
+// foreach in array
+
 names = ["Artyom", "Nikita", "Gleb"]
+
 foreach(names, func(i) {
     print(i + ", ")
 })

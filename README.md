@@ -1,11 +1,11 @@
-<a href="https://github.com/ArtyomKingmang/Lazurite/blob/main/README_RU.md">Для русскоговорящих</a>
+[Для русскоговорящих](https://github.com/ArtyomKingmang/Lazurite/blob/main/README_RU.md)
 
 <div align="center">
   <img src="icon.png" width="300">
 </div>
 
-## More About Languge
->To work you need to install jdk 17 +
+## More About Language
+>To work you need to install JDK 17+
 
 This language takes advantage of Java and simplifies it. This makes Lazurite quite simple. Basically, the language is used to create games and applications, because it has powerful libraries for this. But on it you can make bots for social networks, work with files, and much more.
 
@@ -14,7 +14,8 @@ Hello World in Lazurite!:
 ```shell
 print("Hello World!")
 ```
-lsoup:
+
+lsoup example:
 ```cpp
 using "lzr.net.lsoup"
 
@@ -30,7 +31,8 @@ println(text)
 async example:
 ```cpp
 using "lzr.utils.async"
-func hel(arg){
+
+func hel(arg) {
     print(arg)
 }
 async.supply(hel("Hello"))
@@ -40,10 +42,10 @@ thread example:
 ```cpp
 using "lzr.utils.thread"
 
-func th(arg){
-   println("My " + str(arg) + " Thread")
+func th(arg) {
+   println("My ${arg} thread")
 }
-for(i=0, i<10, i++){
+for(i = 0, i < 10, i++) {
     std.thread(::th, i)
 }
 ```
@@ -52,15 +54,15 @@ stream api example:
 ```cpp
 using "lzr.utils.streamApi"
 
-inputArray = range(0,5) // [0,0,0,0,0]
+inputArray = range(0, 5) // [0, 0, 0, 0, 0]
 resultArray = stream(inputArray)
  .custom(::changeNums)
  .toArray()
 
-func changeNums(container){
+func changeNums(container) {
     len = length(container)
     result = Array(len)
-    for(i = 0, i < len, i++){
+    for(i = 0, i < len, i++) {
         result[i] = 7
     }
     return result
@@ -71,8 +73,7 @@ println(resultArray)
 ```
 
 ## Download
-
-Download jar and exe files of the language interpreter can be downloaded in the <a href = "https://github.com/ArtyomKingmang/Lazurite/releases">Releases</a> tab)
+Download jar and exe files of the language interpreter can be downloaded in the [Releases](https://github.com/ArtyomKingmang/Lazurite/releases) tab.
 
 ## Contributions
 We will review and help with all reasonable pull requests as long as the guidelines below are met.
@@ -87,7 +88,7 @@ We will review and help with all reasonable pull requests as long as the guideli
 
 
 ## License
-Lazurite is relseased under <a href="https://github.com/ArtyomKingmang/Lazurite/wiki">MIT License 2.0</a>
+Lazurite is released under [MIT License 2.0](https://github.com/ArtyomKingmang/Lazurite/wiki)
 
 See more about it!
 

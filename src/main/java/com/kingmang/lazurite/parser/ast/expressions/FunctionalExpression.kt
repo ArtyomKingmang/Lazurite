@@ -1,6 +1,7 @@
 package com.kingmang.lazurite.parser.ast.expressions
 
 import com.kingmang.lazurite.core.CallStack
+import com.kingmang.lazurite.core.ClassDeclarations
 import com.kingmang.lazurite.core.Function
 import com.kingmang.lazurite.core.Types
 import com.kingmang.lazurite.exceptions.IFileInfoProvider
@@ -72,7 +73,12 @@ data class FunctionalExpression(val functionExpr: Expression, val arguments: Mut
                 return (variable as LzrFunction?)!!.value
             }
         }
-        throw LzrException("UnknownFunctionException ", "Unknown function $key")
+
+        if (ClassDeclarations[key] != null) {
+            throw LzrException("UnknownFunctionException", "Unknown function $key. You trying to create an instance of class $key? Use the keyword 'new'")
+        } else {
+            throw LzrException("UnknownFunctionException", "Unknown function $key")
+        }
     }
 
     override fun accept(visitor: Visitor) =

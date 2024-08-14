@@ -1,9 +1,11 @@
-//for in... map
+// for in... map
+
 map = {
-"print": "keyword",
-"input": "keyword",
-"+": "operator"
+    "print": "keyword",
+    "input": "keyword",
+    "+": "operator"
 }
-for(key, value : map){
+
+for(key, value : map) {
   echo(key, ":", value)
 }

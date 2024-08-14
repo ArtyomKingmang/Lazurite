@@ -44,6 +44,7 @@ public class graph implements Library {
 
     public static void initKeys() {
         LzrMap keys = new LzrMap(70);
+
         keys.set("UP", new LzrNumber(KeyEvent.VK_UP));
         keys.set("DOWN", new LzrNumber(KeyEvent.VK_DOWN));
         keys.set("LEFT", new LzrNumber(KeyEvent.VK_LEFT));
@@ -105,14 +106,16 @@ public class graph implements Library {
         keys.set("F10", new LzrNumber(KeyEvent.VK_F10));
         keys.set("F11", new LzrNumber(KeyEvent.VK_F11));
         keys.set("F12", new LzrNumber(KeyEvent.VK_F12));
+
         Variables.define("KEY", keys);
     }
-    public void initConstant(){
+    public void initConstant() {
         initColors();
         initKeys();
     }
     public void init() {
         initConstant();
+
         Keyword.put("background", new background());
         Keyword.put("dispose", new dispose());
         Keyword.put("rotate", new rotate());
@@ -133,6 +136,7 @@ public class graph implements Library {
         Keyword.put("text", new DrawText());
         Keyword.put("fill", new fill());
         Keyword.put("Redraw", new Redraw());
+
         lastKey = MINUS_ONE;
         mouseHover = new LzrArray(new LzrValue[]{LzrNumber.ZERO, LzrNumber.ZERO});
     }
@@ -307,7 +311,7 @@ public class graph implements Library {
                 return LzrNumber.ZERO;
             } else if (args.length == 3) {
                 graphics.rotate(args[0].asNumber(), args[1].asNumber(), args[2].asNumber());
-            }else{
+            } else{
                 if (args.length >= 3) throw new RuntimeException("Three args expected");
             }
             return LzrNumber.ZERO;

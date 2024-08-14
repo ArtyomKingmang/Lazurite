@@ -1,22 +1,23 @@
 package com.kingmang.lazurite.parser.impl;
 
+import com.kingmang.lazurite.core.Arguments;
 import com.kingmang.lazurite.core.Types;
 import com.kingmang.lazurite.exceptions.LzrException;
 import com.kingmang.lazurite.libraries.Keyword;
 import com.kingmang.lazurite.parser.ILexer;
 import com.kingmang.lazurite.parser.tokens.Token;
 import com.kingmang.lazurite.parser.tokens.TokenType;
-import com.kingmang.lazurite.parser.standart.Standart;
+import com.kingmang.lazurite.parser.standard.Standard;
+import com.kingmang.lazurite.runtime.ClassInstanceValue;
 import com.kingmang.lazurite.runtime.Variables;
-import com.kingmang.lazurite.runtime.values.LzrMap;
-import com.kingmang.lazurite.runtime.values.LzrNull;
-import com.kingmang.lazurite.runtime.values.LzrNumber;
-import com.kingmang.lazurite.runtime.values.LzrString;
+import com.kingmang.lazurite.runtime.values.*;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import static com.kingmang.lazurite.core.TypesCastExtKt.throwTypeCastException;
 
 public final class LexerImplementation implements ILexer {
 
@@ -278,7 +279,7 @@ public final class LexerImplementation implements ILexer {
     }
 
     /**
-     * Обрабатывает входную строку и проводит над ней шаблонизацию, добавляя необходимые токены.
+     * Обрабатывает входную строку и проводит над ней полонизацию, добавляя необходимые токены.
      *
      * <p>Данный метод принимает строку, содержащую текст и шаблоны, обозначенные символом
      * '$'. Он разделяет строку на части, сохраняя текст и заменяя шаблоны на
@@ -293,10 +294,8 @@ public final class LexerImplementation implements ILexer {
      *
      * @param in входная строка, содержащая текст и шаблоны для замены
      */
-    private void processStringTemplate(@NotNull String in)
-    {
-        if(in.isEmpty())
-        {
+    private void processStringTemplate(@NotNull String in) {
+        if (in.isEmpty()) {
             addToken(TokenType.TEXT, in);
             return;
         }
@@ -333,7 +332,7 @@ public final class LexerImplementation implements ILexer {
 
             addToken(TokenType.WORD, "str");
             addToken(TokenType.LPAREN);
-            if(!codeInStringFlag)
+            if (!codeInStringFlag)
                 addToken(TokenType.WORD, word);
             else {
                 List<Token> tokens = LexerImplementation.tokenize(word);
@@ -345,7 +344,7 @@ public final class LexerImplementation implements ILexer {
             matcherCount++;
         }
 
-        if(matcherCount == 0)
+        if (matcherCount == 0)
             addToken(TokenType.TEXT, in);
 
         else if (lastEndIndex < in.length()) {
@@ -430,12 +429,12 @@ public final class LexerImplementation implements ILexer {
 
         types();
         convertTypes();
-        standart();
+        standard();
 
     }
 
     public static void types() {
-        LzrMap type = new LzrMap(5);
+        LzrMap type = new LzrMap(6);
         type.set("object", LzrNumber.of(Types.OBJECT));
         type.set("number", LzrNumber.of(Types.NUMBER));
         type.set("string", LzrNumber.of(Types.STRING));
@@ -446,37 +445,143 @@ public final class LexerImplementation implements ILexer {
         Keyword.put("typeof", args -> LzrNumber.of(args[0].type()));
     }
 
-    public static void convertTypes(){
-        Keyword.put("str", args -> new LzrString(args[0].asString()));
-        Keyword.put("char", args -> new LzrString(String.valueOf((char) args[0].asInt())));
-        Keyword.put("num", args -> LzrNumber.of(args[0].asNumber()));
-        Keyword.put("byte", args -> LzrNumber.of((byte)args[0].asInt()));
-        Keyword.put("short", args -> LzrNumber.of((short)args[0].asInt()));
-        Keyword.put("int", args -> LzrNumber.of(args[0].asInt()));
-        Keyword.put("long", args -> LzrNumber.of((long)args[0].asNumber()));
-        Keyword.put("float", args -> LzrNumber.of((float)args[0].asNumber()));
-        Keyword.put("double", args -> LzrNumber.of(args[0].asNumber()));
+    public static void convertTypes() {
+        Keyword.put("str", args -> {
+            Arguments.check(1, args.length);
+            return new LzrString(args[0].asString());
+        });
+        Keyword.put("char", args -> {
+            Arguments.check(1, args.length);
+            if (args[0].type() == Types.CLASS) {
+                ClassInstanceValue classInstance = (ClassInstanceValue) args[0];
+                return classInstance.callMethod("__char__");
+            }
+            return new LzrString(String.valueOf((char) args[0].asInt()));
+        });
+
+        Keyword.put("num", args -> {
+            Arguments.check(1, args.length);
+            return LzrNumber.of(args[0].asNumber());
+        });
+        Keyword.put("byte", args -> {
+            Arguments.check(1, args.length);
+            if (args[0].type() == Types.CLASS) {
+                ClassInstanceValue classInstance = (ClassInstanceValue) args[0];
+                return classInstance.callMethod("__byte__");
+            } else {
+                return LzrNumber.of((byte) args[0].asInt());
+            }
+        });
+        Keyword.put("short", args -> {
+            Arguments.check(1, args.length);
+            if (args[0].type() == Types.CLASS) {
+                ClassInstanceValue classInstance = (ClassInstanceValue) args[0];
+                return classInstance.callMethod("__short__");
+            } else {
+                return LzrNumber.of((short) args[0].asInt());
+            }
+        });
+        Keyword.put("int", args -> {
+            Arguments.check(1, args.length);
+            return LzrNumber.of(args[0].asInt());
+        });
+        Keyword.put("long", args -> {
+            Arguments.check(1, args.length);
+            if (args[0].type() == Types.CLASS) {
+                ClassInstanceValue classInstance = (ClassInstanceValue) args[0];
+                return classInstance.callMethod("__long__");
+            } else {
+                return LzrNumber.of((long) args[0].asNumber());
+            }
+        });
+        Keyword.put("float", args -> {
+            Arguments.check(1, args.length);
+            if (args[0].type() == Types.CLASS) {
+                ClassInstanceValue classInstance = (ClassInstanceValue) args[0];
+                return classInstance.callMethod("__float__");
+            } else {
+                return LzrNumber.of((float) args[0].asNumber());
+            }
+        });
+        Keyword.put("double", args -> {
+            Arguments.check(1, args.length);
+            if (args[0].type() == Types.CLASS) {
+                ClassInstanceValue classInstance = (ClassInstanceValue) args[0];
+                return classInstance.callMethod("__double__");
+            } else {
+                return LzrNumber.of(args[0].asNumber());
+            }
+        });
+
+        Keyword.put("bool", args -> {
+            Arguments.check(1, args.length);
+            switch (args[0].type()) {
+                case Types.NUMBER:
+                    return LzrNumber.fromBoolean(
+                            ((LzrNumber) args[0]).asBoolean()
+                    );
+                case Types.STRING:
+                    return LzrNumber.fromBoolean(
+                            !((LzrString) args[0]).isEmpty()
+                    );
+                case Types.ARRAY:
+                    return LzrNumber.fromBoolean(
+                            !((LzrArray) args[0]).isEmpty()
+                    );
+                case Types.MAP:
+                    return LzrNumber.fromBoolean(
+                            !((LzrMap) args[0]).isEmpty()
+                    );
+                case Types.FUNCTION:
+                    return LzrNumber.ONE; // true
+                case Types.CLASS:
+                    return ((ClassInstanceValue) args[0]).callMethod("__bool__");
+                default:
+                    throwTypeCastException(args[0].asString(), "bool");
+                    return LzrNull.INSTANCE;
+            }
+        });
     }
 
-    private static void standart(){
+    private static void standard() {
         Variables.define("null", LzrNull.INSTANCE);
-        Keyword.put("sortBy", new Standart.sortBy());
-        Keyword.put("charAt", new Standart.charAt());
-        Keyword.put("equals", new Standart.equal());
-        Keyword.put("combine", new Standart.combine());
-        Keyword.put("reduce", new Standart.reduce());
-        Keyword.put("map", new Standart.map());
-        Keyword.put("Array", new Standart.Array());
-        Keyword.put("echo", new Standart.echo());
-        Keyword.put("readln", new Standart.input());
-        Keyword.put("length", new Standart.length());
-        Keyword.put("getBytes", Standart.string::getBytes);
-        Keyword.put("sprintf", new Standart.sprintf());
-        Keyword.put("range", new Standart.range());
-        Keyword.put("substring", new Standart.substr());
-        Keyword.put("foreach", new Standart.foreach());
-        Keyword.put("split", new Standart.split());
-        Keyword.put("filter", new Standart.filter(false));
+
+        Keyword.put("getAttr", args -> {
+            Arguments.check(2, args.length);
+            if (args[0].type() == Types.CLASS) {
+                return ((ClassInstanceValue) args[0]).baseGet(args[1]);
+            } else {
+                throw new LzrException("TypeException", "The getAttr function expected a class, but got " + Types.typeToString(args[0].type()));
+            }
+        });
+        Keyword.put("setAttr", args -> {
+           Arguments.check(3, args.length);
+           if (args[0].type() == Types.CLASS) {
+               ((ClassInstanceValue) args[0]).baseSet(args[1], args[2]);
+           } else {
+               throw new LzrException("TypeException", "The setAttr function expected a class, but got " + Types.typeToString(args[0].type()));
+
+           }
+           return LzrNull.INSTANCE;
+        });
+
+        Keyword.put("sortBy", new Standard.sortBy());
+        Keyword.put("charAt", new Standard.charAt());
+        Keyword.put("equals", new Standard.equal());
+        Keyword.put("combine", new Standard.combine());
+        Keyword.put("reduce", new Standard.reduce());
+        Keyword.put("map", new Standard.map());
+        Keyword.put("Array", new Standard.Array());
+        Keyword.put("echo", new Standard.echo());
+        Keyword.put("readln", new Standard.input());
+        Keyword.put("length", new Standard.length());
+        Keyword.put("getBytes", Standard.string::getBytes);
+        Keyword.put("sprintf", new Standard.sprintf());
+        Keyword.put("range", new Standard.range());
+        Keyword.put("substring", new Standard.substr());
+        Keyword.put("foreach", new Standard.foreach());
+        Keyword.put("split", new Standard.split());
+        Keyword.put("filter", new Standard.filter(false));
 
     }
 

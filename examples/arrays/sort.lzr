@@ -1,4 +1,6 @@
 using "lzr.utils.arrays"
-x = [3,6,7,8,87,5,1,43]
-out = arrays.sort(x)
-print(out)
+
+array = [3, 6, 7, 8, 87, 5, 1, 43]
+sorted_array = arrays.sort(array)
+
+print(sorted_array)

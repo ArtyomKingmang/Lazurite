@@ -10,7 +10,7 @@ public final class CharacterClass {
             Arguments.check(1, args.length);
             char current = (char) args[0].asInt();
             boolean result = java.lang.Character.isAlphabetic(current);
-            if(result)
+            if (result)
                 return LzrNumber.ONE;
             else
                 return LzrNumber.ZERO;
@@ -20,7 +20,7 @@ public final class CharacterClass {
             Arguments.check(1, args.length);
             char current = (char) args[0].asInt();
             boolean result = java.lang.Character.isDigit(current);
-            if(result)
+            if (result)
                 return LzrNumber.ONE;
             else
                 return LzrNumber.ZERO;
@@ -30,7 +30,7 @@ public final class CharacterClass {
             Arguments.check(1, args.length);
             char current = (char) args[0].asInt();
             boolean result = java.lang.Character.isLetterOrDigit(current);
-            if(result)
+            if (result)
                 return LzrNumber.ONE;
             else
                 return LzrNumber.ZERO;
@@ -40,7 +40,7 @@ public final class CharacterClass {
             Arguments.check(1, args.length);
             char current = (char) args[0].asInt();
             boolean result = java.lang.Character.isLetter(current);
-            if(result)
+            if (result)
                 return LzrNumber.ONE;
             else
                 return LzrNumber.ZERO;

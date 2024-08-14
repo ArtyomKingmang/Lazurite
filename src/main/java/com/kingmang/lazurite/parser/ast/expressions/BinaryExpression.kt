@@ -6,9 +6,9 @@ import com.kingmang.lazurite.exceptions.OperationIsNotSupportedException
 import com.kingmang.lazurite.libraries.Keyword
 import com.kingmang.lazurite.patterns.visitor.ResultVisitor
 import com.kingmang.lazurite.patterns.visitor.Visitor
+import com.kingmang.lazurite.runtime.ClassInstanceValue
 import com.kingmang.lazurite.runtime.values.*
 import com.kingmang.lazurite.runtime.values.LzrArray.Companion.merge
-import com.kingmang.lazurite.runtime.values.LzrMap.Companion.merge
 import com.kingmang.lazurite.runtime.values.LzrNumber.Companion.of
 import kotlin.math.max
 
@@ -36,27 +36,83 @@ data class BinaryExpression(
             Operator.MULTIPLY -> multiply(value1, value2)
             Operator.DIVIDE -> divide(value1, value2)
             Operator.REMAINDER -> remainder(value1, value2)
+
             Operator.PUSH -> push(value1, value2)
+
             Operator.AND -> and(value1, value2)
             Operator.OR -> or(value1, value2)
             Operator.XOR -> xor(value1, value2)
+
             Operator.LSHIFT -> lshift(value1, value2)
             Operator.RSHIFT -> rshift(value1, value2)
             Operator.URSHIFT -> urshift(value1, value2)
             else -> throw OperationIsNotSupportedException(operation)
         }
 
-    private fun add(value1: LzrValue, value2: LzrValue): LzrValue =
+    private fun overridedOperation(value1: LzrValue, value2: LzrValue): LzrValue =
         when (value1.type()) {
-            Types.NUMBER -> add(value1 as LzrNumber, value2)
-            Types.ARRAY -> LzrArray.add((value1 as LzrArray), value2)
-            Types.MAP -> {
-                if (value2.type() != Types.MAP)
-                    throw LzrException("TypeException", "Cannot merge non map value to map")
-                merge((value1 as LzrMap), (value2 as LzrMap))
+            Types.CLASS -> {
+                when (value2.type()) {
+                    Types.CLASS -> overridedOperation(value1 as ClassInstanceValue, value2 as ClassInstanceValue)
+                    else -> overridedOperation(value1 as ClassInstanceValue, value2)
+                }
             }
+
+            else -> {
+                when (value2.type()) {
+                    Types.CLASS -> overridedOperation(value1, value2 as ClassInstanceValue)
+                    else -> throw OperationIsNotSupportedException(operation, value1.type(), value2.type())
+                }
+            }
+        }
+
+    private fun overridedOperation(value1: ClassInstanceValue, value2: ClassInstanceValue): LzrValue =
+        if (value1.has(operation.toString())) {
+            value1.callMethod(operation.toString(), value2)
+        } else if (value2.has("r$operation")) {
+            value2.callMethod("r$operation", value1)
+        } else {
+            throw OperationIsNotSupportedException(operation.toString(), value1.asString(), value2.asString())
+        }
+
+    private fun overridedOperation(value1: ClassInstanceValue, value2: LzrValue): LzrValue =
+        if (value1.has(operation.toString())) {
+            value1.callMethod(operation.toString(), value2)
+        } else {
+            throw OperationIsNotSupportedException(operation.toString(), value1.asString(), value2.type())
+        }
+
+    private fun overridedOperation(value1: LzrValue, value2: ClassInstanceValue): LzrValue =
+        if (value2.has("r$operation")) {
+            value2.callMethod("r$operation", value1)
+        } else {
+            throw OperationIsNotSupportedException(operation.toString(), value1.type(), value2.asString())
+        }
+
+    // operator +
+
+    private fun add(value1: LzrValue, value2: LzrValue): LzrValue {
+        if ((value1.type() == Types.CLASS) || (value2.type() == Types.CLASS)) {
+            return overridedOperation(value1, value2)
+        }
+        return when (value1.type()) {
+            Types.NUMBER -> add(value1 as LzrNumber, value2)
+            Types.ARRAY -> add(value1 as LzrArray, value2)
+            Types.MAP -> {
+                when (value2.type()) {
+                    Types.MAP -> add(value1 as LzrMap, value2 as LzrMap)
+                    Types.CLASS -> throw OperationIsNotSupportedException(
+                        operation.toString(),
+                        value1.type(),
+                        value2.asString()
+                    )
+                    else -> throw OperationIsNotSupportedException(operation.toString(), value1.type(), value2.type())
+                }
+            }
+
             else -> LzrString(value1.asString() + value2.asString())
         }
+    }
 
     private fun add(value1: LzrNumber, value2: LzrValue): LzrValue =
         if (value2.type() == Types.NUMBER) {
@@ -79,11 +135,19 @@ data class BinaryExpression(
             }
         }
 
-    private fun subtract(value1: LzrValue, value2: LzrValue): LzrValue {
-        if (value1.type() == Types.NUMBER)
-            return subtract(value1 as LzrNumber, value2)
-        throw OperationIsNotSupportedException(operation, "for " + Types.typeToString(value1.type()))
-    }
+    private fun add(value1: LzrArray, value2: LzrValue) =
+        value1.add(value2)
+
+    private fun add(value1: LzrMap, value2: LzrMap) =
+        value1.merge(value2)
+
+    // operator -
+
+    private fun subtract(value1: LzrValue, value2: LzrValue): LzrValue =
+        when (value1.type()) {
+            Types.NUMBER -> subtract(value1 as LzrNumber, value2)
+            else -> overridedOperation(value1, value2)
+        }
 
     private fun subtract(value1: LzrNumber, value2: LzrValue): LzrValue =
         if (value2.type() == Types.NUMBER) {
@@ -106,11 +170,13 @@ data class BinaryExpression(
             }
         }
 
+    // operator *
+
     private fun multiply(value1: LzrValue, value2: LzrValue): LzrValue =
         when (value1.type()) {
             Types.NUMBER -> multiply(value1 as LzrNumber, value2)
             Types.STRING -> multiply(value1 as LzrString, value2)
-            else -> throw OperationIsNotSupportedException(operation, "for " + Types.typeToString(value1.type()))
+            else -> overridedOperation(value1, value2)
         }
 
     private fun multiply(value1: LzrNumber, value2: LzrValue): LzrValue =
@@ -140,11 +206,13 @@ data class BinaryExpression(
         return LzrString(string1.repeat(max(0.0, iterations.toDouble()).toInt()))
     }
 
-    private fun divide(value1: LzrValue, value2: LzrValue): LzrValue {
-        if (value1.type() == Types.NUMBER)
-            return divide(value1 as LzrNumber, value2)
-        throw OperationIsNotSupportedException(operation, "for " + Types.typeToString(value1.type()))
-    }
+    // operator /
+
+    private fun divide(value1: LzrValue, value2: LzrValue): LzrValue =
+        when (value1.type()) {
+            Types.NUMBER -> divide(value1 as LzrNumber, value2)
+            else -> overridedOperation(value1, value2)
+        }
 
     private fun divide(value1: LzrNumber, value2: LzrValue): LzrValue =
         if (value2.type() == Types.NUMBER) {
@@ -167,11 +235,13 @@ data class BinaryExpression(
             }
         }
 
-    private fun remainder(value1: LzrValue, value2: LzrValue): LzrValue {
-        if (value1.type() == Types.NUMBER)
-            return remainder(value1 as LzrNumber, value2)
-        throw OperationIsNotSupportedException(operation, "for " + Types.typeToString(value1.type()))
-    }
+    // operator %
+
+    private fun remainder(value1: LzrValue, value2: LzrValue): LzrValue =
+        when (value1.type()) {
+            Types.NUMBER -> remainder(value1 as LzrNumber, value2)
+            else -> overridedOperation(value1, value2)
+        }
 
     private fun remainder(value1: LzrNumber, value2: LzrValue): LzrValue =
         if (value2.type() == Types.NUMBER) {
@@ -194,17 +264,24 @@ data class BinaryExpression(
             }
         }
 
-    private fun push(value1: LzrValue, value2: LzrValue): LzrValue {
-        if (value1.type() == Types.ARRAY)
-            return LzrArray.add((value1 as LzrArray), value2)
-        throw OperationIsNotSupportedException(operation, "for " + Types.typeToString(value1.type()))
-    }
+    // operator ::
 
-    private fun and(value1: LzrValue, value2: LzrValue): LzrValue {
-        if (value1.type() == Types.NUMBER)
-            return and(value1 as LzrNumber, value2)
-        throw OperationIsNotSupportedException(operation, "for " + Types.typeToString(value1.type()))
-    }
+    private fun push(value1: LzrValue, value2: LzrValue): LzrValue =
+        when (value1.type()) {
+            Types.ARRAY -> push(value1 as LzrArray, value2)
+            else -> overridedOperation(value1, value2)
+        }
+
+    private fun push(value1: LzrArray, value2: LzrValue): LzrArray =
+        LzrArray.add(value1, value2)
+
+    // operator &
+
+    private fun and(value1: LzrValue, value2: LzrValue): LzrValue =
+        when (value1.type()) {
+            Types.NUMBER -> and(value1 as LzrNumber, value2)
+            else -> overridedOperation(value1, value2)
+        }
 
     private fun and(value1: LzrNumber, value2: LzrValue): LzrValue {
         val number1 = value1.raw()
@@ -221,11 +298,13 @@ data class BinaryExpression(
         return of(number1.toInt() and value2.asInt())
     }
 
-    private fun or(value1: LzrValue, value2: LzrValue): LzrValue {
-        if (value1.type() == Types.NUMBER)
-            return or(value1 as LzrNumber, value2)
-        throw OperationIsNotSupportedException(operation, "for " + Types.typeToString(value1.type()))
-    }
+    // operation |
+
+    private fun or(value1: LzrValue, value2: LzrValue): LzrValue =
+        when (value1.type()) {
+            Types.NUMBER -> or(value1 as LzrNumber, value2)
+            else -> overridedOperation(value1, value2)
+        }
 
     private fun or(value1: LzrNumber, value2: LzrValue): LzrValue {
         val number1 = value1.raw()
@@ -242,11 +321,13 @@ data class BinaryExpression(
         return of(number1.toInt() or value2.asInt())
     }
 
-    private fun xor(value1: LzrValue, value2: LzrValue): LzrValue {
-        if (value1.type() == Types.NUMBER)
-            return xor(value1 as LzrNumber, value2)
-        throw OperationIsNotSupportedException(operation, "for " + Types.typeToString(value1.type()))
-    }
+    // operation ^
+
+    private fun xor(value1: LzrValue, value2: LzrValue): LzrValue =
+        when (value1.type()) {
+            Types.NUMBER -> xor(value1 as LzrNumber, value2)
+            else -> overridedOperation(value1, value2)
+        }
 
     private fun xor(value1: LzrNumber, value2: LzrValue): LzrValue {
         val number1 = value1.raw()
@@ -263,11 +344,13 @@ data class BinaryExpression(
         return of(number1.toInt() xor value2.asInt())
     }
 
+    // operation <<
+
     private fun lshift(value1: LzrValue, value2: LzrValue): LzrValue =
         when (value1.type()) {
             Types.NUMBER -> lshift(value1 as LzrNumber, value2)
             Types.ARRAY -> lshift(value1 as LzrArray, value2)
-            else -> throw OperationIsNotSupportedException(operation, "for " + Types.typeToString(value1.type()))
+            else -> overridedOperation(value1, value2)
         }
 
     private fun lshift(value1: LzrNumber, value2: LzrValue): LzrValue {
@@ -291,11 +374,13 @@ data class BinaryExpression(
         return merge(value1, (value2 as LzrArray))
     }
 
-    private fun rshift(value1: LzrValue, value2: LzrValue): LzrValue {
-        if (value1.type() == Types.NUMBER)
-            return rshift(value1 as LzrNumber, value2)
-        throw OperationIsNotSupportedException(operation, "for " + Types.typeToString(value1.type()))
-    }
+    // operation >>
+
+    private fun rshift(value1: LzrValue, value2: LzrValue): LzrValue =
+        when (value1.type()) {
+            Types.NUMBER -> rshift(value1 as LzrNumber, value2)
+            else -> overridedOperation(value1, value2)
+        }
 
     private fun rshift(value1: LzrNumber, value2: LzrValue): LzrValue {
         val number1 = value1.raw()
@@ -312,11 +397,13 @@ data class BinaryExpression(
         return of(number1.toInt() shr value2.asInt())
     }
 
-    private fun urshift(value1: LzrValue, value2: LzrValue): LzrValue {
-        if (value1.type() == Types.NUMBER)
-            return urshift(value1 as LzrNumber, value2)
-        throw OperationIsNotSupportedException(operation, "for " + Types.typeToString(value1.type()))
-    }
+    // operation >>>
+
+    private fun urshift(value1: LzrValue, value2: LzrValue): LzrValue =
+        when (value1.type()) {
+            Types.NUMBER -> urshift(value1 as LzrNumber, value2)
+            else -> overridedOperation(value1, value2)
+        }
 
     private fun urshift(value1: LzrNumber, value2: LzrValue): LzrValue {
         val number1 = value1.raw()
@@ -332,6 +419,8 @@ data class BinaryExpression(
             return of(number1.toLong() ushr value2.asInt())
         return of(number1.toInt() ushr value2.asInt())
     }
+
+    // end
 
     override fun accept(visitor: Visitor) =
         visitor.visit(this)

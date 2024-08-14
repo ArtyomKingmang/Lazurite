@@ -1,0 +1,15 @@
+using "lzrx.awt.graph"
+
+width = 640
+height = 400
+
+Frame("Fractal", width, height)
+
+drawFractal(width / 2, 100, 200)
+
+func drawFractal(x, y, size) {
+    fill(100)
+    ellipse(x, y, size, size)
+    drawFractal(x - size / 2, y + size / 2, size / 2)
+    drawFractal(x + size / 2, y + size / 2, size / 2)
+}

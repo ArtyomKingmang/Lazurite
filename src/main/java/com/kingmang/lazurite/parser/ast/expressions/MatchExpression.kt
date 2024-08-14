@@ -52,7 +52,7 @@ data class MatchExpression(val expression: Expression, val patterns: List<Patter
                 return evalResult(p.result)
             }
         }
-        throw LzrException("PatternMatchingException ", "No pattern were matched")
+        throw LzrException("PatternMatchingException", "No pattern were matched")
     }
 
     private fun matchTuplePattern(array: LzrArray, p: TuplePattern): Boolean {

@@ -8,17 +8,17 @@ PrintWriter = JClass("java.io.PrintWriter")
 BufferedReader = JClass("java.io.BufferedReader")
 InputStreamReader = JClass("java.io.InputStreamReader")
 
-serverSocket = new ServerSocket(8080);
-println("Server start in port 8080...");
+serverSocket = new ServerSocket(8080)
+println("Server start in port 8080...")
 
-clientSocket = serverSocket.accept();
-reader = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+clientSocket = serverSocket.accept()
+reader = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()))
 
-clientMessage = "";
+clientMessage = ""
 while ((clientMessage = reader.readLine()) != null) {
-      println("client message: " + clientMessage);
+      println("client message: " + clientMessage)
 }
 
-reader.close();
-clientSocket.close();
-serverSocket.close();
+reader.close()
+clientSocket.close()
+serverSocket.close()

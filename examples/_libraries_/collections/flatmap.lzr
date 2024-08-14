@@ -1,0 +1,13 @@
+using "lzr.collections.flatmap"
+
+numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+
+output = flatmap(numbers, func(x) {
+    arr = Array(x)
+    for(i = 0, i < x, i++) {
+        arr[i] = x
+    }
+    return arr
+})
+
+print(output)

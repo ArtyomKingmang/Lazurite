@@ -1,0 +1,12 @@
+using "lzrx.awt.gforms"
+
+window = Frame("TextArea test")
+
+area = TextArea()
+area.setFont("Arial", 1, 22)
+
+window.add(area)
+window.add(ScrollPane(area), BorderLayout.CENTER)
+window.setMinimumSize(500, 500)
+window.setVisible(true)
+window.pack()

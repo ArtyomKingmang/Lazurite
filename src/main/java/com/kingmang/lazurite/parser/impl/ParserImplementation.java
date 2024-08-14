@@ -517,7 +517,7 @@ public final class ParserImplementation implements IParser, IFileInfoProvider {
                 if (fieldDeclaration != null) {
                     classDeclaration.addField(fieldDeclaration);
                 } else {
-                    throw new LzrException("ParseException ", "Class can contain only assignments and function declarations");
+                    throw new LzrException("ParseException", "Class can contain only assignments and function declarations");
                 }
             }
         } while (!match(TokenType.RBRACE));

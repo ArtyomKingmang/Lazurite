@@ -42,11 +42,20 @@ open class LzrMap : LzrValue, Iterable<Map.Entry<@JvmSuppressWildcards LzrValue,
     fun size(): Int =
         this.map.size
 
+    fun isEmpty(): Boolean =
+        this.size() == 0
+
     open fun containsKey(key: LzrValue): Boolean =
         this.map.containsKey(key)
 
+    open fun merge(map: LzrMap): LzrMap =
+        LzrMap.merge(this, map)
+
     open operator fun get(key: LzrValue): LzrValue? =
         this.map[key]
+
+    open operator fun get(key: String): LzrValue? =
+        this[LzrString(key)]
 
     operator fun set(key: String, value: LzrValue) {
         set(LzrString(key), value)

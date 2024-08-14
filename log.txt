@@ -1,0 +1,70 @@
+VariableDoesNotExistsException: Variable: "a" does not exists in func a() {
+    return 42
+}
+
+func b(function) {
+    print(function())
+}
+
+b(a) (Tue Aug 13 23:12:44 MSK 2024)
+
+VariableDoesNotExistsException: Variable: "a" does not exists in func a() {
+    return 42
+}
+
+func b(function) {
+    print(function())
+}
+
+b(a) (Tue Aug 13 23:14:18 MSK 2024)
+
+VariableDoesNotExistsException: Variable: "a" does not exists in func a() {
+    return 42
+}
+
+func b(function) {
+    print(function())
+}
+
+b(a) (Tue Aug 13 23:21:39 MSK 2024)
+
+VariableDoesNotExistsException: Variable: "a" does not exists in func a() {
+    return 42
+}
+
+func b(function) {
+    print(function())
+}
+
+b(a) (Tue Aug 13 23:22:29 MSK 2024)
+
+VariableDoesNotExistsException: Variable: "a" does not exists in func a() {
+    return 42
+}
+
+func b(function) {
+    print(function())
+}
+
+b(a) (Tue Aug 13 23:23:44 MSK 2024)
+
+VariableDoesNotExistsException: Do you want to pass function a? Use '::a'  in func a() {
+    return 42
+}
+
+func b(function) {
+    print(function())
+}
+
+b(a) (Tue Aug 13 23:40:39 MSK 2024)
+
+VariableDoesNotExistsException: Variable "a" does not exists. Do you want to pass function a? Use '::a'  in func a() {
+    return 42
+}
+
+func b(function) {
+    print(function())
+}
+
+b(a) (Tue Aug 13 23:42:36 MSK 2024)
+

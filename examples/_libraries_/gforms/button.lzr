@@ -1,0 +1,13 @@
+using "lzrx.awt.gforms"
+
+window = Frame("Button test")
+
+button = Button("Click")
+button.onClick(func() {
+    println("Hello")
+})
+
+window.add(button)
+window.setMinimumSize(500,500)
+window.setVisible(true)
+window.pack()

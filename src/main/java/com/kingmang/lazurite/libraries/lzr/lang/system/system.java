@@ -16,17 +16,17 @@ import java.util.Objects;
 
 public class system implements Library {
 
-    public void init (){
+    public void init () {
         LzrMap system = new LzrMap(7);
 
         //functions
-        system.set("currentTimeMillis", (@NotNull LzrValue... args) ->{
+        system.set("currentTimeMillis", (@NotNull LzrValue... args) -> {
             Arguments.check(0, args.length);
             return LzrNumber.of(System.currentTimeMillis());
         });
 
 
-        system.set("nanoTime", (@NotNull LzrValue... args) ->{
+        system.set("nanoTime", (@NotNull LzrValue... args) -> {
             Arguments.check(0, args.length);
             return LzrNumber.of(System.nanoTime());
         });
@@ -57,7 +57,7 @@ public class system implements Library {
         });
 
         system.set("getProperty", (@NotNull LzrValue... args) -> {
-            if(Objects.equals(args[0].asString(), "lzr.version")){
+            if (Objects.equals(args[0].asString(), "lzr.version")) {
                 return new LzrString(RunnerInfo.VERSION);
             }
             return new LzrString(System.getProperty(args[0].asString()));

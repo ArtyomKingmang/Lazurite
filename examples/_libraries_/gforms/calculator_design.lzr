@@ -1,0 +1,35 @@
+using "lzrx.awt.gforms"
+
+operations = [
+    "+",
+    "-",
+    "*",
+    "/",
+    "sin",
+    "cos"
+]
+
+window = Frame("Calculator")
+window.setMinimumSize(300, 400)
+
+panel = Panel(layoutManager = borderLayout())
+field = TextField("")
+field.setFont("Tahoma", 1, 30)
+
+panel.add(field, BorderLayout.NORTH)
+
+b_panel = Panel(layoutManager = gridLayout(rows = 4, cols = 4))
+
+for(i = 0, i < 10, i++) {
+    b_panel.add(Button(i))
+}
+
+for(i = 0, i < length(operations), i++) {
+    b_panel.add(Button(operations[i]))
+}
+
+
+window.add(panel, BorderLayout.NORTH)
+window.add(b_panel, BorderLayout.CENTER)
+window.pack()
+window.setVisible()

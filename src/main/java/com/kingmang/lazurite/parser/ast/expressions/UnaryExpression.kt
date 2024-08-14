@@ -1,15 +1,19 @@
 package com.kingmang.lazurite.parser.ast.expressions
 
 import com.kingmang.lazurite.core.Types
+import com.kingmang.lazurite.exceptions.OperationIsNotSupportedException
 import com.kingmang.lazurite.parser.ast.Accessible
 import com.kingmang.lazurite.parser.ast.statements.Statement
 import com.kingmang.lazurite.patterns.visitor.ResultVisitor
 import com.kingmang.lazurite.patterns.visitor.Visitor
+import com.kingmang.lazurite.runtime.ClassInstanceValue
+import com.kingmang.lazurite.runtime.values.LzrNull
 import com.kingmang.lazurite.runtime.values.LzrNumber
 import com.kingmang.lazurite.runtime.values.LzrNumber.Companion.fromBoolean
 import com.kingmang.lazurite.runtime.values.LzrNumber.Companion.of
 import com.kingmang.lazurite.runtime.values.LzrString
 import com.kingmang.lazurite.runtime.values.LzrValue
+import javafx.scene.shape.VLineTo
 
 data class UnaryExpression(
     val operation: Operator,
@@ -54,59 +58,103 @@ data class UnaryExpression(
         }
     }
 
-    private fun increment(value: LzrValue): LzrValue {
-        if (value.type() == Types.NUMBER) {
-            when (val number = (value as LzrNumber).raw()) {
-                is Double -> return of(number.toDouble() + 1)
-                is Float -> return of(number.toFloat() + 1)
-                is Long -> return of(number.toLong() + 1)
-            }
-        }
-        return of(value.asInt() + 1)
-    }
-
-    private fun decrement(value: LzrValue): LzrValue {
-        if (value.type() == Types.NUMBER) {
-            when (val number = (value as LzrNumber).raw()) {
-                is Double -> return of(number.toDouble() - 1)
-                is Float -> return of(number.toFloat() - 1)
-                is Long -> return of(number.toLong() - 1)
-            }
-        }
-        return of(value.asInt() - 1)
-    }
-
-    private fun negate(value: LzrValue): LzrValue =
+    private fun overridedOperation(value: LzrValue): LzrValue =
         when (value.type()) {
-            Types.STRING -> {
-                val sb = StringBuilder(value.asString())
-                LzrString(sb.reverse().toString())
-            }
-
-            Types.NUMBER -> {
-                when (val number = (value as LzrNumber).raw()) {
-                    is Double -> of(-number.toDouble())
-                    is Float -> of(-number.toFloat())
-                    is Long -> of(-number.toLong())
-                    else -> of(-value.asInt())
+            Types.CLASS -> {
+                value as ClassInstanceValue
+                if (value.has("$operation")) {
+                    value.callMethod("$operation")
+                } else {
+                    throw OperationIsNotSupportedException(operation, "for ${value.asString()}")
                 }
             }
 
+            else -> {
+                throw OperationIsNotSupportedException(operation, value)
+            }
+        }
+
+    // operator ++
+
+    private fun increment(value: LzrValue): LzrValue =
+        when (value.type()) {
+            Types.NUMBER -> increment(value as LzrNumber)
+            else -> overridedOperation(value)
+        }
+
+    private fun increment(value: LzrNumber): LzrValue =
+        when (val number = value.raw()) {
+            is Double -> of(number.toDouble() + 1)
+            is Float -> of(number.toFloat() + 1)
+            is Long -> of(number.toLong() + 1)
+            else -> LzrNull
+        }
+
+    // operator --
+
+    private fun decrement(value: LzrValue): LzrValue =
+        when (value.type()) {
+            Types.NUMBER -> decrement(value as LzrNumber)
+            else -> overridedOperation(value)
+        }
+
+    private fun decrement(value: LzrNumber): LzrValue =
+        when (val number = value.raw()) {
+            is Double -> of(number.toDouble() - 1)
+            is Float -> of(number.toFloat() - 1)
+            is Long -> of(number.toLong() - 1)
+            else -> LzrNull
+        }
+
+    // operation -
+
+    private fun negate(value: LzrValue): LzrValue =
+        when (value.type()) {
+            Types.STRING -> negate(value as LzrString)
+            Types.NUMBER -> negate(value as LzrNumber)
+            else -> overridedOperation(value)
+        }
+
+    private fun negate(value: LzrString): LzrValue {
+        val sb = StringBuilder(value.asString())
+        return LzrString(sb.reverse().toString())
+    }
+
+    private fun negate(value: LzrNumber): LzrValue =
+        when (val number = value.raw()) {
+            is Double -> of(-number.toDouble())
+            is Float -> of(-number.toFloat())
+            is Long -> of(-number.toLong())
             else -> of(-value.asInt())
         }
 
-    private fun complement(value: LzrValue): LzrValue {
-        if (value.type() == Types.NUMBER) {
-            val number = (value as LzrNumber).raw()
-            if (number is Long) {
-                return of(number.toLong().inv())
-            }
+    // operation ~
+
+    private fun complement(value: LzrValue): LzrValue =
+        when (value.type()) {
+            Types.NUMBER -> complement(value as LzrNumber)
+            else -> overridedOperation(value)
         }
-        return of(value.asInt().inv())
+
+    private fun complement(value: LzrNumber): LzrValue {
+        val number = value.raw()
+        return if (number is Long) {
+            of(number.toLong().inv())
+        } else {
+            of(value.asInt().inv())
+        }
     }
 
+    // operation !
+
     private fun not(value: LzrValue): LzrValue =
-        fromBoolean(value.asInt() == 0)
+        if (value.type() == Types.CLASS) {
+            overridedOperation(value)
+        } else {
+            fromBoolean(value.asInt() == 0)
+        }
+
+    // end
 
     override fun accept(visitor: Visitor) =
         visitor.visit(this)

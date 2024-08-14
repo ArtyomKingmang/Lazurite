@@ -4,6 +4,6 @@ func test(x) = match x {
   case x: "0"
 }
 
-println test(-10)// -0
-println test(0)// 0+
-println test(10)// 0
+println test(-10) // -0
+println test(0) // 0+
+println test(10) // 0

@@ -25,7 +25,7 @@ public final class Keyword {
     }
     
     public static Function get(String key) {
-        if (!isExists(key)) throw new LzrException("UnknownFunctionException ", "Unknown function " + key);
+        if (!isExists(key)) throw new LzrException("UnknownFunctionException", "Unknown function " + key);
         return functions.get(key);
     }
     
@@ -34,7 +34,7 @@ public final class Keyword {
     }
 
     public static void define(String key, Function function) {
-        if (isExists(key)) throw new LzrException("DuplicateFunctionException ", "Function " + key + " already exists");
+        if (isExists(key)) throw new LzrException("DuplicateFunctionException", "Function " + key + " already exists");
         put(key, function);
     }
 }

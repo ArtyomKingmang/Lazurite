@@ -1,0 +1,6 @@
+using "lzr.net.lsoup"
+
+lsoup.parser("https://artyomkingmang.github.io/lazurite-pages/")
+result = lsoup.select("title")
+
+print(result)

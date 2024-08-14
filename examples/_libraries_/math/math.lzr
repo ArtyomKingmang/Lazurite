@@ -1,0 +1,11 @@
+using "lzr.utils.math"
+
+x1 = 10
+y1 = 20
+x2 = 30
+y2 = 60
+
+r1 = x2 - x1 - math.cos(45)
+r2 = y2 - y1 - math.sin(45)
+
+print(math.pow(r1, 2) + math.pow(r2, 2))

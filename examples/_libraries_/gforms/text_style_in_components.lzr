@@ -1,0 +1,26 @@
+using "lzrx.awt.gforms"
+
+panel = Panel()
+panel.setLayout(boxLayout(panel, BoxLayout.PAGE_AXIS))
+
+button = Button("Button")
+label = Label("Label")
+textArea = TextArea("TextArea")
+textField = TextField("TextField")
+
+button.setFont("Arial", 0, 20)
+label.setFont("TimesRoman", 1, 20)
+textArea.setFont("Tahoma", 2, 25)
+textField.setFont("Comic Sans MS", 3, 30)
+
+panel.add(button)
+panel.add(label)
+panel.add(textField)
+panel.add(textArea)
+
+
+window = Frame("widgets")
+window.setMinimumSize(600, 300)
+window.add(panel)
+window.pack()
+window.setVisible()

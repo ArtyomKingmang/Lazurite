@@ -1,0 +1,35 @@
+class ArrayWrapper {
+    func ArrayWrapper(array) {
+        this.array = array
+    }
+
+    func __get__(key) {
+        if (typeof(key) == type.number) {
+            return this.array[key]
+        } else {
+            return getAttr(this, key)
+        }
+    }
+
+    func __set__(key, value) {
+        if (typeof(key) == type.number) {
+            this.array[key] = value
+        } else {
+            setAttr(this, key, value)
+        }
+    }
+
+    func `+`(other) {
+        return new ArrayWrapper(this.array + other)
+    }
+}
+
+array = new ArrayWrapper([3, 2, 1])
+
+// Вывод: 5
+array = array + 5
+println(array[3])
+
+// Вывод: text
+array[1] = "text"
+println(array[1])

@@ -24,7 +24,7 @@ data class ObjectCreationExpression(
                     return variable.newInstance(ctorArgs())
                 }
             }
-            throw LzrException("UnknownClassException ", "Unknown class $className")
+            throw LzrException("UnknownClassException", "Unknown class $className")
         }
 
 

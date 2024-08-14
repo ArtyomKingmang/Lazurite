@@ -1,5 +1,7 @@
-//for in... (array)
-array = [1,4,6,7]
-for(num : array){
+// for in... (array)
+
+array = [1, 4, 6, 7]
+
+for(num : array) {
     println(num)
 }

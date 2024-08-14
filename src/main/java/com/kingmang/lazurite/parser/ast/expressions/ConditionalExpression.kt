@@ -2,9 +2,11 @@ package com.kingmang.lazurite.parser.ast.expressions
 
 import com.kingmang.lazurite.core.Types
 import com.kingmang.lazurite.exceptions.OperationIsNotSupportedException
+import com.kingmang.lazurite.libraries.Keyword
 import com.kingmang.lazurite.patterns.visitor.ResultVisitor
 import com.kingmang.lazurite.patterns.visitor.Visitor
-import com.kingmang.lazurite.runtime.values.LzrNumber.Companion.fromBoolean
+import com.kingmang.lazurite.runtime.ClassInstanceValue
+import com.kingmang.lazurite.runtime.values.LzrNumber
 import com.kingmang.lazurite.runtime.values.LzrValue
 
 data class ConditionalExpression(
@@ -12,38 +14,88 @@ data class ConditionalExpression(
     val expr1: Expression,
     val expr2: Expression
 ) : Expression {
-    override fun eval(): LzrValue =
-        when (operation) {
-            Operator.AND -> fromBoolean((expr1AsInt() != 0) && (expr2AsInt() != 0))
-            Operator.OR -> fromBoolean((expr1AsInt() != 0) || (expr2AsInt() != 0))
-            Operator.NULL_COALESCE -> nullCoalesce()
-            else -> fromBoolean(evalAndCompare())
+    override fun eval(): LzrValue {
+        if (operation == Operator.NULL_COALESCE) {
+            return nullCoalesce()
         }
 
-    private fun evalAndCompare(): Boolean {
         val value1 = expr1.eval()
         val value2 = expr2.eval()
 
-        val number1: Double
-        val number2: Double
-        if (value1.type() == Types.NUMBER) {
-            number1 = value1.asNumber()
-            number2 = value2.asNumber()
-        } else {
-            number1 = value1.compareTo(value2).toDouble()
-            number2 = 0.0
-        }
-
-        return when (operation) {
-            Operator.EQUALS -> number1 == number2
-            Operator.NOT_EQUALS -> number1 != number2
-            Operator.LT -> number1 < number2
-            Operator.LTEQ -> number1 <= number2
-            Operator.GT -> number1 > number2
-            Operator.GTEQ -> number1 >= number2
-            else -> throw OperationIsNotSupportedException(operation)
+        try {
+            return eval(value1, value2)
+        } catch (ex: OperationIsNotSupportedException) {
+            if (Keyword.isExists(operation.toString()))
+                return Keyword.get(operation.toString()).execute(value1, value2)
+            throw ex
         }
     }
+
+    private fun eval(value1: LzrValue, value2: LzrValue): LzrValue =
+        when (operation) {
+            Operator.EQUALS -> equals(value1, value2)
+            Operator.NOT_EQUALS -> notEquals(value1, value2)
+
+            Operator.LT -> lt(value1, value2)
+            Operator.LTEQ -> lteq(value1, value2)
+            Operator.GT -> gt(value1, value2)
+            Operator.GTEQ -> gteq(value1, value2)
+
+            Operator.AND -> and(value1, value2)
+            Operator.OR -> or(value1, value2)
+
+            else -> throw OperationIsNotSupportedException(operation, value1.type(), value2.type())
+        }
+
+    // Если у классов реализованы операторы, то вернуть результат. Иначе null
+    private fun overridedOperation(value1: LzrValue, value2: LzrValue): LzrValue? {
+        if (value1.type() == Types.CLASS) {
+            value1 as ClassInstanceValue
+            if (value1.has("$operation")) {
+                return value1.callMethod("$operation", value2)
+            }
+        }
+        if (value2.type() == Types.CLASS) {
+            value2 as ClassInstanceValue
+            if (value2.has("r$operation")) {
+                return value2.callMethod("r$operation", value1)
+            }
+        }
+
+        return null
+    }
+
+    private fun equals(value1: LzrValue, value2: LzrValue): LzrValue =
+        overridedOperation(value1, value2)
+            ?: LzrNumber.fromBoolean(value1 == value2)
+
+    private fun notEquals(value1: LzrValue, value2: LzrValue) =
+        overridedOperation(value1, value2)
+            ?: LzrNumber.fromBoolean(value1 != value2)
+
+    private fun lt(value1: LzrValue, value2: LzrValue) =
+        overridedOperation(value1, value2)
+            ?: LzrNumber.fromBoolean(value1 < value2)
+
+    private fun lteq(value1: LzrValue, value2: LzrValue) =
+        overridedOperation(value1, value2)
+            ?: LzrNumber.fromBoolean(value1 <= value2)
+
+    private fun gt(value1: LzrValue, value2: LzrValue) =
+        overridedOperation(value1, value2)
+            ?: LzrNumber.fromBoolean(value1 > value2)
+
+    private fun gteq(value1: LzrValue, value2: LzrValue) =
+        overridedOperation(value1, value2)
+            ?: LzrNumber.fromBoolean(value1 >= value2)
+
+    private fun and(value1: LzrValue, value2: LzrValue) =
+        overridedOperation(value1, value2)
+            ?: LzrNumber.fromBoolean((value1.asInt() != 0) && (value1.asInt() != 0))
+
+    private fun or(value1: LzrValue, value2: LzrValue) =
+        overridedOperation(value1, value2)
+            ?: LzrNumber.fromBoolean((value1.asInt() != 0) || (value2.asInt() != 0))
 
     private fun nullCoalesce(): LzrValue =
         try {
@@ -52,11 +104,7 @@ data class ConditionalExpression(
             expr2.eval()
         }
 
-    private fun expr1AsInt(): Int =
-        expr1.eval().asInt()
-
-    private fun expr2AsInt(): Int =
-        expr2.eval().asInt()
+    // end
 
     override fun accept(visitor: Visitor) =
         visitor.visit(this)

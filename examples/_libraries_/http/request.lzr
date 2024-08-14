@@ -1,0 +1,4 @@
+using "lzr.net.http"
+
+url = "https://github.com/ArtyomKingmang/Lazurite/blob/main/docs/RU.md"
+http.request(url, ::echo)

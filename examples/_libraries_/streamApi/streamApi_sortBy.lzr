@@ -1,0 +1,14 @@
+using "lzr.utils.streamApi"
+
+data = [
+    {"a1" : 3},
+    {"a1" : 1},
+    {"a1" : 6},
+    {"a1" : 4}
+]
+
+res = stream(data)
+    .sortBy(func(x) = x.a1)
+    .toArray()
+
+println(res)

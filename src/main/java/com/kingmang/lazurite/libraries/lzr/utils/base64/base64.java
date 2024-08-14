@@ -34,31 +34,31 @@ public class base64 implements Library {
 
     private LzrMap base64() {
         LzrMap base = new LzrMap(2);
-        base.set("encode",this::encode);
+        base.set("encode", this::encode);
         base.set("decode", this::decode);
         return base;
     }
 
-    private LzrValue encode(LzrValue... args){
-        Arguments.checkOrOr(1,2,args.length);
+    private LzrValue encode(LzrValue... args) {
+        Arguments.checkOrOr(1, 2, args.length);
         return LzrArray.of(enc(args).encode(input(args)));
     }
 
-    private Base64.Encoder enc(LzrValue[] args){
-        if(args.length == 2 && args[1].asInt() == TYPE){
+    private Base64.Encoder enc(LzrValue[] args) {
+        if (args.length == 2 && args[1].asInt() == TYPE) {
             return Base64.getUrlEncoder();
         }
         return Base64.getEncoder();
     }
 
-    private byte[] input(LzrValue[] args){
+    private byte[] input(LzrValue[] args) {
         byte[] input;
-        if(args[0].type() == Types.ARRAY){
+        if (args[0].type() == Types.ARRAY) {
             input = ValueUtils.toByteArray((LzrArray) args[0]);
-        }else{
-            try{
+        } else {
+            try {
                 input = args[0].asString().getBytes(StandardCharsets.UTF_8);
-            }catch(Exception e){
+            } catch (Exception e) {
                 input = args[0].asString().getBytes();
             }
         }
