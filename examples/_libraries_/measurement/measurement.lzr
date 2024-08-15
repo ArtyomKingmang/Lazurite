@@ -1,0 +1,13 @@
+using "lzr.utils.math"
+using "lzr.utils.measurement"
+
+test = measurement.`new`()
+
+measurement.start(test, "test")
+
+for (i = 0, i < 1000000, i+=1) {
+    result = math.sin(i) * math.cos(i) + math.tan(i)
+}
+
+measurement.stop(test, "test")
+measurement.summary(test)
