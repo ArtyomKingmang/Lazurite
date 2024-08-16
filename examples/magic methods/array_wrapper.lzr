@@ -19,7 +19,7 @@ class ArrayWrapper {
         }
     }
 
-    func `+`(other) {
+    func append(other) {
         return new ArrayWrapper(this.array + other)
     }
 }
@@ -27,7 +27,7 @@ class ArrayWrapper {
 array = new ArrayWrapper([3, 2, 1])
 
 // Вывод: 5
-array = array + 5
+array = array.append(5)
 println(array[3])
 
 // Вывод: text
