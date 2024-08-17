@@ -816,31 +816,20 @@ print(array[2])
 Они позволяют установить свойство "напрямую", однако игнорируют
 пользовательские методы `__get__` и `__set__`.
 
-* Также для классов можно переопределить и операторы:
+
 ```java
-class NumberWrapper {
-    func NumberWrapper(number) {
+class Example {
+    func Example(number) {
         this.number = number
     }
-
-    func `-`(number) {
-        return new NumberWrapper(this.number - number)
-    }
-
-    func `*`(number) {
-        return new NumberWrapper(this.number * number)
-    }
+    
     
     func __string__() {
         return str(this.number)
     }
 }
 
-number = new NumberWrapper(54)
-
-number = (number * 2) - 10
-
-// Вывод: 98
+number = new Example(54)
 print(number)
 ```
 
