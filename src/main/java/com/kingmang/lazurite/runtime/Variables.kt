@@ -70,7 +70,7 @@ object Variables {
         findScope(key).scope.data.remove(key)
     }
 
-    private fun findScope(variable: String) = scope.findOrCurrent {
+    fun findScope(variable: String) = scope.findOrCurrent {
         it.data.containsKey(variable)
     }
 
