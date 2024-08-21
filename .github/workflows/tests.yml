@@ -35,9 +35,8 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-maven-
 
-      - name: Install dependencies
-        run: mvn clean install
-        continue-on-error: true
+      - name: Package application without dependency check
+        run: mvn clean package
 
       - name: Archive test reports
         if: always()

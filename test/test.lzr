@@ -1,7 +1,0 @@
-using "lzr.collections.hashMap"
-
-hs = hashMap.`new`()
-hashMap.put(hs, "a", 1)
-hashMap.put(hs, "b", 2)
-
-myMap = hashMap.toString(hs)
