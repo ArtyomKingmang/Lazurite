@@ -35,8 +35,13 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-maven-
 
-      - name: Package application without dependency check
-        run: mvn clean package
+      - name: Copy libraries from lib folder
+        run: |
+          mkdir -p target/lib
+          cp lib/*.jar target/lib/
+
+      - name: Install dependencies
+        run: mvn clean install -Dmaven.test.skip=true
 
       - name: Archive test reports
         if: always()
