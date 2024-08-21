@@ -1,5 +1,6 @@
 package com.kingmang.lazurite.runner.console
 
+import com.kingmang.lazurite.compiler.ConsoleImpl
 import com.kingmang.lazurite.runner.RunnerInfo
 import com.kingmang.lazurite.runner.command.RunnerCommand
 import org.fusesource.jansi.Ansi
@@ -8,6 +9,7 @@ import org.fusesource.jansi.AnsiConsole
 object ConsoleUI {
     private val HELP_COMMANDS = listOf(
         RunnerCommand.Run,
+        RunnerCommand.Compile,
         RunnerCommand.Version,
         RunnerCommand.Help,
         RunnerCommand.Editor,
@@ -68,6 +70,10 @@ object ConsoleUI {
         println(VERSION_DIVIDER)
         println("Lazurite version: ${RunnerInfo.VERSION}")
         println(VERSION_DIVIDER)
+    }
+
+    fun showCompilerConsole(args : Array<String>){
+        ConsoleImpl.runConsole(args);
     }
 
     fun clear() {

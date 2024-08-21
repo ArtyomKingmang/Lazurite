@@ -8,7 +8,7 @@ import ru.DmN.siberia.console.BuildCommands
 
 object ConsoleImpl : BaseConsole() {
     @JvmStatic
-    fun main(args: Array<String>) {
+    fun runConsole(args: Array<String>) {
         run(args)
     }
 

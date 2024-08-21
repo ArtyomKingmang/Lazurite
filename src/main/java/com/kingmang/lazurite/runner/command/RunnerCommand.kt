@@ -24,6 +24,11 @@ enum class RunnerCommand(
         compact = "-h",
         info = "show help commands",
     ),
+    Compile(
+        full = "compile_console",
+        compact = "-cc",
+        info = "open compiler console",
+    ),
 
     Editor(
         full = "editor",
