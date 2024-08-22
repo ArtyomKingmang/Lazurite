@@ -159,7 +159,7 @@ public final class LexerImplementation implements ILexer {
     }
 
     private static boolean isHexNumber(char current) {
-        return Character.isDigit(current)
+        return ('0' <= current && current <= '9')
                 || ('a' <= current && current <= 'f')
                 || ('A' <= current && current <= 'F');
     }
