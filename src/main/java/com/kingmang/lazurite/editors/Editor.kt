@@ -1,66 +1,72 @@
-package com.kingmang.lazurite.editors;
+package com.kingmang.lazurite.editors
 
-import org.fusesource.jansi.Ansi;
+import org.fusesource.jansi.Ansi
+import java.io.FileWriter
+import java.io.IOException
+import java.util.*
 
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.Scanner;
-
-import static org.fusesource.jansi.Ansi.ansi;
-
-
-public class Editor {
-
-    public static void openEditor() {
-        Scanner scanner = new Scanner(System.in);
-        int lineNumber = 1;
-        System.out.print("\033[H\033[2J");
-        System.out.flush();
-        System.out.println(ansi().fg(Ansi.Color.BLUE).a("============================================================").reset());
-        System.out.println(ansi().fg(Ansi.Color.BLUE).a("                 Lazurite code editor 0.1").reset());
-        System.out.println(ansi().fg(Ansi.Color.BLUE).a("============================================================").reset());
-        System.out.println(ansi().fg(Ansi.Color.BLUE).a("           -close   - close editor").reset());
-        System.out.println(ansi().fg(Ansi.Color.BLUE).a("           -save    - save the code to the file INDEX.lzr ").reset());
-        System.out.println(ansi().fg(Ansi.Color.BLUE).a("============================================================").reset());
-        StringBuilder code = new StringBuilder();
+object Editor {
+    fun openEditor() {
+        val scanner = Scanner(System.`in`)
+        var lineNumber = 1
+        print("\u001b[H\u001b[2J")
+        System.out.flush()
+        println(
+            Ansi.ansi().fg(Ansi.Color.BLUE).a("============================================================").reset()
+        )
+        println(Ansi.ansi().fg(Ansi.Color.BLUE).a("                 Lazurite code editor 0.1").reset())
+        println(
+            Ansi.ansi().fg(Ansi.Color.BLUE).a("============================================================").reset()
+        )
+        println(Ansi.ansi().fg(Ansi.Color.BLUE).a("           -close   - close editor").reset())
+        println(Ansi.ansi().fg(Ansi.Color.BLUE).a("           -save    - save the code to the file INDEX.lzr ").reset())
+        println(
+            Ansi.ansi().fg(Ansi.Color.BLUE).a("============================================================").reset()
+        )
+        val code = StringBuilder()
 
         while (true) {
-            System.out.print(lineNumber + " ~ ");
-            System.out.print(Ansi.ansi().fg(Ansi.Color.BLUE).a(lineNumber + " ~ ").reset());
-            String line = scanner.nextLine();
+            print(Ansi.ansi().fg(Ansi.Color.BLUE).a("$lineNumber ~ ").reset())
+            var line = scanner.nextLine()
 
-            if ("-close".equals(line)) {
+            if ("-close" == line) {
                 try {
-                    FileWriter writer = new FileWriter("INDEX.lzr");
-                    writer.write(code.toString());
-                    writer.close();
-                    System.out.println("code saved to INDEX.lzr");
-                } catch (IOException e) {
-                    System.out.println("IOException");
+                    val writer = FileWriter("INDEX.lzr")
+                    writer.write(code.toString())
+                    writer.close()
+                    println("code saved to INDEX.lzr")
+                } catch (e: IOException) {
+                    println("IOException")
                 }
-                System.out.print("\033[H\033[2J");
-                System.out.flush();
-                break;
-            } else if ("-save".equals(line)) {
+                print("\u001b[H\u001b[2J")
+                System.out.flush()
+                break
+            } else if ("-save" == line) {
                 try {
-                    FileWriter writer = new FileWriter("INDEX.lzr");
-                    writer.write(code.toString());
-                    writer.close();
-                    System.out.println("code saved to INDEX.lzr");
-                } catch (IOException e) {
-                    System.out.println("IOException");
+                    val writer = FileWriter("INDEX.lzr")
+                    writer.write(code.toString())
+                    writer.close()
+                    println("code saved to INDEX.lzr")
+                } catch (e: IOException) {
+                    println("IOException")
                 }
             } else {
-                code.append(line);
-                code.append('\n');
+                code.append(line)
+                code.append('\n')
 
-                line = line.replaceAll("\\b(if|else|print|println|while|class|new|for)\\b", ansi().fg(Ansi.Color.RED).a("$1").reset().toString());
-                line = line.replaceAll("\\b(return|func)\\b", ansi().fg(Ansi.Color.BLUE).a("$1").reset().toString());
-                line = line.replaceAll("//.*", ansi().fg(Ansi.Color.GREEN).a("$0").reset().toString());
+                line = line.replace(
+                    "\\b(if|else|print|println|while|class|new|for)\\b".toRegex(),
+                    Ansi.ansi().fg(Ansi.Color.RED).a("$1").reset().toString()
+                )
+                line = line.replace(
+                    "\\b(return|func)\\b".toRegex(),
+                    Ansi.ansi().fg(Ansi.Color.BLUE).a("$1").reset().toString()
+                )
+                line = line.replace("//.*".toRegex(), Ansi.ansi().fg(Ansi.Color.GREEN).a("$0").reset().toString())
 
-                System.out.println(line);
+                println(line)
 
-                lineNumber++;
+                lineNumber++
             }
         }
     }
