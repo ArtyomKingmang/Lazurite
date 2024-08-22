@@ -1,4 +1,4 @@
-package com.kingmang.lazurite.crashHandler.reporter.crashReporterImplementation
+package com.kingmang.lazurite.crashHandler.reporter.impl
 
 import com.kingmang.lazurite.runner.RunnerInfo
 import com.kingmang.lazurite.crashHandler.reporter.ICrashReporter

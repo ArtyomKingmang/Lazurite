@@ -2,7 +2,7 @@ package com.kingmang.lazurite.utils
 
 import com.kingmang.lazurite.core.CallStack
 import com.kingmang.lazurite.crashHandler.CrashHandler
-import com.kingmang.lazurite.crashHandler.reporter.crashReporterImplementation.SimpleCrashReporter
+import com.kingmang.lazurite.crashHandler.reporter.impl.SimpleCrashReporter
 import com.kingmang.lazurite.crashHandler.reporter.output.impl.ConsoleReportOutput
 import com.kingmang.lazurite.crashHandler.reporter.output.impl.FileReportOutput
 import com.kingmang.lazurite.crashHandler.reporter.processors.impl.SourceCodeProcessor
