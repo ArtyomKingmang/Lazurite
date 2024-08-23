@@ -43,7 +43,8 @@ object Runner {
             return true
         }
         when (commandData.command) {
-            RunnerCommand.Compile -> ConsoleUI.showCompilerConsole(commandData.args.toTypedArray());
+            //RunnerCommand.Compile -> ConsoleUI.showCompilerConsole(commandData.args.toTypedArray());
+            RunnerCommand.Compile -> ConsoleUI.showCompilerConsole()
             RunnerCommand.Version -> ConsoleUI.printVersion()
             RunnerCommand.Help -> ConsoleUI.printHelp()
             RunnerCommand.Editor -> Editor.openEditor()

@@ -72,6 +72,14 @@ object ConsoleUI {
         println(VERSION_DIVIDER)
     }
 
+    fun showCompilerConsole(){
+        println(DIVIDER)
+        println("At the moment the compiler is in beta version.")
+        println("You can build it yourself using sources from the official repository.")
+        println("When the compiler leaves beta testing it will be available using this command.")
+        println(DIVIDER)
+    }
+    // beta
     fun showCompilerConsole(args : Array<String>){
         ConsoleImpl.runConsole(args);
     }
