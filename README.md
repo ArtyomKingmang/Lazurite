@@ -73,7 +73,7 @@ println(resultArray)
 ```
 # Repositories
 
-[Language (compiler, interpreter, utils, api and so on)](https://github.com/ArtyomKingmang/Lazurite)
+[Language (compiler, interpreter, api)](https://github.com/ArtyomKingmang/Lazurite)
 
 [Compiler](https://github.com/Domaman202/Project-PLS)
 
