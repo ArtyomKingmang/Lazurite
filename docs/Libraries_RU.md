@@ -8,12 +8,12 @@
   
 
 * [collections](#collections)
-  * [flatmap](#flatmap)
-  * [concurrentHashMap](#concurrentHashMap)
-  * [hashMap](#hashMap)
-  * [linkedHashMap](#linkedHashMap)
-  * [treeMap](#treeMap)
-  * [concurrentSkipListMap](#concurrentSkipListMap)
+  * [hashMap](##hashMap)
+  * [concurrentHashMap](##concurrentHashMap)
+  * [linkedHashMap](##linkedHashMap)
+  * [treeMap](##treeMap)
+  * [concurrentSkipListMap](##concurrentSkipListMap)
+  * [queue](##Очередь)
 
 
 * [utils](#utils)
@@ -27,6 +27,7 @@
   * [math](#math)
   * [random](#random)
   * [thread](#thread)
+  * [flatmap](#flatmap)
   * [time](#time)
   
 
@@ -123,46 +124,55 @@ print(result)
 
 # collections
 
-### (добавлено с *2.7.3*)
+* [hashMap](##hashMap)
+* [linkedHashMap](##linkedHashMap)
+* [concurrentHashMap](##concurrentHashMap)
+* [treeMap](##treeMap)
+* [concurrentSkipListMap](##concurrentSkipListMap)
+* [queue](##Очередь)
 
-# flatmap
-`flatmap(array, mapper)` — преобразует каждый элемент массива в массив элементов.
+## hashMap
+`hashMap(fromMap = {})` — создаёт новый HashMap из значений fromMap
+
+## linkedHashMap
+`linkedHashMap(fromMap = {})` — создаёт новый LinkedHashMap из значений fromMap
+
+## concurrentHashMap
+`concurrentHashMap(fromMap = {})` — создаёт новый ConcurrentHashMap из значений fromMap
+
+## treeMap
+`treeMap(fromMap = {}, comparator = func(a, b) = 0)` — создаёт новый TreeMap из значений fromMap и компаратора comparator
+
+## concurrentSkipListMap
+`concurrentSkipListMap(fromMap = {}, comparator = func(a, b) = 0)` — создаёт новый ConcurrentSkipListMap из значений fromMap и компаратора comparator
+
+## Очередь
+  `queue` - реализация ConcurrentLinkedQueue. Использование очереди отличается
+от других коллекций. 
 
 Пример:
 
-````java
-using "lzr.collections.flatmap"
+````cpp
+using "lzr.collections.queue"
 
-numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9]
-
-output = flatmap(numbers, func(x) {
-  arr = Array(x)
-  for(i = 0, i < x, i++) {
-    arr[i] = x
-  }
-  return arr
-})
-
-print(output)
+q = queue.`new`()
+queue.add(q, 10)
+queue.add(q, 20)
+println(queue.toArray(q))
 ````
 
-# hashMap
+Методы queue:
+````
+`new`()
 
-`hashMap(fromMap = {})` — создаёт новый HashMap из значений fromMap
+add(yourQueue, arg)
 
-# linkedHashMap
-`linkedHashMap(fromMap = {})` — создаёт новый LinkedHashMap из значений fromMap
+remove(yourQueue, arg)
 
-# concurrentHashMap
-`concurrentHashMap(fromMap = {})` — создаёт новый ConcurrentHashMap из значений fromMap
+toArray(yourQueue)
 
-# treeMap
-`treeMap(fromMap = {}, comparator = func(a, b) = 0)` — создаёт новый TreeMap из значений fromMap и компаратора comparator
-
-# concurrentSkipListMap
-`concurrentSkipListMap(fromMap = {}, comparator = func(a, b) = 0)` — создаёт новый ConcurrentSkipListMap из значений fromMap и компаратора comparator
-
-
+isEmpty(yourQueue)
+````
 
 # utils
 * [async](#async)
@@ -175,6 +185,7 @@ print(output)
 * [math](#math)
 * [random](#random)
 * [thread](#thread)
+* [flatmap](#flatmap)
 * [time](#time)
 
 # async
@@ -430,6 +441,29 @@ thread("message", "Artyom")
 Использование потоков выполнения позволяет выполнять различные задачи параллельно, что может улучшить производительность программы.
 В данном случае, создается новый поток, который вызывает функцию message,
 тогда как основной поток может продолжать выполнять другие задачи.
+
+
+# flatmap
+
+`flatmap(array, mapper)` — преобразует каждый элемент массива в массив элементов.
+
+Пример:
+
+````java
+using "lzr.collections.flatmap"
+
+numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+
+output = flatmap(numbers, func(x) {
+  arr = Array(x)
+  for(i = 0, i < x, i++) {
+    arr[i] = x
+  }
+  return arr
+})
+
+print(output)
+````
 
 
 # random
