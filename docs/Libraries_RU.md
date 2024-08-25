@@ -18,6 +18,7 @@
 
 * [utils](#utils)
   * [async](#async)
+  * [streamApi](#streamApi)
   * [arrays](#arrays)
   * [artify](#artify)
   * [base64](#base64)
@@ -201,6 +202,44 @@ func hel(arg) {
 
 async.supply(hel("Hello"))
 ````
+# streamApi
+Stream API — это способ работать со структурами данных в 
+функциональном стиле.
+
+`map(func)` — преобразует каждый элемент
+
+`sortBy(func)` — применяет функцию, затем сортирует элементы
+
+Пример:
+
+````java
+using "lzr.utils.streamApi"
+
+data = [
+    {"a1" : 3},
+    {"a1" : 1},
+    {"a1" : 6},
+    {"a1" : 4}
+]
+
+res = stream(data)
+    .sortBy(func(x) = x.a1)
+    .toArray()
+
+println(res)
+````
+
+`foreach(func)` — вызывает функцию для каждого элемента
+
+`skip(count)` — пропускает указанное количество элементов
+
+`limit(count)` — ограничивает количество элементов
+
+`custom(func)` — выполняет пользовательскую операцию над данными
+
+`count()` — возвращает количество элементов
+
+`toArray()` — возвращает массив элементов
 
 # arrays
 `arrays.combine(keys, values)` — создает массив, используя один массив для ключей, а другой — для его значений
