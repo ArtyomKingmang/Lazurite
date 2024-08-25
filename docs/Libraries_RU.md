@@ -49,6 +49,7 @@
   * [gforms - графическая библиотека (виджеты)](#gforms)
   * [robot - автоматизация](#robot)
   * [graph - графическая библиотека](#graph)
+  * [lxml](#lxml)
   * [colors](#colors)
 
 
@@ -1306,7 +1307,9 @@ rotate(arg[0]) || rotate(arg[0], arg[1], arg[2])
 scale(arg[0], arg[1])
 ```
 
+# lxml
 
+`xml.read("file.xml")` - читает xml файл
 
 
 # colors
