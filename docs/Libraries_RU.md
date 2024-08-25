@@ -168,7 +168,7 @@ println(queue.toArray(q))
 
 add(yourQueue, arg)
 
-remove(yourQueue, arg)
+remove(yourQueue)
 
 toArray(yourQueue)
 
