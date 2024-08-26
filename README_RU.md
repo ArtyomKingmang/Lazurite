@@ -87,6 +87,12 @@ stack.push(9)
 print(stack.pop())
 ```
 
+# Репозитории
+
+[Язык программирования (компилятор, интерпретатор, апи)](https://github.com/ArtyomKingmang/Lazurite)
+
+[Компилятор](https://github.com/Domaman202/Project-PLS)
+
 ## Загрузка
 Скачать *.jar* или *.exe* файл интерпретатора можно на вкладке [Releases](https://github.com/ArtyomKingmang/Lazurite/releases).
 
