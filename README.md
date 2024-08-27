@@ -15,18 +15,6 @@ Hello World in Lazurite!:
 print("Hello World!")
 ```
 
-lsoup example:
-```cpp
-using "lzr.net.lsoup"
-
-lsoup.parser("https://www.lipsum.com")
-
-title = lsoup.select("title")
-text = lsoup.select("h3")
-
-println(title)
-println(text)
-```
 
 async example:
 ```cpp
