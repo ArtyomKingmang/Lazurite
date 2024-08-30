@@ -16,8 +16,13 @@ data class ContainerAccessExpression(
     val root: Expression,
     val indices: List<Expression>
 ) : Expression, Accessible {
-    constructor(variable: String, indices: List<Expression>, file: FileInfo) : this(VariableExpression(variable, file), indices)
 
+    private var rootIsVariable : Boolean = false
+
+    constructor(variable: String, indices: List<Expression>, file: FileInfo) : this(VariableExpression(variable, file), indices)
+    {
+        rootIsVariable = root is VariableExpression;
+    }
     override fun eval(): LzrValue =
         this.get()
 
@@ -72,7 +77,9 @@ data class ContainerAccessExpression(
             throw LzrException("TypeException", "Map expected")
         return value as LzrMap
     }
-
+    fun rootIsVariable() : Boolean {
+        return rootIsVariable;
+    }
     override fun accept(visitor: Visitor) =
         visitor.visit(this)
 

@@ -14,14 +14,16 @@ import java.io.IOException
 
 
 object VisitorUtils {
+    @JvmStatic
     fun isValue(node: Node?): Boolean {
         return (node is ValueExpression)
     }
 
+    @JvmStatic
     fun isVariable(node: Node?): Boolean {
         return (node is VariableExpression)
     }
-
+    @JvmStatic
     fun loadLzrProgram(s: UsingStatement): Statement? {
         if (!isValue(s)) return null
         return try {
@@ -30,7 +32,7 @@ object VisitorUtils {
             null
         }
     }
-
+    @JvmStatic
     fun isIntegerValue(node: Node, valueToCheck: Int): Boolean {
         if (!isValue(node)) return false
 
@@ -43,7 +45,7 @@ object VisitorUtils {
         }
         return false
     }
-
+    @JvmStatic
     fun isValueAsInt(node: Node, valueToCheck: Int): Boolean {
         if (!isValue(node)) return false
 
@@ -52,14 +54,14 @@ object VisitorUtils {
 
         return value.asInt() == valueToCheck
     }
-
+    @JvmStatic
     fun isConstantValue(node: Node): Boolean {
         if (!isValue(node)) return false
 
         val type = (node as ValueExpression).value.type()
         return ((type == Types.NUMBER) || (type == Types.STRING))
     }
-
+    @JvmStatic
     fun isSameVariables(n1: Node, n2: Node): Boolean {
         if (isVariable(n1) && isVariable(n2)) {
             val v1 = n1 as VariableExpression
@@ -68,7 +70,7 @@ object VisitorUtils {
         }
         return false
     }
-
+    @JvmStatic
     fun operators(): Set<String> {
         val operators: MutableSet<String> = HashSet()
         for (op in BinaryExpression.Operator.entries.toTypedArray()) {
