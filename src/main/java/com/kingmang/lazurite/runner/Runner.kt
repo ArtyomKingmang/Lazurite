@@ -38,10 +38,19 @@ object Runner {
     }
 
     private fun handleCommandData(commandData: RunnerCommandData?): Boolean {
+        var optimizeLvl : Int = 0
+        var printResOfOpt : Boolean = false
+
+
         if (commandData == null) {
             println("Command not found!")
             return true
         }
+        if(commandData.args[1] == "-o"){
+            printResOfOpt = true
+        }
+        optimizeLvl = commandData.args[2].toInt()
+
         when (commandData.command) {
             //RunnerCommand.Compile -> ConsoleUI.showCompilerConsole(commandData.args.toTypedArray());
             RunnerCommand.Compile -> ConsoleUI.showCompilerConsole()
@@ -50,13 +59,13 @@ object Runner {
             RunnerCommand.Editor -> Editor.openEditor()
             RunnerCommand.Clear -> ConsoleUI.clear()
             RunnerCommand.New -> createProject(commandData.args)
-            RunnerCommand.Run -> runProgram(commandData.args, true)
+            RunnerCommand.Run -> runProgram(commandData.args, true, optimizeLvl, printResOfOpt)
             RunnerCommand.Exit -> return false
         }
         return true
     }
 
-    private fun runProgram(args: List<String>, preprocess: Boolean) {
+    private fun runProgram(args: List<String>, preprocess: Boolean, optimizeLvl : Int, printResOfOpt: Boolean) {
         val runType = try {
             RunTypeFinder.findRunType(args)
         } catch (ex: RunTypeException) {
@@ -65,8 +74,8 @@ object Runner {
         }
 
         when (runType) {
-            is RunType.File -> runByFilePath(runType.runPath, runType.runPath, preprocess)
-            is RunType.Project -> runByFilePath(runType.runFile, runType.runPath, preprocess)
+            is RunType.File -> runByFilePath(runType.runPath, runType.runPath, preprocess, optimizeLvl, printResOfOpt)
+            is RunType.Project -> runByFilePath(runType.runFile, runType.runPath, preprocess, optimizeLvl, printResOfOpt)
         }
     }
 
@@ -80,10 +89,10 @@ object Runner {
         }
     }
 
-    private fun runByFilePath(runFile: String, runPath: String, preprocess: Boolean) {
+    private fun runByFilePath(runFile: String, runPath: String, preprocess: Boolean, optimizeLvl : Int, printResOfOpt: Boolean) {
         try {
             if (preprocess) {
-                Handler.run(runPath)
+                Handler.run(runPath, optimizeLvl, printResOfOpt)
             }
         } catch (e: ArrayIndexOutOfBoundsException) {
             println("Correct entry form: r <file>")

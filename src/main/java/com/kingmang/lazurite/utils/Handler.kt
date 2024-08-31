@@ -1,5 +1,6 @@
 package com.kingmang.lazurite.utils
 
+import com.kingmang.lazurite.console.Console
 import com.kingmang.lazurite.core.CallStack
 import com.kingmang.lazurite.crashHandler.CrashHandler
 import com.kingmang.lazurite.crashHandler.reporter.impl.SimpleCrashReporter
@@ -8,9 +9,11 @@ import com.kingmang.lazurite.crashHandler.reporter.output.impl.FileReportOutput
 import com.kingmang.lazurite.crashHandler.reporter.processors.impl.SourceCodeProcessor
 import com.kingmang.lazurite.crashHandler.reporter.processors.impl.TokensProcessor
 import com.kingmang.lazurite.exceptions.LzrException
+import com.kingmang.lazurite.optimization.Optimizer
 import com.kingmang.lazurite.parser.ast.statements.BlockStatement
 import com.kingmang.lazurite.parser.ILexer
 import com.kingmang.lazurite.parser.IParser
+import com.kingmang.lazurite.parser.ast.statements.Statement
 import com.kingmang.lazurite.parser.impl.LexerImplementation
 import com.kingmang.lazurite.parser.impl.ParserImplementation
 import com.kingmang.lazurite.parser.preprocessor.Preprocessor
@@ -26,9 +29,9 @@ import kotlin.jvm.Throws
 object Handler {
     @JvmStatic
     @Throws(IOException::class)
-    fun run(path: String) {
+    fun run(path: String, optLvl: Int, printResultOfOptimization: Boolean) {
         Libraries.add(path)
-        runProgram(Loader.readSource(path), path)
+        runProgram(Loader.readSource(path), path, optLvl, printResultOfOptimization)
     }
 
     @JvmStatic
@@ -39,7 +42,7 @@ object Handler {
     }
 
     @JvmStatic
-    fun runProgram(code: String, file: String) {
+    fun runProgram(code: String, file: String, optLvl : Int, printResultOfOptimization: Boolean) {
         CrashHandler.register(
             SimpleCrashReporter(),
             ConsoleReportOutput(),
@@ -62,10 +65,16 @@ object Handler {
                 println(parser.parseErrors)
                 return
             }
-            parsedProgram.accept(FunctionAdder())
+            val program : Statement;
+            if(optLvl > 0) {
+                program = Optimizer.optimize(parsedProgram, optLvl, printResultOfOptimization);
+            }else
+                program = parsedProgram;
+
+            program.accept(FunctionAdder())
 
             try {
-                parsedProgram.execute()
+                program.execute()
             } catch (ex: LzrException) {
                 ex.print(System.err)
             } catch (throwable: Throwable) {
