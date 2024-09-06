@@ -43,7 +43,7 @@ public class graph implements Library {
     }
 
     public static void initKeys() {
-        LzrMap keys = new LzrMap(70);
+        final LzrMap keys = new LzrMap(60);
 
         keys.set("UP", new LzrNumber(KeyEvent.VK_UP));
         keys.set("DOWN", new LzrNumber(KeyEvent.VK_DOWN));

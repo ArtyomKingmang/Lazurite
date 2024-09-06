@@ -22,7 +22,7 @@ public final class gforms implements Library {
         Variables.define("HIDE_ON_CLOSE", LzrNumber.of(JFrame.HIDE_ON_CLOSE));
 
         // SwingConstants
-        final LzrMap swing = new LzrMap(20);
+        final LzrMap swing = new LzrMap(18);
         swing.set("BOTTOM", LzrNumber.of(SwingConstants.BOTTOM));
         swing.set("CENTER", LzrNumber.of(SwingConstants.CENTER));
         swing.set("EAST", LzrNumber.of(SwingConstants.EAST));
@@ -45,7 +45,7 @@ public final class gforms implements Library {
         Variables.define("SwingConstants", swing);
 
         // LayoutManagers constants
-        final LzrMap border = new LzrMap(13);
+        final LzrMap border = new LzrMap(12);
         border.set("AFTER_LAST_LINE", new LzrString(BorderLayout.AFTER_LAST_LINE));
         border.set("AFTER_LINE_ENDS", new LzrString(BorderLayout.AFTER_LINE_ENDS));
         border.set("BEFORE_FIRST_LINE", new LzrString(BorderLayout.BEFORE_FIRST_LINE));
@@ -62,7 +62,7 @@ public final class gforms implements Library {
         Variables.define("BorderLayout", border);
         
         // ScrollPane constants
-        final LzrMap scrollpane = new LzrMap(13);
+        final LzrMap scrollpane = new LzrMap(21);
         scrollpane.set("COLUMN_HEADER", new LzrString(ScrollPaneConstants.COLUMN_HEADER));
         scrollpane.set("HORIZONTAL_SCROLLBAR", new LzrString(ScrollPaneConstants.HORIZONTAL_SCROLLBAR));
         scrollpane.set("HORIZONTAL_SCROLLBAR_POLICY", new LzrString(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_POLICY));
@@ -93,7 +93,7 @@ public final class gforms implements Library {
         box.set("Y_AXIS", LzrNumber.of(BoxLayout.Y_AXIS));
         Variables.define("BoxLayout", box);
         
-        final LzrMap windowEvent = new LzrMap(4);
+        final LzrMap windowEvent = new LzrMap(11);
         windowEvent.set("WINDOW_FIRST", LzrNumber.of(WindowEvent.WINDOW_FIRST));
         windowEvent.set("WINDOW_OPENED", LzrNumber.of(WindowEvent.WINDOW_OPENED));
         windowEvent.set("WINDOW_CLOSING", LzrNumber.of(WindowEvent.WINDOW_CLOSING));
