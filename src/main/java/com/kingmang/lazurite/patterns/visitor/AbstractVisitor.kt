@@ -50,12 +50,12 @@ abstract class AbstractVisitor : Visitor {
         s.statement.accept(this)
     }
 
-    override fun visit(s: ForeachAStatement) {
+    override fun visit(s: ForeachArrayStatement) {
         s.container.accept(this)
         s.body.accept(this)
     }
 
-    override fun visit(s: ForeachMStatement) {
+    override fun visit(s: ForeachMapStatement) {
         s.container.accept(this)
         s.body.accept(this)
     }

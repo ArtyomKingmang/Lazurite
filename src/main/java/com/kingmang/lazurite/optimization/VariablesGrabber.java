@@ -6,8 +6,6 @@ import com.kingmang.lazurite.parser.ast.Arguments;
 import com.kingmang.lazurite.parser.ast.Node;
 import com.kingmang.lazurite.parser.ast.expressions.*;
 import com.kingmang.lazurite.parser.ast.statements.*;
-import com.kingmang.lazurite.runtime.Variables;
-import com.kingmang.lazurite.runtime.values.LzrValue;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
@@ -64,13 +62,13 @@ public class VariablesGrabber extends OptimizationVisitor<Map<String, VariableIn
     }
 
     @Override
-    public Node visit(ForeachAStatement s, Map<String, VariableInfo> t) {
+    public Node visit(ForeachArrayStatement s, Map<String, VariableInfo> t) {
         t.put(s.getVariable(), variableInfo(t, s.getVariable()));
         return super.visit(s, t);
     }
 
     @Override
-    public Node visit(ForeachMStatement s, Map<String, VariableInfo> t) {
+    public Node visit(ForeachMapStatement s, Map<String, VariableInfo> t) {
         t.put(s.getKey(), variableInfo(t, s.getKey()));
         t.put(s.getValue(), variableInfo(t, s.getValue()));
         return super.visit(s, t);

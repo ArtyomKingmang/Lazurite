@@ -17,8 +17,8 @@ interface ResultVisitor<R, T> {
     fun visit(s: ContinueStatement, t: T): R
     fun visit(s: DestructuringAssignmentStatement, t: T): R
     fun visit(s: ForStatement, t: T): R
-    fun visit(s: ForeachAStatement, t: T): R
-    fun visit(s: ForeachMStatement, t: T): R
+    fun visit(s: ForeachArrayStatement, t: T): R
+    fun visit(s: ForeachMapStatement, t: T): R
     fun visit(s: FunctionDefineStatement, t: T): R
     fun visit(s: FunctionReferenceExpression, t: T): R
     fun visit(s: ExprStatement, t: T): R

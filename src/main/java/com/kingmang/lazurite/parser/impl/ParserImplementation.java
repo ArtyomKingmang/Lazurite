@@ -313,7 +313,7 @@ public final class ParserImplementation implements IParser, IFileInfoProvider {
         return new ForStatement(initialization, termination, increment, statement);
     }
 
-    private ForeachAStatement foreachArrayStatement() {
+    private ForeachArrayStatement foreachArrayStatement() {
         boolean optParentheses = match(TokenType.LPAREN);
         final String variable = consume(TokenType.WORD).getText();
         consume(TokenType.COLON);
@@ -323,11 +323,11 @@ public final class ParserImplementation implements IParser, IFileInfoProvider {
             consume(TokenType.RPAREN); // close opt parentheses
 
         final Statement statement = statementOrBlock();
-        return new ForeachAStatement(variable, container, statement);
+        return new ForeachArrayStatement(variable, container, statement);
     }
 
 
-    private ForeachMStatement foreachMapStatement() {
+    private ForeachMapStatement foreachMapStatement() {
 
         boolean optParentheses = match(TokenType.LPAREN);
         final String key = consume(TokenType.WORD).getText();
@@ -340,7 +340,7 @@ public final class ParserImplementation implements IParser, IFileInfoProvider {
             consume(TokenType.RPAREN); // close opt parentheses
 
         final Statement statement = statementOrBlock();
-        return new ForeachMStatement(key, value, container, statement);
+        return new ForeachMapStatement(key, value, container, statement);
     }
 
     private FunctionDefineStatement functionDefine() {

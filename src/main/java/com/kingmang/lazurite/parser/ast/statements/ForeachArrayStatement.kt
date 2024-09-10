@@ -12,40 +12,36 @@ import com.kingmang.lazurite.runtime.Variables.remove
 import com.kingmang.lazurite.runtime.Variables.set
 import com.kingmang.lazurite.runtime.values.LzrArray
 import com.kingmang.lazurite.runtime.values.LzrMap
-import com.kingmang.lazurite.runtime.values.LzrNumber.Companion.of
 import com.kingmang.lazurite.runtime.values.LzrString
 
-data class ForeachMStatement(
-    val key: String,
-    val value: String,
+data class ForeachArrayStatement(
+    val variable: String,
     val container: Expression,
     val body: Statement
 ) : InterruptableNode(), Statement {
+
     override fun execute() {
         super.interruptionCheck()
-        val previousVariableValue1 = if (isExists(this.key)) get(this.key) else null
-        val previousVariableValue2 = if (isExists(this.value)) get(this.value) else null
+        val previousVariableValue = if (isExists(this.variable)) get(this.variable) else null
 
         val containerValue = container.eval()
         when (containerValue.type()) {
             Types.STRING -> iterateString(containerValue.asString())
             Types.ARRAY -> iterateArray(containerValue as LzrArray)
             Types.MAP -> iterateMap(containerValue as LzrMap)
-            else -> throw LzrException("TypeException", "Cannot iterate " + Types.typeToString(containerValue.type()) + " as key, value pair")
+            else -> throw LzrException("TypeExeption", "Cannot iterate " + Types.typeToString(containerValue.type()))
         }
         // Restore variables
-        if (previousVariableValue1 != null)
-            set(this.key, previousVariableValue1)
-        else remove(this.key)
-        if (previousVariableValue2 != null)
-            set(this.value, previousVariableValue2)
-        else remove(this.value)
+        if (previousVariableValue != null) {
+            set(this.variable, previousVariableValue)
+        } else {
+            remove(this.variable)
+        }
     }
 
     private fun iterateString(str: String) {
         for (ch in str.toCharArray()) {
-            set(this.key, LzrString(ch.toString()))
-            set(this.value, of(ch.code))
+            set(this.variable, LzrString(ch.toString()))
             try {
                 this.body.execute()
             } catch (bs: BreakStatement) {
@@ -57,9 +53,8 @@ data class ForeachMStatement(
     }
 
     private fun iterateArray(containerValue: LzrArray) {
-        for ((index, v) in containerValue.withIndex()) {
-            set(this.key, v)
-            set(this.value, of(index))
+        for (value in containerValue) {
+            set(this.variable, value)
             try {
                 this.body.execute()
             } catch (bs: BreakStatement) {
@@ -71,9 +66,8 @@ data class ForeachMStatement(
     }
 
     private fun iterateMap(containerValue: LzrMap) {
-        for ((key1, value1) in containerValue) {
-            set(this.key, key1)
-            set(this.value, value1)
+        for ((key, value) in containerValue) {
+            set(this.variable, LzrArray(arrayOf(key, value)))
             try {
                 this.body.execute()
             } catch (bs: BreakStatement) {
@@ -91,5 +85,5 @@ data class ForeachMStatement(
         visitor.visit(this, input)
 
     override fun toString(): String =
-        String.format("for %s, %s : %s %s", key, value, container, body)
+        String.format("for %s : %s %s", this.variable, this.container, this.body)
 }

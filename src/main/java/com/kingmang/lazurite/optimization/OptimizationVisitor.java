@@ -10,18 +10,12 @@ import com.kingmang.lazurite.parser.ast.Node;
 import com.kingmang.lazurite.parser.ast.expressions.*;
 import com.kingmang.lazurite.parser.ast.statements.*;
 import com.kingmang.lazurite.patterns.visitor.ResultVisitor;
-import com.kingmang.lazurite.patterns.visitor.Visitor;
 import com.kingmang.lazurite.runtime.UserDefinedFunction;
-import com.kingmang.lazurite.runtime.values.LzrValue;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import static com.kingmang.lazurite.patterns.visitor.VisitorUtils.isValue;
 
 public abstract class OptimizationVisitor<T> implements ResultVisitor<Node, T> {
 
@@ -152,21 +146,21 @@ public abstract class OptimizationVisitor<T> implements ResultVisitor<Node, T> {
     }
 
     @Override
-    public Node visit(ForeachAStatement s, T t) {
+    public Node visit(ForeachArrayStatement s, T t) {
         final Node container = s.getContainer().accept(this, t);
         final Node body = s.getBody().accept(this, t);
         if (container != s.getContainer() || body != s.getBody()) {
-            return new ForeachAStatement(s.getVariable(), (Expression) container, consumeStatement(body));
+            return new ForeachArrayStatement(s.getVariable(), (Expression) container, consumeStatement(body));
         }
         return s;
     }
 
     @Override
-    public Node visit(ForeachMStatement s, T t) {
+    public Node visit(ForeachMapStatement s, T t) {
         final Node container = s.getContainer().accept(this, t);
         final Node body = s.getBody().accept(this, t);
         if (container != s.getContainer() || body != s.getBody()) {
-            return new ForeachMStatement(s.getKey(), s.getValue(), (Expression) container, consumeStatement(body));
+            return new ForeachMapStatement(s.getKey(), s.getValue(), (Expression) container, consumeStatement(body));
         }
         return s;
     }
