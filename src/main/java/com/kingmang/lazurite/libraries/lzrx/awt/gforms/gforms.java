@@ -1,5 +1,8 @@
 package com.kingmang.lazurite.libraries.lzrx.awt.gforms;
 
+import com.github.weisj.darklaf.LafManager;
+import com.github.weisj.darklaf.theme.DarculaTheme;
+import com.github.weisj.darklaf.theme.IntelliJTheme;
 import com.kingmang.lazurite.libraries.Keyword;
 import com.kingmang.lazurite.libraries.Library;
 import com.kingmang.lazurite.runtime.Variables;
@@ -111,8 +114,9 @@ public final class gforms implements Library {
 
     @Override
     public void init() {
+
         initConstant();
-        // Components
+
         Keyword.put("Button", Components::newButton);
         Keyword.put("MenuBar", Components::newMenuBar);
         Keyword.put("Label", Components::newLabel);

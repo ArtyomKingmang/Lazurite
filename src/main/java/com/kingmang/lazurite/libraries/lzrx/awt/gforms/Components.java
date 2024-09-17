@@ -1,6 +1,13 @@
 package com.kingmang.lazurite.libraries.lzrx.awt.gforms;
 
+import com.github.weisj.darklaf.LafManager;
+import com.github.weisj.darklaf.theme.DarculaTheme;
+import com.github.weisj.darklaf.theme.IntelliJTheme;
+import com.github.weisj.darklaf.theme.OneDarkTheme;
+import com.github.weisj.darklaf.theme.SolarizedDarkTheme;
+import com.github.weisj.darklaf.theme.laf.IntelliJThemeDarklafLookAndFeel;
 import com.kingmang.lazurite.core.Arguments;
+import com.kingmang.lazurite.runtime.values.LzrNumber;
 import com.kingmang.lazurite.runtime.values.LzrValue;
 import lombok.NoArgsConstructor;
 
@@ -17,8 +24,6 @@ public final class Components {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         return new JFrameValue(frame);
     }
-
-
 
     static LzrValue newPanel(LzrValue[] args) {
         Arguments.checkOrOr(0, 1, args.length);

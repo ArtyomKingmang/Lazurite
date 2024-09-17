@@ -1,5 +1,6 @@
 package com.kingmang.lazurite.libraries.lzrx.awt.gforms;
 
+import com.github.weisj.darklaf.LafManager;
 import com.kingmang.lazurite.core.Converters;
 
 import javax.swing.*;

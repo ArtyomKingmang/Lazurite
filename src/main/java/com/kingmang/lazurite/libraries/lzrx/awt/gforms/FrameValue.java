@@ -1,6 +1,9 @@
 package com.kingmang.lazurite.libraries.lzrx.awt.gforms;
 
 
+import com.github.weisj.darklaf.LafManager;
+import com.github.weisj.darklaf.theme.DarculaTheme;
+import com.github.weisj.darklaf.theme.IntelliJTheme;
 import com.kingmang.lazurite.core.Arguments;
 import com.kingmang.lazurite.core.Converters;
 import com.kingmang.lazurite.core.Function;
@@ -9,6 +12,7 @@ import com.kingmang.lazurite.runtime.values.LzrNumber;
 import com.kingmang.lazurite.runtime.values.LzrString;
 import com.kingmang.lazurite.runtime.values.LzrValue;
 import com.kingmang.lazurite.utils.ValueUtils;
+import org.jetbrains.annotations.NotNull;
 
 import java.awt.*;
 import java.awt.event.WindowEvent;
@@ -25,6 +29,7 @@ public class FrameValue extends ContainerValue {
     }
 
     private void init() {
+        set("installTheme", new setTheme());
         set("addWindowListener", this::addWindowListener);
         set("dispose", Converters.voidToVoid(window::dispose));
         set("isActive", Converters.voidToBoolean(window::isActive));
@@ -45,7 +50,27 @@ public class FrameValue extends ContainerValue {
         set("toBack", Converters.voidToVoid(window::toBack));
         set("toFront", Converters.voidToVoid(window::toFront));
     }
-    
+
+    private static class setTheme implements Function {
+
+        @NotNull
+        @Override
+        public LzrValue execute(@NotNull LzrValue... args) {
+            Arguments.check(1, args.length);
+            switch (args[0].asString()) {
+                case "intellij" : {
+                    LafManager.setTheme(new IntelliJTheme());
+                    break;
+                }
+                case "dracula" : {
+                    LafManager.setTheme(new DarculaTheme());
+                    break;
+                }
+            }
+            LafManager.install();
+            return LzrNumber.ZERO;
+        }
+    }
     
     private LzrValue addWindowListener(LzrValue[] args) {
         Arguments.check(1, args.length);
