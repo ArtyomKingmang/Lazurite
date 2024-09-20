@@ -4,6 +4,7 @@ import com.kingmang.lazurite.parser.ast.expressions.*
 import com.kingmang.lazurite.parser.ast.statements.*
 
 interface Visitor {
+    fun visit(s : DoWhileStatement)
     fun visit(s: AssertStatement)
     fun visit(s: TryCatchStatement)
     fun visit(s: ArrayExpression)

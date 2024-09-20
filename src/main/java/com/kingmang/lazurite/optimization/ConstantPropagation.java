@@ -5,6 +5,7 @@ import com.kingmang.lazurite.parser.ast.Node;
 import com.kingmang.lazurite.parser.ast.expressions.ValueExpression;
 import com.kingmang.lazurite.parser.ast.expressions.VariableExpression;
 import com.kingmang.lazurite.parser.ast.statements.AssertStatement;
+import com.kingmang.lazurite.parser.ast.statements.DoWhileStatement;
 import com.kingmang.lazurite.parser.ast.statements.TryCatchStatement;
 import com.kingmang.lazurite.runtime.values.LzrValue;
 import org.jetbrains.annotations.NotNull;
@@ -83,6 +84,11 @@ public class ConstantPropagation extends OptimizationVisitor<Map<String, LzrValu
 
     @Override
     public Node visit(@NotNull TryCatchStatement s, Map<String, LzrValue> stringLzrValueMap) {
+        return null;
+    }
+
+    @Override
+    public Node visit(@NotNull DoWhileStatement s, Map<String, LzrValue> stringLzrValueMap) {
         return null;
     }
 }

@@ -66,9 +66,9 @@ object Handler {
                 return
             }
             val program : Statement;
-            if(optLvl > 0) {
-                program = Optimizer.optimize(parsedProgram, optLvl, printResultOfOptimization);
-            }else
+            //if(optLvl > 0) {
+               // program = Optimizer.optimize(parsedProgram, optLvl, printResultOfOptimization);
+            //}else
                 program = parsedProgram;
 
             program.accept(FunctionAdder())

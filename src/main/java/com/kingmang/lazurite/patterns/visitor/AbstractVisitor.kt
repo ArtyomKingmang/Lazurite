@@ -21,6 +21,10 @@ abstract class AbstractVisitor : Visitor {
         s.statements.forEach { it.accept(this) }
     }
 
+    override fun visit(s : DoWhileStatement) {
+        s.condition.accept(this);
+        s.statement.accept(this);
+    }
     override fun visit(s: BreakStatement) = Unit
     override fun visit(s: AssertStatement) = Unit
     override fun visit(s: ClassDeclarationStatement) = Unit

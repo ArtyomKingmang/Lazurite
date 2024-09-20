@@ -1,0 +1,6 @@
+i = 4
+
+do {
+  print(i)
+}
+while (i != 4)

@@ -6,6 +6,7 @@ import com.kingmang.lazurite.parser.ast.expressions.ConditionalExpression;
 import com.kingmang.lazurite.parser.ast.expressions.UnaryExpression;
 import com.kingmang.lazurite.parser.ast.expressions.ValueExpression;
 import com.kingmang.lazurite.parser.ast.statements.AssertStatement;
+import com.kingmang.lazurite.parser.ast.statements.DoWhileStatement;
 import com.kingmang.lazurite.parser.ast.statements.FunctionDefineStatement;
 import com.kingmang.lazurite.parser.ast.statements.TryCatchStatement;
 import com.kingmang.lazurite.patterns.visitor.VisitorUtils;
@@ -176,6 +177,11 @@ public class ExpressionSimplification extends OptimizationVisitor<Void> implemen
 
     @Override
     public Node visit(@NotNull TryCatchStatement s, Void unused) {
+        return null;
+    }
+
+    @Override
+    public Node visit(@NotNull DoWhileStatement s, Void unused) {
         return null;
     }
 }

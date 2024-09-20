@@ -7,6 +7,7 @@ import com.github.weisj.darklaf.theme.OneDarkTheme;
 import com.github.weisj.darklaf.theme.SolarizedDarkTheme;
 import com.github.weisj.darklaf.theme.laf.IntelliJThemeDarklafLookAndFeel;
 import com.kingmang.lazurite.core.Arguments;
+import com.kingmang.lazurite.exceptions.LzrException;
 import com.kingmang.lazurite.runtime.values.LzrNumber;
 import com.kingmang.lazurite.runtime.values.LzrValue;
 import lombok.NoArgsConstructor;
@@ -52,7 +53,7 @@ public final class Components {
     }
 
     static LzrValue newFileChooser(LzrValue[] args) {
-       return new JFileChooserValue(new JFileChooser());
+        return new JFileChooserValue(new JFileChooser());
     }
 
     static LzrValue newTextField(LzrValue[] args) {

@@ -30,6 +30,7 @@ public final class LexerImplementation implements ILexer {
 
     private static final String[] keywords = {
             "assert",
+            "do",
             "enum",
             "macro",
             "try",

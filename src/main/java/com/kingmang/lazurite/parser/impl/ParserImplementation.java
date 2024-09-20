@@ -171,6 +171,9 @@ public final class ParserImplementation implements IParser, IFileInfoProvider {
         if (match(TokenType.WHILE))
             return whileStatement();
 
+        if (match(TokenType.DO))
+            return doWhileStatement();
+
         if (match(TokenType.BREAK))
             return new BreakStatement();
 
@@ -240,6 +243,13 @@ public final class ParserImplementation implements IParser, IFileInfoProvider {
             exprs.add(expression());
 
         return new FunctionalExpression(new VariableExpression(name, getFile()), exprs);
+    }
+
+    private Statement doWhileStatement() {
+        final Statement statement = statementOrBlock();
+        consume(TokenType.WHILE);
+        final Expression condition = expression();
+        return new DoWhileStatement(condition, statement);
     }
 
     private Statement throwStatement() {

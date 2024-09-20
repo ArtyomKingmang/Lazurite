@@ -150,4 +150,9 @@ public class DeadCodeElimination extends OptimizationVisitor<Map<String, Variabl
     public Node visit(@NotNull TryCatchStatement s, Map<String, VariableInfo> stringVariableInfoMap) {
         return null;
     }
+
+    @Override
+    public Node visit(@NotNull DoWhileStatement s, Map<String, VariableInfo> stringVariableInfoMap) {
+        return null;
+    }
 }

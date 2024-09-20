@@ -46,7 +46,7 @@ public class JFileChooserValue extends JComponentValue {
             String fileContent = new String(Files.readAllBytes(selectedFile.toPath()));
             return new LzrString(fileContent);
         } catch (IOException ex) {
-            throw new LzrException("IOException", "");
+            throw new LzrException("IOException", ex.getMessage());
         }
     }
 

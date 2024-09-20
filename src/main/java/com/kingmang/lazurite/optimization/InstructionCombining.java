@@ -122,4 +122,9 @@ public class InstructionCombining extends OptimizationVisitor<Void> implements O
     public Node visit(@NotNull TryCatchStatement s, Void unused) {
         return null;
     }
+
+    @Override
+    public Node visit(@NotNull DoWhileStatement s, Void unused) {
+        return null;
+    }
 }

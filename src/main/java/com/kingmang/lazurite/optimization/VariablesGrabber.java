@@ -155,4 +155,9 @@ public class VariablesGrabber extends OptimizationVisitor<Map<String, VariableIn
     public Node visit(@NotNull TryCatchStatement s, Map<String, VariableInfo> stringVariableInfoMap) {
         return null;
     }
+
+    @Override
+    public Node visit(@NotNull DoWhileStatement s, Map<String, VariableInfo> stringVariableInfoMap) {
+        return null;
+    }
 }
