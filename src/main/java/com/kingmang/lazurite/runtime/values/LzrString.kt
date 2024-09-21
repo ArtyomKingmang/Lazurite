@@ -29,6 +29,14 @@ class LzrString(private val value: String) : LzrValue {
                 args.check(0)
                 LzrNumber.fromBoolean(this.isLower())
             }
+            "repeat" -> Function { args ->
+                args.check(1)
+                val buffer = StringBuilder()
+                for(i in 1..args[0].asInt()){
+                    buffer.append(value);
+                }
+                LzrString(buffer.toString());
+            }
             "isUpper" -> Function { args ->
                 args.check(0)
                 LzrNumber.fromBoolean(this.isUpper())

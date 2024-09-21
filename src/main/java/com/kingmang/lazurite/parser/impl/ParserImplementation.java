@@ -27,6 +27,8 @@ import java.util.*;
 
 
 public final class ParserImplementation implements IParser, IFileInfoProvider {
+
+
     public Statement parse(List<Token> tokens, String file) {
         final ParserImplementation parser = new ParserImplementation(tokens, file);
         final Statement program = parser.parse();
