@@ -218,6 +218,20 @@ public class Standard {
         }
     }
 
+    public static final class repeat implements Function{
+
+        @NotNull
+        @Override
+        public LzrValue execute(@NotNull LzrValue... args) {
+            Arguments.check(2, args.length);
+            final LzrValue container = args[0];
+            final Function consumer = ValueUtils.consumeFunction(args[1], 1);
+            for(int i = 0; i < container.asInt(); i++){
+                consumer.execute(LzrNumber.of(i));
+            }
+            return LzrNumber.ZERO;
+        }
+    }
 
     public static final class foreach implements Function {
 

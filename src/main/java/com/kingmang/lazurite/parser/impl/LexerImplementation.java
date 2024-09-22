@@ -547,6 +547,7 @@ public final class LexerImplementation implements ILexer {
     private static void standard() {
         Variables.define("null", LzrNull.INSTANCE);
 
+
         Keyword.put("getAttr", args -> {
             Arguments.check(2, args.length);
             if (args[0].type() == Types.CLASS) {
@@ -565,7 +566,7 @@ public final class LexerImplementation implements ILexer {
            }
            return LzrNull.INSTANCE;
         });
-
+        Keyword.put("repeat", new Standard.repeat());
         Keyword.put("sortBy", new Standard.sortBy());
         Keyword.put("charAt", new Standard.charAt());
         Keyword.put("equals", new Standard.equal());
