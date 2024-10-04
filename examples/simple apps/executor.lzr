@@ -1,0 +1,18 @@
+using "lzr.lang.reflection"
+
+Lexer = JClass("com.kingmang.lazurite.parser.impl.LexerImplementation")
+Parser = JClass("com.kingmang.lazurite.parser.impl.ParserImplementation")
+
+while(true){
+
+    print("\n>>>")
+    input = readln("")
+
+    tokens = Lexer.tokenize(input)
+    println("result: ")
+
+    parser = new Parser(tokens, null)
+    statement = parser.parse()
+    statement.execute()
+
+}

@@ -12,6 +12,7 @@ object Variables {
     @Volatile
     private var scope = createRootScope()
 
+    @JvmStatic
     fun variables(): Map<String, LzrValue> {
         return scope.data
     }

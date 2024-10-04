@@ -7,7 +7,11 @@ import com.kingmang.lazurite.runtime.Variables.define
 import com.kingmang.lazurite.runtime.values.LzrMap
 import com.kingmang.lazurite.runtime.values.LzrString
 
-data class TryCatchStatement(val tryStatement: Statement, val catchStatement: Statement) : Statement {
+data class TryCatchStatement(
+    val tryStatement: Statement,
+    val catchStatement: Statement
+) : Statement {
+
     override fun execute() {
         try {
             this.tryStatement.execute()
