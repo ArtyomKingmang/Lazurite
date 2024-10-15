@@ -112,7 +112,7 @@ print(stack.pop())
 - Если вам нужна помощь, обратитесь к [Руководству по стилю Google Java](https://google.github.io/styleguide/javaguide.html).
 
 ## Лицензия
-Lazurite распространяется на условиях [MIT License 2.0](https://github.com/ArtyomKingmang/Lazurite/wiki)
+Lazurite распространяется на условиях [MIT License 2.0](https://github.com/ArtyomKingmang/Lazurite/blob/main/LICENSE)
 
 Узнайте больше об этом!
 

@@ -81,7 +81,7 @@ We will review and help with all reasonable pull requests as long as the guideli
 
 
 ## License
-Lazurite is released under [MIT License 2.0](https://github.com/ArtyomKingmang/Lazurite/wiki)
+Lazurite is released under [MIT License 2.0](https://github.com/ArtyomKingmang/Lazurite/blob/main/LICENSE)
 
 See more about it!
 
