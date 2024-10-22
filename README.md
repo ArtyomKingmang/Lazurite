@@ -86,3 +86,7 @@ Lazurite is released under [MIT License 2.0](https://github.com/ArtyomKingmang/L
 See more about it!
 
 
+## TODO
+>rewrite compiler
+>add strong typing
+>add anotations
