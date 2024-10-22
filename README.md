@@ -88,5 +88,7 @@ See more about it!
 
 ## TODO
 >rewrite compiler
+
 >add strong typing
+
 >add anotations
