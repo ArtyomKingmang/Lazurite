@@ -4,6 +4,9 @@
   <img src="icon.png" width="300">
 </div>
 
+> [!WARNING]
+> The project is not dead, but is rarely updated
+
 ## More About Language
 >To work you need to install JDK 17+
 
