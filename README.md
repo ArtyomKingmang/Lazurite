@@ -29,16 +29,20 @@ func hel(arg) {
 async.supply(hel("Hello"))
 ```
 
-thread example:
+pattern matching example:
 ```cpp
-using "lzr.utils.thread"
+func test(x) = match(x) {
+    case a: "case a: " + a
+    case b: "case b: " + b
+    case c: "case c: " + c
+}
 
-func th(arg) {
-   println("My ${arg} thread")
-}
-for(i = 0, i < 10, i++) {
-    std.thread(::th, i)
-}
+a = 10
+b = 20
+
+println test(15)  // case c: 15
+println test(20)  // case b: 20
+println test("test")  // case c: test
 ```
 
 stream api example:
