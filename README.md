@@ -66,11 +66,6 @@ func changeNums(container) {
 println(resultArray)
 
 ```
-# Repositories
-
-[Language (compiler, interpreter, api)](https://github.com/ArtyomKingmang/Lazurite)
-
-[Compiler](https://github.com/Domaman202/Project-PLS)
 
 ## Download
 Download jar and exe files of the language interpreter can be downloaded in the [Releases](https://github.com/ArtyomKingmang/Lazurite/releases) tab.
