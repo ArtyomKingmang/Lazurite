@@ -1,34 +1,402 @@
-package com.kingmang.lazurite.parser.impl;
+package com.kingmang.lazurite.parser.impl
 
-import com.kingmang.lazurite.core.Arguments;
-import com.kingmang.lazurite.core.Types;
-import com.kingmang.lazurite.exceptions.LzrException;
-import com.kingmang.lazurite.libraries.Keyword;
-import com.kingmang.lazurite.parser.ILexer;
-import com.kingmang.lazurite.parser.tokens.Token;
-import com.kingmang.lazurite.parser.tokens.TokenType;
-import com.kingmang.lazurite.parser.standard.Standard;
-import com.kingmang.lazurite.runtime.ClassInstanceValue;
-import com.kingmang.lazurite.runtime.Variables;
-import com.kingmang.lazurite.runtime.values.*;
-import org.jetbrains.annotations.NotNull;
+import com.kingmang.lazurite.core.Arguments.check
+import com.kingmang.lazurite.core.Function
+import com.kingmang.lazurite.core.Types
+import com.kingmang.lazurite.core.Types.typeToString
+import com.kingmang.lazurite.core.throwTypeCastException
+import com.kingmang.lazurite.exceptions.LzrException
+import com.kingmang.lazurite.libraries.Keyword
+import com.kingmang.lazurite.parser.ILexer
+import com.kingmang.lazurite.parser.standard.Standard
+import com.kingmang.lazurite.parser.standard.Standard.*
+import com.kingmang.lazurite.parser.tokens.Token
+import com.kingmang.lazurite.parser.tokens.TokenType
+import com.kingmang.lazurite.runtime.ClassInstanceValue
+import com.kingmang.lazurite.runtime.Variables.define
+import com.kingmang.lazurite.runtime.values.*
+import com.kingmang.lazurite.runtime.values.LzrNumber.Companion.fromBoolean
+import com.kingmang.lazurite.runtime.values.LzrNumber.Companion.of
+import java.util.regex.Pattern
 
-import java.util.*;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+class LexerImplementation(private val input: String) : ILexer {
+    private val length = input.length
+    private val tokens: MutableList<Token> = ArrayList()
+    private val buffer = StringBuilder()
 
-import static com.kingmang.lazurite.core.TypesCastExtKt.throwTypeCastException;
+    private var pos = 0
+    private var row: Int
+    private var col = 1
 
-public final class LexerImplementation implements ILexer {
+    override fun tokenize(): List<Token> {
+        while (pos < length) {
+            val current = peek(0)
+            if (Character.isDigit(current)) tokenizeNumber()
+            else if (isLZRIdentifier(current)) tokenizeWord()
+            else if (current == '`') tokenizeExtendedWord()
+            else if (current == '"') tokenizeText()
+            else if (current == '#') {
+                next()
+                tokenizeHexNumber()
+            } else if (OPERATOR_CHARS.indexOf(current) != -1) {
+                tokenizeOperator()
+            } else {
+                // whitespaces
+                next()
+            }
+        }
+        return tokens
+    }
 
-    private static final String OPERATOR_CHARS = "+-*/%()[]{}=<>!&|.,^~?:";
-    private static final Map<String, TokenType> OPERATORS;
-    private static final Map<String, TokenType> KEYWORDS = new HashMap<>();
-    private static final TokenType[] tokenTypes = TokenType.values();
+    private fun tokenizeNumber() {
+        clearBuffer()
+        var current = peek(0)
+        if (current == '0' && (peek(1) == 'x' || (peek(1) == 'X'))) {
+            next()
+            next()
+            tokenizeHexNumber()
+            return
+        }
+        while (true) {
+            if (current == '_') {
+                current = next()
+                continue
+            }
+            if (current == '.') {
+                if (buffer.indexOf(".") != -1) throw error("Invalid float number")
+            } else if (!Character.isDigit(current)) {
+                break
+            }
+            buffer.append(current)
+            current = next()
+        }
+        if (current == 'f') {
+            next()
+            addToken(TokenType.FLOAT_NUM, buffer.toString())
+        } else if (current == 'b') {
+            next()
+            addToken(TokenType.BYTE_NUM, buffer.toString())
+        } else if (current == 'l') {
+            next()
+            addToken(TokenType.LONG_NUM, buffer.toString())
+        } else if (current == 'i') {
+            next()
+            addToken(TokenType.INT_NUM, buffer.toString())
+        } else if (current == 'd') {
+            next()
+            addToken(TokenType.DOUBLE_NUM, buffer.toString())
+        } else if (current == 's') {
+            next()
+            addToken(TokenType.SHORT_NUM, buffer.toString())
+        } else addToken(TokenType.NUMBER, buffer.toString())
+    }
 
-    private static final Pattern STR_TEMPLATE_STANDART_PATTERN = Pattern.compile("(?<!\\\\)\\$\\{.*?}|\\$(?!\\{.*?})[a-zA-Z]+");
+    private fun tokenizeHexNumber() {
+        clearBuffer()
 
-    private static final String[] keywords = {
+        var current = peek(0)
+        while (isHexNumber(current) || (current == '_')) {
+            if (current != '_') buffer.append(current)
+
+            current = next()
+        }
+
+        if (buffer.length > 0) addToken(TokenType.HEX_NUMBER, buffer.toString())
+    }
+
+    private fun tokenizeOperator() {
+        var current = peek(0)
+
+        if (current == '/') {
+            if (peek(1) == '/') {
+                next()
+                next()
+                tokenizeComment()
+                return
+            } else if (peek(1) == '*') {
+                next()
+                next()
+                tokenizeMultilineComment()
+                return
+            }
+        }
+
+        clearBuffer()
+        while (true) {
+            val text = buffer.toString()
+            if (!text.isEmpty() && !OPERATORS!!.containsKey(text + current)) {
+                addToken(OPERATORS!![text]!!)
+                return
+            }
+            buffer.append(current)
+            current = next()
+        }
+    }
+
+    private fun tokenizeWord() {
+        clearBuffer()
+        buffer.append(peek(0))
+        var current = next()
+
+        while (isLZRIdentifierPart(current)) {
+            buffer.append(current)
+            current = next()
+        }
+
+        val word = buffer.toString()
+
+        if (KEYWORDS.containsKey(word)) addToken(KEYWORDS[word]!!)
+        else addToken(TokenType.WORD, word)
+    }
+
+    private fun tokenizeExtendedWord() {
+        next() // skip `
+        clearBuffer()
+
+        var current = peek(0)
+        while (current != '`') {
+            if (current == '\u0000') throw error("Reached end of file while parsing extended word.")
+            if (current == '\n' || current == '\r') throw error("Reached end of line while parsing extended word.")
+            buffer.append(current)
+            current = next()
+        }
+
+        next() // skip closing `
+        addToken(TokenType.WORD, buffer.toString())
+    }
+
+    private fun tokenizeText() {
+        next() // skip "
+        clearBuffer()
+        var current = peek(0)
+
+        while (true) {
+            if (current == '\\') {
+                current = next()
+                when (current) {
+                    '"' -> {
+                        current = next()
+                        buffer.append('"')
+                        continue
+                    }
+
+                    '0' -> {
+                        current = next()
+                        buffer.append('\u0000')
+                        continue
+                    }
+
+                    'b' -> {
+                        current = next()
+                        buffer.append('\b')
+                        continue
+                    }
+
+                    'f' -> {
+                        current = next()
+                        buffer.append('\u000c')
+                        continue
+                    }
+
+                    'n' -> {
+                        current = next()
+                        buffer.append('\n')
+                        continue
+                    }
+
+                    'r' -> {
+                        current = next()
+                        buffer.append('\r')
+                        continue
+                    }
+
+                    't' -> {
+                        current = next()
+                        buffer.append('\t')
+                        continue
+                    }
+
+                    'u' -> {
+                        val rollbackPosition = pos
+                        while (current == 'u') current = next()
+                        var escapedValue = 0
+                        var i = 12
+                        while (i >= 0 && escapedValue != -1) {
+                            escapedValue = if (isHexNumber(current)) {
+                                escapedValue or (current.digitToIntOrNull(16) ?: -1 shl i)
+                            } else {
+                                -1
+                            }
+                            current = next()
+                            i -= 4
+                        }
+                        if (escapedValue >= 0) {
+                            buffer.append(escapedValue.toChar())
+                        } else {
+                            // rollback
+                            buffer.append("\\u")
+                            pos = rollbackPosition
+                        }
+                        continue
+                    }
+                }
+                buffer.append('\\')
+                continue
+            }
+            if (current == '"') break
+            if (current == '\u0000') throw error("Reached end of file while parsing text string.")
+            buffer.append(current)
+            current = next()
+        }
+
+        next() // skip closing "
+        processStringTemplate(buffer.toString())
+    }
+
+    /**
+     * Обрабатывает входную строку и проводит над ней полонизацию, добавляя необходимые токены.
+     *
+     *
+     * Данный метод принимает строку, содержащую текст и шаблоны, обозначенные символом
+     * '$'. Он разделяет строку на части, сохраняя текст и заменяя шаблоны на
+     * соответствующие переменные, формируя результат в виде конкатенации строк.
+     *
+     *
+     * Например, для входной строки "a b c $d" метод вернет "a b c " + d.
+     * <pre>`String input = "a b c $d";
+     * processStringTemplate(input);
+     * // Результат (в токенах): [TEXT a b c , PLUS, WORD d]
+    `</pre> *
+     *
+     * @param in входная строка, содержащая текст и шаблоны для замены
+     */
+    private fun processStringTemplate(`in`: String) {
+        if (`in`.isEmpty()) {
+            addToken(TokenType.TEXT, `in`)
+            return
+        }
+
+        val matcher = STR_TEMPLATE_STANDART_PATTERN.matcher(`in`)
+        var codeInStringFlag = false
+        var lastEndIndex = 0
+        var matcherCount = 0
+
+        while (matcher.find()) {
+            val start = matcher.start()
+            val end = matcher.end()
+
+            val text = `in`.substring(lastEndIndex, start)
+            val word: String
+
+            if (`in`[start + 1] == '{') {
+                // Шаблон вида ${...}
+                word = `in`.substring(start + 2, end - 1)
+                codeInStringFlag = true
+            } else {
+                // Шаблон вида $...
+                word = `in`.substring(start + 1, end)
+            }
+
+            if (matcherCount > 0) {
+                addToken(TokenType.PLUS)
+            }
+
+            if (!text.isEmpty()) {
+                addToken(TokenType.TEXT, text)
+                addToken(TokenType.PLUS)
+            }
+
+            addToken(TokenType.WORD, "str")
+            addToken(TokenType.LPAREN)
+            if (!codeInStringFlag) addToken(TokenType.WORD, word)
+            else {
+                val tokens = tokenize(word)
+                this.tokens.addAll(tokens)
+            }
+            addToken(TokenType.RPAREN)
+
+            lastEndIndex = end
+            matcherCount++
+        }
+
+        if (matcherCount == 0) addToken(TokenType.TEXT, `in`)
+        else if (lastEndIndex < `in`.length) {
+            if (matcherCount > 0) addToken(TokenType.PLUS)
+
+            val remainingText = `in`.substring(lastEndIndex)
+            addToken(TokenType.TEXT, remainingText)
+        }
+    }
+
+
+    private fun tokenizeComment() {
+        var current = peek(0)
+
+        while ("\r\n\u0000".indexOf(current) == -1) current = next()
+    }
+
+    private fun tokenizeMultilineComment() {
+        var current = peek(0)
+
+        while (current != '*' || peek(1) != '/') {
+            if (current == '\u0000') throw error("Reached end of file while parsing multiline comment")
+            current = next()
+        }
+
+        next() // *
+        next() // /
+    }
+
+    private fun isLZRIdentifierPart(current: Char): Boolean {
+        return (Character.isLetterOrDigit(current) || (current == '_') || (current == '$'))
+    }
+
+    private fun isLZRIdentifier(current: Char): Boolean {
+        return (Character.isLetter(current) || (current == '_') || (current == '$'))
+    }
+
+    private fun clearBuffer() {
+        buffer.setLength(0)
+    }
+
+    private fun next(): Char {
+        pos++
+        val result = peek(0)
+        if (result == '\n') {
+            row++
+            col = 1
+        } else col++
+        return result
+    }
+
+    private fun peek(relativePosition: Int): Char {
+        val position = pos + relativePosition
+        if (position >= length) return '\u0000'
+        return input[position]
+    }
+
+    private fun addToken(type: TokenType, text: String = "") {
+        tokens.add(Token(type, text, row, col))
+    }
+
+    private fun error(text: String): LzrException {
+        return LzrException("Lexer exception", text)
+    }
+
+    init {
+        row = col
+    }
+
+    companion object {
+        private const val OPERATOR_CHARS = "+-*/%()[]{}=<>!&|.,^~?:"
+        private var OPERATORS: MutableMap<String, TokenType>? = null
+        private val KEYWORDS: MutableMap<String, TokenType> = HashMap()
+        private val tokenTypes = TokenType.entries.toTypedArray()
+
+        private val STR_TEMPLATE_STANDART_PATTERN: Pattern =
+            Pattern.compile("(?<!\\\\)\\$\\{.*?}|\\$(?!\\{.*?})[a-zA-Z]+")
+
+        private val keywords = arrayOf(
             "assert",
             "do",
             "enum",
@@ -51,606 +419,265 @@ public final class LexerImplementation implements ILexer {
             "case",
             "class",
             "new"
-    };
+        )
 
-    private final String input;
-    private final int length;
-    private final List<Token> tokens;
-    private final StringBuilder buffer;
-
-    private int pos;
-    private int row, col;
-
-    public static List<Token> tokenize(String input) {
-        return new LexerImplementation(input).tokenize();
-    }
-
-    public static Set<String> getKeywords() {
-        return KEYWORDS.keySet();
-    }
-
-    public LexerImplementation(String input) {
-        this.input = input;
-        length = input.length();
-
-        tokens = new ArrayList<>();
-        buffer = new StringBuilder();
-        row = col = 1;
-    }
-
-    @NotNull
-    public List<Token> tokenize() {
-        while (pos < length) {
-            final char current = peek(0);
-            if (Character.isDigit(current)) tokenizeNumber();
-            else if (isLZRIdentifier(current)) tokenizeWord();
-            else if (current == '`') tokenizeExtendedWord();
-            else if (current == '"') tokenizeText();
-            else if (current == '#') {
-                next();
-                tokenizeHexNumber();
-            }
-            else if (OPERATOR_CHARS.indexOf(current) != -1) {
-                tokenizeOperator();
-            } else {
-                // whitespaces
-                next();
-            }
-        }
-        return tokens;
-    }
-
-    private void tokenizeNumber() {
-        clearBuffer();
-        char current = peek(0);
-        if (current == '0' && (peek(1) == 'x' || (peek(1) == 'X'))) {
-            next();
-            next();
-            tokenizeHexNumber();
-            return;
-        }
-        while (true) {
-            if (current == '_') {
-                current = next();
-                continue;
-            }
-            if (current == '.') {
-                if (buffer.indexOf(".") != -1) throw error("Invalid float number");
-            } else if (!Character.isDigit(current)) {
-                break;
-            }
-            buffer.append(current);
-            current = next();
-
-        }
-        if (current == 'f') {
-            next();
-            addToken(TokenType.FLOAT_NUM, buffer.toString());
-        } else if (current == 'b') {
-            next();
-            addToken(TokenType.BYTE_NUM, buffer.toString());
-        } else if (current == 'l') {
-            next();
-            addToken(TokenType.LONG_NUM, buffer.toString());
-        } else if (current == 'i') {
-            next();
-            addToken(TokenType.INT_NUM, buffer.toString());
-        } else if (current == 'd') {
-            next();
-            addToken(TokenType.DOUBLE_NUM, buffer.toString());
-        } else if (current == 's') {
-            next();
-            addToken(TokenType.SHORT_NUM, buffer.toString());
-        } else
-            addToken(TokenType.NUMBER, buffer.toString());
-    }
-    private void tokenizeHexNumber() {
-        clearBuffer();
-
-        char current = peek(0);
-        while (isHexNumber(current) || (current == '_')) {
-            if (current != '_')
-                buffer.append(current);
-
-            current = next();
+        fun tokenize(input: String): List<Token> {
+            return LexerImplementation(input).tokenize()
         }
 
-        if (buffer.length() > 0)
-            addToken(TokenType.HEX_NUMBER, buffer.toString());
-    }
-
-    private static boolean isHexNumber(char current) {
-        return ('0' <= current && current <= '9')
-                || ('a' <= current && current <= 'f')
-                || ('A' <= current && current <= 'F');
-    }
-
-    private void tokenizeOperator() {
-        char current = peek(0);
-
-        if (current == '/') {
-            if (peek(1) == '/') {
-                next();
-                next();
-                tokenizeComment();
-                return;
-            } else if (peek(1) == '*') {
-                next();
-                next();
-                tokenizeMultilineComment();
-                return;
-            }
+        fun getKeywords(): Set<String> {
+            return KEYWORDS.keys
         }
 
-        clearBuffer();
-        while (true) {
-            final String text = buffer.toString();
-            if (!text.isEmpty() && !OPERATORS.containsKey(text + current)) {
-                addToken(OPERATORS.get(text));
-                return;
-            }
-            buffer.append(current);
-            current = next();
-        }
-    }
-
-    private void tokenizeWord() {
-        clearBuffer();
-        buffer.append(peek(0));
-        char current = next();
-
-        while (isLZRIdentifierPart(current)) {
-            buffer.append(current);
-            current = next();
+        private fun isHexNumber(current: Char): Boolean {
+            return ('0' <= current && current <= '9')
+                    || ('a' <= current && current <= 'f')
+                    || ('A' <= current && current <= 'F')
         }
 
-        final String word = buffer.toString();
-
-        if (KEYWORDS.containsKey(word))
-            addToken(KEYWORDS.get(word));
-        else
-            addToken(TokenType.WORD, word);
-
-    }
-
-    private void tokenizeExtendedWord() {
-        next();// skip `
-        clearBuffer();
-
-        char current = peek(0);
-        while (current != '`') {
-            if (current == '\0') throw error("Reached end of file while parsing extended word.");
-            if (current == '\n' || current == '\r') throw error("Reached end of line while parsing extended word.");
-            buffer.append(current);
-            current = next();
-        }
-
-        next(); // skip closing `
-        addToken(TokenType.WORD, buffer.toString());
-    }
-
-    private void tokenizeText() {
-        next();// skip "
-        clearBuffer();
-        char current = peek(0);
-
-        while (true) {
-            if (current == '\\') {
-                current = next();
-                switch (current) {
-                    case '"': current = next(); buffer.append('"'); continue;
-                    case '0': current = next(); buffer.append('\0'); continue;
-                    case 'b': current = next(); buffer.append('\b'); continue;
-                    case 'f': current = next(); buffer.append('\f'); continue;
-                    case 'n': current = next(); buffer.append('\n'); continue;
-                    case 'r': current = next(); buffer.append('\r'); continue;
-                    case 't': current = next(); buffer.append('\t'); continue;
-                    case 'u':
-                        int rollbackPosition = pos;
-                        while (current == 'u') current = next();
-                        int escapedValue = 0;
-                        for (int i = 12; i >= 0 && escapedValue != -1; i -= 4) {
-                            if (isHexNumber(current)) {
-                                escapedValue |= (Character.digit(current, 16) << i);
-                            } else {
-                                escapedValue = -1;
-                            }
-                            current = next();
-                        }
-                        if (escapedValue >= 0) {
-                            buffer.append((char) escapedValue);
-                        } else {
-                            // rollback
-                            buffer.append("\\u");
-                            pos = rollbackPosition;
-                        }
-                        continue;
+        //adding keywords from the keywords array to map KEYWORDS
+        init {
+            for (i in keywords.indices) {
+                if (i < tokenTypes.size) {
+                    KEYWORDS[keywords[i]] =
+                        tokenTypes[i]
+                } else {
+                    System.err.print("Not enough token types for all tokens")
+                    break
                 }
-                buffer.append('\\');
-                continue;
             }
-            if (current == '"') break;
-            if (current == '\0') throw error("Reached end of file while parsing text string.");
-            buffer.append(current);
-            current = next();
+
+            types()
+            convertTypes()
+            standard()
         }
 
-        next(); // skip closing "
-        processStringTemplate(buffer.toString());
-    }
-
-    /**
-     * Обрабатывает входную строку и проводит над ней полонизацию, добавляя необходимые токены.
-     *
-     * <p>Данный метод принимает строку, содержащую текст и шаблоны, обозначенные символом
-     * '$'. Он разделяет строку на части, сохраняя текст и заменяя шаблоны на
-     * соответствующие переменные, формируя результат в виде конкатенации строк.</p>
-     *
-     * <p>Например, для входной строки "a b c $d" метод вернет "a b c " + d.</p>
-     * <pre>{@code
-     * String input = "a b c $d";
-     * processStringTemplate(input);
-     * // Результат (в токенах): [TEXT a b c , PLUS, WORD d]
-     * }</pre>
-     *
-     * @param in входная строка, содержащая текст и шаблоны для замены
-     */
-    private void processStringTemplate(@NotNull String in) {
-        if (in.isEmpty()) {
-            addToken(TokenType.TEXT, in);
-            return;
+        fun types() {
+            val type = LzrMap(6)
+            type["object"] = of(Types.OBJECT)
+            type["number"] = of(Types.NUMBER)
+            type["string"] = of(Types.STRING)
+            type["array"] = of(Types.ARRAY)
+            type["map"] = of(Types.MAP)
+            type["function"] = of(Types.FUNCTION)
+            define("type", type)
+            Keyword.put(
+                "typeof",
+                Function { args: Array<out LzrValue> -> of(args[0].type()) })
         }
 
-        Matcher matcher = STR_TEMPLATE_STANDART_PATTERN.matcher(in);
-        boolean codeInStringFlag = false;
-        int lastEndIndex = 0;
-        int matcherCount = 0;
+        fun convertTypes() {
+            Keyword.put("str", Function { args: Array<out LzrValue> ->
+                check(1, args.size)
+                LzrString(args[0].asString())
+            })
+            Keyword.put("char", Function { args: Array<out LzrValue> ->
+                check(1, args.size)
+                if (args[0].type() == Types.CLASS) {
+                    val classInstance = args[0] as ClassInstanceValue
+                    return@Function classInstance.callMethod("__char__")
+                }
+                LzrString(args[0].asInt().toChar().toString())
+            })
 
-        while (matcher.find()) {
-            int start = matcher.start();
-            int end = matcher.end();
+            Keyword.put("num", Function { args: Array<out LzrValue> ->
+                check(1, args.size)
+                of(args[0].asNumber())
+            })
+            Keyword.put("byte", Function { args: Array<out LzrValue> ->
+                check(1, args.size)
+                if (args[0].type() == Types.CLASS) {
+                    val classInstance = args[0] as ClassInstanceValue
+                    return@Function classInstance.callMethod("__byte__")
+                } else {
+                    return@Function of(args[0].asInt().toByte().toInt())
+                }
+            })
+            Keyword.put("short", Function { args: Array<out LzrValue> ->
+                check(1, args.size)
+                if (args[0].type() == Types.CLASS) {
+                    val classInstance = args[0] as ClassInstanceValue
+                    return@Function classInstance.callMethod("__short__")
+                } else {
+                    return@Function of(args[0].asInt().toShort().toInt())
+                }
+            })
+            Keyword.put("int", Function { args: Array<out LzrValue> ->
+                check(1, args.size)
+                of(args[0].asInt())
+            })
+            Keyword.put("long", Function { args: Array<out LzrValue> ->
+                check(1, args.size)
+                if (args[0].type() == Types.CLASS) {
+                    val classInstance = args[0] as ClassInstanceValue
+                    return@Function classInstance.callMethod("__long__")
+                } else {
+                    return@Function of(args[0].asNumber().toLong())
+                }
+            })
+            Keyword.put("float", Function { args: Array<out LzrValue> ->
+                check(1, args.size)
+                if (args[0].type() == Types.CLASS) {
+                    val classInstance = args[0] as ClassInstanceValue
+                    return@Function classInstance.callMethod("__float__")
+                } else {
+                    return@Function of(args[0].asNumber().toFloat())
+                }
+            })
+            Keyword.put("double", Function { args: Array<out LzrValue> ->
+                check(1, args.size)
+                if (args[0].type() == Types.CLASS) {
+                    val classInstance = args[0] as ClassInstanceValue
+                    return@Function classInstance.callMethod("__double__")
+                } else {
+                    return@Function of(args[0].asNumber())
+                }
+            })
 
-            String text = in.substring(lastEndIndex, start);
-            String word;
+            Keyword.put("bool", Function { args: Array<out LzrValue> ->
+                check(1, args.size)
+                when (args[0].type()) {
+                    Types.NUMBER -> return@Function fromBoolean(
+                        (args[0] as LzrNumber).asBoolean()
+                    )
 
-            if (in.charAt(start + 1) == '{') {
-                // Шаблон вида ${...}
-                word = in.substring(start + 2, end - 1);
-                codeInStringFlag = true;
-            } else {
-                // Шаблон вида $...
-                word = in.substring(start + 1, end);
-            }
+                    Types.STRING -> return@Function fromBoolean(
+                        !(args[0] as LzrString).isEmpty()
+                    )
 
-            if (matcherCount > 0) {
-                addToken(TokenType.PLUS);
-            }
+                    Types.ARRAY -> return@Function fromBoolean(
+                        !(args[0] as LzrArray).isEmpty()
+                    )
 
-            if (!text.isEmpty()) {
-                addToken(TokenType.TEXT, text);
-                addToken(TokenType.PLUS);
-            }
+                    Types.MAP -> return@Function fromBoolean(
+                        !(args[0] as LzrMap).isEmpty()
+                    )
 
-            addToken(TokenType.WORD, "str");
-            addToken(TokenType.LPAREN);
-            if (!codeInStringFlag)
-                addToken(TokenType.WORD, word);
-            else {
-                List<Token> tokens = LexerImplementation.tokenize(word);
-                this.tokens.addAll(tokens);
-            }
-            addToken(TokenType.RPAREN);
-
-            lastEndIndex = end;
-            matcherCount++;
+                    Types.FUNCTION -> return@Function LzrNumber.ONE // true
+                    Types.CLASS -> return@Function (args[0] as ClassInstanceValue).callMethod("__bool__")
+                    else -> {
+                        throwTypeCastException(args[0].asString(), "bool")
+                        return@Function LzrNull
+                    }
+                }
+            })
         }
 
-        if (matcherCount == 0)
-            addToken(TokenType.TEXT, in);
-
-        else if (lastEndIndex < in.length()) {
-            if (matcherCount > 0)
-                addToken(TokenType.PLUS);
-
-            String remainingText = in.substring(lastEndIndex);
-            addToken(TokenType.TEXT, remainingText);
-        }
-    }
+        private fun standard() {
+            define("null", LzrNull)
 
 
-    private void tokenizeComment() {
-        char current = peek(0);
-
-        while ("\r\n\0".indexOf(current) == -1)
-            current = next();
-    }
-
-    private void tokenizeMultilineComment() {
-        char current = peek(0);
-
-        while (current != '*' || peek(1) != '/') {
-            if (current == '\0') throw error("Reached end of file while parsing multiline comment");
-            current = next();
-        }
-
-        next(); // *
-        next(); // /
-    }
-
-    private boolean isLZRIdentifierPart(char current) {
-        return (Character.isLetterOrDigit(current) || (current == '_') || (current == '$'));
-    }
-
-    private boolean isLZRIdentifier(char current) {
-        return (Character.isLetter(current) || (current == '_') || (current == '$'));
-    }
-
-    private void clearBuffer() {
-        buffer.setLength(0);
-    }
-
-    private char next() {
-        pos++;
-        final char result = peek(0);
-        if (result == '\n') {
-            row++;
-            col = 1;
-        } else col++;
-        return result;
-    }
-
-    private char peek(int relativePosition) {
-        final int position = pos + relativePosition;
-        if (position >= length) return '\0';
-        return input.charAt(position);
-    }
-
-    private void addToken(TokenType type) {
-        addToken(type, "");
-    }
-
-    private void addToken(TokenType type, String text) {
-        tokens.add(new Token(type, text, row, col));
-    }
-
-    private LzrException error(String text) {
-        return new LzrException("Lexer exception", text);
-    }
-
-    //adding keywords from the keywords array to map KEYWORDS
-    static {
-        for (int i = 0; i < keywords.length; i++) {
-            if (i < tokenTypes.length) {
-                KEYWORDS.put(keywords[i], tokenTypes[i]);
-            } else {
-                System.err.print("Not enough token types for all tokens");
-                break;
-            }
+            Keyword.put("getAttr", Function { args: Array<out LzrValue> ->
+                check(2, args.size)
+                if (args[0].type() == Types.CLASS) {
+                    return@Function (args[0] as ClassInstanceValue).baseGet(args[1])
+                } else {
+                    throw LzrException(
+                        "TypeException", "The getAttr function expected a class, but got " + typeToString(
+                            args[0].type()
+                        )
+                    )
+                }
+            })
+            Keyword.put("setAttr", Function { args: Array<out LzrValue> ->
+                check(3, args.size)
+                if (args[0].type() == Types.CLASS) {
+                    (args[0] as ClassInstanceValue).baseSet(args[1], args[2])
+                } else {
+                    throw LzrException(
+                        "TypeException", "The setAttr function expected a class, but got " + typeToString(
+                            args[0].type()
+                        )
+                    )
+                }
+                LzrNull
+            })
+            Keyword.put("repeat", repeat())
+            Keyword.put("sortBy", sortBy())
+            Keyword.put("charAt", charAt())
+            Keyword.put("equals", equal())
+            Keyword.put("combine", combine())
+            Keyword.put("reduce", reduce())
+            Keyword.put("map", map())
+            Keyword.put("Array", Standard.Array())
+            Keyword.put("echo", echo())
+            Keyword.put("readln", input())
+            Keyword.put("length", length())
+            Keyword.put("getBytes", Function { args: Array<out LzrValue> -> Standard.string.getBytes(args) })
+            Keyword.put("sprintf", sprintf())
+            Keyword.put("range", range())
+            Keyword.put("substring", substr())
+            Keyword.put("foreach", foreach())
+            Keyword.put("split", split())
+            Keyword.put("filter", filter(false))
         }
 
-        types();
-        convertTypes();
-        standard();
+        init {
+            OPERATORS = HashMap()
 
-    }
+            (OPERATORS as HashMap<String, TokenType>)["+"] = TokenType.PLUS
+            (OPERATORS as HashMap<String, TokenType>)["-"] = TokenType.MINUS
+            (OPERATORS as HashMap<String, TokenType>)["*"] = TokenType.STAR
+            (OPERATORS as HashMap<String, TokenType>)["/"] = TokenType.SLASH
+            (OPERATORS as HashMap<String, TokenType>)["%"] = TokenType.PERCENT
+            (OPERATORS as HashMap<String, TokenType>)["("] = TokenType.LPAREN
+            (OPERATORS as HashMap<String, TokenType>)[")"] = TokenType.RPAREN
+            (OPERATORS as HashMap<String, TokenType>)["["] = TokenType.LBRACKET
+            (OPERATORS as HashMap<String, TokenType>)["]"] = TokenType.RBRACKET
+            (OPERATORS as HashMap<String, TokenType>)["{"] = TokenType.LBRACE
+            (OPERATORS as HashMap<String, TokenType>)["}"] = TokenType.RBRACE
+            (OPERATORS as HashMap<String, TokenType>)["="] = TokenType.EQ
+            (OPERATORS as HashMap<String, TokenType>)["<"] = TokenType.LT
+            (OPERATORS as HashMap<String, TokenType>)[">"] = TokenType.GT
+            (OPERATORS as HashMap<String, TokenType>)["."] = TokenType.DOT
+            (OPERATORS as HashMap<String, TokenType>)[","] = TokenType.COMMA
+            (OPERATORS as HashMap<String, TokenType>)["^"] = TokenType.CARET
+            (OPERATORS as HashMap<String, TokenType>)["~"] = TokenType.TILDE
+            (OPERATORS as HashMap<String, TokenType>)["?"] = TokenType.QUESTION
+            (OPERATORS as HashMap<String, TokenType>)[":"] = TokenType.COLON
 
-    public static void types() {
-        LzrMap type = new LzrMap(6);
-        type.set("object", LzrNumber.of(Types.OBJECT));
-        type.set("number", LzrNumber.of(Types.NUMBER));
-        type.set("string", LzrNumber.of(Types.STRING));
-        type.set("array", LzrNumber.of(Types.ARRAY));
-        type.set("map", LzrNumber.of(Types.MAP));
-        type.set("function", LzrNumber.of(Types.FUNCTION));
-        Variables.define("type", type);
-        Keyword.put("typeof", args -> LzrNumber.of(args[0].type()));
-    }
+            (OPERATORS as HashMap<String, TokenType>)["!"] = TokenType.EXCL
+            (OPERATORS as HashMap<String, TokenType>)["&"] = TokenType.AMP
+            (OPERATORS as HashMap<String, TokenType>)["|"] = TokenType.BAR
 
-    public static void convertTypes() {
-        Keyword.put("str", args -> {
-            Arguments.check(1, args.length);
-            return new LzrString(args[0].asString());
-        });
-        Keyword.put("char", args -> {
-            Arguments.check(1, args.length);
-            if (args[0].type() == Types.CLASS) {
-                ClassInstanceValue classInstance = (ClassInstanceValue) args[0];
-                return classInstance.callMethod("__char__");
-            }
-            return new LzrString(String.valueOf((char) args[0].asInt()));
-        });
+            (OPERATORS as HashMap<String, TokenType>)["=="] = TokenType.EQEQ
+            (OPERATORS as HashMap<String, TokenType>)["!="] = TokenType.EXCLEQ
+            (OPERATORS as HashMap<String, TokenType>)["<="] = TokenType.LTEQ
+            (OPERATORS as HashMap<String, TokenType>)[">="] = TokenType.GTEQ
 
-        Keyword.put("num", args -> {
-            Arguments.check(1, args.length);
-            return LzrNumber.of(args[0].asNumber());
-        });
-        Keyword.put("byte", args -> {
-            Arguments.check(1, args.length);
-            if (args[0].type() == Types.CLASS) {
-                ClassInstanceValue classInstance = (ClassInstanceValue) args[0];
-                return classInstance.callMethod("__byte__");
-            } else {
-                return LzrNumber.of((byte) args[0].asInt());
-            }
-        });
-        Keyword.put("short", args -> {
-            Arguments.check(1, args.length);
-            if (args[0].type() == Types.CLASS) {
-                ClassInstanceValue classInstance = (ClassInstanceValue) args[0];
-                return classInstance.callMethod("__short__");
-            } else {
-                return LzrNumber.of((short) args[0].asInt());
-            }
-        });
-        Keyword.put("int", args -> {
-            Arguments.check(1, args.length);
-            return LzrNumber.of(args[0].asInt());
-        });
-        Keyword.put("long", args -> {
-            Arguments.check(1, args.length);
-            if (args[0].type() == Types.CLASS) {
-                ClassInstanceValue classInstance = (ClassInstanceValue) args[0];
-                return classInstance.callMethod("__long__");
-            } else {
-                return LzrNumber.of((long) args[0].asNumber());
-            }
-        });
-        Keyword.put("float", args -> {
-            Arguments.check(1, args.length);
-            if (args[0].type() == Types.CLASS) {
-                ClassInstanceValue classInstance = (ClassInstanceValue) args[0];
-                return classInstance.callMethod("__float__");
-            } else {
-                return LzrNumber.of((float) args[0].asNumber());
-            }
-        });
-        Keyword.put("double", args -> {
-            Arguments.check(1, args.length);
-            if (args[0].type() == Types.CLASS) {
-                ClassInstanceValue classInstance = (ClassInstanceValue) args[0];
-                return classInstance.callMethod("__double__");
-            } else {
-                return LzrNumber.of(args[0].asNumber());
-            }
-        });
+            (OPERATORS as HashMap<String, TokenType>)["+="] = TokenType.PLUSEQ
+            (OPERATORS as HashMap<String, TokenType>)["-="] = TokenType.MINUSEQ
+            (OPERATORS as HashMap<String, TokenType>)["*="] = TokenType.STAREQ
+            (OPERATORS as HashMap<String, TokenType>)["/="] = TokenType.SLASHEQ
+            (OPERATORS as HashMap<String, TokenType>)["%="] = TokenType.PERCENTEQ
+            (OPERATORS as HashMap<String, TokenType>)["&="] = TokenType.AMPEQ
+            (OPERATORS as HashMap<String, TokenType>)["^="] = TokenType.CARETEQ
+            (OPERATORS as HashMap<String, TokenType>)["|="] = TokenType.BAREQ
+            (OPERATORS as HashMap<String, TokenType>)["::="] = TokenType.COLONCOLONEQ
+            (OPERATORS as HashMap<String, TokenType>)["<<="] = TokenType.LTLTEQ
+            (OPERATORS as HashMap<String, TokenType>)[">>="] = TokenType.GTGTEQ
+            (OPERATORS as HashMap<String, TokenType>)[">>>="] = TokenType.GTGTGTEQ
 
-        Keyword.put("bool", args -> {
-            Arguments.check(1, args.length);
-            switch (args[0].type()) {
-                case Types.NUMBER:
-                    return LzrNumber.fromBoolean(
-                            ((LzrNumber) args[0]).asBoolean()
-                    );
-                case Types.STRING:
-                    return LzrNumber.fromBoolean(
-                            !((LzrString) args[0]).isEmpty()
-                    );
-                case Types.ARRAY:
-                    return LzrNumber.fromBoolean(
-                            !((LzrArray) args[0]).isEmpty()
-                    );
-                case Types.MAP:
-                    return LzrNumber.fromBoolean(
-                            !((LzrMap) args[0]).isEmpty()
-                    );
-                case Types.FUNCTION:
-                    return LzrNumber.ONE; // true
-                case Types.CLASS:
-                    return ((ClassInstanceValue) args[0]).callMethod("__bool__");
-                default:
-                    throwTypeCastException(args[0].asString(), "bool");
-                    return LzrNull.INSTANCE;
-            }
-        });
-    }
+            (OPERATORS as HashMap<String, TokenType>)["++"] = TokenType.PLUSPLUS
+            (OPERATORS as HashMap<String, TokenType>)["--"] = TokenType.MINUSMINUS
 
-    private static void standard() {
-        Variables.define("null", LzrNull.INSTANCE);
+            (OPERATORS as HashMap<String, TokenType>)["::"] = TokenType.COLONCOLON
 
+            (OPERATORS as HashMap<String, TokenType>)["&&"] = TokenType.AMPAMP
+            (OPERATORS as HashMap<String, TokenType>)["||"] = TokenType.BARBAR
 
-        Keyword.put("getAttr", args -> {
-            Arguments.check(2, args.length);
-            if (args[0].type() == Types.CLASS) {
-                return ((ClassInstanceValue) args[0]).baseGet(args[1]);
-            } else {
-                throw new LzrException("TypeException", "The getAttr function expected a class, but got " + Types.typeToString(args[0].type()));
-            }
-        });
-        Keyword.put("setAttr", args -> {
-           Arguments.check(3, args.length);
-           if (args[0].type() == Types.CLASS) {
-               ((ClassInstanceValue) args[0]).baseSet(args[1], args[2]);
-           } else {
-               throw new LzrException("TypeException", "The setAttr function expected a class, but got " + Types.typeToString(args[0].type()));
+            (OPERATORS as HashMap<String, TokenType>)["<<"] = TokenType.LTLT
+            (OPERATORS as HashMap<String, TokenType>)[">>"] = TokenType.GTGT
+            (OPERATORS as HashMap<String, TokenType>)[">>>"] = TokenType.GTGTGT
 
-           }
-           return LzrNull.INSTANCE;
-        });
-        Keyword.put("repeat", new Standard.repeat());
-        Keyword.put("sortBy", new Standard.sortBy());
-        Keyword.put("charAt", new Standard.charAt());
-        Keyword.put("equals", new Standard.equal());
-        Keyword.put("combine", new Standard.combine());
-        Keyword.put("reduce", new Standard.reduce());
-        Keyword.put("map", new Standard.map());
-        Keyword.put("Array", new Standard.Array());
-        Keyword.put("echo", new Standard.echo());
-        Keyword.put("readln", new Standard.input());
-        Keyword.put("length", new Standard.length());
-        Keyword.put("getBytes", Standard.string::getBytes);
-        Keyword.put("sprintf", new Standard.sprintf());
-        Keyword.put("range", new Standard.range());
-        Keyword.put("substring", new Standard.substr());
-        Keyword.put("foreach", new Standard.foreach());
-        Keyword.put("split", new Standard.split());
-        Keyword.put("filter", new Standard.filter(false));
-
-    }
-
-    static {
-        OPERATORS = new HashMap<>();
-
-        OPERATORS.put("+", TokenType.PLUS);
-        OPERATORS.put("-", TokenType.MINUS);
-        OPERATORS.put("*", TokenType.STAR);
-        OPERATORS.put("/", TokenType.SLASH);
-        OPERATORS.put("%", TokenType.PERCENT);
-        OPERATORS.put("(", TokenType.LPAREN);
-        OPERATORS.put(")", TokenType.RPAREN);
-        OPERATORS.put("[", TokenType.LBRACKET);
-        OPERATORS.put("]", TokenType.RBRACKET);
-        OPERATORS.put("{", TokenType.LBRACE);
-        OPERATORS.put("}", TokenType.RBRACE);
-        OPERATORS.put("=", TokenType.EQ);
-        OPERATORS.put("<", TokenType.LT);
-        OPERATORS.put(">", TokenType.GT);
-        OPERATORS.put(".", TokenType.DOT);
-        OPERATORS.put(",", TokenType.COMMA);
-        OPERATORS.put("^", TokenType.CARET);
-        OPERATORS.put("~", TokenType.TILDE);
-        OPERATORS.put("?", TokenType.QUESTION);
-        OPERATORS.put(":", TokenType.COLON);
-
-        OPERATORS.put("!", TokenType.EXCL);
-        OPERATORS.put("&", TokenType.AMP);
-        OPERATORS.put("|", TokenType.BAR);
-
-        OPERATORS.put("==", TokenType.EQEQ);
-        OPERATORS.put("!=", TokenType.EXCLEQ);
-        OPERATORS.put("<=", TokenType.LTEQ);
-        OPERATORS.put(">=", TokenType.GTEQ);
-
-        OPERATORS.put("+=", TokenType.PLUSEQ);
-        OPERATORS.put("-=", TokenType.MINUSEQ);
-        OPERATORS.put("*=", TokenType.STAREQ);
-        OPERATORS.put("/=", TokenType.SLASHEQ);
-        OPERATORS.put("%=", TokenType.PERCENTEQ);
-        OPERATORS.put("&=", TokenType.AMPEQ);
-        OPERATORS.put("^=", TokenType.CARETEQ);
-        OPERATORS.put("|=", TokenType.BAREQ);
-        OPERATORS.put("::=", TokenType.COLONCOLONEQ);
-        OPERATORS.put("<<=", TokenType.LTLTEQ);
-        OPERATORS.put(">>=", TokenType.GTGTEQ);
-        OPERATORS.put(">>>=", TokenType.GTGTGTEQ);
-
-        OPERATORS.put("++", TokenType.PLUSPLUS);
-        OPERATORS.put("--", TokenType.MINUSMINUS);
-
-        OPERATORS.put("::", TokenType.COLONCOLON);
-
-        OPERATORS.put("&&", TokenType.AMPAMP);
-        OPERATORS.put("||", TokenType.BARBAR);
-
-        OPERATORS.put("<<", TokenType.LTLT);
-        OPERATORS.put(">>", TokenType.GTGT);
-        OPERATORS.put(">>>", TokenType.GTGTGT);
-
-        OPERATORS.put("@", TokenType.AT);
-        OPERATORS.put("@=", TokenType.ATEQ);
-        OPERATORS.put("..", TokenType.DOTDOT);
-        OPERATORS.put("**", TokenType.STARSTAR);
-        OPERATORS.put("^^", TokenType.CARETCARET);
-        OPERATORS.put("?:", TokenType.QUESTIONCOLON);
-        OPERATORS.put("??", TokenType.QUESTIONQUESTION);
+            (OPERATORS as HashMap<String, TokenType>)["@"] = TokenType.AT
+            (OPERATORS as HashMap<String, TokenType>)["@="] = TokenType.ATEQ
+            (OPERATORS as HashMap<String, TokenType>)[".."] = TokenType.DOTDOT
+            (OPERATORS as HashMap<String, TokenType>)["**"] = TokenType.STARSTAR
+            (OPERATORS as HashMap<String, TokenType>)["^^"] = TokenType.CARETCARET
+            (OPERATORS as HashMap<String, TokenType>)["?:"] = TokenType.QUESTIONCOLON
+            (OPERATORS as HashMap<String, TokenType>)["??"] =
+                TokenType.QUESTIONQUESTION
+        }
     }
 }
