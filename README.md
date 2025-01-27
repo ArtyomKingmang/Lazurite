@@ -6,6 +6,7 @@
 
 > [!WARNING]
 > The project is not dead, but is rarely updated
+> [Current link to the compiler in Ixion](https://github.com/IxionLang/Lazurite)
 
 ## More About Language
 >To work you need to install JDK 17+
